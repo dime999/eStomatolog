@@ -1,10 +1,11 @@
-﻿using System;
+﻿using eStomatologServices.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eStomatologServices
+namespace eStomatologServices.Interfejsi
 {
     public interface IPacijentService
     {

@@ -1,4 +1,5 @@
 ﻿using eStomatologServices;
+using eStomatologServices.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eStomatolog.Controllers

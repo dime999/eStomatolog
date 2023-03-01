@@ -1,4 +1,5 @@
 using eStomatologServices;
+using Microsoft.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IPacijentService,PacijentService>();
+
+
 
 var app = builder.Build();
 
