@@ -1,4 +1,4 @@
-﻿using eStomatologServices;
+﻿using eStomatologServices.Interfejsi;
 using eStomatologServices.Models;
 using Microsoft.AspNetCore.Mvc;
 

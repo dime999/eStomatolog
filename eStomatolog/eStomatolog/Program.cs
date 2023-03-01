@@ -1,4 +1,5 @@
 using eStomatologServices;
+using eStomatologServices.Interfejsi;
 using Microsoft.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);

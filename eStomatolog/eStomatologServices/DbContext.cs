@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using eStomatologServices.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace eStomatologServices.Models;
+namespace eStomatologServices;
 
 public partial class EStomatologContext : DbContext
 {
