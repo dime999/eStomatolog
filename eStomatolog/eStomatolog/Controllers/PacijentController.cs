@@ -24,10 +24,10 @@ namespace eStomatolog.Controllers
           return PacijentService.Get();
         }
 
-        [HttpGet("{id}")]
-        public Pacijent GetById(int id)
-        {
-            return PacijentService.GetByID(id);
-        }
+        //[HttpGet("{id}")]
+        //public Pacijent GetById(int id)
+        //{
+        //    return PacijentService.GetByID(id);
+        //}
     }
 }

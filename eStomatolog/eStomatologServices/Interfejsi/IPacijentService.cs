@@ -10,6 +10,6 @@ namespace eStomatologServices.Interfejsi
     public interface IPacijentService
     {
         IEnumerable<Pacijent> Get();
-        Pacijent GetByID(int id);
+       // Pacijent GetByID(int id);
     }
 }
