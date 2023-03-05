@@ -20,7 +20,6 @@ namespace eStomatolog.Controllers
         [HttpGet]
         public IEnumerable<eStomatologModel.Korisnik> Get()
         {
-
             return KorisniciService.Get();
         }
 

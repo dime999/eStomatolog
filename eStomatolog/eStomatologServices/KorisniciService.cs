@@ -1,4 +1,5 @@
-﻿using eStomatologServices.Interfejsi;
+﻿using AutoMapper;
+using eStomatologServices.Interfejsi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,12 @@ namespace eStomatologServices.Models
     public class KorisniciService : IKorisniciService
     {
         public eStomatologContext Context { get; set; }
+        public IMapper Mapper { get; set; }
 
-        public KorisniciService(eStomatologContext context)
+        public KorisniciService(eStomatologContext context,IMapper mapper)
         {
             Context = context;
+            Mapper = mapper;
         }
 
         public IEnumerable<eStomatologModel.Korisnik> Get()
@@ -23,12 +26,7 @@ namespace eStomatologServices.Models
             
             var result= Context.Korisnik.ToList();
 
-            foreach (var item in result)
-            {
-                list.Add(new eStomatologModel.Korisnik() { Ime=item.Ime,Prezime=item.Prezime,KorisnickoIme=item.KorisnickoIme,Telefon=item.Telefon,Email=item.Email,Lozinka=item.Lozinka,Status=item.Status});
-            }
-
-            return list;
+            return Mapper.Map<List<eStomatologModel.Korisnik>>(result);
         }
     }
 }

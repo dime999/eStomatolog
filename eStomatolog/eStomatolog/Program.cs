@@ -16,6 +16,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IPacijentService,PacijentService>();
 builder.Services.AddTransient<IKorisniciService, KorisniciService>();
 
+builder.Services.AddAutoMapper(typeof(IKorisniciService));
+
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<eStomatologContext>(options => options.UseSqlServer(connectionString));
