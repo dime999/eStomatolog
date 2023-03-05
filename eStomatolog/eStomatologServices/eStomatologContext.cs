@@ -30,6 +30,10 @@ public partial class eStomatologContext : DbContext
 
     public virtual DbSet<Usluga> Usluge { get; set; }
 
+    public virtual DbSet<Korisnik> Korisnik { get; set; }  
+
+  
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Server=DESKTOP-G59MHAT\\SQLEXPRESS;Database=eStomatolog;Trusted_Connection=True;TrustServerCertificate=True");
 

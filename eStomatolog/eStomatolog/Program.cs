@@ -1,5 +1,6 @@
 using eStomatologServices;
 using eStomatologServices.Interfejsi;
+using eStomatologServices.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<IPacijentService,PacijentService>();
+builder.Services.AddTransient<IKorisniciService, KorisniciService>();
+
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<eStomatologContext>(options => options.UseSqlServer(connectionString));
