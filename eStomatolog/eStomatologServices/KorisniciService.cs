@@ -17,9 +17,18 @@ namespace eStomatologServices.Models
             Context = context;
         }
 
-        public IEnumerable<Korisnik> Get()
+        public IEnumerable<eStomatologModel.Korisnik> Get()
         {
-            return Context.Korisnik.ToList();
+            List<eStomatologModel.Korisnik> list = new List<eStomatologModel.Korisnik>();
+            
+            var result= Context.Korisnik.ToList();
+
+            foreach (var item in result)
+            {
+                list.Add(new eStomatologModel.Korisnik() { Ime=item.Ime,Prezime=item.Prezime,KorisnickoIme=item.KorisnickoIme,Telefon=item.Telefon,Email=item.Email,Lozinka=item.Lozinka,Status=item.Status});
+            }
+
+            return list;
         }
     }
 }

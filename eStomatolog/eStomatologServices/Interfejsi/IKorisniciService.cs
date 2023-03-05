@@ -1,4 +1,5 @@
-﻿using eStomatologServices.Models;
+﻿using eStomatologModel;
+using eStomatologServices.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace eStomatologServices.Interfejsi
 {
     public interface IKorisniciService
     {
-        IEnumerable<Korisnik> Get();
+        IEnumerable<eStomatologModel.Korisnik> Get();
     }
 }

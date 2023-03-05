@@ -18,7 +18,7 @@ namespace eStomatolog.Controllers
 
 
         [HttpGet]
-        public IEnumerable<Korisnik> Get()
+        public IEnumerable<eStomatologModel.Korisnik> Get()
         {
 
             return KorisniciService.Get();
