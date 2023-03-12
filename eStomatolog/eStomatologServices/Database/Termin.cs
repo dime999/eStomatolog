@@ -13,7 +13,7 @@ public partial class Termin
 
     public int UslugaId { get; set; }
 
-    public DateTime DatumVreme { get; set; }
+    public DateTime DatumVrijeme { get; set; }
 
     public string? Napomena { get; set; }
 

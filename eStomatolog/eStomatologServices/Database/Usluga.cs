@@ -11,7 +11,7 @@ public partial class Usluga
 
     public string Opis { get; set; } = null!;
 
-    public decimal Cena { get; set; }
+    public decimal Cijena { get; set; }
 
     public virtual ICollection<Termin> Terminis { get; } = new List<Termin>();
 }

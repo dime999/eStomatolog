@@ -19,6 +19,8 @@ builder.Services.AddTransient<IDijagnozaService, DijagnozaService>();
 builder.Services.AddTransient<IDoktorService, DoktorService>();
 builder.Services.AddTransient<IPlacanjaService, PlacanjaService>();
 builder.Services.AddTransient<ITerminService, TerminService>();
+builder.Services.AddTransient<IUslugaService, UslugaService>();
+builder.Services.AddTransient<IReceptService, ReceptService>();
 
 
 builder.Services.AddAutoMapper(typeof(IKorisniciService));
