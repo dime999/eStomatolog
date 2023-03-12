@@ -1,4 +1,5 @@
-﻿using eStomatologServices.Interfejsi;
+﻿using AutoMapper;
+using eStomatologServices.Interfejsi;
 using eStomatologServices.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,22 +13,28 @@ namespace eStomatologServices
     public class PacijentService : IPacijentService
     {
        public eStomatologContext Context { get; set; }
+       public IMapper Mapper { get; set; }
 
-        public PacijentService(eStomatologContext context)
+        public PacijentService(eStomatologContext context,IMapper mapper)
         {
             Context = context;
+            Mapper = mapper;
         }
 
-        public IEnumerable<Pacijent> Get()
+        public IEnumerable<eStomatologModel.Pacijent> Get()
         {
-            var tmp = Context.Pacijenti.ToList();
+            List<eStomatologModel.Pacijent> list = new List<eStomatologModel.Pacijent>();
+            var result = Context.Pacijenti.ToList();
 
-            return tmp;
+            return Mapper.Map<List<eStomatologModel.Pacijent>>(result);
+
         }
 
-        //public Pacijent GetByID(int id)
-        //{
-           
-        //}
+        public eStomatologModel.Pacijent GetById(int id)
+        {
+            var result = Context.Pacijenti.Find(id);
+
+            return Mapper.Map<eStomatologModel.Pacijent>(result);
+        }
     }
 }

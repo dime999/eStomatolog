@@ -13,6 +13,7 @@ namespace eStomatologServices
         public MappingProfile()
         {
             CreateMap<Models.Korisnik, eStomatologModel.Korisnik>();
+            CreateMap<Models.Pacijent,eStomatologModel.Pacijent>();
         }
     }
 }

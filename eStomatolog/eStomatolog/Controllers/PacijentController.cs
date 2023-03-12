@@ -19,15 +19,15 @@ namespace eStomatolog.Controllers
 
 
         [HttpGet]
-        public IEnumerable<Pacijent> Get() {
+        public IEnumerable<eStomatologModel.Pacijent> Get() {
 
           return PacijentService.Get();
         }
 
-        //[HttpGet("{id}")]
-        //public Pacijent GetById(int id)
-        //{
-        //    return PacijentService.GetByID(id);
-        //}
+        [HttpGet("{id}")]
+        public eStomatologModel.Pacijent GetById(int id)
+        {
+            return PacijentService.GetById(id);
+        }
     }
 }

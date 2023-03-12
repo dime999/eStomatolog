@@ -23,10 +23,10 @@ namespace eStomatolog.Controllers
             return KorisniciService.Get();
         }
 
-        //[HttpGet("{id}")]
-        //public Pacijent GetById(int id)
-        //{
-        //    return PacijentService.GetByID(id);
-        //}
-    }
+        [HttpGet("{id}")]
+        public eStomatologModel.Korisnik GetById(int id)
+        {
+            return KorisniciService.GetById(id);
+        }
+    }  
 }

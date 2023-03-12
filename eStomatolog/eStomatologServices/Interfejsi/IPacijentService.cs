@@ -9,7 +9,7 @@ namespace eStomatologServices.Interfejsi
 {
     public interface IPacijentService
     {
-        IEnumerable<Pacijent> Get();
-       // Pacijent GetByID(int id);
+        IEnumerable<eStomatologModel.Pacijent> Get();
+        eStomatologModel.Pacijent GetById(int id);
     }
 }

@@ -28,5 +28,11 @@ namespace eStomatologServices.Models
 
             return Mapper.Map<List<eStomatologModel.Korisnik>>(result);
         }
+
+        public eStomatologModel.Korisnik GetById(int id)
+        {
+            var result = Context.Korisnik.Find(id);
+            return Mapper.Map<eStomatologModel.Korisnik>(result);
+        }
     }
 }

@@ -11,5 +11,7 @@ namespace eStomatologServices.Interfejsi
     public interface IKorisniciService
     {
         IEnumerable<eStomatologModel.Korisnik> Get();
+        eStomatologModel.Korisnik GetById(int id);
     }
+
 }
