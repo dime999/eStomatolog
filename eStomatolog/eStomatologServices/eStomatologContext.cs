@@ -132,7 +132,7 @@ public partial class eStomatologContext : DbContext
             entity.ToTable("Termini");
 
             entity.Property(e => e.TerminId).HasColumnName("TerminID");
-            entity.Property(e => e.DatumVreme).HasColumnType("datetime");
+            entity.Property(e => e.DatumVrijeme).HasColumnType("datetime");
             entity.Property(e => e.DoktorId).HasColumnName("DoktorID");
             entity.Property(e => e.Napomena).HasMaxLength(200);
             entity.Property(e => e.PacijentId).HasColumnName("PacijentID");
@@ -160,7 +160,7 @@ public partial class eStomatologContext : DbContext
 
             entity.ToTable("Usluge");
 
-            entity.Property(e => e.Cena).HasColumnType("decimal(10, 2)");
+            entity.Property(e => e.Cijena).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.Naziv).HasMaxLength(50);
             entity.Property(e => e.Opis).HasMaxLength(200);
         });
