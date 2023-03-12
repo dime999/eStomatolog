@@ -1,6 +1,6 @@
 using eStomatologServices;
 using eStomatologServices.Interfejsi;
-using eStomatologServices.Models;
+using eStomatologServices.Servisi;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +15,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<IPacijentService,PacijentService>();
 builder.Services.AddTransient<IKorisniciService, KorisniciService>();
+builder.Services.AddTransient<IDijagnozaService, DijagnozaService>();
+builder.Services.AddTransient<IDoktorService, DoktorService>();
+builder.Services.AddTransient<IPlacanjaService, PlacanjaService>();
+builder.Services.AddTransient<ITerminService, TerminService>();
+
 
 builder.Services.AddAutoMapper(typeof(IKorisniciService));
 

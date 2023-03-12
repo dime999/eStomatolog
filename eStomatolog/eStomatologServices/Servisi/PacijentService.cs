@@ -8,14 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eStomatologServices
+namespace eStomatologServices.Servisi
 {
     public class PacijentService : IPacijentService
     {
-       public eStomatologContext Context { get; set; }
-       public IMapper Mapper { get; set; }
+        public eStomatologContext Context { get; set; }
+        public IMapper Mapper { get; set; }
 
-        public PacijentService(eStomatologContext context,IMapper mapper)
+        public PacijentService(eStomatologContext context, IMapper mapper)
         {
             Context = context;
             Mapper = mapper;

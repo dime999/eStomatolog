@@ -6,15 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eStomatologServices.Models
+namespace eStomatologServices.Servisi
 {
-    
+
     public class KorisniciService : IKorisniciService
     {
         public eStomatologContext Context { get; set; }
         public IMapper Mapper { get; set; }
 
-        public KorisniciService(eStomatologContext context,IMapper mapper)
+        public KorisniciService(eStomatologContext context, IMapper mapper)
         {
             Context = context;
             Mapper = mapper;
@@ -23,8 +23,8 @@ namespace eStomatologServices.Models
         public IEnumerable<eStomatologModel.Korisnik> Get()
         {
             List<eStomatologModel.Korisnik> list = new List<eStomatologModel.Korisnik>();
-            
-            var result= Context.Korisnik.ToList();
+
+            var result = Context.Korisnik.ToList();
 
             return Mapper.Map<List<eStomatologModel.Korisnik>>(result);
         }
