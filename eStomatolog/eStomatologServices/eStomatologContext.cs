@@ -141,7 +141,7 @@ public partial class eStomatologContext : DbContext
             entity.HasOne(d => d.Doktor).WithMany(p => p.Terminis)
                 .HasForeignKey(d => d.DoktorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Termini__DoktorI__5070F446");
+                .HasConstraintName("FK__Termini__DoktorI__5070F446"); 
 
             entity.HasOne(d => d.Pacijent).WithMany(p => p.Terminis)
                 .HasForeignKey(d => d.PacijentId)

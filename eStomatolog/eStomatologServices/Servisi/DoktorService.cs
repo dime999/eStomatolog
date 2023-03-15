@@ -9,31 +9,13 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Servisi
 {
-    public class DoktorService : IDoktorService
-    {
-        public eStomatologContext Context;
-        public IMapper Mapper;
+    public class DoktorService : BaseService<eStomatologModel.Doktor, Models.Doktor>, IDoktorService
+    {     
 
-        public DoktorService(eStomatologContext context,IMapper mapper)
+        public DoktorService(eStomatologContext context, IMapper mapper) : base(context, mapper)
         {
-            Context= context;
-            Mapper= mapper;
+            
         }
 
-        public IEnumerable<eStomatologModel.Doktor> Get()
-        {
-           List<eStomatologModel.Doktor> list = new List<Doktor>();
-
-            var result = Context.Doktori.ToList();
-
-            return Mapper.Map<List<eStomatologModel.Doktor>>(result);
-
-        }
-
-        public eStomatologModel.Doktor GetById(int id)
-        {
-            var result = Context.Doktori.Find(id);
-            return Mapper.Map<eStomatologModel.Doktor>(result);
-        }
     }
 }

@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Interfejsi
 {
-    public interface IPacijentService
+    public interface IPacijentService : IService<eStomatologModel.Pacijent>
     {
-        IEnumerable<eStomatologModel.Pacijent> Get();
-        eStomatologModel.Pacijent GetById(int id);
+       
     }
 }

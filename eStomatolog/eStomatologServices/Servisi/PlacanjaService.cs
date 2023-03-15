@@ -9,31 +9,13 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Servisi
 {
-    public class PlacanjaService : IPlacanjaService
+    public class PlacanjaService : BaseService<eStomatologModel.Placanja, Models.Placanja>, IPlacanjaService
     {
-        public eStomatologContext Context;
-        public IMapper Mapper;
-
-        public PlacanjaService(eStomatologContext context,IMapper mapper)
+        
+        public PlacanjaService(eStomatologContext context, IMapper mapper) : base(context, mapper)
         {
-            Context= context;
-            Mapper= mapper;
+            
         }
 
-        public IEnumerable<eStomatologModel.Placanja> Get()
-        {
-           List<eStomatologModel.Placanja> list = new List<Placanja>();
-
-            var result = Context.Placanja.ToList();
-
-            return Mapper.Map<List<eStomatologModel.Placanja>>(result);
-
-        }
-
-        public eStomatologModel.Placanja GetById(int id)
-        {
-            var result = Context.Placanja.Find(id);
-            return Mapper.Map<eStomatologModel.Placanja>(result);
-        }
     }
 }

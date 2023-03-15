@@ -9,31 +9,12 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Servisi
 {
-    public class DijagnozaService : IDijagnozaService
+    public class DijagnozaService : BaseService<eStomatologModel.Dijagnoza,Models.Dijagnoza> ,IDijagnozaService
     {
-        public eStomatologContext Context;
-        public IMapper Mapper;
-
-        public DijagnozaService(eStomatologContext context,IMapper mapper)
+       
+        public DijagnozaService(eStomatologContext context,IMapper mapper) : base(context,mapper)
         {
-            Context= context;
-            Mapper= mapper;
-        }
-
-        public IEnumerable<eStomatologModel.Dijagnoza> Get()
-        {
-           List<eStomatologModel.Dijagnoza> list = new List<Dijagnoza>();
-
-            var result = Context.Dijagnoze.ToList();
-
-            return Mapper.Map<List<eStomatologModel.Dijagnoza>>(result);
-
-        }
-
-        public eStomatologModel.Dijagnoza GetById(int id)
-        {
-            var result = Context.Dijagnoze.Find(id);
-            return Mapper.Map<eStomatologModel.Dijagnoza>(result);
+            
         }
     }
 }

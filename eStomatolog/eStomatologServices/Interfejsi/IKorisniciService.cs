@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Interfejsi
 {
-    public interface IKorisniciService
+    public interface IKorisniciService : IService<eStomatologModel.Korisnik>
     {
-        IEnumerable<eStomatologModel.Korisnik> Get();
-        eStomatologModel.Korisnik GetById(int id);
+       
     }
 
 }

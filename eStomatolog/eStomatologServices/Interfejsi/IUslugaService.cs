@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Interfejsi
 {
-    public interface IUslugaService
+    public interface IUslugaService : IService<eStomatologModel.Usluga>
     {
-        IEnumerable<eStomatologModel.Usluga> Get();
-        eStomatologModel.Usluga GetById(int id);
+        
     }
 }

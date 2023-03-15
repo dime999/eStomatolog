@@ -9,31 +9,12 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Servisi
 {
-    public class TerminService : ITerminService
+    public class TerminService : BaseService<eStomatologModel.Termin, Models.Termin>, ITerminService
     {
-        public eStomatologContext Context;
-        public IMapper Mapper;
-
-        public TerminService(eStomatologContext context,IMapper mapper)
+        
+        public TerminService(eStomatologContext context, IMapper mapper) : base(context, mapper)
         {
-            Context= context;
-            Mapper= mapper;
-        }
-
-        public IEnumerable<eStomatologModel.Termin> Get()
-        {
-           List<eStomatologModel.Termin> list = new List<Termin>();
-
-            var result = Context.Termini.ToList();
-
-            return Mapper.Map<List<eStomatologModel.Termin>>(result);
-
-        }
-
-        public eStomatologModel.Termin GetById(int id)
-        {
-            var result = Context.Termini.Find(id);
-            return Mapper.Map<eStomatologModel.Termin>(result);
-        }
+            
+        }   
     }
 }

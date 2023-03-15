@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Interfejsi
 {
-    public interface IReceptService
+    public interface IReceptService : IService<eStomatologModel.Recept>
     {
-        IEnumerable<eStomatologModel.Recept> Get();
-        eStomatologModel.Recept GetById(int id);
+       
     }
 }

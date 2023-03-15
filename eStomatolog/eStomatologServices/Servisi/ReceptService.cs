@@ -9,31 +9,13 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Servisi
 {
-    public class ReceptService : IReceptService
+    public class ReceptService : BaseService<eStomatologModel.Recept, Models.Recept>, IReceptService
     {
-        public eStomatologContext Context;
-        public IMapper Mapper;
-
-        public ReceptService(eStomatologContext context,IMapper mapper)
+    
+        public ReceptService(eStomatologContext context, IMapper mapper) : base(context, mapper)
         {
-            Context= context;
-            Mapper= mapper;
+            
         }
 
-        public IEnumerable<eStomatologModel.Recept> Get()
-        {
-           List<eStomatologModel.Recept> list = new List<Recept>();
-
-            var result = Context.Recepti.ToList();
-
-            return Mapper.Map<List<eStomatologModel.Recept>>(result);
-
-        }
-
-        public eStomatologModel.Recept GetById(int id)
-        {
-            var result = Context.Recepti.Find(id);
-            return Mapper.Map<eStomatologModel.Recept>(result);
-        }
     }
 }
