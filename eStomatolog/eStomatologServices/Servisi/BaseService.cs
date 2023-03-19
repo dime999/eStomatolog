@@ -20,7 +20,7 @@ namespace eStomatologServices.Servisi
         
         }
 
-        IEnumerable<T> IService<T>.Get()
+        public IEnumerable<T> Get()
         {
             var entity = Context.Set<TDb>();
             var list = entity.ToList();
@@ -28,7 +28,7 @@ namespace eStomatologServices.Servisi
 
         }
 
-        T IService<T>.GetById(int id)
+        public T GetById(int id)
         {
             var set = Context.Set<TDb>();
 
