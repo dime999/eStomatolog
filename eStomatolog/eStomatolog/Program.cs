@@ -13,14 +13,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<IPacijentService,PacijentService>();
-builder.Services.AddTransient<IKorisniciService, KorisniciService>();
-builder.Services.AddTransient<IDijagnozaService, DijagnozaService>();
-builder.Services.AddTransient<IDoktorService, DoktorService>();
-builder.Services.AddTransient<IPlacanjaService, PlacanjaService>();
-builder.Services.AddTransient<ITerminService, TerminService>();
-builder.Services.AddTransient<IUslugaService, UslugaService>();
-builder.Services.AddTransient<IReceptService, ReceptService>();
+builder.Services.AddTransient<IService<eStomatologModel.Pacijent>,PacijentService>();
+builder.Services.AddTransient<IService<eStomatologModel.Korisnik>,KorisniciService>();
+builder.Services.AddTransient<IService<eStomatologModel.Dijagnoza>,DijagnozaService>();
+builder.Services.AddTransient<IService<eStomatologModel.Doktor>,DoktorService>();
+builder.Services.AddTransient<IService<eStomatologModel.Placanja>,PlacanjaService>();
+builder.Services.AddTransient<IService<eStomatologModel.Termin>,TerminService>();
+builder.Services.AddTransient<IService<eStomatologModel.Usluga>,UslugaService>();
+builder.Services.AddTransient<IService<eStomatologModel.Recept>,ReceptService>();
 
 
 builder.Services.AddAutoMapper(typeof(IKorisniciService));

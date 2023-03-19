@@ -7,24 +7,24 @@ namespace eStomatolog.Controllers
     [Route("[controller]")]
     public class DijagnozaController : Controller
     {
-        private readonly IDijagnozaService DijagnozaService;
+        private readonly IService<eStomatologModel.Dijagnoza> _service;
 
-        public DijagnozaController(IDijagnozaService dijagnozaService)
+        public DijagnozaController(IService<eStomatologModel.Dijagnoza> service)
         {
-            this.DijagnozaService = dijagnozaService;
+            this._service = service;
         }
 
 
         [HttpGet]
         public IEnumerable<eStomatologModel.Dijagnoza> Get()
         {
-            return DijagnozaService.Get();
+            return _service.Get();
         }
 
         [HttpGet("{id}")]
         public eStomatologModel.Dijagnoza GetById(int id)
         {
-            return DijagnozaService.GetById(id);
+            return _service.GetById(id);
         }
     }
 }

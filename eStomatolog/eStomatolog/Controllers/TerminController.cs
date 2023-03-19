@@ -10,24 +10,24 @@ namespace eStomatolog.Controllers
     public class TerminController : Controller
     {
 
-        private readonly ITerminService TerminService;
+        private readonly IService<eStomatologModel.Termin> _service;
 
-        public TerminController(ITerminService terminService)
+        public TerminController(IService<eStomatologModel.Termin> service)
         {
-            this.TerminService = terminService;
+            this._service = service;
         }
 
 
         [HttpGet]
         public IEnumerable<eStomatologModel.Termin> Get() {
 
-          return TerminService.Get();
+          return _service.Get();
         }
 
         [HttpGet("{id}")]
         public eStomatologModel.Termin GetById(int id)
         {
-            return TerminService.GetById(id);
+            return _service.GetById(id);
         }
     }
 }

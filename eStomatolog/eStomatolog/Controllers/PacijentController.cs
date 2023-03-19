@@ -10,24 +10,24 @@ namespace eStomatolog.Controllers
     public class PacijentController : Controller
     {
 
-        private readonly IPacijentService PacijentService;
+        private readonly IService<eStomatologModel.Pacijent> _service;
 
-        public PacijentController(IPacijentService _pacijentService)
+        public PacijentController(IService<eStomatologModel.Pacijent> service)
         {
-            this.PacijentService = _pacijentService;
+            this._service = service;
         }
 
 
         [HttpGet]
         public IEnumerable<eStomatologModel.Pacijent> Get() {
 
-          return PacijentService.Get();
+          return _service.Get();
         }
 
         [HttpGet("{id}")]
         public eStomatologModel.Pacijent GetById(int id)
         {
-            return PacijentService.GetById(id);
+            return _service.GetById(id);
         }
     }
 }

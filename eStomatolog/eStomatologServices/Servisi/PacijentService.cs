@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Servisi
 {
-    public class PacijentService : BaseService<eStomatologModel.Pacijent, Models.Pacijent>, IPacijentService
+    public class PacijentService : BaseService<eStomatologModel.Pacijent, Models.Pacijent>, IService<eStomatologModel.Pacijent>
     {    
         public PacijentService(eStomatologContext context, IMapper mapper) : base(context, mapper)
         {

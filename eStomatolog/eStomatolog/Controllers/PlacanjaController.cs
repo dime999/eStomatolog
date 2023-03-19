@@ -10,24 +10,24 @@ namespace eStomatolog.Controllers
     public class PlacanjaController : Controller
     {
 
-        private readonly IPlacanjaService PlacanjaService;
+        private readonly IService<eStomatologModel.Placanja> _service;
 
-        public PlacanjaController(IPlacanjaService placanjaService)
+        public PlacanjaController(IService<eStomatologModel.Placanja> service)
         {
-            this.PlacanjaService = placanjaService;
+            this._service = service;
         }
 
 
         [HttpGet]
         public IEnumerable<eStomatologModel.Placanja> Get() {
 
-          return PlacanjaService.Get();
+          return _service.Get();
         }
 
         [HttpGet("{id}")]
         public eStomatologModel.Placanja GetById(int id)
         {
-            return PlacanjaService.GetById(id);
+            return _service.GetById(id);
         }
     }
 }

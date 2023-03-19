@@ -7,24 +7,24 @@ namespace eStomatolog.Controllers
     [Route("[controller]")]
     public class DoktorController : Controller
     {
-        private readonly IDoktorService DoktorService;
+        private readonly IService<eStomatologModel.Doktor> _service;
 
-        public DoktorController(IDoktorService doktorService)
+        public DoktorController(IService<eStomatologModel.Doktor> service)
         {
-            this.DoktorService = doktorService;
+            this._service = service;
         }
 
 
         [HttpGet]
         public IEnumerable<eStomatologModel.Doktor> Get()
         {
-            return DoktorService.Get();
+            return _service.Get();
         }
 
         [HttpGet("{id}")]
         public eStomatologModel.Doktor GetById(int id)
         {
-            return DoktorService.GetById(id);
+            return _service.GetById(id);
         }
     }
 }

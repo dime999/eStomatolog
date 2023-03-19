@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace eStomatologServices.Servisi
 {
 
-    public class KorisniciService : BaseService<eStomatologModel.Korisnik, Models.Korisnik>, IKorisniciService
+    public class KorisniciService : BaseService<eStomatologModel.Korisnik, Models.Korisnik>, IService<eStomatologModel.Korisnik>
     {
        
         public KorisniciService(eStomatologContext context, IMapper mapper) : base(context, mapper)

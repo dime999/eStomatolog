@@ -9,24 +9,24 @@ namespace eStomatolog.Controllers
     [Route("[controller]")]
     public class KorisnikController : Controller
     {
-        private readonly IKorisniciService KorisniciService;
+        private readonly IService<eStomatologModel.Korisnik> _service;
 
-        public KorisnikController(IKorisniciService korisniciService)
+        public KorisnikController(IService<eStomatologModel.Korisnik> service)
         {
-            this.KorisniciService = korisniciService;
+            this._service = service;
         }
 
 
         [HttpGet]
         public IEnumerable<eStomatologModel.Korisnik> Get()
         {
-            return KorisniciService.Get();
+            return _service.Get();
         }
 
         [HttpGet("{id}")]
         public eStomatologModel.Korisnik GetById(int id)
         {
-            return KorisniciService.GetById(id);
+            return _service.GetById(id);
         }
     }  
 }
