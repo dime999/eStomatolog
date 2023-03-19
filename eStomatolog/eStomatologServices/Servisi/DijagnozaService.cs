@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Servisi
 {
-    public class DijagnozaService : BaseService<eStomatologModel.Dijagnoza,Models.Dijagnoza>, IService<eStomatologModel.Dijagnoza> 
+    public class DijagnozaService : BaseService<eStomatologModel.Dijagnoza,Models.Dijagnoza>, IDijagnozaService
     {
        
         public DijagnozaService(eStomatologContext context,IMapper mapper) : base(context,mapper)

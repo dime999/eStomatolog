@@ -23,7 +23,6 @@ namespace eStomatologServices.Servisi
         IEnumerable<T> IService<T>.Get()
         {
             var entity = Context.Set<TDb>();
-
             var list = entity.ToList();
             return Mapper.Map<IList<T>>(list);
 
