@@ -15,7 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<IService<eStomatologModel.Pacijent,KorisnikSearchObject>,PacijentService>();
+builder.Services.AddTransient<IService<eStomatologModel.Pacijent, PacijentSearchObject>,PacijentService>();
 
 builder.Services.AddTransient<IService<eStomatologModel.Korisnik,KorisnikSearchObject>,KorisniciService>();
 builder.Services.AddTransient<IService<eStomatologModel.Dijagnoza, object>,DijagnozaService>();

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Interfejsi
 {
-    public interface IPacijentService : IService<eStomatologModel.Pacijent, KorisnikSearchObject>
+    public interface IPacijentService : IService<eStomatologModel.Pacijent, PacijentSearchObject>
     {
        
     }
