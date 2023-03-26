@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Interfejsi
 {
-    public interface IService<T> where T : class
+    public interface IService<T, TSearch> where T : class where TSearch : class
     {
-        IEnumerable<T> Get();
+        IEnumerable<T> Get(TSearch search = null);
         T GetById(int id);
-
     }
 }
