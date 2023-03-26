@@ -10,9 +10,9 @@ namespace eStomatolog.Controllers
     public class ReceptController : Controller
     {
 
-        private readonly IService<eStomatologModel.Recept> _service;
+        private readonly IService<eStomatologModel.Recept, object> _service;
 
-        public ReceptController(IService<eStomatologModel.Recept> service)
+        public ReceptController(IService<eStomatologModel.Recept, object> service)
         {
             this._service = service;
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Interfejsi
 {
-    public interface IUslugaService : IService<eStomatologModel.Usluga>
+    public interface IUslugaService : IService<eStomatologModel.Usluga, object>
     {
         
     }

@@ -1,4 +1,5 @@
 ﻿using eStomatologModel;
+using eStomatologModel.SearchObjects;
 using eStomatologServices.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Interfejsi
 {
-    public interface IKorisniciService : IService<eStomatologModel.Korisnik>
+    public interface IKorisniciService : IService<eStomatologModel.Korisnik,KorisnikSearchObject>
     {
        
     }

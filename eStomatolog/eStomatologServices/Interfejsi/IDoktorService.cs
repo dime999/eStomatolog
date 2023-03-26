@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Interfejsi
 {
-    public interface IDoktorService : IService<eStomatologModel.Doktor>
+    public interface IDoktorService : IService<eStomatologModel.Doktor, object>
     {
        
     }

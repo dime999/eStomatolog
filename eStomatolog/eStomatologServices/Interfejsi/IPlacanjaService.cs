@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace eStomatologServices.Interfejsi
-{
-    public interface IPlacanjaService : IService<eStomatologModel.Placanja>
+    {
+        public interface IPlacanjaService : IService<eStomatologModel.Placanja, object>
     {
         
     }

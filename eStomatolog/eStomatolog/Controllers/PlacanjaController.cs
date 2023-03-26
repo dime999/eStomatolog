@@ -10,9 +10,9 @@ namespace eStomatolog.Controllers
     public class PlacanjaController : Controller
     {
 
-        private readonly IService<eStomatologModel.Placanja> _service;
+        private readonly IService<eStomatologModel.Placanja, object> _service;
 
-        public PlacanjaController(IService<eStomatologModel.Placanja> service)
+        public PlacanjaController(IService<eStomatologModel.Placanja, object> service)
         {
             this._service = service;
         }

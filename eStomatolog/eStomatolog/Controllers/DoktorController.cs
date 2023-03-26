@@ -7,9 +7,9 @@ namespace eStomatolog.Controllers
     [Route("[controller]")]
     public class DoktorController : Controller
     {
-        private readonly IService<eStomatologModel.Doktor> _service;
+        private readonly IService<eStomatologModel.Doktor, object> _service;
 
-        public DoktorController(IService<eStomatologModel.Doktor> service)
+        public DoktorController(IService<eStomatologModel.Doktor, object> service)
         {
             this._service = service;
         }

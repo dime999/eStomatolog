@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Interfejsi
 {
-    public interface IReceptService : IService<eStomatologModel.Recept>
+    public interface IReceptService : IService<eStomatologModel.Recept, object>
     {
        
     }

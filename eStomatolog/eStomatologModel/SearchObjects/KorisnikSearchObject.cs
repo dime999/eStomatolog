@@ -4,8 +4,9 @@ using System.Text;
 
 namespace eStomatologModel.SearchObjects
 {
-    public class SearchObjects
+    public class KorisnikSearchObject
     {
-        public int Ime { get; set; }
+        public string Ime { get; set; }
+        
     }
 }

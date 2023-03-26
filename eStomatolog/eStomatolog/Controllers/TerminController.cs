@@ -10,9 +10,9 @@ namespace eStomatolog.Controllers
     public class TerminController : Controller
     {
 
-        private readonly IService<eStomatologModel.Termin> _service;
+        private readonly IService<eStomatologModel.Termin, object> _service;
 
-        public TerminController(IService<eStomatologModel.Termin> service)
+        public TerminController(IService<eStomatologModel.Termin, object> service)
         {
             this._service = service;
         }
