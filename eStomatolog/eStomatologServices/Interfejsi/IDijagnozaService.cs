@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Interfejsi
 {
-    public interface IDijagnozaService : ICRUDService<eStomatologModel.Dijagnoza, BaseSearchObject, DijanozaInsertRequest, DijanozaInsertRequest>
+    public interface IDijagnozaService : ICRUDService<eStomatologModel.Dijagnoza, BaseSearchObject, DijanozaInsertRequest, DijagnozaUpdateRequest>
     {
        
     }

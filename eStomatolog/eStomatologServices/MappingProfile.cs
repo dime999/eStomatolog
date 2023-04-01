@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using eStomatologModel.Requests;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,9 @@ namespace eStomatologServices
             CreateMap<Models.Termin, eStomatologModel.Termin>();
             CreateMap<Models.Usluga, eStomatologModel.Usluga>();
             CreateMap<Models.Recept, eStomatologModel.Recept>();
+
+            CreateMap<DijanozaInsertRequest,Models.Dijagnoza>();
+            CreateMap<DijagnozaUpdateRequest, Models.Dijagnoza>();
         }
 
     }

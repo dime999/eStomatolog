@@ -34,7 +34,18 @@ namespace eStomatologServices.Servisi
 
         public T Update(int id, TUpdate update)
         {
-            throw new NotImplementedException();
+            var set = Context.Set<TDb>();
+            var entity = set.Find(id);
+            if(entity != null)
+            {
+                    Mapper.Map(update, entity);
+            }
+            else
+            {
+                return null;
+            }
+            Context.SaveChanges();
+            return Mapper.Map<T>(entity);
         }
     }
 }
