@@ -1,4 +1,5 @@
-﻿using eStomatologModel.SearchObjects;
+﻿using eStomatologModel.Requests;
+using eStomatologModel.SearchObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Interfejsi
 {
-    public interface IDijagnozaService : IService<eStomatologModel.Dijagnoza, BaseSearchObject>
+    public interface IDijagnozaService : ICRUDService<eStomatologModel.Dijagnoza, BaseSearchObject, DijanozaInsertRequest, DijanozaInsertRequest>
     {
        
     }

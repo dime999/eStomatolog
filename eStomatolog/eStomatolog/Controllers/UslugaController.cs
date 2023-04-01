@@ -5,31 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eStomatolog.Controllers
 {
-
-    [ApiController]
-    [Route("[controller]")]
-    public class UslugaController : Controller
+    public class UslugaController : BaseController<eStomatologModel.Usluga, BaseSearchObject>
     {
-
-        private readonly IService<eStomatologModel.Usluga, BaseSearchObject> _service;
-
-        public UslugaController(IService<eStomatologModel.Usluga, BaseSearchObject> service)
+        public UslugaController(IUslugaService service)
+            : base(service)
         {
-            this._service = service;
-        }
-
-
-        [HttpGet]
-        public IEnumerable<eStomatologModel.Usluga> Get([FromQuery] BaseSearchObject? search = null)
-        {
-
-            return _service.Get(search);
-        }
-
-        [HttpGet("{id}")]
-        public eStomatologModel.Usluga GetById(int id)
-        {
-            return _service.GetById(id);
         }
     }
 }
