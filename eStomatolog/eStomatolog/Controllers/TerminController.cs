@@ -1,4 +1,5 @@
-﻿using eStomatologServices.Interfejsi;
+﻿using eStomatologModel.SearchObjects;
+using eStomatologServices.Interfejsi;
 using eStomatologServices.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,18 +11,19 @@ namespace eStomatolog.Controllers
     public class TerminController : Controller
     {
 
-        private readonly IService<eStomatologModel.Termin, object> _service;
+        private readonly IService<eStomatologModel.Termin, BaseSearchObject> _service;
 
-        public TerminController(IService<eStomatologModel.Termin, object> service)
+        public TerminController(IService<eStomatologModel.Termin, BaseSearchObject> service)
         {
             this._service = service;
         }
 
 
         [HttpGet]
-        public IEnumerable<eStomatologModel.Termin> Get() {
+        public IEnumerable<eStomatologModel.Termin> Get([FromQuery] BaseSearchObject? search = null)
+        {
 
-          return _service.Get();
+            return _service.Get(search);
         }
 
         [HttpGet("{id}")]

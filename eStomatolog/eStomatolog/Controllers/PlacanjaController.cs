@@ -1,4 +1,5 @@
-﻿using eStomatologServices.Interfejsi;
+﻿using eStomatologModel.SearchObjects;
+using eStomatologServices.Interfejsi;
 using eStomatologServices.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,18 +11,18 @@ namespace eStomatolog.Controllers
     public class PlacanjaController : Controller
     {
 
-        private readonly IService<eStomatologModel.Placanja, object> _service;
+        private readonly IService<eStomatologModel.Placanja, BaseSearchObject> _service;
 
-        public PlacanjaController(IService<eStomatologModel.Placanja, object> service)
+        public PlacanjaController(IService<eStomatologModel.Placanja, BaseSearchObject> service)
         {
             this._service = service;
         }
 
 
         [HttpGet]
-        public IEnumerable<eStomatologModel.Placanja> Get() {
+        public IEnumerable<eStomatologModel.Placanja> Get([FromQuery] BaseSearchObject? search = null) { 
 
-          return _service.Get();
+          return _service.Get(search);
         }
 
         [HttpGet("{id}")]

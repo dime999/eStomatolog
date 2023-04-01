@@ -18,12 +18,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IService<eStomatologModel.Pacijent, PacijentSearchObject>,PacijentService>();
 
 builder.Services.AddTransient<IService<eStomatologModel.Korisnik,KorisnikSearchObject>,KorisniciService>();
-builder.Services.AddTransient<IService<eStomatologModel.Dijagnoza, object>,DijagnozaService>();
-builder.Services.AddTransient<IService<eStomatologModel.Doktor, object>,DoktorService>();
-builder.Services.AddTransient<IService<eStomatologModel.Placanja, object>,PlacanjaService>();
-builder.Services.AddTransient<IService<eStomatologModel.Termin, object>,TerminService>();
-builder.Services.AddTransient<IService<eStomatologModel.Usluga, object>,UslugaService>();
-builder.Services.AddTransient<IService<eStomatologModel.Recept, object>,ReceptService>();
+builder.Services.AddTransient<IService<eStomatologModel.Dijagnoza, BaseSearchObject>,DijagnozaService>();
+builder.Services.AddTransient<IService<eStomatologModel.Doktor, BaseSearchObject>,DoktorService>();
+builder.Services.AddTransient<IService<eStomatologModel.Placanja, BaseSearchObject>,PlacanjaService>();
+builder.Services.AddTransient<IService<eStomatologModel.Termin, BaseSearchObject>,TerminService>();
+builder.Services.AddTransient<IService<eStomatologModel.Usluga, BaseSearchObject>,UslugaService>();
+builder.Services.AddTransient<IService<eStomatologModel.Recept, BaseSearchObject>,ReceptService>();
 
 
 builder.Services.AddAutoMapper(typeof(IKorisniciService));

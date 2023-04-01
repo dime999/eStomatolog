@@ -1,4 +1,5 @@
-﻿using eStomatologServices.Interfejsi;
+﻿using eStomatologModel.SearchObjects;
+using eStomatologServices.Interfejsi;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eStomatolog.Controllers
@@ -7,18 +8,18 @@ namespace eStomatolog.Controllers
     [Route("[controller]")]
     public class DoktorController : Controller
     {
-        private readonly IService<eStomatologModel.Doktor, object> _service;
+        private readonly IService<eStomatologModel.Doktor, BaseSearchObject> _service;
 
-        public DoktorController(IService<eStomatologModel.Doktor, object> service)
+        public DoktorController(IService<eStomatologModel.Doktor, BaseSearchObject> service)
         {
             this._service = service;
         }
 
 
         [HttpGet]
-        public IEnumerable<eStomatologModel.Doktor> Get()
+        public IEnumerable<eStomatologModel.Doktor> Get([FromQuery] BaseSearchObject? search = null)
         {
-            return _service.Get();
+            return _service.Get(search);
         }
 
         [HttpGet("{id}")]

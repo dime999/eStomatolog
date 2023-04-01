@@ -1,4 +1,5 @@
-﻿using eStomatologServices.Interfejsi;
+﻿using eStomatologModel.SearchObjects;
+using eStomatologServices.Interfejsi;
 using eStomatologServices.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,18 +11,18 @@ namespace eStomatolog.Controllers
     public class ReceptController : Controller
     {
 
-        private readonly IService<eStomatologModel.Recept, object> _service;
+        private readonly IService<eStomatologModel.Recept, BaseSearchObject> _service;
 
-        public ReceptController(IService<eStomatologModel.Recept, object> service)
+        public ReceptController(IService<eStomatologModel.Recept, BaseSearchObject> service)
         {
             this._service = service;
         }
 
 
         [HttpGet]
-        public IEnumerable<eStomatologModel.Recept> Get() {
+        public IEnumerable<eStomatologModel.Recept> Get([FromQuery] BaseSearchObject? search = null) { 
 
-          return _service.Get();
+          return _service.Get(search);
         }
 
         [HttpGet("{id}")]

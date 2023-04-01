@@ -28,6 +28,10 @@ namespace eStomatologServices.Servisi
             {
                 filteredQuery = filteredQuery.Where(x => x.Ime == search.Ime);
             }
+            if (search.Page.HasValue == true)
+            {
+                filteredQuery = filteredQuery.Take(search.Size.Value).Skip(search.Page.Value * search.Size.Value);
+            }
 
             return filteredQuery;
         }

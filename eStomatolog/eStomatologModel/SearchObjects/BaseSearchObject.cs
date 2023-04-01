@@ -4,9 +4,10 @@ using System.Text;
 
 namespace eStomatologModel.SearchObjects
 {
-    public class KorisnikSearchObject : BaseSearchObject
+    public class BaseSearchObject
     {
-        public string Ime { get; set; }
-        
+        public int? Page { get; set; }
+
+        public int? Size { get; set; }
     }
 }

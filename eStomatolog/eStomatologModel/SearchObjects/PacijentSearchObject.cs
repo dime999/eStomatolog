@@ -4,7 +4,7 @@ using System.Text;
 
 namespace eStomatologModel.SearchObjects
 {
-    public class PacijentSearchObject
+    public class PacijentSearchObject : BaseSearchObject
     {
         public string Ime { get; set; }
     }

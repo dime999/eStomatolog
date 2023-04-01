@@ -1,4 +1,5 @@
-﻿using eStomatologServices.Interfejsi;
+﻿using eStomatologModel.SearchObjects;
+using eStomatologServices.Interfejsi;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eStomatolog.Controllers
@@ -7,18 +8,18 @@ namespace eStomatolog.Controllers
     [Route("[controller]")]
     public class DijagnozaController : Controller
     {
-        private readonly IService<eStomatologModel.Dijagnoza, object> _service;
+        private readonly IService<eStomatologModel.Dijagnoza, BaseSearchObject> _service;
 
-        public DijagnozaController(IService<eStomatologModel.Dijagnoza, object> service)
+        public DijagnozaController(IService<eStomatologModel.Dijagnoza, BaseSearchObject> service)
         {
             this._service = service;
         }
 
 
         [HttpGet]
-        public IEnumerable<eStomatologModel.Dijagnoza> Get()
+        public IEnumerable<eStomatologModel.Dijagnoza> Get([FromQuery] BaseSearchObject? search = null)
         {
-            return _service.Get();
+            return _service.Get(search);
         }
 
         [HttpGet("{id}")]

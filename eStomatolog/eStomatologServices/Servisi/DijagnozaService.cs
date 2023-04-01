@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using eStomatologModel;
+using eStomatologModel.SearchObjects;
 using eStomatologServices.Interfejsi;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Servisi
 {
-    public class DijagnozaService : BaseService<eStomatologModel.Dijagnoza,Models.Dijagnoza,object>, IDijagnozaService
+    public class DijagnozaService : BaseService<eStomatologModel.Dijagnoza,Models.Dijagnoza, BaseSearchObject>, IDijagnozaService
     {
        
         public DijagnozaService(eStomatologContext context,IMapper mapper) : base(context,mapper)
