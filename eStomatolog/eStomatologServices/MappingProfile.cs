@@ -21,12 +21,13 @@ namespace eStomatologServices
             CreateMap<Models.Termin, eStomatologModel.Termin>();
             CreateMap<Models.Usluga, eStomatologModel.Usluga>();
             CreateMap<Models.Recept, eStomatologModel.Recept>();
+            CreateMap<Database.VrstaUsluge, eStomatologModel.VrstaUsluge>();
+            CreateMap<Database.Ordinacija, eStomatologModel.Ordinacija>();
 
             CreateMap<DijanozaInsertRequest,Models.Dijagnoza>();
-            CreateMap<DijagnozaUpdateRequest, Models.Dijagnoza>();
-
-            CreateMap<Database.VrstaUsluge, eStomatologModel.VrstaUsluge>();
+            CreateMap<DijagnozaUpdateRequest, Models.Dijagnoza>();    
             CreateMap<eStomatologModel.Requests.VrstaUslugeUpsertRequest,eStomatologServices.Database.VrstaUsluge>();
+            CreateMap<eStomatologModel.Requests.OrdinacijaUpsertRequest,eStomatologServices.Database.Ordinacija>();
         }
 
     }
