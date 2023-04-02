@@ -280,7 +280,7 @@ namespace eStomatologServices.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("Cena")
+                    b.Property<decimal>("Cijena")
                         .HasColumnType("decimal(10, 2)");
 
                     b.Property<string>("Naziv")

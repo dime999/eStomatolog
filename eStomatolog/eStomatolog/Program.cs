@@ -24,6 +24,7 @@ builder.Services.AddTransient<IPlacanjaService, PlacanjaService>();
 builder.Services.AddTransient<ITerminService, TerminService>();
 builder.Services.AddTransient<IUslugaService, UslugaService>();
 builder.Services.AddTransient<IReceptService, ReceptService>();
+builder.Services.AddTransient<IVrstaUslugeService, VrstaUslugeService>();
 
 
 builder.Services.AddAutoMapper(typeof(IKorisniciService));

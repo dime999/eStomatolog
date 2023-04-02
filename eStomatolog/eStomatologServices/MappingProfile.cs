@@ -24,6 +24,9 @@ namespace eStomatologServices
 
             CreateMap<DijanozaInsertRequest,Models.Dijagnoza>();
             CreateMap<DijagnozaUpdateRequest, Models.Dijagnoza>();
+
+            CreateMap<Database.VrstaUsluge, eStomatologModel.VrstaUsluge>();
+            CreateMap<eStomatologModel.Requests.VrstaUslugeUpsertRequest,eStomatologServices.Database.VrstaUsluge>();
         }
 
     }

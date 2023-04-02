@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using eStomatologServices.Database;
 using eStomatologServices.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,9 +31,11 @@ public partial class eStomatologContext : DbContext
 
     public virtual DbSet<Usluga> Usluge { get; set; }
 
-    public virtual DbSet<Korisnik> Korisnik { get; set; }  
+    public virtual DbSet<Korisnik> Korisnik { get; set; }
 
-  
+    public virtual DbSet<VrstaUsluge> VrstaUsluge { get; set; } = null!;
+
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Server=DESKTOP-G59MHAT\\SQLEXPRESS;Database=eStomatolog;Trusted_Connection=True;TrustServerCertificate=True");
@@ -163,6 +166,14 @@ public partial class eStomatologContext : DbContext
             entity.Property(e => e.Cijena).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.Naziv).HasMaxLength(50);
             entity.Property(e => e.Opis).HasMaxLength(200);
+        });
+        modelBuilder.Entity<VrstaUsluge>(entity =>
+        {
+            entity.HasKey(e => e.VrstaUslugeId);
+
+            entity.Property(e => e.VrstaUslugeId).HasColumnName("VrstaUslugeId");
+
+            entity.Property(e => e.Naziv).HasMaxLength(50);
         });
 
         OnModelCreatingPartial(modelBuilder);
