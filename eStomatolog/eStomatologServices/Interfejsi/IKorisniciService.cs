@@ -1,4 +1,5 @@
 ﻿using eStomatologModel;
+using eStomatologModel.Requests;
 using eStomatologModel.SearchObjects;
 using eStomatologServices.Models;
 using System;
@@ -9,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Interfejsi
 {
-    public interface IKorisniciService : IService<eStomatologModel.Korisnik,KorisnikSearchObject>
+    public interface IKorisniciService : ICRUDService<eStomatologModel.Korisnik, KorisnikSearchObject, KorisniciInsertRequest, KorisniciUpdateRequest>
     {
-       
+        eStomatologModel.Korisnik Login(string username, string password);
     }
 
 }

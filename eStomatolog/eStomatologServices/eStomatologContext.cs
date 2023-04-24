@@ -36,7 +36,14 @@ public partial class eStomatologContext : DbContext
     public virtual DbSet<Ordinacija> Ordinacija { get; set; }
 
     public virtual DbSet<VrstaUsluge> VrstaUsluge { get; set; } = null!;
-    
+
+    public virtual DbSet<Uloge> Uloge { get; set; }
+
+    public virtual DbSet<KorisniciUloge> KorisnikUloge { get; set; }
+
+
+
+
 
 
 

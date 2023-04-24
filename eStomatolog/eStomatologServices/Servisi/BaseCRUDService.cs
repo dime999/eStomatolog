@@ -22,7 +22,7 @@ namespace eStomatologServices.Servisi
             this.Mapper = mapper;
         }
 
-        public T Insert(TInsert insert)
+        public virtual T Insert(TInsert insert)
         {
             var set = Context.Set<TDb>();
             TDb entity = Mapper.Map<TDb>(insert);
@@ -32,7 +32,7 @@ namespace eStomatologServices.Servisi
             return Mapper.Map<T>(entity);
         }
 
-        public T Update(int id, TUpdate update)
+        public virtual T Update(int id, TUpdate update)
         {
             var set = Context.Set<TDb>();
             var entity = set.Find(id);
@@ -46,6 +46,11 @@ namespace eStomatologServices.Servisi
             }
             Context.SaveChanges();
             return Mapper.Map<T>(entity);
+        }
+
+        public virtual void BeforeInsert(TInsert insert, TDb entity)
+        {
+
         }
     }
 }
