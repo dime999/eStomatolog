@@ -185,6 +185,15 @@ public partial class eStomatologContext : DbContext
 
             entity.Property(e => e.Naziv).HasMaxLength(50);
         });
+        modelBuilder.Entity<Uloge>(entity =>
+        {
+            entity.HasKey(e => e.UlogaId);
+
+            entity.Property(e => e.UlogaId).HasColumnName("UlogaID");
+
+            entity.Property(e => e.Naziv).HasMaxLength(50);
+            entity.Property(e => e.Opis).HasMaxLength(200);
+        });
 
         OnModelCreatingPartial(modelBuilder);
     }
