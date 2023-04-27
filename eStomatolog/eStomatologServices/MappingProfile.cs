@@ -28,6 +28,16 @@ namespace eStomatologServices
             CreateMap<DijagnozaUpdateRequest, Models.Dijagnoza>();    
             CreateMap<eStomatologModel.Requests.VrstaUslugeUpsertRequest,eStomatologServices.Database.VrstaUsluge>();
             CreateMap<eStomatologModel.Requests.OrdinacijaUpsertRequest,eStomatologServices.Database.Ordinacija>();
+
+
+           
+
+            CreateMap<Database.KorisniciUloge, eStomatologModel.KorisniciUloge>();
+            CreateMap<Database.Uloge, eStomatologModel.Uloge>();
+
+            CreateMap<KorisniciInsertRequest, Models.Korisnik>();
+            CreateMap<KorisniciUpdateRequest, Models.Korisnik>();
+
         }
 
     }

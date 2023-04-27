@@ -194,6 +194,65 @@ public partial class eStomatologContext : DbContext
             entity.Property(e => e.Naziv).HasMaxLength(50);
             entity.Property(e => e.Opis).HasMaxLength(200);
         });
+        modelBuilder.Entity<Korisnik>(entity =>
+        {
+            entity.HasKey(e => e.KorisnikId);
+
+            entity.ToTable("Korisnik");
+
+            entity.HasIndex(e => e.Email, "CS_Email")
+                .IsUnique();
+
+            entity.HasIndex(e => e.KorisnickoIme, "CS_KorisnickoIme")
+                .IsUnique();
+
+            entity.Property(e => e.KorisnikId).HasColumnName("KorisnikID");
+
+            entity.Property(e => e.Email).HasMaxLength(100);
+
+            entity.Property(e => e.Ime).HasMaxLength(50);
+
+            entity.Property(e => e.KorisnickoIme).HasMaxLength(50);
+
+            entity.Property(e => e.LozinkaHash).HasMaxLength(50);
+
+            entity.Property(e => e.LozinkaSalt).HasMaxLength(50);
+
+            entity.Property(e => e.Prezime).HasMaxLength(50);
+
+            entity.Property(e => e.Status)
+                .IsRequired()
+                .HasDefaultValueSql("((1))");
+
+            entity.Property(e => e.Telefon).HasMaxLength(20);
+        });
+
+        modelBuilder.Entity<KorisniciUloge>(entity =>
+        {
+            entity.HasKey(e => e.KorisnikUlogaId);
+
+            entity.ToTable("KorisnikUloge");
+
+            entity.Property(e => e.KorisnikUlogaId).HasColumnName("KorisnikUlogaID");
+
+            entity.Property(e => e.DatumIzmjene).HasColumnType("datetime");
+
+            entity.Property(e => e.KorisnikId).HasColumnName("KorisnikID");
+
+            entity.Property(e => e.UlogaId).HasColumnName("UlogaID");
+
+            entity.HasOne(d => d.Korisnik)
+                .WithMany(p => p.KorisniciUloges)
+                .HasForeignKey(d => d.KorisnikId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_KorisniciUloge_Korisnici");
+
+            entity.HasOne(d => d.Uloga)
+                .WithMany(p => p.KorisniciUloges)
+                .HasForeignKey(d => d.UlogaId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_KorisniciUloge_Uloge");
+        });
 
         OnModelCreatingPartial(modelBuilder);
     }

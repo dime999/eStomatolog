@@ -27,7 +27,7 @@ namespace eStomatologServices.Servisi
             var set = Context.Set<TDb>();
             TDb entity = Mapper.Map<TDb>(insert);
             set.Add(entity);
-
+            BeforeInsert(insert, entity);
             Context.SaveChanges();
             return Mapper.Map<T>(entity);
         }

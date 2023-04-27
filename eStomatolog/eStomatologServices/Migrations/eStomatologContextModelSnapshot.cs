@@ -51,31 +51,31 @@ namespace eStomatologServices.Migrations
 
             modelBuilder.Entity("eStomatologServices.Database.KorisniciUloge", b =>
                 {
-                    b.Property<int>("KorisniciUlogeID")
+                    b.Property<int>("KorisnikUlogaId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("KorisnikUlogaID");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KorisniciUlogeID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KorisnikUlogaId"));
 
                     b.Property<DateTime>("DatumIzmjene")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
-                    b.Property<int>("KorisnikID")
-                        .HasColumnType("int");
+                    b.Property<int>("KorisnikId")
+                        .HasColumnType("int")
+                        .HasColumnName("KorisnikID");
 
-                    b.Property<int>("UlogaID")
-                        .HasColumnType("int");
+                    b.Property<int>("UlogaId")
+                        .HasColumnType("int")
+                        .HasColumnName("UlogaID");
 
-                    b.Property<int?>("UlogeUlogaId")
-                        .HasColumnType("int");
+                    b.HasKey("KorisnikUlogaId");
 
-                    b.HasKey("KorisniciUlogeID");
+                    b.HasIndex("KorisnikId");
 
-                    b.HasIndex("KorisnikID");
+                    b.HasIndex("UlogaId");
 
-                    b.HasIndex("UlogeUlogaId");
-
-                    b.ToTable("KorisnikUloge");
+                    b.ToTable("KorisnikUloge", (string)null);
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.Ordinacija", b =>
@@ -261,42 +261,60 @@ namespace eStomatologServices.Migrations
                 {
                     b.Property<int>("KorisnikId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("KorisnikID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KorisnikId"));
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Ime")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("KorisnickoIme")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LozinkaHash")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LozinkaSalt")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Prezime")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool?>("Status")
-                        .HasColumnType("bit");
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("((1))");
 
                     b.Property<string>("Telefon")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("KorisnikId");
 
-                    b.ToTable("Korisnik");
+                    b.HasIndex(new[] { "Email" }, "CS_Email")
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL");
+
+                    b.HasIndex(new[] { "KorisnickoIme" }, "CS_KorisnickoIme")
+                        .IsUnique();
+
+                    b.ToTable("Korisnik", (string)null);
                 });
 
             modelBuilder.Entity("eStomatologServices.Models.Pacijent", b =>
@@ -480,15 +498,21 @@ namespace eStomatologServices.Migrations
 
             modelBuilder.Entity("eStomatologServices.Database.KorisniciUloge", b =>
                 {
-                    b.HasOne("eStomatologServices.Models.Korisnik", null)
+                    b.HasOne("eStomatologServices.Models.Korisnik", "Korisnik")
                         .WithMany("KorisniciUloges")
-                        .HasForeignKey("KorisnikID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("KorisnikId")
+                        .IsRequired()
+                        .HasConstraintName("FK_KorisniciUloge_Korisnici");
 
-                    b.HasOne("eStomatologServices.Database.Uloge", null)
+                    b.HasOne("eStomatologServices.Database.Uloge", "Uloga")
                         .WithMany("KorisniciUloges")
-                        .HasForeignKey("UlogeUlogaId");
+                        .HasForeignKey("UlogaId")
+                        .IsRequired()
+                        .HasConstraintName("FK_KorisniciUloge_Uloge");
+
+                    b.Navigation("Korisnik");
+
+                    b.Navigation("Uloga");
                 });
 
             modelBuilder.Entity("eStomatologServices.Models.Dijagnoza", b =>

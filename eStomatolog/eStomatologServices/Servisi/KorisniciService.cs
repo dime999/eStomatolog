@@ -37,8 +37,8 @@ namespace eStomatologServices.Servisi
             foreach (var ulogaId in insert.UlogeIdList)
             {
                 Database.KorisniciUloge korisniciUloge = new Database.KorisniciUloge();
-                korisniciUloge.UlogaID = ulogaId;
-                korisniciUloge.KorisnikID = entity.KorisnikId;
+                korisniciUloge.UlogaId = ulogaId;
+                korisniciUloge.KorisnikId = entity.KorisnikId;
                 korisniciUloge.DatumIzmjene = DateTime.Now;
 
                 Context.KorisnikUloge.Add(korisniciUloge);
