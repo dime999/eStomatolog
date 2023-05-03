@@ -15,7 +15,7 @@ namespace eStomatolog.Controllers
             : base(service)
         {
         }
-        [Authorize("Administrator")]
+        [Authorize(Roles ="Administrator")]
         public override eStomatologModel.Korisnik Insert([FromBody] KorisniciInsertRequest insert)
         {
             return base.Insert(insert);
