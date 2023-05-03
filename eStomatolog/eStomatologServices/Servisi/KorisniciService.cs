@@ -112,9 +112,9 @@ namespace eStomatologServices.Servisi
             return query;
         }
 
-        public eStomatologModel.Korisnik Login(string username, string password)
+        public async Task<eStomatologModel.Korisnik> Login(string username, string password)
         {
-            var entity = Context.Korisnik.Include("KorisniciUloges.Uloga").FirstOrDefault(x => x.KorisnickoIme == username);
+            var entity = await Context.Korisnik.Include("KorisniciUloges.Uloga").FirstOrDefaultAsync(x => x.KorisnickoIme == username);
             if (entity == null)
             {
                 return null;

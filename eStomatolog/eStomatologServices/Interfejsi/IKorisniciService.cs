@@ -12,7 +12,7 @@ namespace eStomatologServices.Interfejsi
 {
     public interface IKorisniciService : ICRUDService<eStomatologModel.Korisnik, KorisnikSearchObject, KorisniciInsertRequest, KorisniciUpdateRequest>
     {
-        eStomatologModel.Korisnik Login(string username, string password);
+        Task<eStomatologModel.Korisnik> Login(string username, string password);
     }
 
 }

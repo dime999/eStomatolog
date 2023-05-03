@@ -1,4 +1,5 @@
 ﻿using eStomatologServices.Interfejsi;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eStomatolog.Controllers
@@ -11,6 +12,7 @@ namespace eStomatolog.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles ="Administrator")]
         public virtual T Insert([FromBody]TInsert insert)
         {
             var result = ((ICRUDService<T, TSearch, TInsert, TUpdate>)this.Service).Insert(insert);

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using eStomatologServices.Interfejsi;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
 using System.Security.Claims;
@@ -9,8 +10,11 @@ namespace eStomatolog
 {
     public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
-        public BasicAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock)
+        IKorisniciService _korisniciService;
+
+        public BasicAuthenticationHandler(IKorisniciService korisnikService,IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock)
         {
+            this._korisniciService = korisnikService;
         }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -21,18 +25,31 @@ namespace eStomatolog
             }
             var authHeader = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
             var credentialsBytes = Convert.FromBase64String(authHeader.Parameter);
-            var credentials = Encoding.UTF8.GetString(credentialsBytes);
+            var credentials = Encoding.UTF8.GetString(credentialsBytes).Split(':');
 
             var username = credentials[0];
             var password = credentials[1];
+            var user = await _korisniciService.Login(username, password);
 
-            if(username==null || password==null)
+            if (user==null)
             {
                 return AuthenticateResult.Fail("Incorrect name or password");
             }
             else
             {
-                var identity = new ClaimsIdentity();
+
+                var claims = new List<Claim>()
+                {
+                    new Claim(ClaimTypes.Name,user.Ime),
+                    new Claim(ClaimTypes.NameIdentifier,user.KorisnickoIme)
+                };
+
+                foreach(var role in user.KorisniciUloges)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, role.Uloga.Naziv));
+                }
+
+                var identity = new ClaimsIdentity(claims,Scheme.Name);
                 var principal = new ClaimsPrincipal(identity);
 
                 var ticket = new AuthenticationTicket(principal,Scheme.Name);

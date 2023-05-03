@@ -4,6 +4,7 @@ using eStomatologModel.SearchObjects;
 using eStomatologServices.Interfejsi;
 using eStomatologServices.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eStomatolog.Controllers
 {
@@ -14,16 +15,12 @@ namespace eStomatolog.Controllers
             : base(service)
         {
         }
-        //[Authorize("Administrator")]
+        [Authorize("Administrator")]
         public override eStomatologModel.Korisnik Insert([FromBody] KorisniciInsertRequest insert)
         {
             return base.Insert(insert);
         }
 
-        //[Authorize("Administrator")]
-        public override eStomatologModel.Korisnik Update(int id, [FromBody] KorisniciUpdateRequest update)
-        {
-            return base.Update(id, update);
-        }
+      
     }
 }
