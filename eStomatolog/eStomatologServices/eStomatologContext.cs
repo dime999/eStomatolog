@@ -39,6 +39,8 @@ public partial class eStomatologContext : DbContext
 
     public virtual DbSet<Uloge> Uloge { get; set; }
 
+    public virtual DbSet<Ocjene> Ocjene { get; set; }
+
     public virtual DbSet<KorisniciUloge> KorisnikUloge { get; set; }
 
 

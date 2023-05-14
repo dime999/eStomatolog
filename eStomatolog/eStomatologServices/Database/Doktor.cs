@@ -1,4 +1,5 @@
-﻿using System;
+﻿using eStomatologServices.Database;
+using System;
 using System.Collections.Generic;
 
 namespace eStomatologServices.Models;
@@ -18,4 +19,6 @@ public partial class Doktor
     public virtual ICollection<Recept> Receptis { get; } = new List<Recept>();
 
     public virtual ICollection<Termin> Terminis { get; } = new List<Termin>();
+
+    public virtual ICollection<Ocjene> Ocjene { get; } = new List<Ocjene>();
 }
