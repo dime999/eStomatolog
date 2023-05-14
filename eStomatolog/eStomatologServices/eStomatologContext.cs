@@ -256,6 +256,28 @@ public partial class eStomatologContext : DbContext
                 .HasConstraintName("FK_KorisniciUloge_Uloge");
         });
 
+        modelBuilder.Entity<Ocjene>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+
+            entity.ToTable("Ocjene");
+
+            entity.Property(e => e.Datum).HasColumnType("datetime");
+            entity.Property(e => e.Ocjena).IsRequired();
+
+            entity.HasOne(e => e.Pacijent)
+                .WithMany(p => p.Ocjene)
+                .HasForeignKey(e => e.PacijentId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Ocjene_Pacijent");
+
+            entity.HasOne(e => e.Doktor)
+                .WithMany(p => p.Ocjene)
+                .HasForeignKey(e => e.DoktorId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Ocjene_Doktor");
+        });
+
         OnModelCreatingPartial(modelBuilder);
     }
 
