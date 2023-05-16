@@ -28,5 +28,17 @@ namespace eStomatolog.WinUi
             var list = await $"{_endpoint}{_resource}/{id}".GetJsonAsync<T>();
             return list;
         }
+
+        public async Task<T> Post<T>(object request)
+        {
+            var list = await $"{_endpoint}{_resource}".PostJsonAsync(request).ReceiveJson<T>();
+            return list;
+        }
+
+        public async Task<T> Put<T>(int id,object request)
+        {
+            var list = await $"{_endpoint}{_resource}/{id}".PutJsonAsync(request).ReceiveJson<T>();
+            return list;
+        }
     }
 }

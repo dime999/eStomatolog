@@ -10,6 +10,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eStomatologModel", "eStomatologModel\eStomatologModel.csproj", "{D397841A-E683-4E2E-B8D4-85F5D2B7C977}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eStomatolog.WinUi", "eStomatolog.WinUi\eStomatolog.WinUi.csproj", "{53AF0BA4-3CFA-4D22-A0DF-D6E2FE22FA87}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D397841A-E683-4E2E-B8D4-85F5D2B7C977} = {D397841A-E683-4E2E-B8D4-85F5D2B7C977}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

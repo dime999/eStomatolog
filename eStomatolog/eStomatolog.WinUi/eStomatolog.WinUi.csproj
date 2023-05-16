@@ -12,4 +12,8 @@
     <PackageReference Include="Flurl.Http" Version="3.2.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\eStomatologModel\eStomatologModel.csproj" />
+  </ItemGroup>
+
 </Project>
