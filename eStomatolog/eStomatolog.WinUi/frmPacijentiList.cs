@@ -1,4 +1,5 @@
-﻿using Flurl.Http;
+﻿using eStomatologModel;
+using Flurl.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,7 +23,7 @@ namespace eStomatolog.WinUi
 
         private async void btnPrikazi_Click(object sender, EventArgs e)
         {
-            var list = await ProductService.Get<dynamic>().Result;
+            var list = await ProductService.Get<List<Pacijent>>();
         }
     }
 }
