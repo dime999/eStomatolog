@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,12 +30,21 @@ namespace eStomatolog.WinUi
             try
             {
                 var result = await _api.Get<dynamic>();
+
+                this.Hide();
                 frmKorisnici frm = new frmKorisnici();
-                frm.ShowDialog();
+                frm.Closed += Close;
+                frm.Show();
+                           
             } catch(Exception ex)
             {
                 MessageBox.Show("Pogresan username ili password");
             }
+        }
+
+        private void Close(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
