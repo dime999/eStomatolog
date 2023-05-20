@@ -12,6 +12,9 @@ namespace eStomatolog.WinUi
         private string _resource = null;
         public string _endpoint = "https://localhost:7265/";
 
+        public static string Username = null;
+        public static string Password = null;
+
         public APIService(string resource)
         {
             this._resource = resource;
@@ -19,25 +22,25 @@ namespace eStomatolog.WinUi
 
         public async Task<T> Get<T>()
         {
-            var list = await $"{_endpoint}{_resource}".GetJsonAsync<T>();
+            var list = await $"{_endpoint}{_resource}".WithBasicAuth(Username,Password).GetJsonAsync<T>();
             return list;
         }
 
         public async Task<T> GetById<T>(int id)
         {
-            var list = await $"{_endpoint}{_resource}/{id}".GetJsonAsync<T>();
+            var list = await $"{_endpoint}{_resource}/{id}".WithBasicAuth(Username, Password).GetJsonAsync<T>();
             return list;
         }
 
         public async Task<T> Post<T>(object request)
         {
-            var list = await $"{_endpoint}{_resource}".PostJsonAsync(request).ReceiveJson<T>();
+            var list = await $"{_endpoint}{_resource}".WithBasicAuth(Username, Password).PostJsonAsync(request).ReceiveJson<T>();
             return list;
         }
 
         public async Task<T> Put<T>(int id,object request)
         {
-            var list = await $"{_endpoint}{_resource}/{id}".PutJsonAsync(request).ReceiveJson<T>();
+            var list = await $"{_endpoint}{_resource}/{id}".WithBasicAuth(Username, Password).PutJsonAsync(request).ReceiveJson<T>();
             return list;
         }
     }
