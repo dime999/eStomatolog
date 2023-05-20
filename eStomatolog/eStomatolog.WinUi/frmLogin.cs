@@ -29,7 +29,7 @@ namespace eStomatolog.WinUi
             try
             {
                 var result = await _api.Get<dynamic>();
-                frmPacijentiList frm = new frmPacijentiList();
+                frmKorisnici frm = new frmKorisnici();
                 frm.ShowDialog();
             } catch(Exception ex)
             {

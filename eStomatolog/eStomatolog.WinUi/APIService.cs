@@ -20,7 +20,7 @@ namespace eStomatolog.WinUi
             this._resource = resource;
         }
 
-        public async Task<T> Get<T>()
+        public async Task<T> Get<T>(object search = null)
         {
             var list = await $"{_endpoint}{_resource}".WithBasicAuth(Username,Password).GetJsonAsync<T>();
             return list;
