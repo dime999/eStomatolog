@@ -44,10 +44,17 @@ namespace eStomatolog.WinUi
                         Password = txtPassword.Text,
                         PasswordPotvrda = txtPasswordPotvrda.Text,
                         Status = chkStatus.Checked,
+                        Telefon="test",
                         UlogeIdList = roleIdList,
                     };
 
                     var user = await KorisniciService.Post<Korisnik>(insertRequest);
+                    MessageBox.Show("Uspješno ste dodali novog administratora");
+
+                    this.Hide();
+                    frmLogin login = new frmLogin();
+                    login.Closed += Close;
+                    login.Show();
                 }
                 else
                 {
@@ -69,6 +76,10 @@ namespace eStomatolog.WinUi
 
 
 
+        }
+        private void Close(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private async void frmKorisniciDetails_Load(object sender, EventArgs e)

@@ -23,6 +23,7 @@ namespace eStomatologServices
             CreateMap<Models.Recept, eStomatologModel.Recept>();
             CreateMap<Database.VrstaUsluge, eStomatologModel.VrstaUsluge>();
             CreateMap<Database.Ordinacija, eStomatologModel.Ordinacija>();
+            CreateMap<Database.Uloge, eStomatologModel.Uloge>();
 
             CreateMap<DijanozaInsertRequest,Models.Dijagnoza>();
             CreateMap<DijagnozaUpdateRequest, Models.Dijagnoza>();    

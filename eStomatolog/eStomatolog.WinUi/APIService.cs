@@ -34,7 +34,7 @@ namespace eStomatolog.WinUi
 
         public async Task<T> Post<T>(object request)
         {
-            var list = await $"{_endpoint}{_resource}".WithBasicAuth(Username, Password).PostJsonAsync(request).ReceiveJson<T>();
+            var list = await $"{_endpoint}{_resource}".PostJsonAsync(request).ReceiveJson<T>();
             return list;
         }
 
