@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using eStomatologModel;
 using eStomatologModel.Requests;
+using eStomatologModel.Requests.Doktor;
 using eStomatologModel.SearchObjects;
 using eStomatologServices.Interfejsi;
 using Microsoft.EntityFrameworkCore;
@@ -25,14 +26,12 @@ namespace eStomatologServices.Servisi
         }
         public override eStomatologModel.Korisnik Insert(KorisniciInsertRequest insert)
         {
-
             if (insert.Password != insert.PasswordPotvrda)
             {
                 throw new UserException("Password and confirmation must be the same");
             }
 
             var entity = base.Insert(insert);
-
 
             foreach (var ulogaId in insert.UlogeIdList)
             {
@@ -46,8 +45,59 @@ namespace eStomatologServices.Servisi
 
             Context.SaveChanges();
 
+            if (insert.UlogeIdList.Contains(1))
+            {
+                eStomatologServices.Models.Doktor doktor = new eStomatologServices.Models.Doktor()
+                {
+                    KorisnikId = entity.KorisnikId,
+                    Specijalnost = insert.Specijalizacija
+                };
+
+                Context.Doktori.Add(doktor);
+                Context.SaveChanges();
+            }
+
             return entity;
         }
+
+        public eStomatologModel.Korisnik InsertDoktora(DoktorInsertRequest insert)
+        {
+
+            if (insert.Password != insert.PasswordPotvrda)
+            {
+                throw new UserException("Password and confirmation must be the same");
+            }
+
+            var entity = base.Insert(insert);
+
+            foreach (var ulogaId in insert.UlogeIdList)
+            {
+                Database.KorisniciUloge korisniciUloge = new Database.KorisniciUloge();
+                korisniciUloge.UlogaId = ulogaId;
+                korisniciUloge.KorisnikId = entity.KorisnikId;
+                korisniciUloge.DatumIzmjene = DateTime.Now;
+
+                Context.KorisnikUloge.Add(korisniciUloge);
+            }
+
+            Context.SaveChanges();
+
+            if (insert.UlogeIdList.Contains(1))
+            {
+                eStomatologServices.Models.Doktor doktor = new eStomatologServices.Models.Doktor()
+                {
+                    KorisnikId = entity.KorisnikId,
+                    Specijalnost = insert.Specijalizacija
+                };
+
+                Context.Doktori.Add(doktor);
+                Context.SaveChanges();
+            }
+
+            return entity;
+        }
+
+
 
         public override void BeforeInsert(KorisniciInsertRequest insert, Models.Korisnik entity)
         {

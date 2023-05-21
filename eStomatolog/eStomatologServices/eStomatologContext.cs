@@ -79,11 +79,12 @@ public partial class eStomatologContext : DbContext
         modelBuilder.Entity<Doktor>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Doktori__3214EC07B54830FE");
+            entity.HasOne(d => d.Korisnik)
+            .WithOne()
+            .HasForeignKey<Doktor>(d => d.KorisnikId);
 
             entity.ToTable("Doktori");
 
-            entity.Property(e => e.Ime).HasMaxLength(50);
-            entity.Property(e => e.Prezime).HasMaxLength(50);
             entity.Property(e => e.Specijalnost).HasMaxLength(50);
         });
 

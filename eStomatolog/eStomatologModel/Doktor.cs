@@ -8,9 +8,7 @@ namespace eStomatologModel
     {
         public int Id { get; set; }
 
-        public string Ime { get; set; } 
-
-        public string Prezime { get; set; }
+        public int KorisnikId { get; set; }
 
         public string Specijalnost { get; set; }
     }

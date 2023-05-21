@@ -7,5 +7,6 @@ namespace eStomatologModel.Requests.Doktor
 {
     public class DoktorInsertRequest : KorisniciInsertRequest
     {
+        public string Specijalizacija { get; set; }
     }
 }

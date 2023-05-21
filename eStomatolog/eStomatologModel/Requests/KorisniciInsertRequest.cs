@@ -26,6 +26,8 @@ namespace eStomatologModel.Requests
 
         public bool? Status { get; set; }
 
+        public string Specijalizacija { get; set; }
+
         public List<int> UlogeIdList { get; set; } = new List<int> { };
     }
 }

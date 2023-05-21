@@ -57,6 +57,7 @@ namespace eStomatolog.WinUi
                         Password = txtPassword.Text,
                         PasswordPotvrda = txtPasswordPotvrda.Text,
                         Status = chkStatus.Checked,
+                        Specijalizacija = "Testna",
                         UlogeIdList = roleIdList,
                     };
 
