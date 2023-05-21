@@ -49,7 +49,7 @@ namespace eStomatolog.WinUi
                     };
 
                     var user = await KorisniciService.Post<Korisnik>(insertRequest);
-                    MessageBox.Show("Uspješno ste dodali novog administratora");
+                    MessageBox.Show("Uspješno ste dodali novog korisnika");
 
                     this.Hide();
                     frmLogin login = new frmLogin();
