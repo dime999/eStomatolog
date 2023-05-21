@@ -2,6 +2,7 @@
 using eStomatolog;
 using eStomatologModel.SearchObjects;
 using eStomatologServices;
+using eStomatologServices.Database;
 using eStomatologServices.Interfejsi;
 using eStomatologServices.Servisi;
 using Microsoft.AspNetCore.Authentication;
@@ -45,7 +46,7 @@ builder.Services.AddTransient<IUslugaService, UslugaService>();
 builder.Services.AddTransient<IReceptService, ReceptService>();
 builder.Services.AddTransient<IVrstaUslugeService, VrstaUslugeService>();
 builder.Services.AddTransient<IOrdinacijaService, OrdinacijaService>();
-
+builder.Services.AddTransient<IService<eStomatologModel.Uloge, BaseSearchObject>, BaseService<eStomatologModel.Uloge, Uloge, BaseSearchObject>>();
 
 builder.Services.AddAutoMapper(typeof(IKorisniciService));
 builder.Services.AddAuthentication("BasicAuthentication").AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication",null);
