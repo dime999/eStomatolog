@@ -31,8 +31,20 @@ namespace eStomatolog.WinUi
             if (ValidateChildren())
             {
                 var roleList = clbUloge.CheckedItems.Cast<Uloge>().ToList();
-                var roleIdList = roleList.Select(x => x.UlogeID).ToList();
+                
 
+                foreach(var role in roleList)
+                {
+                    if(role.Naziv=="Administrator")
+                    {
+                        role.UlogeID= 1;
+                    }
+                    else if(role.Naziv=="Korisnik")
+                    {
+                        role.UlogeID= 2;
+                    }
+                }
+                var roleIdList = roleList.Select(x => x.UlogeID).ToList();
                 if (_model == null)
                 {
                     KorisniciInsertRequest insertRequest = new KorisniciInsertRequest()
@@ -40,15 +52,15 @@ namespace eStomatolog.WinUi
                         Ime = txtIme.Text,
                         Prezime = txtPrezime.Text,
                         Email = txtEmail.Text,
+                        Telefon = "test",
                         KorisnickoIme = txtUsername.Text,
                         Password = txtPassword.Text,
                         PasswordPotvrda = txtPasswordPotvrda.Text,
                         Status = chkStatus.Checked,
-                        Telefon="test",
                         UlogeIdList = roleIdList,
                     };
 
-                    var user = await KorisniciService.Post<Korisnik>(insertRequest);
+                    var user = await KorisniciService.Register<Korisnik>(insertRequest);
                     MessageBox.Show("Uspješno ste dodali novog korisnika");
 
                     this.Hide();

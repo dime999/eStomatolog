@@ -22,7 +22,7 @@ namespace eStomatolog.WinUi
 
         public async Task<T> Get<T>(object search = null)
         {
-            var list = await $"{_endpoint}{_resource}".WithBasicAuth(Username,Password).GetJsonAsync<T>();
+            var list = await $"{_endpoint}{_resource}".GetJsonAsync<T>();
             return list;
         }
 
@@ -34,6 +34,12 @@ namespace eStomatolog.WinUi
 
         public async Task<T> Post<T>(object request)
         {
+            var list = await $"{_endpoint}{_resource}".WithBasicAuth(Username,Password).PostJsonAsync(request).ReceiveJson<T>();
+            return list;
+        }
+
+        public async Task<T> Register<T>(object request)
+        {
             var list = await $"{_endpoint}{_resource}".PostJsonAsync(request).ReceiveJson<T>();
             return list;
         }
@@ -43,31 +49,6 @@ namespace eStomatolog.WinUi
             var list = await $"{_endpoint}{_resource}/{id}".WithBasicAuth(Username, Password).PutJsonAsync(request).ReceiveJson<T>();
             return list;
         }
-
-        public async Task<T> Register<T>(object request)
-        {
-            try
-            {         
-                    var url = $"{_endpoint}/{_resource}";
-                    var result = await url.WithHeader("Authorization", "Basic")
-                        .PostJsonAsync(request).ReceiveJson<T>();
-                    return result;             
-            }
-            catch (FlurlHttpException ex)
-            {
-                var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
-
-                var stringBuilder = new StringBuilder();
-                foreach (var error in errors)
-                {
-                    stringBuilder.AppendLine($"{error.Key}, ${string.Join(",", error.Value)}");
-                }
-
-                MessageBox.Show(stringBuilder.ToString(), "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return default(T);
-            }
-        }
-
 
     }
 }

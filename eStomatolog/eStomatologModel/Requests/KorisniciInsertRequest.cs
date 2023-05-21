@@ -13,7 +13,6 @@ namespace eStomatologModel.Requests
         public string Prezime { get; set; }
 
         [Required(AllowEmptyStrings = false)]
-        [EmailAddress()]
         public string Email { get; set; }
         [Required(AllowEmptyStrings = false)]
         public string Telefon { get; set; }
