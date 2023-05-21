@@ -12,6 +12,9 @@ public partial class Doktor
 
     public string Specijalnost { get; set; } = null!;
 
+    public string Ime { get; set; } = null;
+    public string Prezime { get; set; } = null;
+
 
     public virtual Korisnik Korisnik { get; set; }
 
