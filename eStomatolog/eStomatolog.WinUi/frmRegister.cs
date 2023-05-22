@@ -15,7 +15,7 @@ namespace eStomatolog.WinUi
     public partial class frmRegister : Form
     {
         public APIService KorisniciService { get; set; } = new APIService("Korisnik");
-        public APIService RoleService { get; set; } = new APIService("Uloga");
+        public APIService SpecService { get; set; } = new APIService("Specijalizacija");
 
         private Korisnik _model = null;
 
@@ -30,21 +30,10 @@ namespace eStomatolog.WinUi
 
             if (ValidateChildren())
             {
-                var roleList = clbUloge.CheckedItems.Cast<Uloge>().ToList();
-                
+                var roleList = clbUloge.CheckedItems.Cast<Specijalizacija>().ToList();
 
-                foreach(var role in roleList)
-                {
-                    if(role.Naziv=="Administrator")
-                    {
-                        role.UlogeID= 1;
-                    }
-                    else if(role.Naziv=="Korisnik")
-                    {
-                        role.UlogeID= 2;
-                    }
-                }
-                var roleIdList = roleList.Select(x => x.UlogeID).ToList();
+                var roleIdList = roleList.Select(x => x.SpecijalizacijaId).ToList();
+
                 if (_model == null)
                 {
                     KorisniciInsertRequest insertRequest = new KorisniciInsertRequest()
@@ -57,8 +46,9 @@ namespace eStomatolog.WinUi
                         Password = txtPassword.Text,
                         PasswordPotvrda = txtPasswordPotvrda.Text,
                         Status = chkStatus.Checked,                  
-                        UlogeIdList = roleIdList,
+                        SpecijalizacijeIdList= roleIdList,
                     };
+                    insertRequest.UlogeIdList.Add(1);
 
                     var user = await KorisniciService.Register<Korisnik>(insertRequest);
                     MessageBox.Show("Uspješno ste dodali novog korisnika");
@@ -110,8 +100,8 @@ namespace eStomatolog.WinUi
 
         private async Task LoadRoles()
         {
-            var roles = await RoleService.Get<List<Uloge>>();
-            clbUloge.DataSource = roles;
+            var spec = await SpecService.Get<List<Specijalizacija>>();
+            clbUloge.DataSource = spec;
             clbUloge.DisplayMember = "Naziv";
         }
 

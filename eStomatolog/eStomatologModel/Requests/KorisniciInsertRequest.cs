@@ -28,5 +28,7 @@ namespace eStomatologModel.Requests
 
 
         public List<int> UlogeIdList { get; set; } = new List<int> { };
+
+        public List<int> SpecijalizacijeIdList { get; set; } = new List<int> { };
     }
 }

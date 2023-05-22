@@ -53,9 +53,20 @@ namespace eStomatologServices.Servisi
                     Prezime = entity.Prezime,
           
                 };
-
                 Context.Doktori.Add(doktor);
                 Context.SaveChanges();
+
+                foreach (var specijalizacijaId in insert.SpecijalizacijeIdList)
+                {
+                    Database.DoktoriSpecijalizacije doktoriSpecijalizacije = new Database.DoktoriSpecijalizacije();
+                    doktoriSpecijalizacije.SpecijalizacijaId = specijalizacijaId;
+                    doktoriSpecijalizacije.DoktorId = doktor.Id;
+                    
+
+                    Context.DoktoriSpecijalizacije.Add(doktoriSpecijalizacije);
+                    Context.SaveChanges();
+                }
+               
             }
 
             return entity;
