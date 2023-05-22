@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using eStomatologServices.Database;
 using eStomatologServices.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Services.Identity;
 
 namespace eStomatologServices;
 
@@ -46,6 +47,8 @@ public partial class eStomatologContext : DbContext
     public virtual DbSet<Specijalizacija> Specijalizacije { get; set; }
 
     public virtual DbSet<DoktoriSpecijalizacije> DoktoriSpecijalizacije { get; set; }
+    public virtual DbSet<DoktorOrdinacija> DoktoriOrdinacije{ get; set; }
+
 
 
 
@@ -69,7 +72,7 @@ public partial class eStomatologContext : DbContext
             entity.Property(e => e.Opis).HasMaxLength(200);
             entity.Property(e => e.PacijentId).HasColumnName("PacijentID");
 
-        
+
 
             entity.HasOne(d => d.Pacijent).WithMany(p => p.Dijagnozes)
                 .HasForeignKey(d => d.PacijentId)
@@ -85,11 +88,11 @@ public partial class eStomatologContext : DbContext
             .HasForeignKey<Doktor>(d => d.KorisnikId);
             entity.ToTable("Doktori");
 
-           
+
         });
 
 
-       
+
 
         modelBuilder.Entity<Pacijent>(entity =>
         {
@@ -133,7 +136,7 @@ public partial class eStomatologContext : DbContext
             entity.Property(e => e.Opis).HasMaxLength(200);
             entity.Property(e => e.PacijentId).HasColumnName("PacijentID");
 
-          
+
 
             entity.HasOne(d => d.Pacijent).WithMany(p => p.Receptis)
                 .HasForeignKey(d => d.PacijentId)
@@ -154,7 +157,7 @@ public partial class eStomatologContext : DbContext
             entity.Property(e => e.PacijentId).HasColumnName("PacijentID");
             entity.Property(e => e.UslugaId).HasColumnName("UslugaID");
 
-          
+
 
             entity.HasOne(d => d.Pacijent).WithMany(p => p.Terminis)
                 .HasForeignKey(d => d.PacijentId)
@@ -269,7 +272,7 @@ public partial class eStomatologContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Ocjene_Pacijent");
 
-            
+
         });
 
 
@@ -299,7 +302,25 @@ public partial class eStomatologContext : DbContext
                 .HasConstraintName("FK_DoktoriSpecijalizacije_Specijalizacija");
         });
 
-        OnModelCreatingPartial(modelBuilder);
+        modelBuilder.Entity<Doktor>()
+         .HasMany(d => d.Ordinacije)
+         .WithMany(o => o.Doktori)
+         .UsingEntity<DoktorOrdinacija>(
+             j => j
+                 .HasOne(d => d.Ordinacija)
+                 .WithMany()
+                 .HasForeignKey(d => d.OrdinacijaId),
+             j => j
+                 .HasOne(o => o.Doktor)
+                 .WithMany()
+                 .HasForeignKey(o => o.DoktorId),
+             j =>
+             {
+                 j.HasKey(d => new { d.DoktorId, d.OrdinacijaId });
+                 j.ToTable("DoktoriOrdinacije");
+             }
+         );
+
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
