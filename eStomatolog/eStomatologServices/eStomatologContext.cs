@@ -43,6 +43,10 @@ public partial class eStomatologContext : DbContext
 
     public virtual DbSet<KorisniciUloge> KorisnikUloge { get; set; }
 
+    public virtual DbSet<Specijalizacija> Specijalizacije { get; set; }
+
+    public virtual DbSet<DoktoriSpecijalizacije> DoktoriSpecijalizacije { get; set; }
+
 
 
 
@@ -65,10 +69,7 @@ public partial class eStomatologContext : DbContext
             entity.Property(e => e.Opis).HasMaxLength(200);
             entity.Property(e => e.PacijentId).HasColumnName("PacijentID");
 
-            entity.HasOne(d => d.Doktor).WithMany(p => p.Dijagnozes)
-                .HasForeignKey(d => d.DoktorId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Dijagnoze__Dokto__5535A963");
+        
 
             entity.HasOne(d => d.Pacijent).WithMany(p => p.Dijagnozes)
                 .HasForeignKey(d => d.PacijentId)
@@ -82,11 +83,13 @@ public partial class eStomatologContext : DbContext
             entity.HasOne(d => d.Korisnik)
             .WithOne()
             .HasForeignKey<Doktor>(d => d.KorisnikId);
-
             entity.ToTable("Doktori");
 
-            entity.Property(e => e.Specijalnost).HasMaxLength(50);
+           
         });
+
+
+       
 
         modelBuilder.Entity<Pacijent>(entity =>
         {
@@ -130,10 +133,7 @@ public partial class eStomatologContext : DbContext
             entity.Property(e => e.Opis).HasMaxLength(200);
             entity.Property(e => e.PacijentId).HasColumnName("PacijentID");
 
-            entity.HasOne(d => d.Doktor).WithMany(p => p.Receptis)
-                .HasForeignKey(d => d.DoktorId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Recepti__DoktorI__59063A47");
+          
 
             entity.HasOne(d => d.Pacijent).WithMany(p => p.Receptis)
                 .HasForeignKey(d => d.PacijentId)
@@ -154,10 +154,7 @@ public partial class eStomatologContext : DbContext
             entity.Property(e => e.PacijentId).HasColumnName("PacijentID");
             entity.Property(e => e.UslugaId).HasColumnName("UslugaID");
 
-            entity.HasOne(d => d.Doktor).WithMany(p => p.Terminis)
-                .HasForeignKey(d => d.DoktorId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Termini__DoktorI__5070F446"); 
+          
 
             entity.HasOne(d => d.Pacijent).WithMany(p => p.Terminis)
                 .HasForeignKey(d => d.PacijentId)
@@ -272,11 +269,34 @@ public partial class eStomatologContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Ocjene_Pacijent");
 
-            entity.HasOne(e => e.Doktor)
-                .WithMany(p => p.Ocjene)
-                .HasForeignKey(e => e.DoktorId)
+            
+        });
+
+
+        modelBuilder.Entity<DoktoriSpecijalizacije>(entity =>
+        {
+            entity.HasKey(e => e.DoktorSpecijalizacijaId);
+
+            entity.ToTable("DoktoriSpecijalizacije");
+
+            entity.Property(e => e.DoktorSpecijalizacijaId).HasColumnName("DoktorSpecijalizacijaId");
+
+
+            entity.Property(e => e.DoktorId).HasColumnName("DoktorId");
+
+            entity.Property(e => e.SpecijalizacijaId).HasColumnName("SpecijalizacijaId");
+
+            entity.HasOne(d => d.Doktor)
+                .WithMany(p => p.DoktoriSpecijalizacije)
+                .HasForeignKey(d => d.DoktorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Ocjene_Doktor");
+                .HasConstraintName("FK_DoktoriSpecijalizacije_Doktori");
+
+            entity.HasOne(d => d.Specijalizacija)
+                .WithMany(p => p.DoktoriSpecijalizacije)
+                .HasForeignKey(d => d.SpecijalizacijaId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_DoktoriSpecijalizacije_Specijalizacija");
         });
 
         OnModelCreatingPartial(modelBuilder);

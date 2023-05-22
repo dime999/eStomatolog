@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eStomatologServices;
 
@@ -11,9 +12,11 @@ using eStomatologServices;
 namespace eStomatologServices.Migrations
 {
     [DbContext(typeof(eStomatologContext))]
-    partial class eStomatologContextModelSnapshot : ModelSnapshot
+    [Migration("20230522170112_specijalizacija")]
+    partial class specijalizacija
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,32 +50,6 @@ namespace eStomatologServices.Migrations
                     b.HasIndex("VrstaUslugeId");
 
                     b.ToTable("Usluga");
-                });
-
-            modelBuilder.Entity("eStomatologServices.Database.DoktoriSpecijalizacije", b =>
-                {
-                    b.Property<int>("DoktorSpecijalizacijaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("DoktorSpecijalizacijaId");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DoktorSpecijalizacijaId"));
-
-                    b.Property<int>("DoktorId")
-                        .HasColumnType("int")
-                        .HasColumnName("DoktorId");
-
-                    b.Property<int>("SpecijalizacijaId")
-                        .HasColumnType("int")
-                        .HasColumnName("SpecijalizacijaId");
-
-                    b.HasKey("DoktorSpecijalizacijaId");
-
-                    b.HasIndex("DoktorId");
-
-                    b.HasIndex("SpecijalizacijaId");
-
-                    b.ToTable("DoktoriSpecijalizacije", (string)null);
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.KorisniciUloge", b =>
@@ -189,10 +166,7 @@ namespace eStomatologServices.Migrations
             modelBuilder.Entity("eStomatologServices.Database.Specijalizacija", b =>
                 {
                     b.Property<int>("SpecijalizacijaId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SpecijalizacijaId"));
 
                     b.Property<string>("Naziv")
                         .IsRequired()
@@ -201,33 +175,6 @@ namespace eStomatologServices.Migrations
                     b.HasKey("SpecijalizacijaId");
 
                     b.ToTable("Specijalizacije");
-
-                    b.HasData(
-                        new
-                        {
-                            SpecijalizacijaId = 2,
-                            Naziv = "Oralna hirurgija"
-                        },
-                        new
-                        {
-                            SpecijalizacijaId = 3,
-                            Naziv = "Ortodoncija"
-                        },
-                        new
-                        {
-                            SpecijalizacijaId = 4,
-                            Naziv = "Endodoncija"
-                        },
-                        new
-                        {
-                            SpecijalizacijaId = 5,
-                            Naziv = "Parodontologija"
-                        },
-                        new
-                        {
-                            SpecijalizacijaId = 6,
-                            Naziv = "Oralna patologija"
-                        });
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.Uloge", b =>
@@ -344,6 +291,17 @@ namespace eStomatologServices.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SpecijalizacijaId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SpecijalizacijaId1")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Specijalnost")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.HasKey("Id")
                         .HasName("PK__Doktori__3214EC07B54830FE");
 
@@ -351,6 +309,8 @@ namespace eStomatologServices.Migrations
                         .IsUnique();
 
                     b.HasIndex("OrdinacijaId");
+
+                    b.HasIndex("SpecijalizacijaId1");
 
                     b.ToTable("Doktori", (string)null);
                 });
@@ -603,25 +563,6 @@ namespace eStomatologServices.Migrations
                         .HasForeignKey("VrstaUslugeId");
                 });
 
-            modelBuilder.Entity("eStomatologServices.Database.DoktoriSpecijalizacije", b =>
-                {
-                    b.HasOne("eStomatologServices.Models.Doktor", "Doktor")
-                        .WithMany("DoktoriSpecijalizacije")
-                        .HasForeignKey("DoktorId")
-                        .IsRequired()
-                        .HasConstraintName("FK_DoktoriSpecijalizacije_Doktori");
-
-                    b.HasOne("eStomatologServices.Database.Specijalizacija", "Specijalizacija")
-                        .WithMany("DoktoriSpecijalizacije")
-                        .HasForeignKey("SpecijalizacijaId")
-                        .IsRequired()
-                        .HasConstraintName("FK_DoktoriSpecijalizacije_Specijalizacija");
-
-                    b.Navigation("Doktor");
-
-                    b.Navigation("Specijalizacija");
-                });
-
             modelBuilder.Entity("eStomatologServices.Database.KorisniciUloge", b =>
                 {
                     b.HasOne("eStomatologServices.Models.Korisnik", "Korisnik")
@@ -644,10 +585,10 @@ namespace eStomatologServices.Migrations
             modelBuilder.Entity("eStomatologServices.Database.Ocjene", b =>
                 {
                     b.HasOne("eStomatologServices.Models.Doktor", "Doktor")
-                        .WithMany()
+                        .WithMany("Ocjene")
                         .HasForeignKey("DoktorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_Ocjene_Doktor");
 
                     b.HasOne("eStomatologServices.Models.Pacijent", "Pacijent")
                         .WithMany("Ocjene")
@@ -660,13 +601,22 @@ namespace eStomatologServices.Migrations
                     b.Navigation("Pacijent");
                 });
 
+            modelBuilder.Entity("eStomatologServices.Database.Specijalizacija", b =>
+                {
+                    b.HasOne("eStomatologServices.Models.Doktor", null)
+                        .WithOne("Specijalizacija")
+                        .HasForeignKey("eStomatologServices.Database.Specijalizacija", "SpecijalizacijaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("eStomatologServices.Models.Dijagnoza", b =>
                 {
                     b.HasOne("eStomatologServices.Models.Doktor", "Doktor")
-                        .WithMany()
+                        .WithMany("Dijagnozes")
                         .HasForeignKey("DoktorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK__Dijagnoze__Dokto__5535A963");
 
                     b.HasOne("eStomatologServices.Models.Pacijent", "Pacijent")
                         .WithMany("Dijagnozes")
@@ -691,6 +641,10 @@ namespace eStomatologServices.Migrations
                         .WithMany("Doktori")
                         .HasForeignKey("OrdinacijaId");
 
+                    b.HasOne("eStomatologServices.Database.Specijalizacija", null)
+                        .WithMany("Doktori")
+                        .HasForeignKey("SpecijalizacijaId1");
+
                     b.Navigation("Korisnik");
                 });
 
@@ -708,10 +662,10 @@ namespace eStomatologServices.Migrations
             modelBuilder.Entity("eStomatologServices.Models.Recept", b =>
                 {
                     b.HasOne("eStomatologServices.Models.Doktor", "Doktor")
-                        .WithMany()
+                        .WithMany("Receptis")
                         .HasForeignKey("DoktorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK__Recepti__DoktorI__59063A47");
 
                     b.HasOne("eStomatologServices.Models.Pacijent", "Pacijent")
                         .WithMany("Receptis")
@@ -727,10 +681,10 @@ namespace eStomatologServices.Migrations
             modelBuilder.Entity("eStomatologServices.Models.Termin", b =>
                 {
                     b.HasOne("eStomatologServices.Models.Doktor", "Doktor")
-                        .WithMany()
+                        .WithMany("Terminis")
                         .HasForeignKey("DoktorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK__Termini__DoktorI__5070F446");
 
                     b.HasOne("eStomatologServices.Models.Pacijent", "Pacijent")
                         .WithMany("Terminis")
@@ -758,7 +712,7 @@ namespace eStomatologServices.Migrations
 
             modelBuilder.Entity("eStomatologServices.Database.Specijalizacija", b =>
                 {
-                    b.Navigation("DoktoriSpecijalizacije");
+                    b.Navigation("Doktori");
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.Uloge", b =>
@@ -773,7 +727,16 @@ namespace eStomatologServices.Migrations
 
             modelBuilder.Entity("eStomatologServices.Models.Doktor", b =>
                 {
-                    b.Navigation("DoktoriSpecijalizacije");
+                    b.Navigation("Dijagnozes");
+
+                    b.Navigation("Ocjene");
+
+                    b.Navigation("Receptis");
+
+                    b.Navigation("Specijalizacija")
+                        .IsRequired();
+
+                    b.Navigation("Terminis");
                 });
 
             modelBuilder.Entity("eStomatologServices.Models.Korisnik", b =>

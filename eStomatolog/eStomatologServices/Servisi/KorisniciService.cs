@@ -51,7 +51,7 @@ namespace eStomatologServices.Servisi
                     KorisnikId = entity.KorisnikId,
                     Ime=entity.Ime,
                     Prezime = entity.Prezime,
-                    Specijalnost = "test"
+          
                 };
 
                 Context.Doktori.Add(doktor);

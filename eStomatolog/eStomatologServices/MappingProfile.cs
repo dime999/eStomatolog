@@ -24,9 +24,13 @@ namespace eStomatologServices
             CreateMap<Database.VrstaUsluge, eStomatologModel.VrstaUsluge>();
             CreateMap<Database.Ordinacija, eStomatologModel.Ordinacija>();
             CreateMap<Database.Uloge, eStomatologModel.Uloge>();
+            CreateMap<Database.Specijalizacija, eStomatologModel.Specijalizacija>();
 
             CreateMap<DijanozaInsertRequest,Models.Dijagnoza>();
-            CreateMap<DijagnozaUpdateRequest, Models.Dijagnoza>();    
+            CreateMap<DijagnozaUpdateRequest, Models.Dijagnoza>();   
+            CreateMap<SpecijalizacijaUpsertRequest, Database.Specijalizacija>();   
+            
+            
             CreateMap<eStomatologModel.Requests.VrstaUslugeUpsertRequest,eStomatologServices.Database.VrstaUsluge>();
             CreateMap<eStomatologModel.Requests.OrdinacijaUpsertRequest,eStomatologServices.Database.Ordinacija>();
 

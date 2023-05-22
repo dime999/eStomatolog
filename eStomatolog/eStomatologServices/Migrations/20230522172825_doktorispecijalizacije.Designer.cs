@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eStomatologServices;
 
@@ -11,9 +12,11 @@ using eStomatologServices;
 namespace eStomatologServices.Migrations
 {
     [DbContext(typeof(eStomatologContext))]
-    partial class eStomatologContextModelSnapshot : ModelSnapshot
+    [Migration("20230522172825_doktorispecijalizacije")]
+    partial class doktorispecijalizacije
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -205,28 +208,8 @@ namespace eStomatologServices.Migrations
                     b.HasData(
                         new
                         {
-                            SpecijalizacijaId = 2,
+                            SpecijalizacijaId = 1,
                             Naziv = "Oralna hirurgija"
-                        },
-                        new
-                        {
-                            SpecijalizacijaId = 3,
-                            Naziv = "Ortodoncija"
-                        },
-                        new
-                        {
-                            SpecijalizacijaId = 4,
-                            Naziv = "Endodoncija"
-                        },
-                        new
-                        {
-                            SpecijalizacijaId = 5,
-                            Naziv = "Parodontologija"
-                        },
-                        new
-                        {
-                            SpecijalizacijaId = 6,
-                            Naziv = "Oralna patologija"
                         });
                 });
 
