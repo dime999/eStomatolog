@@ -6,6 +6,8 @@ namespace eStomatologModel
 {
     public class Ordinacija
     {
+        public int OrdinacijaId { get; set; }
+
         public string Naziv { get; set; }
 
         public string Adresa { get; set; } 
