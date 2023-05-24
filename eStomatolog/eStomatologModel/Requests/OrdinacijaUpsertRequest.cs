@@ -6,7 +6,6 @@ namespace eStomatologModel.Requests
 {
     public class OrdinacijaUpsertRequest
     {
-        public int OrdinacijaId { get; set; }
 
         public string Naziv { get; set; } 
 
