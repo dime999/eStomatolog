@@ -42,7 +42,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtSurname = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtName = new System.Windows.Forms.TextBox();
+            this.txtIme = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnAddHairSalon = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -131,7 +131,7 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.txtSurname);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.txtName);
+            this.groupBox2.Controls.Add(this.txtIme);
             this.groupBox2.Location = new System.Drawing.Point(18, 286);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(369, 306);
@@ -209,13 +209,13 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Name";
             // 
-            // txtName
+            // txtIme
             // 
-            this.txtName.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.txtName.Location = new System.Drawing.Point(95, 55);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(131, 23);
-            this.txtName.TabIndex = 0;
+            this.txtIme.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtIme.Location = new System.Drawing.Point(95, 55);
+            this.txtIme.Name = "txtIme";
+            this.txtIme.Size = new System.Drawing.Size(131, 23);
+            this.txtIme.TabIndex = 0;
             // 
             // groupBox3
             // 
@@ -351,7 +351,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtSurname;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.TextBox txtIme;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label4;

@@ -32,7 +32,7 @@ namespace eStomatolog.WinUi.Manager
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            txtName.Enabled = true;
+            txtIme.Enabled = true;
             txtUserName.Enabled = true;
             txtSurname.Enabled = true;
         }

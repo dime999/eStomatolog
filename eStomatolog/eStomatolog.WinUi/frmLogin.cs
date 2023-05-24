@@ -32,7 +32,7 @@ namespace eStomatolog.WinUi
                 var result = await _api.Get<dynamic>();
 
                 this.Hide();
-                Manager.ManagerHome frm = new Manager.ManagerHome();
+                Manager.frmOrdinacija frm = new Manager.frmOrdinacija();
                 frm.Closed += Close;
                 frm.Show();
                            
