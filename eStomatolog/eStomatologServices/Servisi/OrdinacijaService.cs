@@ -42,5 +42,7 @@ namespace eStomatologServices.Servisi
             }
             return imageBytes;
         }
+
+        
     }
 }

@@ -16,6 +16,7 @@ namespace eStomatolog.WinUi
     {
         public APIService KorisniciService { get; set; } = new APIService("Korisnik");
         public APIService SpecService { get; set; } = new APIService("Specijalizacija");
+        public APIService OrdinacijaService { get; set; } = new APIService("Ordinacija");
 
         private Korisnik _model = null;
 
@@ -31,8 +32,10 @@ namespace eStomatolog.WinUi
             if (ValidateChildren())
             {
                 var roleList = clbUloge.CheckedItems.Cast<Specijalizacija>().ToList();
+                var ordinacijeList = clbOrdinacije.CheckedItems.Cast<Ordinacija>().ToList();
 
                 var roleIdList = roleList.Select(x => x.SpecijalizacijaId).ToList();
+                var ordinacijaIdList = roleList.Select(x => x.SpecijalizacijaId).ToList();
 
                 if (_model == null)
                 {
@@ -47,6 +50,7 @@ namespace eStomatolog.WinUi
                         PasswordPotvrda = txtPasswordPotvrda.Text,
                         Status = chkStatus.Checked,                  
                         SpecijalizacijeIdList= roleIdList,
+                        OrdinacijeIdList= ordinacijaIdList
                     };
                     insertRequest.UlogeIdList.Add(1);
 
@@ -87,6 +91,7 @@ namespace eStomatolog.WinUi
         private async void frmKorisniciDetails_Load(object sender, EventArgs e)
         {
             await LoadRoles();
+            await LoadOrdinacije();
 
             if (_model != null)
             {
@@ -103,6 +108,13 @@ namespace eStomatolog.WinUi
             var spec = await SpecService.Get<List<Specijalizacija>>();
             clbUloge.DataSource = spec;
             clbUloge.DisplayMember = "Naziv";
+        }
+
+        private async Task LoadOrdinacije()
+        {
+            var ord = await OrdinacijaService.Get<List<Ordinacija>>();
+            clbOrdinacije.DataSource = ord;
+            clbOrdinacije.DisplayMember = "Naziv";
         }
 
         private void txtIme_Validating(object sender, CancelEventArgs e)

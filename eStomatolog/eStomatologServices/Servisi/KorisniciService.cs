@@ -19,6 +19,7 @@ namespace eStomatologServices.Servisi
     public class KorisniciService : BaseCRUDService<eStomatologModel.Korisnik, Models.Korisnik, KorisnikSearchObject,KorisniciInsertRequest,KorisniciUpdateRequest>, IKorisniciService
     {
        
+       
         public KorisniciService(eStomatologContext context, IMapper mapper) : base(context, mapper)
         {
            
@@ -38,11 +39,11 @@ namespace eStomatologServices.Servisi
                 korisniciUloge.UlogaId = ulogaId;
                 korisniciUloge.KorisnikId = entity.KorisnikId;
                 korisniciUloge.DatumIzmjene = DateTime.Now;
-
                 Context.KorisnikUloge.Add(korisniciUloge);
             }
 
             Context.SaveChanges();
+            
 
             if (insert.UlogeIdList.Contains(1))
             {
@@ -66,7 +67,17 @@ namespace eStomatologServices.Servisi
                     Context.DoktoriSpecijalizacije.Add(doktoriSpecijalizacije);
                     Context.SaveChanges();
                 }
-               
+                foreach (var ordinacijaId in insert.OrdinacijeIdList)
+                {
+                    Database.DoktorOrdinacija doktoriOrdinacije = new Database.DoktorOrdinacija();
+                    doktoriOrdinacije.OrdinacijaId = ordinacijaId;
+                    doktoriOrdinacije.DoktorId = doktor.Id;
+
+
+                    Context.DoktoriOrdinacije.Add(doktoriOrdinacije);
+                    Context.SaveChanges();
+                }
+
             }
 
             return entity;

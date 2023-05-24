@@ -47,6 +47,7 @@
             this.clbUloge = new System.Windows.Forms.CheckedListBox();
             this.chkStatus = new System.Windows.Forms.CheckBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.clbOrdinacije = new System.Windows.Forms.CheckedListBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
@@ -54,10 +55,10 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(338, 389);
+            this.btnSave.Location = new System.Drawing.Point(370, 420);
             this.btnSave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(82, 22);
+            this.btnSave.Size = new System.Drawing.Size(99, 30);
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Sačuvaj";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -208,13 +209,13 @@
             this.clbUloge.Location = new System.Drawing.Point(34, 281);
             this.clbUloge.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.clbUloge.Name = "clbUloge";
-            this.clbUloge.Size = new System.Drawing.Size(132, 76);
+            this.clbUloge.Size = new System.Drawing.Size(148, 148);
             this.clbUloge.TabIndex = 7;
             // 
             // chkStatus
             // 
             this.chkStatus.AutoSize = true;
-            this.chkStatus.Location = new System.Drawing.Point(183, 284);
+            this.chkStatus.Location = new System.Drawing.Point(376, 281);
             this.chkStatus.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chkStatus.Name = "chkStatus";
             this.chkStatus.Size = new System.Drawing.Size(58, 19);
@@ -226,11 +227,21 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // clbOrdinacije
+            // 
+            this.clbOrdinacije.FormattingEnabled = true;
+            this.clbOrdinacije.Location = new System.Drawing.Point(207, 281);
+            this.clbOrdinacije.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.clbOrdinacije.Name = "clbOrdinacije";
+            this.clbOrdinacije.Size = new System.Drawing.Size(132, 148);
+            this.clbOrdinacije.TabIndex = 9;
+            // 
             // frmRegister
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(449, 420);
+            this.ClientSize = new System.Drawing.Size(492, 471);
+            this.Controls.Add(this.clbOrdinacije);
             this.Controls.Add(this.chkStatus);
             this.Controls.Add(this.clbUloge);
             this.Controls.Add(this.groupBox2);
@@ -268,5 +279,6 @@
         private CheckedListBox clbUloge;
         private CheckBox chkStatus;
         private ErrorProvider errorProvider;
+        private CheckedListBox clbOrdinacije;
     }
 }
