@@ -29,5 +29,13 @@ namespace eStomatolog.WinUi
         {
             this.Close();
         }
+
+        private void btnPacijent_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            frmRegisterPacijent login = new frmRegisterPacijent();
+            login.Closed += Close;
+            login.Show();
+        }
     }
 }

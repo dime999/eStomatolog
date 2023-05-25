@@ -51,6 +51,7 @@
             this.btnPacijent.TabIndex = 1;
             this.btnPacijent.Text = "Registruj pacijenta";
             this.btnPacijent.UseVisualStyleBackColor = true;
+            this.btnPacijent.Click += new System.EventHandler(this.btnPacijent_Click);
             // 
             // lblPitanje
             // 

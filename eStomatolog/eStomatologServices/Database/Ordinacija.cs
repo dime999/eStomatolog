@@ -28,5 +28,6 @@ namespace eStomatologServices.Database
         public byte[] Slika { get; set; } = null!;
 
         public virtual ICollection<Doktor> Doktori { get; set; }
+        public virtual ICollection<Pacijent> Pacijenti { get; set; }
     }
 }

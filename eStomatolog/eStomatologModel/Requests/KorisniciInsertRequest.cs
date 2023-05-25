@@ -32,6 +32,7 @@ namespace eStomatologModel.Requests
         public List<int> SpecijalizacijeIdList { get; set; } = new List<int> { };
 
         public List<int> OrdinacijeIdList { get; set; } = new List<int> { };
-       public int GradId { get; set; }
+
+        public int GradId { get; set; }
     }
 }

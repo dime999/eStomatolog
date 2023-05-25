@@ -15,5 +15,7 @@ namespace eStomatologServices.Database
 
         public List<Doktor> Doktori { get; set; }
 
+        public List<Pacijent> Pacijenti { get; set; }
+
     }
 }
