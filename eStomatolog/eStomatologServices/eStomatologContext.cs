@@ -45,6 +45,8 @@ public partial class eStomatologContext : DbContext
     public virtual DbSet<KorisniciUloge> KorisnikUloge { get; set; }
 
     public virtual DbSet<Specijalizacija> Specijalizacije { get; set; }
+    public virtual DbSet<Grad> Gradovi { get; set; }
+
 
     public virtual DbSet<DoktoriSpecijalizacije> DoktoriSpecijalizacije { get; set; }
     public virtual DbSet<DoktorOrdinacija> DoktoriOrdinacije{ get; set; }
@@ -89,6 +91,31 @@ public partial class eStomatologContext : DbContext
             entity.ToTable("Doktori");
 
 
+        });
+        modelBuilder.Entity<Doktor>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Doktori__3214EC07B54830FE");
+
+            // Dodavanje relacije prema entitetu Grad
+            entity.HasOne(d => d.Grad)
+                .WithMany(g => g.Doktori)
+                .HasForeignKey(d => d.GradId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entity.ToTable("Doktori");
+        });
+
+        modelBuilder.Entity<Grad>(entity =>
+        {
+            entity.HasKey(e => e.GradId);
+
+            // Dodavanje relacije prema entitetu Doktor
+            entity.HasMany(g => g.Doktori)
+                .WithOne(d => d.Grad)
+                .HasForeignKey(d => d.GradId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entity.ToTable("Gradovi");
         });
 
 

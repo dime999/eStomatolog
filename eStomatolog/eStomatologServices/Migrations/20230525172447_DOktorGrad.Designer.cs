@@ -12,8 +12,8 @@ using eStomatologServices;
 namespace eStomatologServices.Migrations
 {
     [DbContext(typeof(eStomatologContext))]
-    [Migration("20230522190448_DoktoriOrdinacije")]
-    partial class DoktoriOrdinacije
+    [Migration("20230525172447_DOktorGrad")]
+    partial class DOktorGrad
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -91,6 +91,23 @@ namespace eStomatologServices.Migrations
                     b.HasIndex("SpecijalizacijaId");
 
                     b.ToTable("DoktoriSpecijalizacije", (string)null);
+                });
+
+            modelBuilder.Entity("eStomatologServices.Database.Grad", b =>
+                {
+                    b.Property<int>("GradId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GradId"));
+
+                    b.Property<string>("Naziv")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("GradId");
+
+                    b.ToTable("Gradovi", (string)null);
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.KorisniciUloge", b =>
@@ -288,6 +305,9 @@ namespace eStomatologServices.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("GradId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Ime")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -301,6 +321,8 @@ namespace eStomatologServices.Migrations
 
                     b.HasKey("Id")
                         .HasName("PK__Doktori__3214EC07B54830FE");
+
+                    b.HasIndex("GradId");
 
                     b.HasIndex("KorisnikId")
                         .IsUnique();
@@ -644,11 +666,19 @@ namespace eStomatologServices.Migrations
 
             modelBuilder.Entity("eStomatologServices.Models.Doktor", b =>
                 {
+                    b.HasOne("eStomatologServices.Database.Grad", "Grad")
+                        .WithMany("Doktori")
+                        .HasForeignKey("GradId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("eStomatologServices.Models.Korisnik", "Korisnik")
                         .WithOne()
                         .HasForeignKey("eStomatologServices.Models.Doktor", "KorisnikId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Grad");
 
                     b.Navigation("Korisnik");
                 });
@@ -708,6 +738,11 @@ namespace eStomatologServices.Migrations
                     b.Navigation("Pacijent");
 
                     b.Navigation("Usluga");
+                });
+
+            modelBuilder.Entity("eStomatologServices.Database.Grad", b =>
+                {
+                    b.Navigation("Doktori");
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.Specijalizacija", b =>

@@ -21,6 +21,9 @@ namespace eStomatologServices
             modelBuilder.Entity<Database.Specijalizacija>().HasData(new Database.Specijalizacija { SpecijalizacijaId = 4, Naziv = "Endodoncija" });
             modelBuilder.Entity<Database.Specijalizacija>().HasData(new Database.Specijalizacija { SpecijalizacijaId = 5, Naziv = "Parodontologija" });
             modelBuilder.Entity<Database.Specijalizacija>().HasData(new Database.Specijalizacija { SpecijalizacijaId = 6, Naziv = "Oralna patologija" });
+            modelBuilder.Entity<Database.Grad>().HasData(new Database.Grad { GradId = 4, Naziv = "Zenica" });
+            modelBuilder.Entity<Database.Grad>().HasData(new Database.Grad { GradId = 5, Naziv = "Sarajevo" });
+            modelBuilder.Entity<Database.Grad>().HasData(new Database.Grad { GradId = 6, Naziv = "Mostar" });
 
 
         }

@@ -47,6 +47,7 @@ builder.Services.AddTransient<IReceptService, ReceptService>();
 builder.Services.AddTransient<IVrstaUslugeService, VrstaUslugeService>();
 builder.Services.AddTransient<IOrdinacijaService, OrdinacijaService>();
 builder.Services.AddTransient<ISpecijalizacijaService, SpecijalizacijaService>();
+builder.Services.AddTransient<IGradService, GradService>();
 builder.Services.AddTransient<IService<eStomatologModel.Uloge, BaseSearchObject>, BaseService<eStomatologModel.Uloge, Uloge, BaseSearchObject>>();
 
 builder.Services.AddAutoMapper(typeof(IKorisniciService));

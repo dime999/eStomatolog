@@ -16,7 +16,8 @@ public partial class Doktor
 
     public int Id { get; set; }
 
-    public int KorisnikId { get; set; }
+    public int KorisnikId { get; set; }     
+    public int GradId { get; set; }     
 
     public string Ime { get; set; } = null;
 
@@ -24,6 +25,7 @@ public partial class Doktor
 
 
     public virtual Korisnik Korisnik { get; set; } = null!;
+    public virtual Grad Grad { get; set; } = null!;
 
     public virtual ICollection<DoktoriSpecijalizacije> DoktoriSpecijalizacije { get; set; }
     public virtual ICollection<Ordinacija> Ordinacije { get; set; }
