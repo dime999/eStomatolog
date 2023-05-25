@@ -48,6 +48,7 @@
             this.chkStatus = new System.Windows.Forms.CheckBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.clbOrdinacije = new System.Windows.Forms.CheckedListBox();
+            this.cblGradovi = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
@@ -55,7 +56,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(370, 420);
+            this.btnSave.Location = new System.Drawing.Point(566, 430);
             this.btnSave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(99, 30);
@@ -76,7 +77,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(404, 122);
+            this.groupBox1.Size = new System.Drawing.Size(522, 122);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Podaci";
@@ -86,7 +87,7 @@
             this.txtEmail.Location = new System.Drawing.Point(177, 77);
             this.txtEmail.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(214, 23);
+            this.txtEmail.Size = new System.Drawing.Size(296, 23);
             this.txtEmail.TabIndex = 5;
             // 
             // label3
@@ -103,7 +104,7 @@
             this.txtPrezime.Location = new System.Drawing.Point(177, 52);
             this.txtPrezime.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtPrezime.Name = "txtPrezime";
-            this.txtPrezime.Size = new System.Drawing.Size(214, 23);
+            this.txtPrezime.Size = new System.Drawing.Size(296, 23);
             this.txtPrezime.TabIndex = 3;
             // 
             // label2
@@ -120,7 +121,7 @@
             this.txtIme.Location = new System.Drawing.Point(177, 28);
             this.txtIme.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtIme.Name = "txtIme";
-            this.txtIme.Size = new System.Drawing.Size(214, 23);
+            this.txtIme.Size = new System.Drawing.Size(296, 23);
             this.txtIme.TabIndex = 1;
             this.txtIme.Validating += new System.ComponentModel.CancelEventHandler(this.txtIme_Validating);
             // 
@@ -145,7 +146,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Size = new System.Drawing.Size(404, 122);
+            this.groupBox2.Size = new System.Drawing.Size(522, 122);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Podaci";
@@ -156,7 +157,7 @@
             this.txtPasswordPotvrda.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtPasswordPotvrda.Name = "txtPasswordPotvrda";
             this.txtPasswordPotvrda.PasswordChar = '*';
-            this.txtPasswordPotvrda.Size = new System.Drawing.Size(214, 23);
+            this.txtPasswordPotvrda.Size = new System.Drawing.Size(296, 23);
             this.txtPasswordPotvrda.TabIndex = 5;
             // 
             // label4
@@ -174,7 +175,7 @@
             this.txtPassword.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(214, 23);
+            this.txtPassword.Size = new System.Drawing.Size(296, 23);
             this.txtPassword.TabIndex = 3;
             // 
             // label5
@@ -191,7 +192,7 @@
             this.txtUsername.Location = new System.Drawing.Point(177, 28);
             this.txtUsername.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(214, 23);
+            this.txtUsername.Size = new System.Drawing.Size(296, 23);
             this.txtUsername.TabIndex = 1;
             // 
             // label6
@@ -215,7 +216,7 @@
             // chkStatus
             // 
             this.chkStatus.AutoSize = true;
-            this.chkStatus.Location = new System.Drawing.Point(376, 281);
+            this.chkStatus.Location = new System.Drawing.Point(357, 410);
             this.chkStatus.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chkStatus.Name = "chkStatus";
             this.chkStatus.Size = new System.Drawing.Size(58, 19);
@@ -236,11 +237,20 @@
             this.clbOrdinacije.Size = new System.Drawing.Size(132, 148);
             this.clbOrdinacije.TabIndex = 9;
             // 
+            // cblGradovi
+            // 
+            this.cblGradovi.FormattingEnabled = true;
+            this.cblGradovi.Location = new System.Drawing.Point(357, 281);
+            this.cblGradovi.Name = "cblGradovi";
+            this.cblGradovi.Size = new System.Drawing.Size(121, 23);
+            this.cblGradovi.TabIndex = 10;
+            // 
             // frmRegister
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(492, 471);
+            this.ClientSize = new System.Drawing.Size(683, 471);
+            this.Controls.Add(this.cblGradovi);
             this.Controls.Add(this.clbOrdinacije);
             this.Controls.Add(this.chkStatus);
             this.Controls.Add(this.clbUloge);
@@ -280,5 +290,6 @@
         private CheckBox chkStatus;
         private ErrorProvider errorProvider;
         private CheckedListBox clbOrdinacije;
+        private ComboBox cblGradovi;
     }
 }

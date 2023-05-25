@@ -52,6 +52,7 @@ namespace eStomatologServices.Servisi
                     KorisnikId = entity.KorisnikId,
                     Ime=entity.Ime,
                     Prezime = entity.Prezime,
+                    GradId = insert.GradId,
           
                 };
                 Context.Doktori.Add(doktor);
@@ -77,6 +78,7 @@ namespace eStomatologServices.Servisi
                     Context.DoktoriOrdinacije.Add(doktoriOrdinacije);
                     Context.SaveChanges();
                 }
+               
 
             }
 

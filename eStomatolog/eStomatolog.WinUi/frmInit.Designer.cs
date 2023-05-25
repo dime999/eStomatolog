@@ -38,7 +38,7 @@
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(89, 35);
             this.btnLogin.TabIndex = 1;
-            this.btnLogin.Text = "Login";
+            this.btnLogin.Text = "Prijavi se";
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
@@ -48,7 +48,7 @@
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(89, 37);
             this.btnRegister.TabIndex = 2;
-            this.btnRegister.Text = "Register";
+            this.btnRegister.Text = "Registracija";
             this.btnRegister.UseVisualStyleBackColor = true;
             this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
             // 

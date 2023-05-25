@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace eStomatolog.WinUi
 {
@@ -17,6 +18,7 @@ namespace eStomatolog.WinUi
         public APIService KorisniciService { get; set; } = new APIService("Korisnik");
         public APIService SpecService { get; set; } = new APIService("Specijalizacija");
         public APIService OrdinacijaService { get; set; } = new APIService("Ordinacija");
+        public APIService GradService { get; set; } = new APIService("Grad");
 
         private Korisnik _model = null;
 
@@ -33,9 +35,10 @@ namespace eStomatolog.WinUi
             {
                 var roleList = clbUloge.CheckedItems.Cast<Specijalizacija>().ToList();
                 var ordinacijeList = clbOrdinacije.CheckedItems.Cast<Ordinacija>().ToList();
-
+                int gradId = (int)cblGradovi.SelectedValue;
                 var roleIdList = roleList.Select(x => x.SpecijalizacijaId).ToList();
-                var ordinacijaIdList = roleList.Select(x => x.SpecijalizacijaId).ToList();
+                var ordinacijaIdList = ordinacijeList.Select(x => x.OrdinacijaId).ToList();
+                
 
                 if (_model == null)
                 {
@@ -50,7 +53,9 @@ namespace eStomatolog.WinUi
                         PasswordPotvrda = txtPasswordPotvrda.Text,
                         Status = chkStatus.Checked,                  
                         SpecijalizacijeIdList= roleIdList,
-                        OrdinacijeIdList= ordinacijaIdList
+                        OrdinacijeIdList= ordinacijaIdList,
+                        GradId= gradId,
+                        
                     };
                     insertRequest.UlogeIdList.Add(1);
 
@@ -92,6 +97,7 @@ namespace eStomatolog.WinUi
         {
             await LoadRoles();
             await LoadOrdinacije();
+            await LoadGradovi();
 
             if (_model != null)
             {
@@ -116,6 +122,15 @@ namespace eStomatolog.WinUi
             clbOrdinacije.DataSource = ord;
             clbOrdinacije.DisplayMember = "Naziv";
         }
+
+        private async Task LoadGradovi()
+        {
+            var grad = await OrdinacijaService.Get<List<Grad>>();
+            cblGradovi.DataSource = grad;
+            cblGradovi.DisplayMember = "Naziv";
+            cblGradovi.ValueMember = "GradId";
+        }
+        
 
         private void txtIme_Validating(object sender, CancelEventArgs e)
         {
