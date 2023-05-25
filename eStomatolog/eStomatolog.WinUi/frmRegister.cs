@@ -35,10 +35,13 @@ namespace eStomatolog.WinUi
             {
                 var roleList = clbUloge.CheckedItems.Cast<Specijalizacija>().ToList();
                 var ordinacijeList = clbOrdinacije.CheckedItems.Cast<Ordinacija>().ToList();
-                int gradId = (int)cblGradovi.SelectedValue;
+               
                 var roleIdList = roleList.Select(x => x.SpecijalizacijaId).ToList();
                 var ordinacijaIdList = ordinacijeList.Select(x => x.OrdinacijaId).ToList();
-                
+
+                var grad = cblGradovi.SelectedItem as Grad;
+                int gradId = grad.GradId;
+
 
                 if (_model == null)
                 {
@@ -60,7 +63,7 @@ namespace eStomatolog.WinUi
                     insertRequest.UlogeIdList.Add(1);
 
                     var user = await KorisniciService.Register<Korisnik>(insertRequest);
-                    MessageBox.Show("Uspješno ste dodali novog korisnika");
+                    MessageBox.Show("Uspješno ste dodali novog doktora");
 
                     this.Hide();
                     frmLogin login = new frmLogin();
@@ -125,7 +128,7 @@ namespace eStomatolog.WinUi
 
         private async Task LoadGradovi()
         {
-            var grad = await OrdinacijaService.Get<List<Grad>>();
+            var grad = await GradService.Get<List<Grad>>();
             cblGradovi.DataSource = grad;
             cblGradovi.DisplayMember = "Naziv";
             cblGradovi.ValueMember = "GradId";
