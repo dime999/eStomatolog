@@ -28,7 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblTelefon = new System.Windows.Forms.Label();
+            this.txtTelefon = new System.Windows.Forms.TextBox();
+            this.lblDatum = new System.Windows.Forms.Label();
+            this.dtpDatum = new System.Windows.Forms.DateTimePicker();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtPrezime = new System.Windows.Forms.TextBox();
@@ -46,12 +51,10 @@
             this.cblGradovi = new System.Windows.Forms.ComboBox();
             this.chkStatus = new System.Windows.Forms.CheckBox();
             this.btnSave = new System.Windows.Forms.Button();
-            this.dtpDatum = new System.Windows.Forms.DateTimePicker();
-            this.lblDatum = new System.Windows.Forms.Label();
-            this.txtTelefon = new System.Windows.Forms.TextBox();
-            this.lblTelefon = new System.Windows.Forms.Label();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -74,6 +77,40 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Podaci";
+            // 
+            // lblTelefon
+            // 
+            this.lblTelefon.AutoSize = true;
+            this.lblTelefon.Location = new System.Drawing.Point(14, 141);
+            this.lblTelefon.Name = "lblTelefon";
+            this.lblTelefon.Size = new System.Drawing.Size(48, 15);
+            this.lblTelefon.TabIndex = 9;
+            this.lblTelefon.Text = "Telefon:";
+            // 
+            // txtTelefon
+            // 
+            this.txtTelefon.Location = new System.Drawing.Point(177, 133);
+            this.txtTelefon.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtTelefon.Name = "txtTelefon";
+            this.txtTelefon.Size = new System.Drawing.Size(233, 23);
+            this.txtTelefon.TabIndex = 8;
+            // 
+            // lblDatum
+            // 
+            this.lblDatum.AutoSize = true;
+            this.lblDatum.Location = new System.Drawing.Point(14, 111);
+            this.lblDatum.Name = "lblDatum";
+            this.lblDatum.Size = new System.Drawing.Size(92, 15);
+            this.lblDatum.TabIndex = 7;
+            this.lblDatum.Text = "Datum rodjenja:";
+            // 
+            // dtpDatum
+            // 
+            this.dtpDatum.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpDatum.Location = new System.Drawing.Point(177, 105);
+            this.dtpDatum.Name = "dtpDatum";
+            this.dtpDatum.Size = new System.Drawing.Size(233, 23);
+            this.dtpDatum.TabIndex = 6;
             // 
             // txtEmail
             // 
@@ -142,7 +179,6 @@
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Podaci";
-            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // txtPasswordPotvrda
             // 
@@ -234,40 +270,11 @@
             this.btnSave.TabIndex = 13;
             this.btnSave.Text = "Sačuvaj";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click_1);
             // 
-            // dtpDatum
+            // errorProvider
             // 
-            this.dtpDatum.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDatum.Location = new System.Drawing.Point(177, 105);
-            this.dtpDatum.Name = "dtpDatum";
-            this.dtpDatum.Size = new System.Drawing.Size(233, 23);
-            this.dtpDatum.TabIndex = 6;
-            // 
-            // lblDatum
-            // 
-            this.lblDatum.AutoSize = true;
-            this.lblDatum.Location = new System.Drawing.Point(14, 111);
-            this.lblDatum.Name = "lblDatum";
-            this.lblDatum.Size = new System.Drawing.Size(92, 15);
-            this.lblDatum.TabIndex = 7;
-            this.lblDatum.Text = "Datum rodjenja:";
-            // 
-            // txtTelefon
-            // 
-            this.txtTelefon.Location = new System.Drawing.Point(177, 133);
-            this.txtTelefon.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtTelefon.Name = "txtTelefon";
-            this.txtTelefon.Size = new System.Drawing.Size(233, 23);
-            this.txtTelefon.TabIndex = 8;
-            // 
-            // lblTelefon
-            // 
-            this.lblTelefon.AutoSize = true;
-            this.lblTelefon.Location = new System.Drawing.Point(14, 141);
-            this.lblTelefon.Name = "lblTelefon";
-            this.lblTelefon.Size = new System.Drawing.Size(48, 15);
-            this.lblTelefon.TabIndex = 9;
-            this.lblTelefon.Text = "Telefon:";
+            this.errorProvider.ContainerControl = this;
             // 
             // frmRegisterPacijent
             // 
@@ -282,10 +289,12 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "frmRegisterPacijent";
             this.Text = "frmRegisterPacijent";
+            this.Load += new System.EventHandler(this.frmRegisterPacijent_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -315,5 +324,6 @@
         private DateTimePicker dtpDatum;
         private Label lblTelefon;
         private TextBox txtTelefon;
+        private ErrorProvider errorProvider;
     }
 }

@@ -15,7 +15,7 @@ namespace eStomatologServices.Database
         public DateTime Datum { get; set; }
         public int Ocjena { get; set; }
 
-        public virtual Pacijent Pacijent { get; set; } = null!;
+      //  public virtual Pacijent Pacijent { get; set; } = null!;
         public virtual Doktor Doktor { get; set; } = null!;
     }
 }

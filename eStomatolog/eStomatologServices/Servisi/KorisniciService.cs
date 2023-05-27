@@ -81,6 +81,34 @@ namespace eStomatologServices.Servisi
                
 
             }
+            if (insert.UlogeIdList.Contains(2))
+            {
+                eStomatologServices.Database.Pacijent pacijent = new eStomatologServices.Database.Pacijent()
+                {
+                    KorisnikId = entity.KorisnikId,
+                    Ime = entity.Ime,
+                    Prezime = entity.Prezime,
+                    GradId = insert.GradId,
+                    Telefon = insert.Telefon,
+                    DatumRodjenja = insert.DatumRodjenja,
+                };
+                Context.Pacijenti.Add(pacijent);
+                Context.SaveChanges();
+
+
+                foreach (var ordinacijaId in insert.OrdinacijeIdList)
+                {
+                    Database.PacijentOrdinacija pacijentOrdinacija = new Database.PacijentOrdinacija();
+                    pacijentOrdinacija.OrdinacijaId = ordinacijaId;
+                    pacijentOrdinacija.PacijentId = pacijent.Id;
+
+
+                    Context.PacijentiOrdinacije.Add(pacijentOrdinacija);
+                    Context.SaveChanges();
+                }
+
+
+            }
 
             return entity;
         }

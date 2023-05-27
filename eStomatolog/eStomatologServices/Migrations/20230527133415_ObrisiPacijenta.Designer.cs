@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eStomatologServices;
 
@@ -11,9 +12,11 @@ using eStomatologServices;
 namespace eStomatologServices.Migrations
 {
     [DbContext(typeof(eStomatologContext))]
-    partial class eStomatologContextModelSnapshot : ModelSnapshot
+    [Migration("20230527133415_ObrisiPacijenta")]
+    partial class ObrisiPacijenta
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -200,59 +203,25 @@ namespace eStomatologServices.Migrations
                     b.ToTable("Ordinacija");
                 });
 
-            modelBuilder.Entity("eStomatologServices.Database.Pacijent", b =>
+            modelBuilder.Entity("eStomatologServices.Database.PacijentOrdinacija", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("OrdinacijaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrdinacijaId"));
 
-                    b.Property<DateTime>("DatumRodjenja")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("GradId")
+                    b.Property<int>("OrdinacijaId1")
                         .HasColumnType("int");
 
-                    b.Property<string>("Ime")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("KorisnikId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Prezime")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Telefon")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id")
-                        .HasName("PK__Pacijenti__3214EC07B54830TE");
-
-                    b.HasIndex("GradId");
-
-                    b.HasIndex("KorisnikId")
-                        .IsUnique();
-
-                    b.ToTable("Pacijenti", (string)null);
-                });
-
-            modelBuilder.Entity("eStomatologServices.Database.PacijentOrdinacija", b =>
-                {
                     b.Property<int>("PacijentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OrdinacijaId")
-                        .HasColumnType("int");
+                    b.HasKey("OrdinacijaId");
 
-                    b.HasKey("PacijentId", "OrdinacijaId");
+                    b.HasIndex("OrdinacijaId1");
 
-                    b.HasIndex("OrdinacijaId");
-
-                    b.ToTable("PacijentiOrdinacije", (string)null);
+                    b.ToTable("PacijentiOrdinacije");
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.Specijalizacija", b =>
@@ -633,42 +602,15 @@ namespace eStomatologServices.Migrations
                     b.Navigation("Doktor");
                 });
 
-            modelBuilder.Entity("eStomatologServices.Database.Pacijent", b =>
-                {
-                    b.HasOne("eStomatologServices.Database.Grad", "Grad")
-                        .WithMany("Pacijenti")
-                        .HasForeignKey("GradId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("eStomatologServices.Models.Korisnik", "Korisnik")
-                        .WithOne()
-                        .HasForeignKey("eStomatologServices.Database.Pacijent", "KorisnikId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Grad");
-
-                    b.Navigation("Korisnik");
-                });
-
             modelBuilder.Entity("eStomatologServices.Database.PacijentOrdinacija", b =>
                 {
                     b.HasOne("eStomatologServices.Database.Ordinacija", "Ordinacija")
                         .WithMany()
-                        .HasForeignKey("OrdinacijaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("eStomatologServices.Database.Pacijent", "Pacijnet")
-                        .WithMany()
-                        .HasForeignKey("PacijentId")
+                        .HasForeignKey("OrdinacijaId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Ordinacija");
-
-                    b.Navigation("Pacijnet");
                 });
 
             modelBuilder.Entity("eStomatologServices.Models.Dijagnoza", b =>
@@ -734,8 +676,6 @@ namespace eStomatologServices.Migrations
             modelBuilder.Entity("eStomatologServices.Database.Grad", b =>
                 {
                     b.Navigation("Doktori");
-
-                    b.Navigation("Pacijenti");
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.Specijalizacija", b =>

@@ -73,7 +73,7 @@ public partial class eStomatologContext : DbContext
             entity.Property(e => e.Datum).HasColumnType("datetime");
             entity.Property(e => e.DoktorId).HasColumnName("DoktorID");
             entity.Property(e => e.Opis).HasMaxLength(200);
-            entity.Property(e => e.PacijentId).HasColumnName("PacijentID");
+            entity.Property(e => e.Id).HasColumnName("PacijentID");
 
         });
 
@@ -90,7 +90,7 @@ public partial class eStomatologContext : DbContext
 
         modelBuilder.Entity<Pacijent>(entity =>
         {
-            entity.HasKey(e => e.PacijentId).HasName("PK__Pacijent__3214EC075A0E6AA8");
+            entity.HasKey(e => e.Id).HasName("PK__Pacijneti__3214EC07B54830TE");
             entity.HasOne(d => d.Korisnik)
             .WithOne()
             .HasForeignKey<Pacijent>(d => d.KorisnikId);
@@ -98,6 +98,8 @@ public partial class eStomatologContext : DbContext
 
 
         });
+
+
         modelBuilder.Entity<Doktor>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Doktori__3214EC07B54830FE");
@@ -111,9 +113,10 @@ public partial class eStomatologContext : DbContext
             entity.ToTable("Doktori");
         });
 
+
         modelBuilder.Entity<Pacijent>(entity =>
         {
-            entity.HasKey(e => e.PacijentId).HasName("PK__Pacijent__3214EC075A0E6AA8");
+            entity.HasKey(e => e.Id).HasName("PK__Pacijenti__3214EC07B54830TE");
 
             // Dodavanje relacije prema entitetu Grad
             entity.HasOne(d => d.Grad)
@@ -124,24 +127,19 @@ public partial class eStomatologContext : DbContext
             entity.ToTable("Pacijenti");
         });
 
+
+
         modelBuilder.Entity<Grad>(entity =>
         {
             entity.HasKey(e => e.GradId);
 
-            // Dodavanje relacije prema entitetu Doktor
+            
             entity.HasMany(g => g.Doktori)
                 .WithOne(d => d.Grad)
                 .HasForeignKey(d => d.GradId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            entity.ToTable("Gradovi");
-        });
 
-        modelBuilder.Entity<Grad>(entity =>
-        {
-            entity.HasKey(e => e.GradId);
-
-            // Dodavanje relacije prema entitetu Doktor
             entity.HasMany(g => g.Pacijenti)
                 .WithOne(d => d.Grad)
                 .HasForeignKey(d => d.GradId)
@@ -150,23 +148,16 @@ public partial class eStomatologContext : DbContext
             entity.ToTable("Gradovi");
         });
 
-
-
-
-        modelBuilder.Entity<Pacijent>(entity =>
+        modelBuilder.Entity<Grad>(entity =>
         {
-            entity.HasKey(e => e.PacijentId).HasName("PK__Pacijent__3214EC075A0E6AA8");
+            entity.HasKey(e => e.GradId);
 
-            entity.ToTable("Pacijenti");
-
-          ;
-            entity.Property(e => e.BrojTelefona).HasMaxLength(20);
-            entity.Property(e => e.DatumRodjenja).HasColumnType("date");
-            entity.Property(e => e.Email).HasMaxLength(50);
-            entity.Property(e => e.Ime).HasMaxLength(50);
-            
-            entity.Property(e => e.Prezime).HasMaxLength(50);
+            entity.ToTable("Gradovi");
         });
+
+
+
+
 
         modelBuilder.Entity<Placanja>(entity =>
         {
@@ -176,7 +167,7 @@ public partial class eStomatologContext : DbContext
 
             entity.Property(e => e.Datum).HasColumnType("datetime");
             entity.Property(e => e.Iznos).HasColumnType("decimal(10, 2)");
-            entity.Property(e => e.PacijentId).HasColumnName("PacijentID");
+            entity.Property(e => e.Id).HasColumnName("PacijentID");
 
       
         });
@@ -190,7 +181,7 @@ public partial class eStomatologContext : DbContext
             entity.Property(e => e.Datum).HasColumnType("datetime");
             entity.Property(e => e.DoktorId).HasColumnName("DoktorID");
             entity.Property(e => e.Opis).HasMaxLength(200);
-            entity.Property(e => e.PacijentId).HasColumnName("PacijentID");
+            entity.Property(e => e.Id).HasColumnName("PacijentID");
 
 
 
@@ -384,6 +375,16 @@ public partial class eStomatologContext : DbContext
                 j.ToTable("PacijentiOrdinacije");
             }
         );
+
+
+
+
+
+
+
+
+
+
 
     }
 

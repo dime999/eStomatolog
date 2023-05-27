@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Servisi
 {
-    public class PacijentService : BaseService<eStomatologModel.Pacijent, Models.Pacijent, PacijentSearchObject>, IPacijentService
-    {    
+    public class PacijentService : BaseService<eStomatologModel.Pacijent, Database.Pacijent, PacijentSearchObject>, IPacijentService
+    {
         public PacijentService(eStomatologContext context, IMapper mapper) : base(context, mapper)
         {
-           
+
         }
 
-        public override IQueryable<eStomatologServices.Models.Pacijent> AddFilter(IQueryable<eStomatologServices.Models.Pacijent> query, PacijentSearchObject search = null)
+        public override IQueryable<eStomatologServices.Database.Pacijent> AddFilter(IQueryable<eStomatologServices.Database.Pacijent> query, PacijentSearchObject search = null)
         {
             var filteredQuery = base.AddFilter(query, search);
 
@@ -26,7 +26,7 @@ namespace eStomatologServices.Servisi
             {
                 filteredQuery = filteredQuery.Where(x => x.Ime == search.Ime);
             }
-            if(search.Page.HasValue==true)
+            if (search.Page.HasValue == true)
             {
                 filteredQuery = filteredQuery.Take(search.Size.Value).Skip(search.Page.Value * search.Size.Value);
             }

@@ -13,5 +13,5 @@ public partial class Placanja
 
     public decimal Iznos { get; set; }
 
-    public virtual Pacijent Pacijent { get; set; } = null!;
+  //  public virtual Pacijent Pacijent { get; set; } = null!;
 }

@@ -1,38 +1,40 @@
-﻿using eStomatologModel;
-using eStomatologServices.Database;
+﻿using eStomatologServices.Models;
 using System;
 using System.Collections.Generic;
-using Ordinacija = eStomatologServices.Database.Ordinacija;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace eStomatologServices.Models;
-
-public partial class Pacijent
+namespace eStomatologServices.Database
 {
-
-    public Pacijent()
+    public class Pacijent
     {
-        Ordinacije = new HashSet<Ordinacija>();
+        public Pacijent()
+        {
+           
+            Ordinacije = new HashSet<Ordinacija>();
+        }
+
+
+        public int Id { get; set; }
+
+        public int KorisnikId { get; set; }
+
+        public int GradId { get; set; }
+
+        public string Ime { get; set; } = null;
+
+        public string Prezime { get; set; } = null;
+
+        public string Telefon { get; set; } = null;
+
+        public DateTime DatumRodjenja { get; set; }
+
+        public virtual Korisnik Korisnik { get; set; } = null!;
+
+        public virtual Grad Grad { get; set; } = null!;
+
+       
+        public virtual ICollection<Ordinacija> Ordinacije { get; set; }
     }
-    public int PacijentId { get; set; }
-
-    public int KorisnikId { get; set; }
-
-    public int GradId { get; set; }
-
-    public string Ime { get; set; } = null!;
-
-    public string Prezime { get; set; } = null!;
-
-    public DateTime DatumRodjenja { get; set; }
-
-    public string BrojTelefona { get; set; } = null!;
-
-    public string Email { get; set; } = null!;
-
-    public virtual Korisnik Korisnik { get; set; } = null!;
-    public virtual Database.Grad Grad { get; set; } = null!;
-
-
-
-    public virtual ICollection<Ordinacija> Ordinacije { get; set; }
 }

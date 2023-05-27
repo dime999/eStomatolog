@@ -17,5 +17,5 @@ public partial class Dijagnoza
 
     public virtual Doktor Doktor { get; set; } = null!;
 
-    public virtual Pacijent Pacijent { get; set; } = null!;
+    //public virtual Pacijent Pacijent { get; set; } = null!;
 }

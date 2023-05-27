@@ -21,6 +21,7 @@ namespace eStomatologModel.Requests
         [Required(AllowEmptyStrings = false)]
         public string KorisnickoIme { get; set; }
         public string Password { get; set; }
+        public DateTime DatumRodjenja { get; set; }
 
         public string PasswordPotvrda { get; set; }
 

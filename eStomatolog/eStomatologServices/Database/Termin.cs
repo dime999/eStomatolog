@@ -19,7 +19,7 @@ public partial class Termin
 
     public virtual Doktor Doktor { get; set; } = null!;
 
-    public virtual Pacijent Pacijent { get; set; } = null!;
+   // public virtual Pacijent Pacijent { get; set; } = null!;
 
     public virtual Usluga Usluga { get; set; } = null!;
 }
