@@ -38,6 +38,14 @@ namespace eStomatolog.WinUi
             return list;
         }
 
+        public async Task<T> Login<T>(string username, string pass)
+        {
+            var url = $"{_endpoint}{_resource}?Username={username}&Password={pass}";
+
+            var result = await url.WithBasicAuth(username, pass).GetJsonAsync<T>();
+            return result;
+        }
+
         public async Task<T> Register<T>(object request)
         {
             var list = await $"{_endpoint}{_resource}".PostJsonAsync(request).ReceiveJson<T>();

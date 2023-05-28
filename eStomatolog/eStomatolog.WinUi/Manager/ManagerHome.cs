@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic.ApplicationServices;
+﻿using eStomatologModel;
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,20 +15,25 @@ namespace eStomatolog.WinUi.Manager
 {
     public partial class ManagerHome : Form
     {
-        public ManagerHome()
+        private Korisnik _korisnik { get; set; }
+
+        private APIService _gradoviService = new APIService("Grad");
+
+        public ManagerHome(Korisnik korisnik)
         {
+            _korisnik= korisnik;
             InitializeComponent();
         }
 
         private async void ManagerHome_Load(object sender, EventArgs e)
         {
-            
+            await LoadInfo();
 
         }
 
-        private async void LoadInfo()
+        private async Task LoadInfo()
         {
-           
+            LoadGradovi();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -51,6 +57,15 @@ namespace eStomatolog.WinUi.Manager
         private async void dgvManagerHome_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
            
+        }
+
+        private async void LoadGradovi()
+        {
+
+            var gradovi = await _gradoviService.Get<List<Grad>>();
+            cbCity.DataSource = gradovi;
+            cbCity.DisplayMember = "Naziv";
+            cbCity.ValueMember = "GradId";
         }
     }
 }

@@ -13,6 +13,8 @@ namespace eStomatolog.WinUi.Manager
 {
     public partial class frmOrdinacija : Form
     {
+
+
         public frmOrdinacija()
         {
             InitializeComponent();
