@@ -1,4 +1,5 @@
 ﻿using eStomatologModel;
+using eStomatologModel.Requests;
 using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace eStomatolog.WinUi.Manager
 {
@@ -18,6 +20,8 @@ namespace eStomatolog.WinUi.Manager
         private Korisnik _korisnik { get; set; }
 
         private APIService _gradoviService = new APIService("Grad");
+        private APIService _doktorservice = new APIService("Doktor");
+        private APIService _korisnikService = new APIService("Korisnik");
 
         public ManagerHome(Korisnik korisnik)
         {
@@ -27,13 +31,18 @@ namespace eStomatolog.WinUi.Manager
 
         private async void ManagerHome_Load(object sender, EventArgs e)
         {
-            await LoadInfo();
+            await LoadData();
 
         }
 
         private async Task LoadInfo()
         {
-            LoadGradovi();
+            APIService _korisnikEndpoint = new APIService("Login");
+            _korisnik = await _korisnikEndpoint.Login<eStomatologModel.Korisnik>(APIService.Username, APIService.Password);
+            txtIme.Text=_korisnik.Ime;
+            txtSurname.Text = _korisnik.Prezime;
+            txtUserName.Text = _korisnik.KorisnickoIme;
+
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -45,7 +54,27 @@ namespace eStomatolog.WinUi.Manager
 
         private async void btnSaveChanges_Click(object sender, EventArgs e)
         {
-            
+            KorisniciUpdateRequest request = new KorisniciUpdateRequest()
+            {
+                Ime = txtIme.Text,
+                Prezime = txtSurname.Text,
+                KorisnickoIme = txtUserName.Text,
+                Status = true
+                
+            };
+
+
+            var korisnik = await _korisnikService.Put<eStomatologModel.Korisnik>(_korisnik.KorisnikId, request);
+            APIService.Username = request.KorisnickoIme;
+
+            if (korisnik != null)
+            {
+                MessageBox.Show("Successfully updated user details.", "Success");
+            }
+            else
+            {
+                MessageBox.Show("Couldn't update user details.", "Failure");
+            }
 
         }
 
@@ -66,6 +95,22 @@ namespace eStomatolog.WinUi.Manager
             cbCity.DataSource = gradovi;
             cbCity.DisplayMember = "Naziv";
             cbCity.ValueMember = "GradId";
+        }
+
+        private async Task LoadData()
+        {
+          
+          //  await LoadOrdinacije();
+            LoadGradovi();
+            txtIme.Enabled = false;
+            txtUserName.Enabled = false;
+            txtSurname.Enabled = false;
+            LoadInfo();
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

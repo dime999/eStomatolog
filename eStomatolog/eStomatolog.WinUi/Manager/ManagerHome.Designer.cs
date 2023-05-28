@@ -44,7 +44,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtIme = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnAddHairSalon = new System.Windows.Forms.Button();
+            this.btnAddOrdinacija = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.cbCity = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -68,7 +68,7 @@
             this.groupBox1.Size = new System.Drawing.Size(776, 268);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Hair salons";
+            this.groupBox1.Text = "Ordinacije";
             // 
             // dgvManagerHome
             // 
@@ -137,7 +137,8 @@
             this.groupBox2.Size = new System.Drawing.Size(369, 306);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Update personal info";
+            this.groupBox2.Text = "Uredi korisnicke podatke";
+            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // btnEdit
             // 
@@ -148,7 +149,7 @@
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(112, 29);
             this.btnEdit.TabIndex = 6;
-            this.btnEdit.Text = "Edit info";
+            this.btnEdit.Text = "Uredi";
             this.btnEdit.UseVisualStyleBackColor = false;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
@@ -157,9 +158,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(92, 146);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 15);
+            this.label3.Size = new System.Drawing.Size(85, 15);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Username";
+            this.label3.Text = "Korisnicko ime";
             // 
             // txtUserName
             // 
@@ -179,7 +180,7 @@
             this.btnSaveChanges.Name = "btnSaveChanges";
             this.btnSaveChanges.Size = new System.Drawing.Size(189, 35);
             this.btnSaveChanges.TabIndex = 2;
-            this.btnSaveChanges.Text = "Save personal info changes";
+            this.btnSaveChanges.Text = "Snimi nove podatke";
             this.btnSaveChanges.UseVisualStyleBackColor = false;
             this.btnSaveChanges.Click += new System.EventHandler(this.btnSaveChanges_Click);
             // 
@@ -188,9 +189,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(92, 92);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 15);
+            this.label2.Size = new System.Drawing.Size(49, 15);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Surname";
+            this.label2.Text = "Prezime";
             // 
             // txtSurname
             // 
@@ -205,9 +206,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(95, 37);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(39, 15);
+            this.label1.Size = new System.Drawing.Size(27, 15);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Name";
+            this.label1.Text = "Ime";
             // 
             // txtIme
             // 
@@ -219,7 +220,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.btnAddHairSalon);
+            this.groupBox3.Controls.Add(this.btnAddOrdinacija);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.cbCity);
             this.groupBox3.Controls.Add(this.label6);
@@ -233,29 +234,29 @@
             this.groupBox3.Size = new System.Drawing.Size(389, 306);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Add new hair salon";
+            this.groupBox3.Text = "Dodaj ordinaciju";
             // 
-            // btnAddHairSalon
+            // btnAddOrdinacija
             // 
-            this.btnAddHairSalon.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnAddHairSalon.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAddHairSalon.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnAddHairSalon.Location = new System.Drawing.Point(101, 251);
-            this.btnAddHairSalon.Name = "btnAddHairSalon";
-            this.btnAddHairSalon.Size = new System.Drawing.Size(189, 35);
-            this.btnAddHairSalon.TabIndex = 7;
-            this.btnAddHairSalon.Text = "Add new hair salon";
-            this.btnAddHairSalon.UseVisualStyleBackColor = false;
-            this.btnAddHairSalon.Click += new System.EventHandler(this.btnAddHairSalon_Click);
+            this.btnAddOrdinacija.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnAddOrdinacija.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnAddOrdinacija.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnAddOrdinacija.Location = new System.Drawing.Point(101, 251);
+            this.btnAddOrdinacija.Name = "btnAddOrdinacija";
+            this.btnAddOrdinacija.Size = new System.Drawing.Size(189, 35);
+            this.btnAddOrdinacija.TabIndex = 7;
+            this.btnAddOrdinacija.Text = "Dodaj novu ordinaciju";
+            this.btnAddOrdinacija.UseVisualStyleBackColor = false;
+            this.btnAddOrdinacija.Click += new System.EventHandler(this.btnAddHairSalon_Click);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(122, 185);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(28, 15);
+            this.label7.Size = new System.Drawing.Size(32, 15);
             this.label7.TabIndex = 15;
-            this.label7.Text = "City";
+            this.label7.Text = "Grad";
             // 
             // cbCity
             // 
@@ -271,18 +272,18 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(122, 137);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(67, 15);
+            this.label6.Size = new System.Drawing.Size(31, 15);
             this.label6.TabIndex = 12;
-            this.label6.Text = "Description";
+            this.label6.Text = "Opis";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(122, 83);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(49, 15);
+            this.label5.Size = new System.Drawing.Size(43, 15);
             this.label5.TabIndex = 11;
-            this.label5.Text = "Address";
+            this.label5.Text = "Adresa";
             // 
             // txtHairsalonDesc
             // 
@@ -313,9 +314,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(122, 28);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(39, 15);
+            this.label4.Size = new System.Drawing.Size(36, 15);
             this.label4.TabIndex = 7;
-            this.label4.Text = "Name";
+            this.label4.Text = "Naziv";
             // 
             // ManagerHome
             // 
@@ -326,6 +327,7 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+          
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ManagerHome";
             this.Load += new System.EventHandler(this.ManagerHome_Load);
@@ -365,6 +367,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn Address;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
-        private System.Windows.Forms.Button btnAddHairSalon;
+        private System.Windows.Forms.Button btnAddOrdinacija;
     }
 }

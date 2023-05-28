@@ -72,10 +72,8 @@ namespace eStomatolog.WinUi
                     {
                         Ime = txtIme.Text,
                         Prezime = txtPrezime.Text,
-                        Email = txtEmail.Text,
-                        Password = txtPassword.Text,
-                        PasswordPotvrda = txtPasswordPotvrda.Text,
-                        Status = chkStatus.Checked,
+                       KorisnickoIme=txtUsername.Text,
+                       Status= true,
                     };
 
                     _model = await KorisniciService.Put<Korisnik>(_model.KorisnikId, updateRequest);
