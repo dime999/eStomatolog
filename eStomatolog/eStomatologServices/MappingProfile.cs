@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using eStomatologModel;
 using eStomatologModel.Requests;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
@@ -14,7 +15,7 @@ namespace eStomatologServices
         public MappingProfile()
         {
             CreateMap<Models.Korisnik, eStomatologModel.Korisnik>();
-          //  CreateMap<Models.Pacijent, eStomatologModel.Pacijent>();
+            CreateMap<Database.Pacijent, eStomatologModel.Pacijent>();
             CreateMap<Models.Doktor, eStomatologModel.Doktor>();
             CreateMap<Models.Dijagnoza, eStomatologModel.Dijagnoza>();
             CreateMap<Models.Placanja, eStomatologModel.Placanja>();
@@ -26,24 +27,28 @@ namespace eStomatologServices
             CreateMap<Database.Uloge, eStomatologModel.Uloge>();
             CreateMap<Database.Specijalizacija, eStomatologModel.Specijalizacija>();
             CreateMap<Database.Grad, eStomatologModel.Grad>();
+            CreateMap<Database.DoktorOrdinacija, eStomatologModel.DoktorOrdinacija>();
 
             CreateMap<DijanozaInsertRequest,Models.Dijagnoza>();
             CreateMap<DijagnozaUpdateRequest, Models.Dijagnoza>();   
             CreateMap<SpecijalizacijaUpsertRequest, Database.Specijalizacija>();   
             CreateMap<GradUpsertRequest, Database.Grad>();   
+            CreateMap<DoktorOrdinacija, Database.DoktorOrdinacija>();   
+            CreateMap<DoktorOrdinacijaInsertRequest, Database.DoktorOrdinacija>();   
             
             
             CreateMap<eStomatologModel.Requests.VrstaUslugeUpsertRequest,eStomatologServices.Database.VrstaUsluge>();
             CreateMap<eStomatologModel.Requests.OrdinacijaUpsertRequest,eStomatologServices.Database.Ordinacija>();
 
 
-           
 
             CreateMap<Database.KorisniciUloge, eStomatologModel.KorisniciUloge>();
             CreateMap<Database.Uloge, eStomatologModel.Uloge>();
 
             CreateMap<KorisniciInsertRequest, Models.Korisnik>();
             CreateMap<KorisniciUpdateRequest, Models.Korisnik>();
+
+      
 
         }
 

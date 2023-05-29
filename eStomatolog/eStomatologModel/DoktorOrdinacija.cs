@@ -11,5 +11,10 @@ namespace eStomatologModel
 
         public int OrdinacijaId { get; set; }
         public Ordinacija Ordinacija { get; set; }
+
+
+        public string OrdinacijaNaziv => Ordinacija?.Naziv;
+       
+        public string OrdinacijaAdresa => Ordinacija?.Adresa;
     }
 }

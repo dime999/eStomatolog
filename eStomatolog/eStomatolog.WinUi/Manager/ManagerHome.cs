@@ -22,6 +22,9 @@ namespace eStomatolog.WinUi.Manager
         private APIService _gradoviService = new APIService("Grad");
         private APIService _doktorservice = new APIService("Doktor");
         private APIService _korisnikService = new APIService("Korisnik");
+        private APIService _ordinacijaService = new APIService("Ordinacija");
+        private APIService _doktorOrdinacija = new APIService("DoktorOrdinacija");
+        private APIService _doktorKorisnik = new APIService("GetByKorisnikId");
 
         public ManagerHome(Korisnik korisnik)
         {
@@ -33,6 +36,13 @@ namespace eStomatolog.WinUi.Manager
         {
             await LoadData();
 
+        }
+
+        private async Task LoadOrdinacije()
+        {
+            var Doktor = _doktorKorisnik.GetByKorisnikId<Doktor>(_korisnik.KorisnikId);
+
+               
         }
 
         private async Task LoadInfo()
@@ -78,10 +88,7 @@ namespace eStomatolog.WinUi.Manager
 
         }
 
-        private async void btnAddHairSalon_Click(object sender, EventArgs e)
-        {
-           
-        }
+       
 
         private async void dgvManagerHome_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -100,7 +107,7 @@ namespace eStomatolog.WinUi.Manager
         private async Task LoadData()
         {
           
-          //  await LoadOrdinacije();
+            await LoadOrdinacije();
             LoadGradovi();
             txtIme.Enabled = false;
             txtUserName.Enabled = false;
@@ -111,6 +118,45 @@ namespace eStomatolog.WinUi.Manager
         private void groupBox2_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnAddOrdinacija_Click(object sender, EventArgs e)
+        {
+            //var req = new OrdinacijaUpsertRequest()
+            //{
+            //    Naziv = txtOrdinacijaNaziv.Text,
+            //    Adresa = txtOrdinacijaAdresa.Text,
+
+            //    Grad = cbCity.DisplayMember,
+
+            //    Drzava = "Bosna i Hercegovina",
+
+            //    Telefon = txtTelefon.Text,
+
+            //    Slika="test"
+
+            //};
+
+            ////var Doktor = _doktorKorisnik.GetByKorisnikId<Doktor>(_korisnik.KorisnikId);
+            ////int DoktorId = Doktor.Id;
+
+            //var newOrdinacija = _ordinacijaService.Post<Ordinacija>(req);
+
+
+            ////DoktorOrdinacijaInsertRequest request = new DoktorOrdinacijaInsertRequest()
+            ////{
+            ////    OrdinacijaId = newOrdinacija.Id,
+            ////    DoktorId = Doktor.Id,
+            ////};
+
+            ////var doktorOrdinacija = _doktorOrdinacija.Post<DoktorOrdinacija>(request);
+
+
+            //MessageBox.Show("Uspjesno ste dodali novu ordinaciju!");
+            //txtOrdinacijaNaziv.Clear();
+            //txtOrdinacijaAdresa.Clear();
+
+            //LoadData();
         }
     }
 }

@@ -9,8 +9,10 @@ public partial class Doktor
 
     public Doktor()
     {
+
+        DoktorOrdinacije = new HashSet<DoktorOrdinacija>();
         DoktoriSpecijalizacije = new HashSet<DoktoriSpecijalizacije>();
-        Ordinacije = new HashSet<Ordinacija>();
+
     }
 
 
@@ -27,6 +29,6 @@ public partial class Doktor
     public virtual Korisnik Korisnik { get; set; } = null!;
     public virtual Grad Grad { get; set; } = null!;
 
+    public virtual ICollection<DoktorOrdinacija> DoktorOrdinacije { get; set; }
     public virtual ICollection<DoktoriSpecijalizacije> DoktoriSpecijalizacije { get; set; }
-    public virtual ICollection<Ordinacija> Ordinacije { get; set; }
 }

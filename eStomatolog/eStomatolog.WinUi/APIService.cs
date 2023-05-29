@@ -46,6 +46,14 @@ namespace eStomatolog.WinUi
             return result;
         }
 
+        public async Task<T> GetByKorisnikId<T>(int id)
+        {
+            var url = $"{_endpoint}{_resource}/{id}";
+
+            var result = await url.WithBasicAuth(Username, Password).GetJsonAsync<T>();
+            return result;
+        }
+
         public async Task<T> Register<T>(object request)
         {
             var list = await $"{_endpoint}{_resource}".PostJsonAsync(request).ReceiveJson<T>();

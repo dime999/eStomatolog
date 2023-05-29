@@ -25,7 +25,7 @@ namespace eStomatologServices.Servisi
 
             entity = AddFilter(entity, search);
 
-            if(search?.Page.HasValue==true && search?.Size.HasValue==true)
+            if (search?.Page.HasValue == true && search?.Size.HasValue == true)
             {
                 entity = entity.Take(search.Size.Value).Skip(search.Page.Value * search.Size.Value);
             }
@@ -45,7 +45,7 @@ namespace eStomatologServices.Servisi
             return query;
         }
 
-        public T GetById(int id)
+        public virtual T GetById(int id)
         {
             var set = Context.Set<TDb>();
 

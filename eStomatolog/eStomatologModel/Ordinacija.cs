@@ -18,9 +18,7 @@ namespace eStomatologModel
 
         public string Telefon { get; set; }
 
-        public byte[] Slika { get; set; } 
 
-        public virtual ICollection<Doktor> Doktori { get; set; }
-        public virtual ICollection<Pacijent> Pacijenti { get; set; }
+       
     }
 }

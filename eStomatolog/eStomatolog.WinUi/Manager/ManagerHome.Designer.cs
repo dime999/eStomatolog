@@ -47,12 +47,12 @@
             this.btnAddOrdinacija = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.cbCity = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtHairsalonDesc = new System.Windows.Forms.TextBox();
-            this.txtHairsalonAddress = new System.Windows.Forms.TextBox();
-            this.txtHairSalonName = new System.Windows.Forms.TextBox();
+            this.txtOrdinacijaAdresa = new System.Windows.Forms.TextBox();
+            this.txtOrdinacijaNaziv = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.txtTelefon = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvManagerHome)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -220,14 +220,14 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label6);
+            this.groupBox3.Controls.Add(this.txtTelefon);
             this.groupBox3.Controls.Add(this.btnAddOrdinacija);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.cbCity);
-            this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.txtHairsalonDesc);
-            this.groupBox3.Controls.Add(this.txtHairsalonAddress);
-            this.groupBox3.Controls.Add(this.txtHairSalonName);
+            this.groupBox3.Controls.Add(this.txtOrdinacijaAdresa);
+            this.groupBox3.Controls.Add(this.txtOrdinacijaNaziv);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Location = new System.Drawing.Point(393, 286);
             this.groupBox3.Name = "groupBox3";
@@ -247,7 +247,7 @@
             this.btnAddOrdinacija.TabIndex = 7;
             this.btnAddOrdinacija.Text = "Dodaj novu ordinaciju";
             this.btnAddOrdinacija.UseVisualStyleBackColor = false;
-            this.btnAddOrdinacija.Click += new System.EventHandler(this.btnAddHairSalon_Click);
+            this.btnAddOrdinacija.Click += new System.EventHandler(this.btnAddOrdinacija_Click);
             // 
             // label7
             // 
@@ -267,15 +267,6 @@
             this.cbCity.Size = new System.Drawing.Size(142, 23);
             this.cbCity.TabIndex = 14;
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(122, 137);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(31, 15);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Opis";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -285,29 +276,21 @@
             this.label5.TabIndex = 11;
             this.label5.Text = "Adresa";
             // 
-            // txtHairsalonDesc
+            // txtOrdinacijaAdresa
             // 
-            this.txtHairsalonDesc.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.txtHairsalonDesc.Location = new System.Drawing.Point(122, 155);
-            this.txtHairsalonDesc.Name = "txtHairsalonDesc";
-            this.txtHairsalonDesc.Size = new System.Drawing.Size(142, 23);
-            this.txtHairsalonDesc.TabIndex = 10;
+            this.txtOrdinacijaAdresa.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtOrdinacijaAdresa.Location = new System.Drawing.Point(122, 101);
+            this.txtOrdinacijaAdresa.Name = "txtOrdinacijaAdresa";
+            this.txtOrdinacijaAdresa.Size = new System.Drawing.Size(142, 23);
+            this.txtOrdinacijaAdresa.TabIndex = 9;
             // 
-            // txtHairsalonAddress
+            // txtOrdinacijaNaziv
             // 
-            this.txtHairsalonAddress.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.txtHairsalonAddress.Location = new System.Drawing.Point(122, 101);
-            this.txtHairsalonAddress.Name = "txtHairsalonAddress";
-            this.txtHairsalonAddress.Size = new System.Drawing.Size(142, 23);
-            this.txtHairsalonAddress.TabIndex = 9;
-            // 
-            // txtHairSalonName
-            // 
-            this.txtHairSalonName.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.txtHairSalonName.Location = new System.Drawing.Point(122, 46);
-            this.txtHairSalonName.Name = "txtHairSalonName";
-            this.txtHairSalonName.Size = new System.Drawing.Size(142, 23);
-            this.txtHairSalonName.TabIndex = 8;
+            this.txtOrdinacijaNaziv.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtOrdinacijaNaziv.Location = new System.Drawing.Point(122, 46);
+            this.txtOrdinacijaNaziv.Name = "txtOrdinacijaNaziv";
+            this.txtOrdinacijaNaziv.Size = new System.Drawing.Size(142, 23);
+            this.txtOrdinacijaNaziv.TabIndex = 8;
             // 
             // label4
             // 
@@ -317,6 +300,23 @@
             this.label4.Size = new System.Drawing.Size(36, 15);
             this.label4.TabIndex = 7;
             this.label4.Text = "Naziv";
+            // 
+            // txtTelefon
+            // 
+            this.txtTelefon.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtTelefon.Location = new System.Drawing.Point(122, 159);
+            this.txtTelefon.Name = "txtTelefon";
+            this.txtTelefon.Size = new System.Drawing.Size(142, 23);
+            this.txtTelefon.TabIndex = 16;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(122, 141);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(45, 15);
+            this.label6.TabIndex = 17;
+            this.label6.Text = "Telefon";
             // 
             // ManagerHome
             // 
@@ -357,10 +357,8 @@
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtHairsalonDesc;
-        private System.Windows.Forms.TextBox txtHairsalonAddress;
-        private System.Windows.Forms.TextBox txtHairSalonName;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtOrdinacijaAdresa;
+        private System.Windows.Forms.TextBox txtOrdinacijaNaziv;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cbCity;
@@ -368,5 +366,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Address;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.Button btnAddOrdinacija;
+        private Label label6;
+        private TextBox txtTelefon;
     }
 }

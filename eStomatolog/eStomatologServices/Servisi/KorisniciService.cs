@@ -18,8 +18,8 @@ namespace eStomatologServices.Servisi
 
     public class KorisniciService : BaseCRUDService<eStomatologModel.Korisnik, Models.Korisnik, KorisnikSearchObject,KorisniciInsertRequest,KorisniciUpdateRequest>, IKorisniciService
     {
-       
-       
+
+        
         public KorisniciService(eStomatologContext context, IMapper mapper) : base(context, mapper)
         {
            
@@ -40,6 +40,7 @@ namespace eStomatologServices.Servisi
                 korisniciUloge.KorisnikId = entity.KorisnikId;
                 korisniciUloge.DatumIzmjene = DateTime.Now;
                 Context.KorisnikUloge.Add(korisniciUloge);
+               
             }
 
             Context.SaveChanges();
@@ -63,20 +64,25 @@ namespace eStomatologServices.Servisi
                     Database.DoktoriSpecijalizacije doktoriSpecijalizacije = new Database.DoktoriSpecijalizacije();
                     doktoriSpecijalizacije.SpecijalizacijaId = specijalizacijaId;
                     doktoriSpecijalizacije.DoktorId = doktor.Id;
-                    
-
+                    doktoriSpecijalizacije.Doktor = doktor;
+                    doktoriSpecijalizacije.Specijalizacija = Context.Specijalizacije.FirstOrDefault(x => x.SpecijalizacijaId == specijalizacijaId);
                     Context.DoktoriSpecijalizacije.Add(doktoriSpecijalizacije);
+                    doktor.DoktoriSpecijalizacije.Add(doktoriSpecijalizacije);
                     Context.SaveChanges();
+
+                   
                 }
                 foreach (var ordinacijaId in insert.OrdinacijeIdList)
                 {
                     Database.DoktorOrdinacija doktoriOrdinacije = new Database.DoktorOrdinacija();
                     doktoriOrdinacije.OrdinacijaId = ordinacijaId;
                     doktoriOrdinacije.DoktorId = doktor.Id;
-
-
+                    doktoriOrdinacije.Doktor = doktor;
+                    doktoriOrdinacije.Ordinacija = Context.Ordinacija.FirstOrDefault(x => x.OrdinacijaId == ordinacijaId);
                     Context.DoktoriOrdinacije.Add(doktoriOrdinacije);
+                    doktor.DoktorOrdinacije.Add(doktoriOrdinacije);
                     Context.SaveChanges();
+                    
                 }
                
 
@@ -101,7 +107,10 @@ namespace eStomatologServices.Servisi
                     Database.PacijentOrdinacija pacijentOrdinacija = new Database.PacijentOrdinacija();
                     pacijentOrdinacija.OrdinacijaId = ordinacijaId;
                     pacijentOrdinacija.PacijentId = pacijent.Id;
-
+                    pacijentOrdinacija.Pacijnet = pacijent;
+                    eStomatologServices.Database.Ordinacija ordinacija = new eStomatologServices.Database.Ordinacija();
+                    ordinacija = Context.Ordinacija.FirstOrDefault(x => x.OrdinacijaId == ordinacijaId);
+                    pacijentOrdinacija.Ordinacija = (ordinacija);
 
                     Context.PacijentiOrdinacije.Add(pacijentOrdinacija);
                     Context.SaveChanges();

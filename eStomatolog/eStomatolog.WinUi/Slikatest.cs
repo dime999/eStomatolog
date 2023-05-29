@@ -27,23 +27,23 @@ namespace eStomatolog.WinUi
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-          var ordinacija = await OrdinacijaService.Get<List<Ordinacija>>();
-          byte[] imageBytes = null;
-           foreach (var i in ordinacija)
-            {
-                if(i.OrdinacijaId==3)
-                {
-                   imageBytes = i.Slika;
-                }
-            }
+          //var ordinacija = await OrdinacijaService.Get<List<Ordinacija>>();
+          //byte[] imageBytes = null;
+          // foreach (var i in ordinacija)
+          //  {
+          //      if(i.OrdinacijaId==3)
+          //      {
+          //         imageBytes = i.Slika;
+          //      }
+          //  }
            
-            Image image;
-            using (MemoryStream ms = new MemoryStream(imageBytes))
-            {
-                image = Image.FromStream(ms);
-            }
+          //  Image image;
+          //  using (MemoryStream ms = new MemoryStream(imageBytes))
+          //  {
+          //      image = Image.FromStream(ms);
+          //  }
 
-            pictureBox1.Image = image; 
+          //  pictureBox1.Image = image; 
         }
     }
 }

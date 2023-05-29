@@ -100,19 +100,7 @@ public partial class eStomatologContext : DbContext
         });
 
 
-        modelBuilder.Entity<Doktor>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Doktori__3214EC07B54830FE");
-
-            // Dodavanje relacije prema entitetu Grad
-            entity.HasOne(d => d.Grad)
-                .WithMany(g => g.Doktori)
-                .HasForeignKey(d => d.GradId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            entity.ToTable("Doktori");
-        });
-
+        
 
         modelBuilder.Entity<Pacijent>(entity =>
         {
@@ -325,64 +313,28 @@ public partial class eStomatologContext : DbContext
 
             entity.Property(e => e.SpecijalizacijaId).HasColumnName("SpecijalizacijaId");
 
-            entity.HasOne(d => d.Doktor)
-                .WithMany(p => p.DoktoriSpecijalizacije)
-                .HasForeignKey(d => d.DoktorId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_DoktoriSpecijalizacije_Doktori");
-
-            entity.HasOne(d => d.Specijalizacija)
-                .WithMany(p => p.DoktoriSpecijalizacije)
-                .HasForeignKey(d => d.SpecijalizacijaId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_DoktoriSpecijalizacije_Specijalizacija");
+            
         });
 
-        modelBuilder.Entity<Doktor>()
-         .HasMany(d => d.Ordinacije)
-         .WithMany(o => o.Doktori)
-         .UsingEntity<DoktorOrdinacija>(
-             j => j
-                 .HasOne(d => d.Ordinacija)
-                 .WithMany()
-                 .HasForeignKey(d => d.OrdinacijaId),
-             j => j
-                 .HasOne(o => o.Doktor)
-                 .WithMany()
-                 .HasForeignKey(o => o.DoktorId),
-             j =>
-             {
-                 j.HasKey(d => new { d.DoktorId, d.OrdinacijaId });
-                 j.ToTable("DoktoriOrdinacije");
-             }
-         );
+        modelBuilder.Entity<DoktorOrdinacija>()
+      .HasKey(d => new { d.DoktorId, d.OrdinacijaId });
 
-        modelBuilder.Entity<Pacijent>()
-        .HasMany(d => d.Ordinacije)
-        .WithMany(o => o.Pacijenti)
-        .UsingEntity<PacijentOrdinacija>(
-            j => j
-                .HasOne(d => d.Ordinacija)
-                .WithMany()
-                .HasForeignKey(d => d.OrdinacijaId),
-            j => j
-                .HasOne(o => o.Pacijnet)
-                .WithMany()
-                .HasForeignKey(o => o.PacijentId),
-            j =>
-            {
-                j.HasKey(d => new { d.PacijentId, d.OrdinacijaId });
-                j.ToTable("PacijentiOrdinacije");
-            }
-        );
+        modelBuilder.Entity<PacijentOrdinacija>()
+     .HasKey(d => new { d.PacijentId, d.OrdinacijaId });
 
+        modelBuilder.Entity<Ordinacija>(entity =>
+        {
+            entity.HasKey(e => e.OrdinacijaId);
 
+            entity.Property(e => e.Naziv).IsRequired();
+            entity.Property(e => e.Adresa).IsRequired();
+            entity.Property(e => e.Grad).IsRequired();
+            entity.Property(e => e.Telefon).IsRequired();
+            entity.Property(e => e.Slika).IsRequired();
+            
+           
 
-
-
-
-
-
+        });
 
 
 
