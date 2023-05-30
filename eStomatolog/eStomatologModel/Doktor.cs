@@ -6,7 +6,7 @@ namespace eStomatologModel
 {
     public class Doktor
     {
-        public int DoktorId { get; set; }
+        public int Id { get; set; }
 
         public int KorisnikId { get; set; }
         public int GradId { get; set; }

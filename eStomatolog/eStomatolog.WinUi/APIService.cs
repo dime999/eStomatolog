@@ -66,5 +66,18 @@ namespace eStomatolog.WinUi
             return list;
         }
 
+
+        public async Task<T> GetByDoktorId<T>(int id)
+        {
+            var list = await $"{_endpoint}{_resource}/{id}".WithBasicAuth(Username, Password).GetJsonAsync<T>();
+            return list;
+        }
+
+        
+
+
+
+
+
     }
 }

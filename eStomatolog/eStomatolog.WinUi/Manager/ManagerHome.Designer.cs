@@ -30,9 +30,6 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvManagerHome = new System.Windows.Forms.DataGridView();
-            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAdd = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnEdit = new System.Windows.Forms.Button();
@@ -44,6 +41,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtIme = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtTelefon = new System.Windows.Forms.TextBox();
             this.btnAddOrdinacija = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.cbCity = new System.Windows.Forms.ComboBox();
@@ -51,8 +50,8 @@
             this.txtOrdinacijaAdresa = new System.Windows.Forms.TextBox();
             this.txtOrdinacijaNaziv = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtTelefon = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OrdinacijaAdresa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvManagerHome)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -78,8 +77,7 @@
             this.dgvManagerHome.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvManagerHome.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Name,
-            this.Address,
-            this.Description});
+            this.OrdinacijaAdresa});
             this.dgvManagerHome.Location = new System.Drawing.Point(6, 22);
             this.dgvManagerHome.Name = "dgvManagerHome";
             this.dgvManagerHome.ReadOnly = true;
@@ -88,30 +86,6 @@
             this.dgvManagerHome.Size = new System.Drawing.Size(764, 211);
             this.dgvManagerHome.TabIndex = 0;
             this.dgvManagerHome.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvManagerHome_CellContentClick);
-            // 
-            // Name
-            // 
-            this.Name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Name.DataPropertyName = "HairSalonName";
-            this.Name.HeaderText = "Name";
-            this.Name.Name = "Name";
-            this.Name.ReadOnly = true;
-            // 
-            // Address
-            // 
-            this.Address.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Address.DataPropertyName = "HairSalonAddress";
-            this.Address.HeaderText = "Address";
-            this.Address.Name = "Address";
-            this.Address.ReadOnly = true;
-            // 
-            // Description
-            // 
-            this.Description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Description.DataPropertyName = "HairSalonDescription";
-            this.Description.HeaderText = "Description";
-            this.Description.Name = "Description";
-            this.Description.ReadOnly = true;
             // 
             // btnAdd
             // 
@@ -236,6 +210,23 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Dodaj ordinaciju";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(122, 141);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(45, 15);
+            this.label6.TabIndex = 17;
+            this.label6.Text = "Telefon";
+            // 
+            // txtTelefon
+            // 
+            this.txtTelefon.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtTelefon.Location = new System.Drawing.Point(122, 159);
+            this.txtTelefon.Name = "txtTelefon";
+            this.txtTelefon.Size = new System.Drawing.Size(142, 23);
+            this.txtTelefon.TabIndex = 16;
+            // 
             // btnAddOrdinacija
             // 
             this.btnAddOrdinacija.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -301,22 +292,19 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "Naziv";
             // 
-            // txtTelefon
+            // Name
             // 
-            this.txtTelefon.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.txtTelefon.Location = new System.Drawing.Point(122, 159);
-            this.txtTelefon.Name = "txtTelefon";
-            this.txtTelefon.Size = new System.Drawing.Size(142, 23);
-            this.txtTelefon.TabIndex = 16;
+            this.Name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Name.DataPropertyName = "OrdinacijaIme";
+            this.Name.HeaderText = "Name";
+            this.Name.Name = "Name";
+            this.Name.ReadOnly = true;
             // 
-            // label6
+            // OrdinacijaAdresa
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(122, 141);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(45, 15);
-            this.label6.TabIndex = 17;
-            this.label6.Text = "Telefon";
+            this.OrdinacijaAdresa.HeaderText = "Adresa";
+            this.OrdinacijaAdresa.Name = "OrdinacijaAdresa";
+            this.OrdinacijaAdresa.ReadOnly = true;
             // 
             // ManagerHome
             // 
@@ -327,7 +315,7 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-          
+            
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ManagerHome";
             this.Load += new System.EventHandler(this.ManagerHome_Load);
@@ -362,11 +350,10 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cbCity;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Address;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.Button btnAddOrdinacija;
         private Label label6;
         private TextBox txtTelefon;
+        private DataGridViewTextBoxColumn Name;
+        private DataGridViewTextBoxColumn OrdinacijaAdresa;
     }
 }

@@ -18,18 +18,22 @@ namespace eStomatolog.WinUi.Manager
     public partial class ManagerHome : Form
     {
         private Korisnik _korisnik { get; set; }
+        private Doktor _doktor { get; set; }
+        private IEnumerable<DoktorOrdinacija> _list { get; set; }
 
         private APIService _gradoviService = new APIService("Grad");
         private APIService _doktorservice = new APIService("Doktor");
         private APIService _korisnikService = new APIService("Korisnik");
         private APIService _ordinacijaService = new APIService("Ordinacija");
-        private APIService _doktorOrdinacija = new APIService("DoktorOrdinacija");
+        private APIService _doktorOrdinacija = new APIService("GetByDoktorId");
         private APIService _doktorKorisnik = new APIService("GetByKorisnikId");
 
         public ManagerHome(Korisnik korisnik)
         {
-            _korisnik= korisnik;
+            _korisnik = korisnik;
+            
             InitializeComponent();
+            
         }
 
         private async void ManagerHome_Load(object sender, EventArgs e)
@@ -40,16 +44,33 @@ namespace eStomatolog.WinUi.Manager
 
         private async Task LoadOrdinacije()
         {
-            var Doktor = _doktorKorisnik.GetByKorisnikId<Doktor>(_korisnik.KorisnikId);
+            int id = await GetDoktorIdAsync();
 
-               
+            List<DoktorOrdinacija> rezultat = await _doktorOrdinacija.GetByDoktorId<List<DoktorOrdinacija>>(id);
+
+             dgvManagerHome.DataSource = rezultat;
+
+
+            DataGridViewTextBoxColumn nazivKolona = new DataGridViewTextBoxColumn();
+            nazivKolona.DataPropertyName = "OrdinacijaNaziv";
+            nazivKolona.HeaderText = "Naziv ordinacije";
+            dgvManagerHome.Columns.Add(nazivKolona);
+
+            // Dodajte kolonu za prikaz adrese ordinacije
+            DataGridViewTextBoxColumn adresaKolona = new DataGridViewTextBoxColumn();
+            adresaKolona.DataPropertyName = "OrdinacijaAdresa";
+            adresaKolona.HeaderText = "Adresa ordinacije";
+            dgvManagerHome.Columns.Add(adresaKolona);
+
+
+
         }
 
         private async Task LoadInfo()
         {
             APIService _korisnikEndpoint = new APIService("Login");
             _korisnik = await _korisnikEndpoint.Login<eStomatologModel.Korisnik>(APIService.Username, APIService.Password);
-            txtIme.Text=_korisnik.Ime;
+            
             txtSurname.Text = _korisnik.Prezime;
             txtUserName.Text = _korisnik.KorisnickoIme;
 
@@ -107,17 +128,24 @@ namespace eStomatolog.WinUi.Manager
         private async Task LoadData()
         {
           
-            await LoadOrdinacije();
+            
             LoadGradovi();
             txtIme.Enabled = false;
             txtUserName.Enabled = false;
             txtSurname.Enabled = false;
             LoadInfo();
+            await LoadOrdinacije();
         }
 
         private void groupBox2_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private async Task<int> GetDoktorIdAsync()
+        {
+           Doktor _doktor = await _doktorKorisnik.GetByKorisnikId<Doktor>(_korisnik.KorisnikId);
+           return _doktor.Id;
         }
 
         private void btnAddOrdinacija_Click(object sender, EventArgs e)
