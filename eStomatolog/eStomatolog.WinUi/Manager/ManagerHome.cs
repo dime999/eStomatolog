@@ -38,6 +38,7 @@ namespace eStomatolog.WinUi.Manager
 
         private async void ManagerHome_Load(object sender, EventArgs e)
         {
+            dgvManagerHome.AutoGenerateColumns = false;
             await LoadData();
 
         }
@@ -54,12 +55,14 @@ namespace eStomatolog.WinUi.Manager
             DataGridViewTextBoxColumn nazivKolona = new DataGridViewTextBoxColumn();
             nazivKolona.DataPropertyName = "OrdinacijaNaziv";
             nazivKolona.HeaderText = "Naziv ordinacije";
+            nazivKolona.Width = 400;
             dgvManagerHome.Columns.Add(nazivKolona);
 
             // Dodajte kolonu za prikaz adrese ordinacije
             DataGridViewTextBoxColumn adresaKolona = new DataGridViewTextBoxColumn();
             adresaKolona.DataPropertyName = "OrdinacijaAdresa";
             adresaKolona.HeaderText = "Adresa ordinacije";
+            adresaKolona.Width = 400;
             dgvManagerHome.Columns.Add(adresaKolona);
 
 
