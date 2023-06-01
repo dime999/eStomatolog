@@ -58,7 +58,7 @@ namespace eStomatolog.WinUi.Manager
             nazivKolona.Width = 400;
             dgvManagerHome.Columns.Add(nazivKolona);
 
-            // Dodajte kolonu za prikaz adrese ordinacije
+           
             DataGridViewTextBoxColumn adresaKolona = new DataGridViewTextBoxColumn();
             adresaKolona.DataPropertyName = "OrdinacijaAdresa";
             adresaKolona.HeaderText = "Adresa ordinacije";
@@ -151,43 +151,43 @@ namespace eStomatolog.WinUi.Manager
            return _doktor.Id;
         }
 
-        private void btnAddOrdinacija_Click(object sender, EventArgs e)
+        private async void btnAddOrdinacija_Click(object sender, EventArgs e)
         {
-            //var req = new OrdinacijaUpsertRequest()
-            //{
-            //    Naziv = txtOrdinacijaNaziv.Text,
-            //    Adresa = txtOrdinacijaAdresa.Text,
+            var req = new OrdinacijaUpsertRequest()
+            {
+                Naziv = txtOrdinacijaNaziv.Text,
+                Adresa = txtOrdinacijaAdresa.Text,
 
-            //    Grad = cbCity.DisplayMember,
+                Grad = cbCity.DisplayMember,
 
-            //    Drzava = "Bosna i Hercegovina",
+                Drzava = "Bosna i Hercegovina",
 
-            //    Telefon = txtTelefon.Text,
+                Telefon = txtTelefon.Text,
 
-            //    Slika="test"
+                Slika = "test"
 
-            //};
+            };
 
-            ////var Doktor = _doktorKorisnik.GetByKorisnikId<Doktor>(_korisnik.KorisnikId);
-            ////int DoktorId = Doktor.Id;
+           
+            int DoktorId = await GetDoktorIdAsync();
 
-            //var newOrdinacija = _ordinacijaService.Post<Ordinacija>(req);
-
-
-            ////DoktorOrdinacijaInsertRequest request = new DoktorOrdinacijaInsertRequest()
-            ////{
-            ////    OrdinacijaId = newOrdinacija.Id,
-            ////    DoktorId = Doktor.Id,
-            ////};
-
-            ////var doktorOrdinacija = _doktorOrdinacija.Post<DoktorOrdinacija>(request);
+            var newOrdinacija = _ordinacijaService.Post<Ordinacije>(req);
 
 
-            //MessageBox.Show("Uspjesno ste dodali novu ordinaciju!");
-            //txtOrdinacijaNaziv.Clear();
-            //txtOrdinacijaAdresa.Clear();
+            DoktorOrdinacijaInsertRequest request = new DoktorOrdinacijaInsertRequest()
+            {
+                OrdinacijaId = newOrdinacija.Id,
+                DoktorId = DoktorId,
+            };
 
-            //LoadData();
+            var doktorOrdinacija = _doktorOrdinacija.Post<DoktorOrdinacija>(request);
+
+
+            MessageBox.Show("Uspjesno ste dodali novu ordinaciju!");
+            txtOrdinacijaNaziv.Clear();
+            txtOrdinacijaAdresa.Clear();
+
+            LoadData();
         }
     }
 }

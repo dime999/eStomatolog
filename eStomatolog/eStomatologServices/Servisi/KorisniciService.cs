@@ -108,7 +108,7 @@ namespace eStomatologServices.Servisi
                     pacijentOrdinacija.OrdinacijaId = ordinacijaId;
                     pacijentOrdinacija.PacijentId = pacijent.Id;
                     pacijentOrdinacija.Pacijnet = pacijent;
-                    eStomatologServices.Database.Ordinacija ordinacija = new eStomatologServices.Database.Ordinacija();
+                    eStomatologServices.Database.Ordinacije ordinacija = new eStomatologServices.Database.Ordinacije();
                     ordinacija = Context.Ordinacija.FirstOrDefault(x => x.OrdinacijaId == ordinacijaId);
                     pacijentOrdinacija.Ordinacija = (ordinacija);
 

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Interfejsi
 {
-    public interface IOrdinacijaService : ICRUDService<Ordinacija,BaseSearchObject,OrdinacijaUpsertRequest, OrdinacijaUpsertRequest>
+    public interface IOrdinacijaService : ICRUDService<Ordinacije,BaseSearchObject,OrdinacijaUpsertRequest, OrdinacijaUpsertRequest>
     {
        
     }

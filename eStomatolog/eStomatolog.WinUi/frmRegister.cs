@@ -34,7 +34,7 @@ namespace eStomatolog.WinUi
             if (ValidateChildren())
             {
                 var roleList = clbUloge.CheckedItems.Cast<Specijalizacija>().ToList();
-                var ordinacijeList = clbOrdinacije.CheckedItems.Cast<Ordinacija>().ToList();
+                var ordinacijeList = clbOrdinacije.CheckedItems.Cast<Ordinacije>().ToList();
                
                 var roleIdList = roleList.Select(x => x.SpecijalizacijaId).ToList();
                 var ordinacijaIdList = ordinacijeList.Select(x => x.OrdinacijaId).ToList();
@@ -118,7 +118,7 @@ namespace eStomatolog.WinUi
 
         private async Task LoadOrdinacije()
         {
-            var ord = await OrdinacijaService.Get<List<Ordinacija>>();
+            var ord = await OrdinacijaService.Get<List<Ordinacije>>();
             clbOrdinacije.DataSource = ord;
             clbOrdinacije.DisplayMember = "Naziv";
         }

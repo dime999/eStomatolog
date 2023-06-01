@@ -7,7 +7,7 @@ namespace eStomatologModel
     public class DoktorOrdinacija
     {
         
-        public Ordinacija Ordinacija { get; set; }
+        public Ordinacije Ordinacija { get; set; }
 
 
         public string OrdinacijaNaziv => Ordinacija?.Naziv;

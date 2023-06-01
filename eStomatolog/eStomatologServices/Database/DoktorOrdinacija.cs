@@ -16,6 +16,6 @@ namespace eStomatologServices.Database
 
         
         public int OrdinacijaId { get; set; }
-        public Ordinacija Ordinacija { get; set; }
+        public Ordinacije Ordinacija { get; set; }
     }
 }

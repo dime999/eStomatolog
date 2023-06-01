@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Servisi
 {
-    public class OrdinacijaService : BaseCRUDService<eStomatologModel.Ordinacija, Database.Ordinacija, BaseSearchObject, OrdinacijaUpsertRequest, OrdinacijaUpsertRequest>, IOrdinacijaService
+    public class OrdinacijaService : BaseCRUDService<eStomatologModel.Ordinacije, Database.Ordinacije, BaseSearchObject, OrdinacijaUpsertRequest, OrdinacijaUpsertRequest>, IOrdinacijaService
     {
         public OrdinacijaService(eStomatologContext context, IMapper mapper) : base(context, mapper)
         {

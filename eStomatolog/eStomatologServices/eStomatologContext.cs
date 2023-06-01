@@ -34,7 +34,7 @@ public partial class eStomatologContext : DbContext
 
     public virtual DbSet<Korisnik> Korisnik { get; set; }
 
-    public virtual DbSet<Ordinacija> Ordinacija { get; set; }
+    public virtual DbSet<Ordinacije> Ordinacija { get; set; }
 
     public virtual DbSet<VrstaUsluge> VrstaUsluge { get; set; } = null!;
 
@@ -46,6 +46,7 @@ public partial class eStomatologContext : DbContext
 
     public virtual DbSet<Specijalizacija> Specijalizacije { get; set; }
     public virtual DbSet<Grad> Gradovi { get; set; }
+    public virtual DbSet<Ordinacije> Ordinacije { get; set; }
 
 
     public virtual DbSet<DoktoriSpecijalizacije> DoktoriSpecijalizacije { get; set; }
@@ -106,7 +107,7 @@ public partial class eStomatologContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__Pacijenti__3214EC07B54830TE");
 
-            // Dodavanje relacije prema entitetu Grad
+           
             entity.HasOne(d => d.Grad)
                 .WithMany(g => g.Pacijenti)
                 .HasForeignKey(d => d.GradId)
@@ -317,22 +318,24 @@ public partial class eStomatologContext : DbContext
         });
 
         modelBuilder.Entity<DoktorOrdinacija>()
-      .HasKey(d => new { d.DoktorId, d.OrdinacijaId });
+      .HasKey(d => new { d.DoktorId, d.OrdinacijaId});
 
         modelBuilder.Entity<PacijentOrdinacija>()
      .HasKey(d => new { d.PacijentId, d.OrdinacijaId });
 
-        modelBuilder.Entity<Ordinacija>(entity =>
+     
+
+        modelBuilder.Entity<Ordinacije>(entity =>
         {
             entity.HasKey(e => e.OrdinacijaId);
 
             entity.Property(e => e.Naziv).IsRequired();
             entity.Property(e => e.Adresa).IsRequired();
-            entity.Property(e => e.Grad).IsRequired();
             entity.Property(e => e.Telefon).IsRequired();
             entity.Property(e => e.Slika).IsRequired();
-            
-           
+
+
+
 
         });
 

@@ -23,11 +23,12 @@ namespace eStomatologServices
             CreateMap<Models.Usluga, eStomatologModel.Usluga>();
             CreateMap<Models.Recept, eStomatologModel.Recept>();
             CreateMap<Database.VrstaUsluge, eStomatologModel.VrstaUsluge>();
-            CreateMap<Database.Ordinacija, eStomatologModel.Ordinacija>();
+            CreateMap<Database.Ordinacije, eStomatologModel.Ordinacije>();
             CreateMap<Database.Uloge, eStomatologModel.Uloge>();
             CreateMap<Database.Specijalizacija, eStomatologModel.Specijalizacija>();
             CreateMap<Database.Grad, eStomatologModel.Grad>();
             CreateMap<Database.DoktorOrdinacija, eStomatologModel.DoktorOrdinacija>();
+            
 
             CreateMap<DijanozaInsertRequest,Models.Dijagnoza>();
             CreateMap<DijagnozaUpdateRequest, Models.Dijagnoza>();   
@@ -35,10 +36,11 @@ namespace eStomatologServices
             CreateMap<GradUpsertRequest, Database.Grad>();   
             CreateMap<DoktorOrdinacija, Database.DoktorOrdinacija>();   
             CreateMap<DoktorOrdinacijaInsertRequest, Database.DoktorOrdinacija>();   
+           
             
             
             CreateMap<eStomatologModel.Requests.VrstaUslugeUpsertRequest,eStomatologServices.Database.VrstaUsluge>();
-            CreateMap<eStomatologModel.Requests.OrdinacijaUpsertRequest,eStomatologServices.Database.Ordinacija>();
+            CreateMap<eStomatologModel.Requests.OrdinacijaUpsertRequest,eStomatologServices.Database.Ordinacije>();
 
 
 

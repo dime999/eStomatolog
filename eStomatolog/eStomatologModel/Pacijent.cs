@@ -25,6 +25,6 @@ namespace eStomatologModel
         public string Telefon { get; set; } 
 
 
-        public virtual ICollection<Ordinacija> Ordinacije { get; set; }
+       
     }
 }

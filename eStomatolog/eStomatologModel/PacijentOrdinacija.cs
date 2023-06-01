@@ -10,6 +10,6 @@ namespace eStomatologModel
         public Pacijent Pacijnet { get; set; }
 
         public int OrdinacijaId { get; set; }
-        public Ordinacija Ordinacija { get; set; }
+        public Ordinacije Ordinacija { get; set; }
     }
 }

@@ -9,13 +9,7 @@ namespace eStomatologServices.Database
 {
     public class Pacijent
     {
-        public Pacijent()
-        {
-           
-            Ordinacije = new HashSet<Ordinacija>();
-        }
-
-
+       
         public int Id { get; set; }
 
         public int KorisnikId { get; set; }
@@ -35,6 +29,5 @@ namespace eStomatologServices.Database
         public virtual Grad Grad { get; set; } = null!;
 
        
-        public virtual ICollection<Ordinacija> Ordinacije { get; set; }
     }
 }
