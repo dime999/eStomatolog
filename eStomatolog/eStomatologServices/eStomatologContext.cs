@@ -158,7 +158,6 @@ public partial class eStomatologContext : DbContext
             entity.Property(e => e.Iznos).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.Id).HasColumnName("PacijentID");
 
-      
         });
 
         modelBuilder.Entity<Recept>(entity =>
@@ -171,8 +170,6 @@ public partial class eStomatologContext : DbContext
             entity.Property(e => e.DoktorId).HasColumnName("DoktorID");
             entity.Property(e => e.Opis).HasMaxLength(200);
             entity.Property(e => e.Id).HasColumnName("PacijentID");
-
-
 
         });
 
@@ -295,9 +292,6 @@ public partial class eStomatologContext : DbContext
             entity.Property(e => e.Datum).HasColumnType("datetime");
             entity.Property(e => e.Ocjena).IsRequired();
 
-       
-
-
         });
 
 
@@ -323,7 +317,6 @@ public partial class eStomatologContext : DbContext
         modelBuilder.Entity<PacijentOrdinacija>()
      .HasKey(d => new { d.PacijentId, d.OrdinacijaId });
 
-     
 
         modelBuilder.Entity<Ordinacije>(entity =>
         {
@@ -332,10 +325,6 @@ public partial class eStomatologContext : DbContext
             entity.Property(e => e.Naziv).IsRequired();
             entity.Property(e => e.Adresa).IsRequired();
             entity.Property(e => e.Telefon).IsRequired();
-            entity.Property(e => e.Slika).IsRequired();
-
-
-
 
         });
 

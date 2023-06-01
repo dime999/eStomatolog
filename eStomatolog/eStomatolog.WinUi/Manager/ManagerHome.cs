@@ -27,6 +27,7 @@ namespace eStomatolog.WinUi.Manager
         private APIService _ordinacijaService = new APIService("Ordinacija");
         private APIService _doktorOrdinacija = new APIService("GetByDoktorId");
         private APIService _doktorKorisnik = new APIService("GetByKorisnikId");
+        private APIService _doktorOrdinacijaPost = new APIService("DoktorOrdinacija");
 
         public ManagerHome(Korisnik korisnik)
         {
@@ -145,11 +146,7 @@ namespace eStomatolog.WinUi.Manager
 
         }
 
-        private async Task<int> GetDoktorIdAsync()
-        {
-           Doktor _doktor = await _doktorKorisnik.GetByKorisnikId<Doktor>(_korisnik.KorisnikId);
-           return _doktor.Id;
-        }
+     
 
         private async void btnAddOrdinacija_Click(object sender, EventArgs e)
         {
@@ -157,30 +154,22 @@ namespace eStomatolog.WinUi.Manager
             {
                 Naziv = txtOrdinacijaNaziv.Text,
                 Adresa = txtOrdinacijaAdresa.Text,
-
-                Grad = cbCity.DisplayMember,
-
-                Drzava = "Bosna i Hercegovina",
-
                 Telefon = txtTelefon.Text,
-
-                Slika = "test"
-
             };
 
            
             int DoktorId = await GetDoktorIdAsync();
 
-            var newOrdinacija = _ordinacijaService.Post<Ordinacije>(req);
-
+            Task<Ordinacije> newOrdinacijaTask = _ordinacijaService.Post<Ordinacije>(req);
+            var newOrdinacija = await newOrdinacijaTask;
 
             DoktorOrdinacijaInsertRequest request = new DoktorOrdinacijaInsertRequest()
             {
-                OrdinacijaId = newOrdinacija.Id,
+                OrdinacijaId = newOrdinacija.OrdinacijaId,
                 DoktorId = DoktorId,
             };
 
-            var doktorOrdinacija = _doktorOrdinacija.Post<DoktorOrdinacija>(request);
+            var doktorOrdinacija = await _doktorOrdinacijaPost.Post<DoktorOrdinacija>(request);
 
 
             MessageBox.Show("Uspjesno ste dodali novu ordinaciju!");
@@ -188,6 +177,12 @@ namespace eStomatolog.WinUi.Manager
             txtOrdinacijaAdresa.Clear();
 
             LoadData();
+        }
+
+        private async Task<int> GetDoktorIdAsync()
+        {
+            Doktor _doktor = await _doktorKorisnik.GetByKorisnikId<Doktor>(_korisnik.KorisnikId);
+            return _doktor.Id;
         }
     }
 }

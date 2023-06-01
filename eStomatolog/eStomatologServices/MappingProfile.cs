@@ -38,11 +38,8 @@ namespace eStomatologServices
             CreateMap<DoktorOrdinacijaInsertRequest, Database.DoktorOrdinacija>();   
            
             
-            
             CreateMap<eStomatologModel.Requests.VrstaUslugeUpsertRequest,eStomatologServices.Database.VrstaUsluge>();
             CreateMap<eStomatologModel.Requests.OrdinacijaUpsertRequest,eStomatologServices.Database.Ordinacije>();
-
-
 
             CreateMap<Database.KorisniciUloge, eStomatologModel.KorisniciUloge>();
             CreateMap<Database.Uloge, eStomatologModel.Uloge>();

@@ -15,9 +15,7 @@ namespace eStomatologServices.Database
 
         public string Adresa { get; set; } = null!;
 
-
         public string Telefon { get; set; } = null!;
 
-        public byte[] Slika { get; set; } = null!;
     }
 }

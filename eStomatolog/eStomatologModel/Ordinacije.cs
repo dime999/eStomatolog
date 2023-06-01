@@ -13,9 +13,7 @@ namespace eStomatologModel
 
         public string Adresa { get; set; } 
 
-
         public string Telefon { get; set; } 
 
-        public byte[] Slika { get; set; } 
     }
 }
