@@ -146,5 +146,15 @@ namespace eStomatolog.WinUi
                 errorProvider.SetError(txtIme, "");
             }
         }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            frmInit frm = new frmInit();
+            frm.Closed += Close;
+            frm.Show();
+        }
+
+
     }
 }

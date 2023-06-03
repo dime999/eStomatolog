@@ -49,6 +49,7 @@
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.clbOrdinacije = new System.Windows.Forms.CheckedListBox();
             this.cblGradovi = new System.Windows.Forms.ComboBox();
+            this.btnBack = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
@@ -56,7 +57,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(566, 430);
+            this.btnSave.Location = new System.Drawing.Point(560, 462);
             this.btnSave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(99, 30);
@@ -245,11 +246,23 @@
             this.cblGradovi.Size = new System.Drawing.Size(121, 23);
             this.cblGradovi.TabIndex = 10;
             // 
+            // btnBack
+            // 
+            this.btnBack.Location = new System.Drawing.Point(30, 462);
+            this.btnBack.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(99, 30);
+            this.btnBack.TabIndex = 11;
+            this.btnBack.Text = "Nazad";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
             // frmRegister
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(683, 471);
+            this.ClientSize = new System.Drawing.Size(683, 515);
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.cblGradovi);
             this.Controls.Add(this.clbOrdinacije);
             this.Controls.Add(this.chkStatus);
@@ -291,5 +304,6 @@
         private ErrorProvider errorProvider;
         private CheckedListBox clbOrdinacije;
         private ComboBox cblGradovi;
+        private Button btnBack;
     }
 }

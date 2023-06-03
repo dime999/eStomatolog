@@ -52,6 +52,7 @@
             this.chkStatus = new System.Windows.Forms.CheckBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnBack = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
@@ -194,9 +195,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(14, 76);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(81, 15);
+            this.label4.Size = new System.Drawing.Size(94, 15);
             this.label4.TabIndex = 4;
-            this.label4.Text = "Confirmation:";
+            this.label4.Text = "Lozinka potvrda:";
             // 
             // txtPassword
             // 
@@ -212,9 +213,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(14, 51);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(60, 15);
+            this.label5.Size = new System.Drawing.Size(50, 15);
             this.label5.TabIndex = 2;
-            this.label5.Text = "Password:";
+            this.label5.Text = "Lozinka:";
             // 
             // txtUsername
             // 
@@ -229,9 +230,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(14, 27);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(63, 15);
+            this.label6.Size = new System.Drawing.Size(88, 15);
             this.label6.TabIndex = 0;
-            this.label6.Text = "Username:";
+            this.label6.Text = "Korisnicko ime:";
             // 
             // clbOrdinacije
             // 
@@ -263,7 +264,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(424, 483);
+            this.btnSave.Location = new System.Drawing.Point(424, 571);
             this.btnSave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(99, 30);
@@ -276,11 +277,23 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // btnBack
+            // 
+            this.btnBack.Location = new System.Drawing.Point(8, 571);
+            this.btnBack.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(99, 30);
+            this.btnBack.TabIndex = 14;
+            this.btnBack.Text = "Nazad";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
             // frmRegisterPacijent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(535, 543);
+            this.ClientSize = new System.Drawing.Size(535, 612);
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.chkStatus);
             this.Controls.Add(this.cblGradovi);
@@ -325,5 +338,6 @@
         private Label lblTelefon;
         private TextBox txtTelefon;
         private ErrorProvider errorProvider;
+        private Button btnBack;
     }
 }
