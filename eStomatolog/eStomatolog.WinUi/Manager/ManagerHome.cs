@@ -117,7 +117,20 @@ namespace eStomatolog.WinUi.Manager
 
         private async void dgvManagerHome_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-           
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+
+            var item = dgvManagerHome.SelectedRows[0].DataBoundItem as DoktorOrdinacija;
+            Doktor _doktor = await _doktorKorisnik.GetByKorisnikId<Doktor>(_korisnik.KorisnikId);
+
+            this.Hide();
+            var form = new frmOrdinacija(item.Ordinacija,_doktor);
+            form.Closed += (s, args) => this.Close();
+            form.Show();
+
+            await LoadData();
         }
 
         private async void LoadGradovi()

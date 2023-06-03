@@ -1,10 +1,12 @@
-﻿using Microsoft.VisualBasic.ApplicationServices;
+﻿using eStomatologModel;
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,10 +15,15 @@ namespace eStomatolog.WinUi.Manager
 {
     public partial class frmOrdinacija : Form
     {
+        private Ordinacije _ordinacija { get; set; }
+        private Doktor _user;
+        private APIService _cityService = new APIService("Grad");
+        private APIService _ordinacijaService = new APIService("Ordinacija");
 
-
-        public frmOrdinacija()
+        public frmOrdinacija(Ordinacije ordinacija,Doktor user)
         {
+            _ordinacija= ordinacija;
+            _user= user;
             InitializeComponent();
         }
         private async void frmHairSalon_Load(object sender, EventArgs e)
