@@ -19,6 +19,7 @@ namespace eStomatolog.WinUi.Manager.Pacijent
         private Doktor _doktor { get; set; }
         public APIService GradService { get; set; } = new APIService("Grad");
         public APIService PacijentService { get; set; } = new APIService("Pacijent");
+        public APIService DijagnozaService { get; set; } = new APIService("Dijagnoza");
         public frmPacijentiInfo(eStomatologModel.Pacijent pacijent,Ordinacije ordinacija,Doktor doktor)
         {
             _ordinacija= ordinacija;
@@ -30,7 +31,8 @@ namespace eStomatolog.WinUi.Manager.Pacijent
         private void frmPacijentiInfo_Load(object sender, EventArgs e)
         {
             LoadData();
-           
+            
+
         }
         private async Task LoadData()
         {
@@ -52,32 +54,56 @@ namespace eStomatolog.WinUi.Manager.Pacijent
             cblGradovi.DisplayMember = "Naziv";
             cblGradovi.ValueMember = "GradId";
         }
+       
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            PacijentUpdateRequest request = new PacijentUpdateRequest()
+            if (tab.SelectedIndex == 0)
             {
-                Ime = txtIme.Text,
-                Prezime = txtPrezime.Text,
-                Telefon = txtTelefon.Text,
-            };
+                PacijentUpdateRequest request = new PacijentUpdateRequest()
+                {
+                    Ime = txtIme.Text,
+                    Prezime = txtPrezime.Text,
+                    Telefon = txtTelefon.Text,
+                };
 
-            var grad = cblGradovi.SelectedItem as Grad;
-            int gradId = grad.GradId;
-            request.GradId= gradId;
-            var pacijent =  PacijentService.Put<PacijentUpdateRequest>(_pacijent.Id, request);
+                var grad = cblGradovi.SelectedItem as Grad;
+                int gradId = grad.GradId;
+                request.GradId = gradId;
+                var pacijent = PacijentService.Put<PacijentUpdateRequest>(_pacijent.Id, request);
 
-            if (pacijent != null)
-            {
-                MessageBox.Show("Uspješno ste uredili podatke pacijenta.", "Success");
-                var forma = new Pacijent.frmPacijenti(_ordinacija, _doktor);
-                this.Hide();
-                forma.Closed += (s, args) => this.Show();
-                forma.ShowDialog();
+                if (pacijent != null)
+                {
+                    MessageBox.Show("Uspješno ste uredili podatke pacijenta.", "Success");
+                    var forma = new Pacijent.frmPacijenti(_ordinacija, _doktor);
+                    this.Hide();
+                    forma.Closed += (s, args) => this.Show();
+                    forma.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Podaci se nisu mogli spremiti.", "Failure");
+                }
             }
-            else
+            if(tab.SelectedIndex ==2)
             {
-                MessageBox.Show("Podaci se nisu mogli spremiti.", "Failure");
+                DijanozaInsertRequest dijagnoza = new DijanozaInsertRequest
+                {
+                    Datum = DateTime.Now,
+                    DoktorId = _doktor.Id,
+                    PacijentId = _pacijent.Id,
+                    Opis = txtOpis.Text,
+                };
+                var novaDijagnoza = DijagnozaService.Post<DijanozaInsertRequest>(dijagnoza);
+                if (novaDijagnoza != null)
+                {
+                    MessageBox.Show("Uspješno ste dodali novu dijagnoza pacijentu.", "Success");
+                  
+                }
+                else
+                {
+                    MessageBox.Show("Podaci se nisu mogli spremiti.", "Failure");
+                }
             }
         }
 
@@ -87,6 +113,13 @@ namespace eStomatolog.WinUi.Manager.Pacijent
             this.Hide();
             forma.Closed += (s, args) => this.Show();
             forma.ShowDialog();
+        }
+
+       
+
+        private void tabPacijent_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

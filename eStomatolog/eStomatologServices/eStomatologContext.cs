@@ -74,7 +74,7 @@ public partial class eStomatologContext : DbContext
             entity.Property(e => e.Datum).HasColumnType("datetime");
             entity.Property(e => e.DoktorId).HasColumnName("DoktorID");
             entity.Property(e => e.Opis).HasMaxLength(200);
-            entity.Property(e => e.Id).HasColumnName("PacijentID");
+            entity.Property(e => e.PacijentId).HasColumnName("PacijentID");
 
         });
 

@@ -28,7 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tab = new System.Windows.Forms.TabControl();
+            this.btnBack = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.tabDijagnoza = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtOpis = new System.Windows.Forms.TextBox();
+            this.tabPregledi = new System.Windows.Forms.TabPage();
             this.tabPacijent = new System.Windows.Forms.TabPage();
             this.cblGradovi = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -40,23 +45,73 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtIme = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.tabPregledi = new System.Windows.Forms.TabPage();
-            this.btnBack = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.tab.SuspendLayout();
+            this.tab = new System.Windows.Forms.TabControl();
+            this.tabDijagnoza.SuspendLayout();
             this.tabPacijent.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tab.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tab
+            // btnBack
             // 
-            this.tab.Controls.Add(this.tabPacijent);
-            this.tab.Controls.Add(this.tabPregledi);
-            this.tab.Location = new System.Drawing.Point(21, 12);
-            this.tab.Name = "tab";
-            this.tab.SelectedIndex = 0;
-            this.tab.Size = new System.Drawing.Size(571, 311);
-            this.tab.TabIndex = 0;
+            this.btnBack.Location = new System.Drawing.Point(21, 352);
+            this.btnBack.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(99, 30);
+            this.btnBack.TabIndex = 15;
+            this.btnBack.Text = "Nazad";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(489, 352);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(99, 30);
+            this.btnSave.TabIndex = 16;
+            this.btnSave.Text = "Sačuvaj";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // tabDijagnoza
+            // 
+            this.tabDijagnoza.Controls.Add(this.label3);
+            this.tabDijagnoza.Controls.Add(this.txtOpis);
+            this.tabDijagnoza.Location = new System.Drawing.Point(4, 24);
+            this.tabDijagnoza.Name = "tabDijagnoza";
+            this.tabDijagnoza.Padding = new System.Windows.Forms.Padding(3);
+            this.tabDijagnoza.Size = new System.Drawing.Size(563, 283);
+            this.tabDijagnoza.TabIndex = 2;
+            this.tabDijagnoza.Text = "Dodaj dijagnozu";
+            this.tabDijagnoza.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(5, 16);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(202, 15);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Opišite trenutnu dijagnozu pacijenta:";
+            // 
+            // txtOpis
+            // 
+            this.txtOpis.Location = new System.Drawing.Point(6, 44);
+            this.txtOpis.Multiline = true;
+            this.txtOpis.Name = "txtOpis";
+            this.txtOpis.Size = new System.Drawing.Size(551, 224);
+            this.txtOpis.TabIndex = 0;
+            // 
+            // tabPregledi
+            // 
+            this.tabPregledi.Location = new System.Drawing.Point(4, 24);
+            this.tabPregledi.Name = "tabPregledi";
+            this.tabPregledi.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPregledi.Size = new System.Drawing.Size(563, 283);
+            this.tabPregledi.TabIndex = 1;
+            this.tabPregledi.Text = "Pregledi i nalazi";
+            this.tabPregledi.UseVisualStyleBackColor = true;
             // 
             // tabPacijent
             // 
@@ -69,6 +124,7 @@
             this.tabPacijent.TabIndex = 0;
             this.tabPacijent.Text = "Pacijent info";
             this.tabPacijent.UseVisualStyleBackColor = true;
+            this.tabPacijent.Click += new System.EventHandler(this.tabPacijent_Click);
             // 
             // cblGradovi
             // 
@@ -165,37 +221,16 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Ime:";
             // 
-            // tabPregledi
+            // tab
             // 
-            this.tabPregledi.Location = new System.Drawing.Point(4, 24);
-            this.tabPregledi.Name = "tabPregledi";
-            this.tabPregledi.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPregledi.Size = new System.Drawing.Size(563, 283);
-            this.tabPregledi.TabIndex = 1;
-            this.tabPregledi.Text = "Pregledi i nalazi";
-            this.tabPregledi.UseVisualStyleBackColor = true;
-            // 
-            // btnBack
-            // 
-            this.btnBack.Location = new System.Drawing.Point(21, 352);
-            this.btnBack.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(99, 30);
-            this.btnBack.TabIndex = 15;
-            this.btnBack.Text = "Nazad";
-            this.btnBack.UseVisualStyleBackColor = true;
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(489, 352);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(99, 30);
-            this.btnSave.TabIndex = 16;
-            this.btnSave.Text = "Sačuvaj";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.tab.Controls.Add(this.tabPacijent);
+            this.tab.Controls.Add(this.tabPregledi);
+            this.tab.Controls.Add(this.tabDijagnoza);
+            this.tab.Location = new System.Drawing.Point(21, 12);
+            this.tab.Name = "tab";
+            this.tab.SelectedIndex = 0;
+            this.tab.Size = new System.Drawing.Size(571, 311);
+            this.tab.TabIndex = 0;
             // 
             // frmPacijentiInfo
             // 
@@ -208,30 +243,34 @@
             this.Name = "frmPacijentiInfo";
             this.Text = "frmPacijentiInfo";
             this.Load += new System.EventHandler(this.frmPacijentiInfo_Load);
-            this.tab.ResumeLayout(false);
+            this.tabDijagnoza.ResumeLayout(false);
+            this.tabDijagnoza.PerformLayout();
             this.tabPacijent.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tab.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private TabControl tab;
-        private TabPage tabPacijent;
-        private TabPage tabPregledi;
-        private GroupBox groupBox1;
-        private TextBox txtPrezime;
-        private Label label2;
-        private TextBox txtIme;
-        private Label label1;
         private Button btnBack;
         private Button btnSave;
+        private TabPage tabDijagnoza;
+        private Label label3;
+        private TextBox txtOpis;
+        private TabPage tabPregledi;
+        private TabPage tabPacijent;
         private ComboBox cblGradovi;
+        private GroupBox groupBox1;
         private Label lblTelefon;
         private TextBox txtTelefon;
         private Label lblDatum;
         private DateTimePicker dtpDatum;
+        private TextBox txtPrezime;
+        private Label label2;
+        private TextBox txtIme;
+        private Label label1;
+        private TabControl tab;
     }
 }

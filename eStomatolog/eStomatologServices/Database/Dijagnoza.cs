@@ -1,4 +1,5 @@
-﻿using System;
+﻿using eStomatologServices.Database;
+using System;
 using System.Collections.Generic;
 
 namespace eStomatologServices.Models;
@@ -17,5 +18,5 @@ public partial class Dijagnoza
 
     public virtual Doktor Doktor { get; set; } = null!;
 
-    //public virtual Pacijent Pacijent { get; set; } = null!;
+    public virtual Pacijent Pacijent { get; set; } = null!;
 }
