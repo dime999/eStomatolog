@@ -31,8 +31,6 @@
             this.dgvDoktori = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cbStatus = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.txtIme = new System.Windows.Forms.TextBox();
             this.btnDodajDoktora = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -75,8 +73,6 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.cbStatus);
-            this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.txtIme);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Location = new System.Drawing.Point(12, 12);
@@ -85,24 +81,6 @@
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Filteri";
-            // 
-            // cbStatus
-            // 
-            this.cbStatus.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.cbStatus.FormattingEnabled = true;
-            this.cbStatus.Location = new System.Drawing.Point(307, 19);
-            this.cbStatus.Name = "cbStatus";
-            this.cbStatus.Size = new System.Drawing.Size(144, 23);
-            this.cbStatus.TabIndex = 6;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(248, 19);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(39, 15);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Status";
             // 
             // txtIme
             // 
@@ -123,6 +101,7 @@
             this.btnDodajDoktora.TabIndex = 1;
             this.btnDodajDoktora.Text = "Dodaj novog doktora";
             this.btnDodajDoktora.UseVisualStyleBackColor = false;
+            this.btnDodajDoktora.Click += new System.EventHandler(this.btnDodajDoktora_Click);
             // 
             // frmDoktori
             // 
@@ -150,8 +129,6 @@
         private System.Windows.Forms.DataGridView dgvDoktori;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.ComboBox cbStatus;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtIme;
         private System.Windows.Forms.Button btnDodajDoktora;
     }

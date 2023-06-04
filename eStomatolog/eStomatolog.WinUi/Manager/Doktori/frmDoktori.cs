@@ -49,13 +49,13 @@ namespace eStomatolog.WinUi.Manager.Doktori
             DataGridViewTextBoxColumn nazivKolona = new DataGridViewTextBoxColumn();
             nazivKolona.DataPropertyName = "DoktorIme";
             nazivKolona.HeaderText = "Ime";
-            nazivKolona.Width = 230;
+            nazivKolona.Width = 277;
             dgvDoktori.Columns.Add(nazivKolona);
 
             DataGridViewTextBoxColumn adresaKolona = new DataGridViewTextBoxColumn();
             adresaKolona.DataPropertyName = "DoktorPrezime";
             adresaKolona.HeaderText = "Prezime";
-            adresaKolona.Width = 230;
+            adresaKolona.Width = 277;
             dgvDoktori.Columns.Add(adresaKolona);
 
             // Dodajte event handler za promjenu teksta u filter input kontroli
@@ -85,7 +85,17 @@ namespace eStomatolog.WinUi.Manager.Doktori
             dgvDoktori.Refresh();
         }
 
-
-
+        private void btnDodajDoktora_Click(object sender, EventArgs e)
+        {
+    
+            this.Hide();
+            frmDoktoriAdd frm = new frmDoktoriAdd(_ordinacija, _user);
+            frm.Closed += Close;
+            frm.Show();
+        }
+        private void Close(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
