@@ -25,8 +25,16 @@ namespace eStomatologServices.Servisi
         {
             var entity = Context.Set<eStomatologServices.Database.DoktorOrdinacija>().Include(dor=>dor.Doktor).Include(or=> or.Ordinacija).AsQueryable();
             var list = entity.ToList();
-            //NOTE: elaborate IEnumerable vs IList
+            
             return Mapper.Map<IList<DoktorOrdinacija>>(list);
+        }
+
+        public  IEnumerable<DoktorOrdinacijaDoktorInfo> GetByOrdinacijaId(int id)
+        {
+            var entity = Context.Set<eStomatologServices.Database.DoktorOrdinacija>().Include(dok => dok.Doktor).Where(x => x.OrdinacijaId == id).AsQueryable();
+            var list = entity.ToList();
+
+            return Mapper.Map<IList<DoktorOrdinacijaDoktorInfo>>(list);
         }
 
         public IEnumerable<DoktorOrdinacija> GetByDoktorId(int id)

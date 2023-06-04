@@ -12,6 +12,6 @@ namespace eStomatologServices.Interfejsi
     public interface IDoktoriOrdinacije : ICRUDService<DoktorOrdinacija, BaseSearchObject, DoktorOrdinacijaInsertRequest, DoktorOrdinacijaInsertRequest>
     {
         public IEnumerable<DoktorOrdinacija> GetByDoktorId(int id);
-
+        public IEnumerable<DoktorOrdinacijaDoktorInfo> GetByOrdinacijaId(int id);
     }
 }

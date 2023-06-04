@@ -28,6 +28,8 @@ namespace eStomatologServices
             CreateMap<Database.Specijalizacija, eStomatologModel.Specijalizacija>();
             CreateMap<Database.Grad, eStomatologModel.Grad>();
             CreateMap<Database.DoktorOrdinacija, eStomatologModel.DoktorOrdinacija>();
+            CreateMap<Database.DoktorOrdinacija, eStomatologModel.DoktorOrdinacijaDoktorInfo>();
+
             
 
             CreateMap<DijanozaInsertRequest,Models.Dijagnoza>();

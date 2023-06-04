@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtTelefon = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cbGradovi = new System.Windows.Forms.ComboBox();
             this.txtAddress = new System.Windows.Forms.TextBox();
@@ -50,8 +52,6 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.btnBack = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtTelefon = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -76,6 +76,22 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Osnovne informacije";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // txtTelefon
+            // 
+            this.txtTelefon.Location = new System.Drawing.Point(6, 283);
+            this.txtTelefon.Name = "txtTelefon";
+            this.txtTelefon.Size = new System.Drawing.Size(249, 23);
+            this.txtTelefon.TabIndex = 9;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 247);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(45, 15);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Telefon";
             // 
             // label4
             // 
@@ -149,6 +165,7 @@
             this.btnDoktori.TabIndex = 1;
             this.btnDoktori.Text = "Doktori";
             this.btnDoktori.UseVisualStyleBackColor = false;
+            this.btnDoktori.Click += new System.EventHandler(this.btnDoktori_Click);
             // 
             // btnRezervacije
             // 
@@ -306,22 +323,6 @@
             this.btnBack.TabIndex = 9;
             this.btnBack.Text = "Back to previous screen";
             this.btnBack.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 247);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 15);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Telefon";
-            // 
-            // txtTelefon
-            // 
-            this.txtTelefon.Location = new System.Drawing.Point(6, 283);
-            this.txtTelefon.Name = "txtTelefon";
-            this.txtTelefon.Size = new System.Drawing.Size(249, 23);
-            this.txtTelefon.TabIndex = 9;
             // 
             // frmOrdinacija
             // 

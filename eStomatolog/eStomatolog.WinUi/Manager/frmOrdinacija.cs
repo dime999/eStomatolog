@@ -17,7 +17,7 @@ namespace eStomatolog.WinUi.Manager
     public partial class frmOrdinacija : Form
     {
         private Ordinacije _ordinacija { get; set; }
-        private Doktor _user;
+        private Doktor _user { get; set; }
         private APIService _gradService = new APIService("Grad");
         private APIService _ordinacijaService = new APIService("Ordinacija");
 
@@ -85,6 +85,14 @@ namespace eStomatolog.WinUi.Manager
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnDoktori_Click(object sender, EventArgs e)
+        {
+            var forma = new Doktori.frmDoktori(_ordinacija, _user);
+            this.Hide();
+            forma.Closed += (s, args) => this.Show();
+            forma.ShowDialog();
         }
     }
 }
