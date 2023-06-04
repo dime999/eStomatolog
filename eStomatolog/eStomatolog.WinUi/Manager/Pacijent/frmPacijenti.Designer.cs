@@ -64,6 +64,7 @@
             this.dgvPacijenti.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvPacijenti.Size = new System.Drawing.Size(597, 184);
             this.dgvPacijenti.TabIndex = 0;
+            this.dgvPacijenti.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPacijenti_CellContentClick);
             // 
             // label1
             // 

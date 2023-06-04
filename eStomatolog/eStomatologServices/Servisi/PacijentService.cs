@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using eStomatologModel.Requests;
 using eStomatologModel.SearchObjects;
 using eStomatologServices.Interfejsi;
 using eStomatologServices.Models;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Servisi
 {
-    public class PacijentService : BaseService<eStomatologModel.Pacijent, Database.Pacijent, PacijentSearchObject>, IPacijentService
+    public class PacijentService : BaseCRUDService<eStomatologModel.Pacijent, Database.Pacijent, PacijentSearchObject,PacijentUpdateRequest,PacijentUpdateRequest>, IPacijentService
     {
         public PacijentService(eStomatologContext context, IMapper mapper) : base(context, mapper)
         {

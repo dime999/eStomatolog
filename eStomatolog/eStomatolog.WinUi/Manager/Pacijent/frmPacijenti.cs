@@ -95,5 +95,22 @@ namespace eStomatolog.WinUi.Manager.Pacijent
             forma.Closed += (s, args) => this.Show();
             forma.ShowDialog();
         }
+
+        private void dgvPacijenti_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+
+            var item = dgvPacijenti.SelectedRows[0].DataBoundItem as PacijentOrdinacija;
+
+            this.Hide();
+            var form = new frmPacijentiInfo(item.Pacijnet,_ordinacija);
+            form.Closed += (s, args) => this.Close();
+            form.Show();
+
+        }
+        }
     }
-}
+

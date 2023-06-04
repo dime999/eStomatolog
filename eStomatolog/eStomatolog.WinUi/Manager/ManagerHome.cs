@@ -104,11 +104,11 @@ namespace eStomatolog.WinUi.Manager
 
             if (korisnik != null)
             {
-                MessageBox.Show("Successfully updated user details.", "Success");
+                MessageBox.Show("Uspješno ste promjenili podatke!");
             }
             else
             {
-                MessageBox.Show("Couldn't update user details.", "Failure");
+                MessageBox.Show("Podaci nisu spremljeni!");
             }
 
         }

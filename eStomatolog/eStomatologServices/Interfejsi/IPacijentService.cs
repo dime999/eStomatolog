@@ -1,4 +1,5 @@
-﻿using eStomatologModel.SearchObjects;
+﻿using eStomatologModel.Requests;
+using eStomatologModel.SearchObjects;
 using eStomatologServices.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Interfejsi
 {
-    public interface IPacijentService : IService<eStomatologModel.Pacijent, PacijentSearchObject>
+    public interface IPacijentService : ICRUDService<eStomatologModel.Pacijent, PacijentSearchObject,PacijentUpdateRequest,PacijentUpdateRequest>
     {
        
     }

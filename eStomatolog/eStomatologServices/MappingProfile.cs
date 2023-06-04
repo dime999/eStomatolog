@@ -43,6 +43,7 @@ namespace eStomatologServices
             
             CreateMap<eStomatologModel.Requests.VrstaUslugeUpsertRequest,eStomatologServices.Database.VrstaUsluge>();
             CreateMap<eStomatologModel.Requests.OrdinacijaUpsertRequest,eStomatologServices.Database.Ordinacije>();
+            CreateMap<eStomatologModel.Requests.PacijentUpdateRequest,eStomatologServices.Database.Pacijent>();
 
             CreateMap<Database.KorisniciUloge, eStomatologModel.KorisniciUloge>();
             CreateMap<Database.Uloge, eStomatologModel.Uloge>();
