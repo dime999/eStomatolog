@@ -33,8 +33,6 @@
             this.cbGradovi = new System.Windows.Forms.ComboBox();
             this.txtAddress = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtOpis = new System.Windows.Forms.RichTextBox();
             this.txtIme = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
@@ -52,6 +50,8 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.btnBack = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtTelefon = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -61,12 +61,12 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtTelefon);
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.cbGradovi);
             this.groupBox1.Controls.Add(this.txtAddress);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.txtOpis);
             this.groupBox1.Controls.Add(this.txtIme);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(288, 140);
@@ -74,13 +74,13 @@
             this.groupBox1.Size = new System.Drawing.Size(768, 469);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Basic information";
+            this.groupBox1.Text = "Osnovne informacije";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(509, 57);
+            this.label4.Location = new System.Drawing.Point(6, 190);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(32, 15);
             this.label4.TabIndex = 7;
@@ -89,49 +89,32 @@
             // cbGradovi
             // 
             this.cbGradovi.FormattingEnabled = true;
-            this.cbGradovi.Location = new System.Drawing.Point(509, 83);
+            this.cbGradovi.Location = new System.Drawing.Point(6, 208);
             this.cbGradovi.Name = "cbGradovi";
             this.cbGradovi.Size = new System.Drawing.Size(249, 23);
             this.cbGradovi.TabIndex = 6;
             // 
             // txtAddress
             // 
-            this.txtAddress.Location = new System.Drawing.Point(168, 83);
+            this.txtAddress.Location = new System.Drawing.Point(6, 147);
             this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(314, 23);
+            this.txtAddress.Size = new System.Drawing.Size(249, 23);
             this.txtAddress.TabIndex = 5;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(168, 57);
+            this.label3.Location = new System.Drawing.Point(6, 129);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(43, 15);
             this.label3.TabIndex = 4;
             this.label3.Text = "Adresa";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 155);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(31, 15);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Opis";
-            // 
-            // txtOpis
-            // 
-            this.txtOpis.Location = new System.Drawing.Point(6, 179);
-            this.txtOpis.Name = "txtOpis";
-            this.txtOpis.Size = new System.Drawing.Size(752, 267);
-            this.txtOpis.TabIndex = 2;
-            this.txtOpis.Text = "";
-            // 
             // txtIme
             // 
             this.txtIme.Location = new System.Drawing.Point(6, 83);
             this.txtIme.Name = "txtIme";
-            this.txtIme.Size = new System.Drawing.Size(145, 23);
+            this.txtIme.Size = new System.Drawing.Size(249, 23);
             this.txtIme.TabIndex = 1;
             // 
             // label1
@@ -139,9 +122,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 57);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(27, 15);
+            this.label1.Size = new System.Drawing.Size(36, 15);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Ime";
+            this.label1.Text = "Naziv";
             // 
             // btnSave
             // 
@@ -166,7 +149,6 @@
             this.btnDoktori.TabIndex = 1;
             this.btnDoktori.Text = "Doktori";
             this.btnDoktori.UseVisualStyleBackColor = false;
-            this.btnDoktori.Click += new System.EventHandler(this.btnDoktori_Click);
             // 
             // btnRezervacije
             // 
@@ -180,7 +162,6 @@
             this.btnRezervacije.TabIndex = 8;
             this.btnRezervacije.Text = "Rezervacije";
             this.btnRezervacije.UseVisualStyleBackColor = true;
-            this.btnRezervacije.Click += new System.EventHandler(this.btnRezervacije_Click);
             // 
             // btnReports
             // 
@@ -194,7 +175,6 @@
             this.btnReports.TabIndex = 7;
             this.btnReports.Text = "Reports";
             this.btnReports.UseVisualStyleBackColor = true;
-            this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
             // 
             // btnLoyalty
             // 
@@ -208,7 +188,6 @@
             this.btnLoyalty.TabIndex = 6;
             this.btnLoyalty.Text = "Loyalty system";
             this.btnLoyalty.UseVisualStyleBackColor = true;
-            this.btnLoyalty.Click += new System.EventHandler(this.btnLoyalty_Click);
             // 
             // btnOcjene
             // 
@@ -222,7 +201,6 @@
             this.btnOcjene.TabIndex = 4;
             this.btnOcjene.Text = "Reviews";
             this.btnOcjene.UseVisualStyleBackColor = true;
-            this.btnOcjene.Click += new System.EventHandler(this.btnOcjene_Click);
             // 
             // btnSlike
             // 
@@ -236,7 +214,6 @@
             this.btnSlike.TabIndex = 3;
             this.btnSlike.Text = "Pictures";
             this.btnSlike.UseVisualStyleBackColor = true;
-            this.btnSlike.Click += new System.EventHandler(this.btnSlike_Click);
             // 
             // btnCategories
             // 
@@ -250,7 +227,6 @@
             this.btnCategories.TabIndex = 2;
             this.btnCategories.Text = "Categories";
             this.btnCategories.UseVisualStyleBackColor = true;
-            this.btnCategories.Click += new System.EventHandler(this.btnCategories_Click);
             // 
             // btnServices
             // 
@@ -266,7 +242,6 @@
             this.btnServices.TabIndex = 5;
             this.btnServices.Text = "Services";
             this.btnServices.UseVisualStyleBackColor = false;
-            this.btnServices.Click += new System.EventHandler(this.btnServices_Click);
             // 
             // panel1
             // 
@@ -331,7 +306,22 @@
             this.btnBack.TabIndex = 9;
             this.btnBack.Text = "Back to previous screen";
             this.btnBack.UseVisualStyleBackColor = true;
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 247);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(45, 15);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Telefon";
+            // 
+            // txtTelefon
+            // 
+            this.txtTelefon.Location = new System.Drawing.Point(6, 283);
+            this.txtTelefon.Name = "txtTelefon";
+            this.txtTelefon.Size = new System.Drawing.Size(249, 23);
+            this.txtTelefon.TabIndex = 9;
             // 
             // frmOrdinacija
             // 
@@ -365,8 +355,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtAddress;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RichTextBox txtOpis;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbGradovi;
         private System.Windows.Forms.Button btnDoktori;
@@ -384,5 +372,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnBack;
+        private TextBox txtTelefon;
+        private Label label2;
     }
 }

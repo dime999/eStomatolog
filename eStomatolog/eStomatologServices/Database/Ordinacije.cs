@@ -17,5 +17,9 @@ namespace eStomatologServices.Database
 
         public string Telefon { get; set; } = null!;
 
+        public int GradId { get; set; }
+
+        public Grad Grad { get; set; }
+
     }
 }

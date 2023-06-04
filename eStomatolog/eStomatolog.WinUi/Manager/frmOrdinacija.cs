@@ -17,7 +17,7 @@ namespace eStomatolog.WinUi.Manager
     {
         private Ordinacije _ordinacija { get; set; }
         private Doktor _user;
-        private APIService _cityService = new APIService("Grad");
+        private APIService _gradService = new APIService("Grad");
         private APIService _ordinacijaService = new APIService("Ordinacija");
 
         public frmOrdinacija(Ordinacije ordinacija,Doktor user)
@@ -33,71 +33,35 @@ namespace eStomatolog.WinUi.Manager
 
         private async Task LoadData()
         {
-            LoadBasicInfo();
             await LoadCities();
+            await LoadBasicInfo();
+           
+        }
+
+       
+
+        private async Task LoadBasicInfo()
+        {
+            txtIme.Text = _ordinacija.Naziv;
+            txtAddress.Text = _ordinacija.Adresa;
+            txtTelefon.Text = _ordinacija.Telefon;
+           
         }
 
         private async Task LoadCities()
         {
-           
+            var gradovi = await _gradService.Get<List<Grad>>();
+            cbGradovi.DataSource = gradovi;
+            cbGradovi.DisplayMember = "Naziv";
+            cbGradovi.ValueMember = "GradId";
 
-        }
-
-        private void LoadBasicInfo()
-        {
-         
         }
 
         private async void btnSave_Click(object sender, EventArgs e)
         {
             
         }
-
-        private void btnDoktori_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void btnServices_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void btnOcjene_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void btnCategories_Click(object sender, EventArgs e)
-        {
-        
-        }
-
-        private void btnRezervacije_Click(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void btnLoyalty_Click(object sender, EventArgs e)
-        {
-          
-        }
-
-        private void btnReports_Click(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void btnBack_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void btnSlike_Click(object sender, EventArgs e)
-        {
-            
-
-        }
+  
 
         private void FormInit(Form form)
         {
