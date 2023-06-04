@@ -148,7 +148,7 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(174, 35);
             this.btnSave.TabIndex = 8;
-            this.btnSave.Text = "Save changes";
+            this.btnSave.Text = "Spasi promjene";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -322,8 +322,9 @@
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(193, 39);
             this.btnBack.TabIndex = 9;
-            this.btnBack.Text = "Back to previous screen";
+            this.btnBack.Text = "Nazad";
             this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // frmOrdinacija
             // 

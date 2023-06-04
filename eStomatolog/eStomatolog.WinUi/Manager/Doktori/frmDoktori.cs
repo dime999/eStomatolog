@@ -97,5 +97,13 @@ namespace eStomatolog.WinUi.Manager.Doktori
         {
             this.Close();
         }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            var forma = new frmOrdinacija(_ordinacija, _user);
+            this.Hide();
+            forma.Closed += (s, args) => this.Show();
+            forma.ShowDialog();
+        }
     }
 }

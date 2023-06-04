@@ -19,6 +19,7 @@ namespace eStomatolog.WinUi.Manager
         private Ordinacije _ordinacija { get; set; }
         private Doktor _user { get; set; }
         private APIService _gradService = new APIService("Grad");
+        private APIService _korisnik = new APIService("Korisnik");
         private APIService _ordinacijaService = new APIService("Ordinacija");
 
         public frmOrdinacija(Ordinacije ordinacija,Doktor user)
@@ -97,7 +98,17 @@ namespace eStomatolog.WinUi.Manager
 
         private void btnServices_Click(object sender, EventArgs e)
         {
-            var forma = new Pacijent.frmPacijenti(_ordinacija);
+            var forma = new Pacijent.frmPacijenti(_ordinacija,_user);
+            this.Hide();
+            forma.Closed += (s, args) => this.Show();
+            forma.ShowDialog();
+        }
+
+        private async void btnBack_Click(object sender, EventArgs e)
+        {
+            var korisnik = await _korisnik.GetById<Korisnik>(_user.KorisnikId);
+
+            var forma = new Manager.ManagerHome(korisnik);
             this.Hide();
             forma.Closed += (s, args) => this.Show();
             forma.ShowDialog();

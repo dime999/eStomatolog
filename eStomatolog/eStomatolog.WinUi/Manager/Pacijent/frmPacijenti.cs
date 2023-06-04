@@ -17,13 +17,15 @@ namespace eStomatolog.WinUi.Manager.Pacijent
     {
 
         private Ordinacije _ordinacija { get; set; }
+        private Doktor _doktor { get; set; }
         private APIService _pacijentOrdinacije = new APIService("DoktorOrdinacija");
         private APIService _pacijenti = new APIService("GetPacijentiByOrdinacijaId");
         private List<PacijentOrdinacija> originalnaLista;
-        public frmPacijenti(Ordinacije ordinacija)
+        public frmPacijenti(Ordinacije ordinacija, Doktor doktor)
         {
             _ordinacija = ordinacija;
             InitializeComponent();
+            _doktor = doktor;
         }
 
         private void frmPacijenti_Load(object sender, EventArgs e)
@@ -85,5 +87,13 @@ namespace eStomatolog.WinUi.Manager.Pacijent
             dgvPacijenti.Refresh();
         }
 
+        private void btnNazad_Click(object sender, EventArgs e)
+        {
+
+            var forma = new frmOrdinacija(_ordinacija,_doktor);
+            this.Hide();
+            forma.Closed += (s, args) => this.Show();
+            forma.ShowDialog();
+        }
     }
 }

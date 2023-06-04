@@ -33,6 +33,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtIme = new System.Windows.Forms.TextBox();
             this.btnDodajDoktora = new System.Windows.Forms.Button();
+            this.btnBack = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDoktori)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -95,7 +96,7 @@
             this.btnDodajDoktora.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnDodajDoktora.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnDodajDoktora.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnDodajDoktora.Location = new System.Drawing.Point(18, 298);
+            this.btnDodajDoktora.Location = new System.Drawing.Point(477, 298);
             this.btnDodajDoktora.Name = "btnDodajDoktora";
             this.btnDodajDoktora.Size = new System.Drawing.Size(138, 23);
             this.btnDodajDoktora.TabIndex = 1;
@@ -103,11 +104,22 @@
             this.btnDodajDoktora.UseVisualStyleBackColor = false;
             this.btnDodajDoktora.Click += new System.EventHandler(this.btnDodajDoktora_Click);
             // 
+            // btnBack
+            // 
+            this.btnBack.Location = new System.Drawing.Point(12, 298);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(125, 23);
+            this.btnBack.TabIndex = 4;
+            this.btnBack.Text = "Nazad";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
             // frmDoktori
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(633, 333);
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnDodajDoktora);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -131,5 +143,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox txtIme;
         private System.Windows.Forms.Button btnDodajDoktora;
+        private Button btnBack;
     }
 }

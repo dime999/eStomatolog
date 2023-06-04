@@ -35,6 +35,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtIme = new System.Windows.Forms.TextBox();
             this.btnDodajNovogPacijenta = new System.Windows.Forms.Button();
+            this.btnNazad = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPacijenti)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -97,18 +98,29 @@
             this.btnDodajNovogPacijenta.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnDodajNovogPacijenta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnDodajNovogPacijenta.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnDodajNovogPacijenta.Location = new System.Drawing.Point(18, 298);
+            this.btnDodajNovogPacijenta.Location = new System.Drawing.Point(477, 298);
             this.btnDodajNovogPacijenta.Name = "btnDodajNovogPacijenta";
             this.btnDodajNovogPacijenta.Size = new System.Drawing.Size(138, 23);
             this.btnDodajNovogPacijenta.TabIndex = 1;
             this.btnDodajNovogPacijenta.Text = "Dodaj novog pacijenta";
             this.btnDodajNovogPacijenta.UseVisualStyleBackColor = false;
             // 
+            // btnNazad
+            // 
+            this.btnNazad.Location = new System.Drawing.Point(12, 298);
+            this.btnNazad.Name = "btnNazad";
+            this.btnNazad.Size = new System.Drawing.Size(111, 23);
+            this.btnNazad.TabIndex = 4;
+            this.btnNazad.Text = "Nazad";
+            this.btnNazad.UseVisualStyleBackColor = true;
+            this.btnNazad.Click += new System.EventHandler(this.btnNazad_Click);
+            // 
             // frmPacijenti
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(633, 333);
+            this.Controls.Add(this.btnNazad);
             this.Controls.Add(this.btnDodajNovogPacijenta);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -132,5 +144,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox txtIme;
         private System.Windows.Forms.Button btnDodajNovogPacijenta;
+        private Button btnNazad;
     }
 }
