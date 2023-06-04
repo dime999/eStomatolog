@@ -257,8 +257,9 @@
             this.btnServices.Name = "btnServices";
             this.btnServices.Size = new System.Drawing.Size(261, 49);
             this.btnServices.TabIndex = 5;
-            this.btnServices.Text = "Services";
+            this.btnServices.Text = "Pacijenti";
             this.btnServices.UseVisualStyleBackColor = false;
+            this.btnServices.Click += new System.EventHandler(this.btnServices_Click);
             // 
             // panel1
             // 

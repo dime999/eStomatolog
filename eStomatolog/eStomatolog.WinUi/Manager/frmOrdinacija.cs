@@ -94,5 +94,13 @@ namespace eStomatolog.WinUi.Manager
             forma.Closed += (s, args) => this.Show();
             forma.ShowDialog();
         }
+
+        private void btnServices_Click(object sender, EventArgs e)
+        {
+            var forma = new Pacijent.frmPacijenti(_ordinacija);
+            this.Hide();
+            forma.Closed += (s, args) => this.Show();
+            forma.ShowDialog();
+        }
     }
 }
