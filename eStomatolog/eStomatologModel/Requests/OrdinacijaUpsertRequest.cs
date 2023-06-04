@@ -11,5 +11,7 @@ namespace eStomatologModel.Requests
         public string Adresa { get; set; }
 
         public string Telefon { get; set; }
+
+        public int GradId { get; set; }
     }
 }

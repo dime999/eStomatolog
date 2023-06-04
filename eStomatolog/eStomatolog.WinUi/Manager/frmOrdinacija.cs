@@ -1,4 +1,5 @@
 ﻿using eStomatologModel;
+using eStomatologModel.Requests;
 using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
@@ -59,7 +60,18 @@ namespace eStomatolog.WinUi.Manager
 
         private async void btnSave_Click(object sender, EventArgs e)
         {
-            
+            var grad = cbGradovi.SelectedItem as Grad;
+            int gradId = grad.GradId;
+            var req = new OrdinacijaUpsertRequest
+            {
+                Adresa = txtAddress.Text,
+                Telefon = txtTelefon.Text,
+                Naziv = txtTelefon.Text,
+                GradId = gradId
+
+            };
+            var Ordinacije = await _ordinacijaService.Put<Ordinacije>(_ordinacija.OrdinacijaId,req);
+            MessageBox.Show("Uspješno ste uredili osnovne informacije ordinacije");
         }
   
 
