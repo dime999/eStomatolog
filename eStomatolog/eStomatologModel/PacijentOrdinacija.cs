@@ -6,10 +6,12 @@ namespace eStomatologModel
 {
     public class PacijentOrdinacija
     {
-        public int PacijentId { get; set; }
+       
         public Pacijent Pacijnet { get; set; }
 
-        public int OrdinacijaId { get; set; }
-        public Ordinacije Ordinacija { get; set; }
+
+        public string PacijentIme => Pacijnet?.Ime;
+
+        public string PacijentPrezime => Pacijnet?.Prezime;
     }
 }

@@ -2,7 +2,9 @@
 using eStomatologModel;
 using eStomatologModel.Requests;
 using eStomatologModel.SearchObjects;
+using eStomatologServices.Database;
 using eStomatologServices.Interfejsi;
+using eStomatologServices.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Services.Users;
 using System;
@@ -108,11 +110,9 @@ namespace eStomatologServices.Servisi
                     pacijentOrdinacija.OrdinacijaId = ordinacijaId;
                     pacijentOrdinacija.PacijentId = pacijent.Id;
                     pacijentOrdinacija.Pacijnet = pacijent;
-                    eStomatologServices.Database.Ordinacije ordinacija = new eStomatologServices.Database.Ordinacije();
-                    ordinacija = Context.Ordinacija.FirstOrDefault(x => x.OrdinacijaId == ordinacijaId);
-                    pacijentOrdinacija.Ordinacija = (ordinacija);
-
+                    pacijentOrdinacija.Ordinacija = Context.Ordinacija.FirstOrDefault(x => x.OrdinacijaId == ordinacijaId);
                     Context.PacijentiOrdinacije.Add(pacijentOrdinacija);
+                    pacijent.PacijentOrdinacije.Add(pacijentOrdinacija);
                     Context.SaveChanges();
                 }
 

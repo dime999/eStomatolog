@@ -50,6 +50,7 @@ builder.Services.AddTransient<ISpecijalizacijaService, SpecijalizacijaService>()
 builder.Services.AddTransient<IGradService, GradService>();
 builder.Services.AddTransient<IDoktoriOrdinacije, DoktoriOrdinacijeService>();
 builder.Services.AddTransient<IOrdinacijaService, OrdinacijaService>();
+builder.Services.AddTransient<IPacijentiOrdinacijeService, PacijentiOrdinacijeService>();
 
 
 

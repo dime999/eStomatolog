@@ -28,6 +28,6 @@ namespace eStomatologServices.Database
 
         public virtual Grad Grad { get; set; } = null!;
 
-       
+        public virtual ICollection<PacijentOrdinacija> PacijentOrdinacije { get; set; }
     }
 }
