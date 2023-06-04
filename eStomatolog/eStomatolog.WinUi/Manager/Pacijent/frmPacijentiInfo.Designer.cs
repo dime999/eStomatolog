@@ -34,6 +34,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtOpis = new System.Windows.Forms.TextBox();
             this.tabPregledi = new System.Windows.Forms.TabPage();
+            this.dgvDijagnoze = new System.Windows.Forms.DataGridView();
             this.tabPacijent = new System.Windows.Forms.TabPage();
             this.cblGradovi = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -46,13 +47,12 @@
             this.txtIme = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tab = new System.Windows.Forms.TabControl();
-            this.dgvDijagnoze = new System.Windows.Forms.DataGridView();
             this.tabDijagnoza.SuspendLayout();
             this.tabPregledi.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDijagnoze)).BeginInit();
             this.tabPacijent.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDijagnoze)).BeginInit();
             this.SuspendLayout();
             // 
             // btnBack
@@ -116,6 +116,15 @@
             this.tabPregledi.TabIndex = 1;
             this.tabPregledi.Text = "Pregledi i nalazi";
             this.tabPregledi.UseVisualStyleBackColor = true;
+            // 
+            // dgvDijagnoze
+            // 
+            this.dgvDijagnoze.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDijagnoze.Location = new System.Drawing.Point(0, 0);
+            this.dgvDijagnoze.Name = "dgvDijagnoze";
+            this.dgvDijagnoze.RowTemplate.Height = 25;
+            this.dgvDijagnoze.Size = new System.Drawing.Size(567, 271);
+            this.dgvDijagnoze.TabIndex = 0;
             // 
             // tabPacijent
             // 
@@ -236,20 +245,11 @@
             this.tab.Size = new System.Drawing.Size(571, 311);
             this.tab.TabIndex = 0;
             // 
-            // dgvDijagnoze
-            // 
-            this.dgvDijagnoze.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDijagnoze.Location = new System.Drawing.Point(6, 6);
-            this.dgvDijagnoze.Name = "dgvDijagnoze";
-            this.dgvDijagnoze.RowTemplate.Height = 25;
-            this.dgvDijagnoze.Size = new System.Drawing.Size(551, 271);
-            this.dgvDijagnoze.TabIndex = 0;
-            // 
             // frmPacijentiInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(608, 420);
+            this.ClientSize = new System.Drawing.Size(606, 413);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.tab);
@@ -259,11 +259,11 @@
             this.tabDijagnoza.ResumeLayout(false);
             this.tabDijagnoza.PerformLayout();
             this.tabPregledi.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDijagnoze)).EndInit();
             this.tabPacijent.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tab.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDijagnoze)).EndInit();
             this.ResumeLayout(false);
 
         }

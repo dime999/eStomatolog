@@ -61,20 +61,20 @@ namespace eStomatolog.WinUi.Manager.Pacijent
             DataGridViewTextBoxColumn nazivKolona = new DataGridViewTextBoxColumn();
             nazivKolona.DataPropertyName = "DoktorIme";
             nazivKolona.HeaderText = "Ime doktora";
-            nazivKolona.Width = 270;
+            nazivKolona.Width = 140;
             dgvDijagnoze.Columns.Add(nazivKolona);
 
 
             DataGridViewTextBoxColumn opisKolona = new DataGridViewTextBoxColumn();
             opisKolona.DataPropertyName = "Opis";
             opisKolona.HeaderText = "Opis dijagnoze";
-            opisKolona.Width = 270;
+            opisKolona.Width = 240;
             dgvDijagnoze.Columns.Add(opisKolona);
 
             DataGridViewTextBoxColumn datumKolona = new DataGridViewTextBoxColumn();
             datumKolona.DataPropertyName = "Datum";
             datumKolona.HeaderText = "Datum dijagnoze";
-            datumKolona.Width = 270;
+            datumKolona.Width = 140;
             dgvDijagnoze.Columns.Add(datumKolona);
 
         }
