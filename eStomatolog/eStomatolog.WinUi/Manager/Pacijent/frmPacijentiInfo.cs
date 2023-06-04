@@ -20,6 +20,7 @@ namespace eStomatolog.WinUi.Manager.Pacijent
         public APIService GradService { get; set; } = new APIService("Grad");
         public APIService PacijentService { get; set; } = new APIService("Pacijent");
         public APIService DijagnozaService { get; set; } = new APIService("Dijagnoza");
+        public APIService DijagnozaPacijentService { get; set; } = new APIService("GetByPacijent");
         public frmPacijentiInfo(eStomatologModel.Pacijent pacijent,Ordinacije ordinacija,Doktor doktor)
         {
             _ordinacija= ordinacija;
@@ -30,6 +31,7 @@ namespace eStomatolog.WinUi.Manager.Pacijent
 
         private void frmPacijentiInfo_Load(object sender, EventArgs e)
         {
+            dgvDijagnoze.AutoGenerateColumns = false;
             LoadData();
             
 
@@ -51,7 +53,29 @@ namespace eStomatolog.WinUi.Manager.Pacijent
 
         private async Task LoadDijagnoze()
         {
-            
+            List<DijagnozaInfoModel> rezultat = await DijagnozaPacijentService.GetByDoktorId<List<DijagnozaInfoModel>>(_pacijent.Id);
+
+            dgvDijagnoze.DataSource = rezultat;
+
+
+            DataGridViewTextBoxColumn nazivKolona = new DataGridViewTextBoxColumn();
+            nazivKolona.DataPropertyName = "DoktorIme";
+            nazivKolona.HeaderText = "Ime doktora";
+            nazivKolona.Width = 270;
+            dgvDijagnoze.Columns.Add(nazivKolona);
+
+
+            DataGridViewTextBoxColumn opisKolona = new DataGridViewTextBoxColumn();
+            opisKolona.DataPropertyName = "Opis";
+            opisKolona.HeaderText = "Opis dijagnoze";
+            opisKolona.Width = 270;
+            dgvDijagnoze.Columns.Add(opisKolona);
+
+            DataGridViewTextBoxColumn datumKolona = new DataGridViewTextBoxColumn();
+            datumKolona.DataPropertyName = "Datum";
+            datumKolona.HeaderText = "Datum dijagnoze";
+            datumKolona.Width = 270;
+            dgvDijagnoze.Columns.Add(datumKolona);
 
         }
         private async Task LoadGradovi()
