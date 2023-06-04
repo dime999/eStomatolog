@@ -50,6 +50,7 @@
             this.txtOrdinacijaAdresa = new System.Windows.Forms.TextBox();
             this.txtOrdinacijaNaziv = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvManagerHome)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -62,7 +63,7 @@
             this.groupBox1.Controls.Add(this.btnAdd);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(776, 268);
+            this.groupBox1.Size = new System.Drawing.Size(776, 251);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ordinacije";
@@ -101,7 +102,7 @@
             this.groupBox2.Controls.Add(this.txtSurname);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.txtIme);
-            this.groupBox2.Location = new System.Drawing.Point(18, 286);
+            this.groupBox2.Location = new System.Drawing.Point(18, 314);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(369, 306);
             this.groupBox2.TabIndex = 2;
@@ -198,7 +199,7 @@
             this.groupBox3.Controls.Add(this.txtOrdinacijaAdresa);
             this.groupBox3.Controls.Add(this.txtOrdinacijaNaziv);
             this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Location = new System.Drawing.Point(393, 286);
+            this.groupBox3.Location = new System.Drawing.Point(399, 314);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(389, 306);
             this.groupBox3.TabIndex = 3;
@@ -287,12 +288,26 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "Naziv";
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.button1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.button1.Location = new System.Drawing.Point(599, 269);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(183, 35);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "Dodaj postojecu ordinaciju";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ManagerHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(800, 604);
+            this.ClientSize = new System.Drawing.Size(800, 650);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -334,5 +349,6 @@
         private System.Windows.Forms.Button btnAddOrdinacija;
         private Label label6;
         private TextBox txtTelefon;
+        private Button button1;
     }
 }

@@ -197,5 +197,14 @@ namespace eStomatolog.WinUi.Manager
             Doktor _doktor = await _doktorKorisnik.GetByKorisnikId<Doktor>(_korisnik.KorisnikId);
             return _doktor.Id;
         }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            _doktor = await _doktorKorisnik.GetByKorisnikId<Doktor>(_korisnik.KorisnikId);
+            this.Hide();
+            var form = new Ordinacija.frmOrdinacijaAdd(_doktor);
+            form.Closed += (s, args) => this.Close();
+            form.Show();
+        }
     }
 }
