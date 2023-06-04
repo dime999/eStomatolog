@@ -18,6 +18,7 @@ namespace eStomatolog.WinUi.Manager.Doktori
         private List<Doktor> _doktori;
         private APIService _doktoriOrdinacije = new APIService ("DoktorOrdinacija");
         private APIService _doktorOrdinacija = new APIService("GetByOrdinacijaId");
+        private List<DoktorOrdinacijaDoktorInfo> originalnaLista;
         public frmDoktori(Ordinacije ordinacija, Doktor user)
         {
             _ordinacija= ordinacija;
@@ -38,29 +39,53 @@ namespace eStomatolog.WinUi.Manager.Doktori
 
         private async Task LoadDoktori()
         {
-            //var reqHD = new HairDresserSearchRequest() { HairSalonId = _hairSalon.HairSalonId };
+            originalnaLista = await _doktorOrdinacija.GetByDoktorId<List<DoktorOrdinacijaDoktorInfo>>(_ordinacija.OrdinacijaId);
 
+            BindingSource bindingSource = new BindingSource();
+            bindingSource.DataSource = originalnaLista;
 
-
-            List<DoktorOrdinacijaDoktorInfo> rezultat = await _doktorOrdinacija.GetByDoktorId<List<DoktorOrdinacijaDoktorInfo>>(_ordinacija.OrdinacijaId);
-
-            dgvDoktori.DataSource = rezultat;
+            dgvDoktori.DataSource = bindingSource;
 
             DataGridViewTextBoxColumn nazivKolona = new DataGridViewTextBoxColumn();
             nazivKolona.DataPropertyName = "DoktorIme";
             nazivKolona.HeaderText = "Ime";
-            nazivKolona.Width = 200;
+            nazivKolona.Width = 230;
             dgvDoktori.Columns.Add(nazivKolona);
-
 
             DataGridViewTextBoxColumn adresaKolona = new DataGridViewTextBoxColumn();
             adresaKolona.DataPropertyName = "DoktorPrezime";
             adresaKolona.HeaderText = "Prezime";
-            adresaKolona.Width = 200;
+            adresaKolona.Width = 230;
             dgvDoktori.Columns.Add(adresaKolona);
 
-            //dgvEmployees.AutoGenerateColumns = false;
-            //populate_dgvEmployees(_hairSalonHairDressers, _hairSalonManagers);
+            // Dodajte event handler za promjenu teksta u filter input kontroli
+            txtIme.TextChanged += TxtFilter_TextChanged;
         }
+
+        private void TxtFilter_TextChanged(object sender, EventArgs e)
+        {
+            string filterValue = txtIme.Text.Trim();
+
+            BindingSource bindingSource = (BindingSource)dgvDoktori.DataSource;
+
+            if (string.IsNullOrEmpty(filterValue))
+            {
+                bindingSource.DataSource = originalnaLista;
+            }
+            else
+            {
+                List<DoktorOrdinacijaDoktorInfo> filtriranaLista = originalnaLista
+                    .Where(d => d.DoktorIme.Contains(filterValue, StringComparison.OrdinalIgnoreCase)
+                                || d.DoktorPrezime.Contains(filterValue, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                bindingSource.DataSource = filtriranaLista;
+            }
+
+            dgvDoktori.Refresh();
+        }
+
+
+
     }
 }

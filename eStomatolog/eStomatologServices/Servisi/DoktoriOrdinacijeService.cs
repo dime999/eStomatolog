@@ -4,6 +4,7 @@ using eStomatologModel.Requests;
 using eStomatologModel.SearchObjects;
 using eStomatologServices.Interfejsi;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,6 @@ namespace eStomatologServices.Servisi
         {
             var entity = Context.Set<eStomatologServices.Database.DoktorOrdinacija>().Include(dok => dok.Doktor).Where(x => x.OrdinacijaId == id).AsQueryable();
             var list = entity.ToList();
-
             return Mapper.Map<IList<DoktorOrdinacijaDoktorInfo>>(list);
         }
 
@@ -44,6 +44,9 @@ namespace eStomatologServices.Servisi
            
             return Mapper.Map<IList<DoktorOrdinacija>>(list);
         }
+
+
+      
 
 
 
