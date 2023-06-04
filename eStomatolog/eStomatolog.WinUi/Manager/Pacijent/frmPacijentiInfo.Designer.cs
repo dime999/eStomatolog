@@ -30,7 +30,12 @@
         {
             this.tab = new System.Windows.Forms.TabControl();
             this.tabPacijent = new System.Windows.Forms.TabPage();
+            this.cblGradovi = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblTelefon = new System.Windows.Forms.Label();
+            this.txtTelefon = new System.Windows.Forms.TextBox();
+            this.lblDatum = new System.Windows.Forms.Label();
+            this.dtpDatum = new System.Windows.Forms.DateTimePicker();
             this.txtPrezime = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtIme = new System.Windows.Forms.TextBox();
@@ -38,11 +43,6 @@
             this.tabPregledi = new System.Windows.Forms.TabPage();
             this.btnBack = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.txtTelefon = new System.Windows.Forms.TextBox();
-            this.lblTelefon = new System.Windows.Forms.Label();
-            this.dtpDatum = new System.Windows.Forms.DateTimePicker();
-            this.lblDatum = new System.Windows.Forms.Label();
-            this.cblGradovi = new System.Windows.Forms.ComboBox();
             this.tab.SuspendLayout();
             this.tabPacijent.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -70,6 +70,14 @@
             this.tabPacijent.Text = "Pacijent info";
             this.tabPacijent.UseVisualStyleBackColor = true;
             // 
+            // cblGradovi
+            // 
+            this.cblGradovi.FormattingEnabled = true;
+            this.cblGradovi.Location = new System.Drawing.Point(20, 218);
+            this.cblGradovi.Name = "cblGradovi";
+            this.cblGradovi.Size = new System.Drawing.Size(121, 23);
+            this.cblGradovi.TabIndex = 12;
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lblTelefon);
@@ -88,6 +96,40 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Podaci";
+            // 
+            // lblTelefon
+            // 
+            this.lblTelefon.AutoSize = true;
+            this.lblTelefon.Location = new System.Drawing.Point(14, 116);
+            this.lblTelefon.Name = "lblTelefon";
+            this.lblTelefon.Size = new System.Drawing.Size(48, 15);
+            this.lblTelefon.TabIndex = 9;
+            this.lblTelefon.Text = "Telefon:";
+            // 
+            // txtTelefon
+            // 
+            this.txtTelefon.Location = new System.Drawing.Point(177, 108);
+            this.txtTelefon.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtTelefon.Name = "txtTelefon";
+            this.txtTelefon.Size = new System.Drawing.Size(233, 23);
+            this.txtTelefon.TabIndex = 8;
+            // 
+            // lblDatum
+            // 
+            this.lblDatum.AutoSize = true;
+            this.lblDatum.Location = new System.Drawing.Point(14, 86);
+            this.lblDatum.Name = "lblDatum";
+            this.lblDatum.Size = new System.Drawing.Size(92, 15);
+            this.lblDatum.TabIndex = 7;
+            this.lblDatum.Text = "Datum rodjenja:";
+            // 
+            // dtpDatum
+            // 
+            this.dtpDatum.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpDatum.Location = new System.Drawing.Point(177, 80);
+            this.dtpDatum.Name = "dtpDatum";
+            this.dtpDatum.Size = new System.Drawing.Size(233, 23);
+            this.dtpDatum.TabIndex = 6;
             // 
             // txtPrezime
             // 
@@ -142,6 +184,7 @@
             this.btnBack.TabIndex = 15;
             this.btnBack.Text = "Nazad";
             this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // btnSave
             // 
@@ -153,48 +196,6 @@
             this.btnSave.Text = "Sačuvaj";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // txtTelefon
-            // 
-            this.txtTelefon.Location = new System.Drawing.Point(177, 108);
-            this.txtTelefon.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtTelefon.Name = "txtTelefon";
-            this.txtTelefon.Size = new System.Drawing.Size(233, 23);
-            this.txtTelefon.TabIndex = 8;
-            // 
-            // lblTelefon
-            // 
-            this.lblTelefon.AutoSize = true;
-            this.lblTelefon.Location = new System.Drawing.Point(14, 116);
-            this.lblTelefon.Name = "lblTelefon";
-            this.lblTelefon.Size = new System.Drawing.Size(48, 15);
-            this.lblTelefon.TabIndex = 9;
-            this.lblTelefon.Text = "Telefon:";
-            // 
-            // dtpDatum
-            // 
-            this.dtpDatum.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDatum.Location = new System.Drawing.Point(177, 80);
-            this.dtpDatum.Name = "dtpDatum";
-            this.dtpDatum.Size = new System.Drawing.Size(233, 23);
-            this.dtpDatum.TabIndex = 6;
-            // 
-            // lblDatum
-            // 
-            this.lblDatum.AutoSize = true;
-            this.lblDatum.Location = new System.Drawing.Point(14, 86);
-            this.lblDatum.Name = "lblDatum";
-            this.lblDatum.Size = new System.Drawing.Size(92, 15);
-            this.lblDatum.TabIndex = 7;
-            this.lblDatum.Text = "Datum rodjenja:";
-            // 
-            // cblGradovi
-            // 
-            this.cblGradovi.FormattingEnabled = true;
-            this.cblGradovi.Location = new System.Drawing.Point(20, 218);
-            this.cblGradovi.Name = "cblGradovi";
-            this.cblGradovi.Size = new System.Drawing.Size(121, 23);
-            this.cblGradovi.TabIndex = 12;
             // 
             // frmPacijentiInfo
             // 

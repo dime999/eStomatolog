@@ -106,7 +106,7 @@ namespace eStomatolog.WinUi.Manager.Pacijent
             var item = dgvPacijenti.SelectedRows[0].DataBoundItem as PacijentOrdinacija;
 
             this.Hide();
-            var form = new frmPacijentiInfo(item.Pacijnet,_ordinacija);
+            var form = new frmPacijentiInfo(item.Pacijnet,_ordinacija,_doktor);
             form.Closed += (s, args) => this.Close();
             form.Show();
 

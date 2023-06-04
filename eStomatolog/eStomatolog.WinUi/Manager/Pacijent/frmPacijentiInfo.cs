@@ -16,12 +16,14 @@ namespace eStomatolog.WinUi.Manager.Pacijent
     {
         private eStomatologModel.Pacijent  _pacijent { get; set; }
         private Ordinacije _ordinacija { get; set; }
+        private Doktor _doktor { get; set; }
         public APIService GradService { get; set; } = new APIService("Grad");
         public APIService PacijentService { get; set; } = new APIService("Pacijent");
-        public frmPacijentiInfo(eStomatologModel.Pacijent pacijent,Ordinacije ordinacija)
+        public frmPacijentiInfo(eStomatologModel.Pacijent pacijent,Ordinacije ordinacija,Doktor doktor)
         {
             _ordinacija= ordinacija;
             _pacijent = pacijent;
+            _doktor = doktor;
             InitializeComponent();
         }
 
@@ -68,11 +70,23 @@ namespace eStomatolog.WinUi.Manager.Pacijent
             if (pacijent != null)
             {
                 MessageBox.Show("Uspješno ste uredili podatke pacijenta.", "Success");
+                var forma = new Pacijent.frmPacijenti(_ordinacija, _doktor);
+                this.Hide();
+                forma.Closed += (s, args) => this.Show();
+                forma.ShowDialog();
             }
             else
             {
                 MessageBox.Show("Podaci se nisu mogli spremiti.", "Failure");
             }
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            var forma = new Pacijent.frmPacijenti(_ordinacija,_doktor);
+            this.Hide();
+            forma.Closed += (s, args) => this.Show();
+            forma.ShowDialog();
         }
     }
 }
