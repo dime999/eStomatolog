@@ -1,5 +1,6 @@
 ﻿using eStomatolog.WinUi.Manager;
 using eStomatologModel;
+using eStomatologModel.Requests;
 using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace eStomatolog.WinUi.Ordinacija
 
         private Doktor _doktor { get; set; }
         private APIService _ordinacijaService = new APIService("Ordinacija");
+        private APIService _doktorOrdinacija = new APIService("DoktorOrdinacija");
+        private APIService _getByDoktorId = new APIService("GetByDoktorId");
         private APIService _korisnik = new APIService("Korisnik");
         public frmOrdinacijaAdd(Doktor doktor)
         {
@@ -54,6 +57,32 @@ namespace eStomatolog.WinUi.Ordinacija
             this.Hide();
             forma.Closed += (s, args) => this.Show();
             forma.ShowDialog();
+        }
+
+       
+
+        private async void btnAdd_Click(object sender, EventArgs e)
+        {
+            var Ordinacija = cbOrdinacije.SelectedItem as Ordinacije;
+            bool postoji = false;
+            int ordinacijaId = Ordinacija.OrdinacijaId;
+
+            List<DoktorOrdinacija> rezultat = await _getByDoktorId.GetByDoktorId<List<DoktorOrdinacija>>(_doktor.Id);
+            var req = new DoktorOrdinacijaInsertRequest { DoktorId = _doktor.Id, OrdinacijaId = ordinacijaId };
+            foreach(var i in rezultat)
+            {
+                if(Ordinacija.Naziv==i.OrdinacijaNaziv)
+                {
+                    postoji = true;
+                    MessageBox.Show("Ordinacija vec postoji!");
+                }      
+            }
+             if(!postoji)
+            {
+                var doktorOrdinacija = _doktorOrdinacija.Post<DoktorOrdinacija>(req);
+                MessageBox.Show("Uspješno ste dodali novu ordinaciju!");
+            }
+
         }
     }
 }

@@ -10,7 +10,5 @@ namespace eStomatologModel.Requests
 
         public int OrdinacijaId { get; set; }
 
-       
-
     }
 }

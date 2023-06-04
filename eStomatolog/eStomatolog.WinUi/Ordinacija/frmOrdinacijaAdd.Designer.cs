@@ -59,6 +59,7 @@
             this.btnAdd.TabIndex = 2;
             this.btnAdd.Text = "Dodaj ordinaciju";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // frmOrdinacijaAdd
             // 
