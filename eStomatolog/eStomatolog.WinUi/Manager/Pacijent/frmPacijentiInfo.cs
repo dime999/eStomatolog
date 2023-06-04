@@ -38,6 +38,7 @@ namespace eStomatolog.WinUi.Manager.Pacijent
         {
             await LoadGradovi();
             await LoadInfo();
+            await LoadDijagnoze();
         }
 
         private async Task LoadInfo()
@@ -46,6 +47,12 @@ namespace eStomatolog.WinUi.Manager.Pacijent
             txtPrezime.Text = _pacijent.Prezime;
             txtTelefon.Text = _pacijent.Telefon;
             
+        }
+
+        private async Task LoadDijagnoze()
+        {
+            
+
         }
         private async Task LoadGradovi()
         {

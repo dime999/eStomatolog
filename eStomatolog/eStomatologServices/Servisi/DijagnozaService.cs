@@ -3,6 +3,7 @@ using eStomatologModel;
 using eStomatologModel.Requests;
 using eStomatologModel.SearchObjects;
 using eStomatologServices.Interfejsi;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,13 @@ namespace eStomatologServices.Servisi
         {
             
         }
+
+        public IEnumerable<DijagnozaInfoModel> GetByPacijentId(int id)
+        {
+            var entity = Context.Set<eStomatologServices.Models.Dijagnoza>().Include(dok => dok.Doktor).Where(x => x.PacijentId == id).AsQueryable();
+            var list = entity.ToList();
+            return Mapper.Map<IList<DijagnozaInfoModel>>(list);
+        }
+
     }
 }
