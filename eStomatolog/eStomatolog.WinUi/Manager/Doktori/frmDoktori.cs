@@ -17,6 +17,7 @@ namespace eStomatolog.WinUi.Manager.Doktori
         private Doktor _user { get; set; }
         private List<Doktor> _doktori;
         private APIService _doktoriOrdinacije = new APIService ("DoktorOrdinacija");
+        private APIService _doktorOrdinacija = new APIService("GetByOrdinacijaId");
         public frmDoktori(Ordinacije ordinacija, Doktor user)
         {
             _ordinacija= ordinacija;
@@ -26,6 +27,7 @@ namespace eStomatolog.WinUi.Manager.Doktori
 
         private void frmDoktori_Load(object sender, EventArgs e)
         {
+            dgvDoktori.AutoGenerateColumns = false;
             LoadData();
         }
 
@@ -37,10 +39,25 @@ namespace eStomatolog.WinUi.Manager.Doktori
         private async Task LoadDoktori()
         {
             //var reqHD = new HairDresserSearchRequest() { HairSalonId = _hairSalon.HairSalonId };
-           
 
-           
-            //_doktori = await _managers.Get<List<HairSalonManager>>(reqM);
+
+
+            List<DoktorOrdinacijaDoktorInfo> rezultat = await _doktorOrdinacija.GetByDoktorId<List<DoktorOrdinacijaDoktorInfo>>(_ordinacija.OrdinacijaId);
+
+            dgvDoktori.DataSource = rezultat;
+
+            DataGridViewTextBoxColumn nazivKolona = new DataGridViewTextBoxColumn();
+            nazivKolona.DataPropertyName = "DoktorIme";
+            nazivKolona.HeaderText = "Ime";
+            nazivKolona.Width = 200;
+            dgvDoktori.Columns.Add(nazivKolona);
+
+
+            DataGridViewTextBoxColumn adresaKolona = new DataGridViewTextBoxColumn();
+            adresaKolona.DataPropertyName = "DoktorPrezime";
+            adresaKolona.HeaderText = "Prezime";
+            adresaKolona.Width = 200;
+            dgvDoktori.Columns.Add(adresaKolona);
 
             //dgvEmployees.AutoGenerateColumns = false;
             //populate_dgvEmployees(_hairSalonHairDressers, _hairSalonManagers);
