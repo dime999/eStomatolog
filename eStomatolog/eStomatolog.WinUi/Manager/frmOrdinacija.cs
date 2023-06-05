@@ -113,5 +113,13 @@ namespace eStomatolog.WinUi.Manager
             forma.Closed += (s, args) => this.Show();
             forma.ShowDialog();
         }
+
+        private void btnSlike_Click(object sender, EventArgs e)
+        {
+            var forma = new Manager.OrdinacijaSlike(_ordinacija);
+            this.Hide();
+            forma.Closed += (s, args) => this.Show();
+            forma.ShowDialog();
+        }
     }
 }

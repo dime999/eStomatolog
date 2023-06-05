@@ -49,7 +49,8 @@
             this.groupBox1.Size = new System.Drawing.Size(609, 215);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Lista pacijenata";
+            this.groupBox1.Text = "Lista pacijenata                                                                 " +
+    "                     Dva pita kliknite na pacijenta za više detalja";
             // 
             // dgvPacijenti
             // 

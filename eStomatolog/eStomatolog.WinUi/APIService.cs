@@ -73,7 +73,20 @@ namespace eStomatolog.WinUi
             return list;
         }
 
-        
+        public async Task<T> GetOrdinacijaSlikeIds<T>(int ordinacijaId)
+        {
+            var list = await $"{_endpoint}{_resource}/?ordinacijaId={ordinacijaId}".WithBasicAuth(Username,Password).GetJsonAsync<T>();
+            return list;
+        }
+
+        public async Task<byte[]> GetSlikaStream<T>(int imageId)
+        {
+            var url = ($"{_endpoint}{_resource}?slikaId={imageId}");
+            var resultPath = await url.WithBasicAuth(Username, Password).DownloadFileAsync(Application.StartupPath, "index.jpg");
+
+            return File.ReadAllBytes(resultPath);
+        }
+
 
 
 

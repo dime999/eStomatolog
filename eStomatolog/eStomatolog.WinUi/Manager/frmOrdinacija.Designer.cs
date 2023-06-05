@@ -231,6 +231,7 @@
             this.btnSlike.TabIndex = 3;
             this.btnSlike.Text = "Pictures";
             this.btnSlike.UseVisualStyleBackColor = true;
+            this.btnSlike.Click += new System.EventHandler(this.btnSlike_Click);
             // 
             // btnCategories
             // 

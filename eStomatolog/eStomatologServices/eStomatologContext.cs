@@ -52,6 +52,8 @@ public partial class eStomatologContext : DbContext
     public virtual DbSet<DoktoriSpecijalizacije> DoktoriSpecijalizacije { get; set; }
     public virtual DbSet<DoktorOrdinacija> DoktoriOrdinacije{ get; set; }
     public virtual DbSet<PacijentOrdinacija> PacijentiOrdinacije{ get; set; }
+    public virtual DbSet<Slika> Slike{ get; set; }
+    public virtual DbSet<OrdinacijaSlika> OrdinacijaSlike{ get; set; }
 
 
 
@@ -328,6 +330,12 @@ public partial class eStomatologContext : DbContext
 
         });
 
+
+        modelBuilder.Entity<OrdinacijaSlika>(entity =>
+        {
+            entity.HasKey(k => new { k.OrdinacijaId, k.SlikaId })
+                .HasName("PK_ordinacija_slika");
+        });
 
 
     }

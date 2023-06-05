@@ -26,4 +26,8 @@
     <ProjectReference Include="..\eStomatologServices\eStomatologServices.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Images\" />
+  </ItemGroup>
+
 </Project>
