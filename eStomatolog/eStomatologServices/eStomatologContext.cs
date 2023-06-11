@@ -42,17 +42,24 @@ public partial class eStomatologContext : DbContext
 
     public virtual DbSet<Ocjene> Ocjene { get; set; }
 
+    public virtual DbSet<Rezervacija> Rezervacije { get; set; }
+
     public virtual DbSet<KorisniciUloge> KorisnikUloge { get; set; }
 
     public virtual DbSet<Specijalizacija> Specijalizacije { get; set; }
+
     public virtual DbSet<Grad> Gradovi { get; set; }
+
     public virtual DbSet<Ordinacije> Ordinacije { get; set; }
 
-
     public virtual DbSet<DoktoriSpecijalizacije> DoktoriSpecijalizacije { get; set; }
+
     public virtual DbSet<DoktorOrdinacija> DoktoriOrdinacije{ get; set; }
+
     public virtual DbSet<PacijentOrdinacija> PacijentiOrdinacije{ get; set; }
+
     public virtual DbSet<Slika> Slike{ get; set; }
+
     public virtual DbSet<OrdinacijaSlika> OrdinacijaSlike{ get; set; }
 
 
