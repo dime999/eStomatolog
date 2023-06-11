@@ -23,8 +23,6 @@ namespace eStomatologServices.Servisi
             _hostEnvironment = hostEnvironment;
         }
 
-       
-
         public async Task<byte[]> GetPictureStream(int slikaId)
         {
             Byte[] imageBytes;
@@ -41,19 +39,7 @@ namespace eStomatologServices.Servisi
             {
                 throw new UserException("Greska kod prikazivanja slika" + ex.Message);
             }
-        }
-
-        //public async Task<Galerija> GetOrdinacijeSlikeIds(int ordinacijaId)
-        //{
-        //    var galerija = new Galerija();
-
-        //    galerija.Rows = await Context.OrdinacijaSlike.Where(x => x.OrdinacijaId == ordinacijaId).Select(x => new Galerija.Row { slikaId = x.SlikaId }).ToListAsync();
-        //    for (int i = 0; i < galerija.Rows.Count(); i++)
-        //    {
-        //        galerija.slikeIds[i] = galerija.Rows.ElementAt(i).slikaId;
-        //    }
-        //    return galerija;
-        //}
+        }    
 
         public async Task<Galerija> GetOrdinacijeSlikeIds(int ordinacijaId)
         {
@@ -91,25 +77,6 @@ namespace eStomatologServices.Servisi
 
             return Mapper.Map<eStomatologModel.Slika>(entry.Entity);
         }
-
-        //public async override Task<eStomatologModel.Slika> Update(int id, SlikaUpdateRequest request)
-        //{
-        //    var entry = _context.Slike.Where(x => x.SlikaId == id).First();
-
-        //    var oldPath = entry.Path;
-
-        //    var newPath = await UploadFile(request.SlikeFile);
-
-        //    File.Delete(oldPath);
-
-        //    entry.Path = newPath;
-
-        //    _context.SaveChanges();
-
-        //    return Mapper.Map<eStomatologModel.Slika>(entry);
-
-        //}
-
 
         public async Task<string> UploadFile(IFormFile file)
         {

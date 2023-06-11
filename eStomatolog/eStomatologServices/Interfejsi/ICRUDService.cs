@@ -10,5 +10,6 @@ namespace eStomatologServices.Interfejsi
     {
         T Insert(TInsert insert);
         T Update(int id, TUpdate update);
+        T Delete(int id);
     }
 }

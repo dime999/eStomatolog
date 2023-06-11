@@ -25,5 +25,12 @@ namespace eStomatolog.Controllers
             var result = ((ICRUDService<T, TSearch, TInsert, TUpdate>)this.Service).Update(id,update);
             return result;
         }
+
+        [HttpDelete]
+        public  virtual T Delete(int id)
+        {
+            var result = ((ICRUDService<T, TSearch, TInsert, TUpdate>)this.Service).Delete(id);
+            return result;
+        }
     }
 }

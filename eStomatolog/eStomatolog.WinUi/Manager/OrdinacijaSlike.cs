@@ -62,6 +62,7 @@ namespace eStomatolog.WinUi.Manager
             pbHairSalon.Image = (Image)converter.ConvertFrom(pictureSource);
         }
 
+       
 
         private async void btnNew_Click_1(object sender, EventArgs e)
         {
@@ -100,6 +101,41 @@ namespace eStomatolog.WinUi.Manager
                 }
 
             }
+        }
+
+        private void btnNext_Click_1(object sender, EventArgs e)
+        {
+            if (_slikeIds[_selectedIndex] == _slikeIds.Last())
+            {
+                _selectedIndex = 0;
+            }
+            else
+            {
+                _selectedIndex++;
+            }
+            renderPicture(_slikeIds[_selectedIndex]);
+        }
+
+        private void btnPrevious_Click_1(object sender, EventArgs e)
+        {
+            if (_selectedIndex == 0)
+            {
+                _selectedIndex = _slikeIds.Count() - 1;
+            }
+            else
+            {
+                _selectedIndex--;
+            }
+
+            renderPicture(_slikeIds[_selectedIndex]);
+        }
+
+        private async void btnDelete_Click_1(object sender, EventArgs e)
+        {
+                int slikaId = _slikeIds[_selectedIndex];
+                var picture = await _slikService.IzbrisiSliku<Slika>(slikaId);
+                MessageBox.Show("Successfully deleted selected picture.");
+                initSlike();   
         }
     }
 }

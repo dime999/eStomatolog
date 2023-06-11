@@ -87,7 +87,12 @@ namespace eStomatolog.WinUi
             return File.ReadAllBytes(resultPath);
         }
 
-
+        public async Task<T> IzbrisiSliku<T>(int id)
+        {
+          
+            var list = await $"{_endpoint}{_resource}/?id={id}".WithBasicAuth(Username, Password).DeleteAsync().ReceiveJson<T>();
+            return list;
+        }
 
 
 

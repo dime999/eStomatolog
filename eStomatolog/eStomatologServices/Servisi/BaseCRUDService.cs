@@ -52,5 +52,18 @@ namespace eStomatologServices.Servisi
         {
 
         }
+
+        public  virtual T Delete(int id)
+        {
+            var set = Context.Set<TDb>();
+
+            var entity =  set.Find(id);
+
+            set.Remove(entity);
+
+            Context.SaveChanges();
+
+            return Mapper.Map<T>(entity);
+        }
     }
 }

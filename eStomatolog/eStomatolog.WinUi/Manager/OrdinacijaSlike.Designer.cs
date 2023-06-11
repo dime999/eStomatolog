@@ -37,7 +37,7 @@
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(600, 32);
             this.btnNew.TabIndex = 0;
-            this.btnNew.Text = "Add new photo";
+            this.btnNew.Text = "Dodaj novu sliku";
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click_1);
             // 
@@ -47,8 +47,9 @@
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(290, 32);
             this.btnNext.TabIndex = 1;
-            this.btnNext.Text = "Next";
+            this.btnNext.Text = "Sljedeca";
             this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click_1);
             // 
             // btnPrevious
             // 
@@ -56,8 +57,9 @@
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(290, 32);
             this.btnPrevious.TabIndex = 2;
-            this.btnPrevious.Text = "Previous";
+            this.btnPrevious.Text = "Nazad";
             this.btnPrevious.UseVisualStyleBackColor = true;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click_1);
             // 
             // pbHairSalon
             // 
@@ -73,8 +75,9 @@
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(600, 32);
             this.btnDelete.TabIndex = 4;
-            this.btnDelete.Text = "Delete selected photo";
+            this.btnDelete.Text = "Izbrisi sliku";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click_1);
             // 
             // OrdinacijaSlike
             // 
