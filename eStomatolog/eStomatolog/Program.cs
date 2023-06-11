@@ -52,6 +52,7 @@ builder.Services.AddTransient<IDoktoriOrdinacije, DoktoriOrdinacijeService>();
 builder.Services.AddTransient<IOrdinacijaService, OrdinacijaService>();
 builder.Services.AddTransient<IPacijentiOrdinacijeService, PacijentiOrdinacijeService>();
 builder.Services.AddTransient<ISlikaService, SlikaService>();
+builder.Services.AddTransient<IRezervacijeService, RezervacijaService>();
 
 
 
