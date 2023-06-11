@@ -16,7 +16,7 @@ using Doktor = eStomatologServices.Models.Doktor;
 
 namespace eStomatologServices.Servisi
 {
-    public class DoktorService : BaseService<eStomatologModel.Doktor, Models.Doktor, BaseSearchObject>, IDoktorService
+    public class DoktorService : BaseService<eStomatologModel.Doktor, Models.Doktor, DoktoriSearchRequest>, IDoktorService
     {     
 
         public DoktorService(eStomatologContext context, IMapper mapper) : base(context, mapper)

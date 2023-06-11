@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eStomatolog.Controllers
 {
-    public class RezervacijaController : BaseCRUDController<eStomatologModel.Rezervacija, BaseSearchObject, RezervacijaInsertRequest, RezervacijaInsertRequest>
+    public class RezervacijaController : BaseCRUDController<eStomatologModel.Rezervacija, RezervacijaSearchRequest, RezervacijaInsertRequest, RezervacijaInsertRequest>
     {
         public RezervacijaController(IRezervacijeService service)
             : base(service)

@@ -42,9 +42,7 @@
             this.btnRezervacije = new System.Windows.Forms.Button();
             this.btnReports = new System.Windows.Forms.Button();
             this.btnLoyalty = new System.Windows.Forms.Button();
-            this.btnOcjene = new System.Windows.Forms.Button();
             this.btnSlike = new System.Windows.Forms.Button();
-            this.btnCategories = new System.Windows.Forms.Button();
             this.btnServices = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -173,12 +171,13 @@
             this.btnRezervacije.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRezervacije.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnRezervacije.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnRezervacije.Location = new System.Drawing.Point(0, 395);
+            this.btnRezervacije.Location = new System.Drawing.Point(3, 308);
             this.btnRezervacije.Name = "btnRezervacije";
             this.btnRezervacije.Size = new System.Drawing.Size(261, 49);
             this.btnRezervacije.TabIndex = 8;
             this.btnRezervacije.Text = "Rezervacije";
             this.btnRezervacije.UseVisualStyleBackColor = true;
+            this.btnRezervacije.Click += new System.EventHandler(this.btnRezervacije_Click);
             // 
             // btnReports
             // 
@@ -199,25 +198,13 @@
             this.btnLoyalty.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoyalty.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnLoyalty.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnLoyalty.Location = new System.Drawing.Point(0, 467);
+            this.btnLoyalty.Location = new System.Drawing.Point(0, 497);
             this.btnLoyalty.Name = "btnLoyalty";
             this.btnLoyalty.Size = new System.Drawing.Size(261, 48);
             this.btnLoyalty.TabIndex = 6;
-            this.btnLoyalty.Text = "Loyalty system";
+            this.btnLoyalty.Text = "Recenzije";
             this.btnLoyalty.UseVisualStyleBackColor = true;
-            // 
-            // btnOcjene
-            // 
-            this.btnOcjene.FlatAppearance.BorderSize = 0;
-            this.btnOcjene.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOcjene.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnOcjene.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnOcjene.Location = new System.Drawing.Point(0, 329);
-            this.btnOcjene.Name = "btnOcjene";
-            this.btnOcjene.Size = new System.Drawing.Size(261, 48);
-            this.btnOcjene.TabIndex = 4;
-            this.btnOcjene.Text = "Reviews";
-            this.btnOcjene.UseVisualStyleBackColor = true;
+            this.btnLoyalty.Click += new System.EventHandler(this.btnLoyalty_Click);
             // 
             // btnSlike
             // 
@@ -225,26 +212,13 @@
             this.btnSlike.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSlike.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSlike.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnSlike.Location = new System.Drawing.Point(0, 535);
+            this.btnSlike.Location = new System.Drawing.Point(0, 404);
             this.btnSlike.Name = "btnSlike";
             this.btnSlike.Size = new System.Drawing.Size(261, 49);
             this.btnSlike.TabIndex = 3;
-            this.btnSlike.Text = "Pictures";
+            this.btnSlike.Text = "Galerija";
             this.btnSlike.UseVisualStyleBackColor = true;
             this.btnSlike.Click += new System.EventHandler(this.btnSlike_Click);
-            // 
-            // btnCategories
-            // 
-            this.btnCategories.FlatAppearance.BorderSize = 0;
-            this.btnCategories.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCategories.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnCategories.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnCategories.Location = new System.Drawing.Point(0, 260);
-            this.btnCategories.Name = "btnCategories";
-            this.btnCategories.Size = new System.Drawing.Size(261, 48);
-            this.btnCategories.TabIndex = 2;
-            this.btnCategories.Text = "Categories";
-            this.btnCategories.UseVisualStyleBackColor = true;
             // 
             // btnServices
             // 
@@ -254,7 +228,7 @@
             this.btnServices.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnServices.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnServices.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnServices.Location = new System.Drawing.Point(0, 195);
+            this.btnServices.Location = new System.Drawing.Point(3, 221);
             this.btnServices.Name = "btnServices";
             this.btnServices.Size = new System.Drawing.Size(261, 49);
             this.btnServices.TabIndex = 5;
@@ -272,8 +246,6 @@
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.btnDoktori);
             this.panel1.Controls.Add(this.btnServices);
-            this.panel1.Controls.Add(this.btnOcjene);
-            this.panel1.Controls.Add(this.btnCategories);
             this.panel1.Location = new System.Drawing.Point(0, 2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(261, 711);
@@ -362,11 +334,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbGradovi;
         private System.Windows.Forms.Button btnDoktori;
-        private System.Windows.Forms.Button btnCategories;
         private System.Windows.Forms.Button btnSlike;
         private System.Windows.Forms.Button btnLoyalty;
         private System.Windows.Forms.Button btnServices;
-        private System.Windows.Forms.Button btnOcjene;
         private System.Windows.Forms.Button btnReports;
         private System.Windows.Forms.Button btnRezervacije;
         private System.Windows.Forms.Button btnSave;

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace eStomatologServices.Interfejsi
 {
 
-    public interface IRezervacijeService : ICRUDService<eStomatologModel.Rezervacija, BaseSearchObject, RezervacijaInsertRequest, RezervacijaInsertRequest>
+    public interface IRezervacijeService : ICRUDService<eStomatologModel.Rezervacija, RezervacijaSearchRequest, RezervacijaInsertRequest, RezervacijaInsertRequest>
     {
         
     }

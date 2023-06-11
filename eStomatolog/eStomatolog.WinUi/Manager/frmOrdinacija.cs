@@ -121,5 +121,18 @@ namespace eStomatolog.WinUi.Manager
             forma.Closed += (s, args) => this.Show();
             forma.ShowDialog();
         }
+
+        private void btnLoyalty_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRezervacije_Click(object sender, EventArgs e)
+        {
+            var forma = new Manager.Rezervacije.frmRezervacija(_ordinacija,_user);
+            this.Hide();
+            forma.Closed += (s, args) => this.Show();
+            forma.ShowDialog();
+        }
     }
 }

@@ -8,7 +8,7 @@ using static Microsoft.VisualStudio.Services.Notifications.VssNotificationEvent;
 namespace eStomatolog.Controllers
 {
    
-    public class DoktorController : BaseController<eStomatologModel.Doktor, BaseSearchObject>
+    public class DoktorController : BaseController<eStomatologModel.Doktor, DoktoriSearchRequest>
     {
         public IDoktorService service { get; set; }
         public DoktorController(IDoktorService service)
