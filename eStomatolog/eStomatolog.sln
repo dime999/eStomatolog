@@ -9,9 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eStomatologServices", "eSto
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eStomatologModel", "eStomatologModel\eStomatologModel.csproj", "{D397841A-E683-4E2E-B8D4-85F5D2B7C977}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eStomatolog.WinUi", "eStomatolog.WinUi\eStomatolog.WinUi.csproj", "{53AF0BA4-3CFA-4D22-A0DF-D6E2FE22FA87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eStomatolog.WinUi", "eStomatolog.WinUi\eStomatolog.WinUi.csproj", "{53AF0BA4-3CFA-4D22-A0DF-D6E2FE22FA87}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D397841A-E683-4E2E-B8D4-85F5D2B7C977} = {D397841A-E683-4E2E-B8D4-85F5D2B7C977}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4383EAC8-893A-43D5-91BC-C30C34614CB1}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		Dockerfile = Dockerfile
 	EndProjectSection
 EndProject
 Global

@@ -82,5 +82,24 @@ namespace eStomatolog.WinUi.Manager.Rezervacije
             cbDoktori.ValueMember = "Id";
 
         }
+
+        private void btnNazad_Click(object sender, EventArgs e)
+        {
+            var forma = new frmOrdinacija(_ordinacija, _user);
+            this.Hide();
+            forma.Closed += (s, args) => this.Show();
+            forma.ShowDialog();
+        }
+         
+        private void btnPretrazi_Click(object sender, EventArgs e)
+        {
+            var request = new RezervacijaSearchRequest();
+            request.DoktorId = Convert.ToInt32(cbDoktori.SelectedValue);
+            request.Dan = dtpDate.Value.Day;
+            request.Mjesec = dtpDate.Value.Month;
+
+            var result = _rezervacijaService.Get<List<eStomatologModel.Rezervacija>>(request);
+            dgvRezervacije.DataSource = result;
+        }
     }
 }

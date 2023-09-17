@@ -35,6 +35,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
             this.cbDoktori = new System.Windows.Forms.ComboBox();
+            this.btnNazad = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRezervacije)).BeginInit();
             this.SuspendLayout();
@@ -61,6 +62,7 @@
             this.btnPretrazi.TabIndex = 2;
             this.btnPretrazi.Text = "Pretraži";
             this.btnPretrazi.UseVisualStyleBackColor = false;
+            this.btnPretrazi.Click += new System.EventHandler(this.btnPretrazi_Click);
             // 
             // groupBox1
             // 
@@ -103,7 +105,7 @@
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(230, 23);
             this.dtpDate.TabIndex = 5;
-            this.dtpDate.Value = new System.DateTime(2021, 10, 22, 20, 21, 26, 0);
+            this.dtpDate.Value = new System.DateTime(2023, 6, 11, 20, 21, 0, 0);
             // 
             // cbDoktori
             // 
@@ -113,11 +115,22 @@
             this.cbDoktori.Size = new System.Drawing.Size(230, 23);
             this.cbDoktori.TabIndex = 6;
             // 
+            // btnNazad
+            // 
+            this.btnNazad.Location = new System.Drawing.Point(21, 431);
+            this.btnNazad.Name = "btnNazad";
+            this.btnNazad.Size = new System.Drawing.Size(108, 23);
+            this.btnNazad.TabIndex = 7;
+            this.btnNazad.Text = "Nazad";
+            this.btnNazad.UseVisualStyleBackColor = true;
+            this.btnNazad.Click += new System.EventHandler(this.btnNazad_Click);
+            // 
             // frmRezervacija
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(722, 444);
+            this.ClientSize = new System.Drawing.Size(722, 465);
+            this.Controls.Add(this.btnNazad);
             this.Controls.Add(this.cbDoktori);
             this.Controls.Add(this.dtpDate);
             this.Controls.Add(this.label2);
@@ -144,5 +157,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dtpDate;
         private System.Windows.Forms.ComboBox cbDoktori;
+        private Button btnNazad;
     }
 }
