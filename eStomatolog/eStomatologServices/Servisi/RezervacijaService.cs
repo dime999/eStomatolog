@@ -5,6 +5,7 @@ using eStomatologModel.Requests;
 using eStomatologModel.SearchObjects;
 using eStomatologServices.Interfejsi;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Services.Account;
 using Microsoft.VisualStudio.Services.Users;
 using RabbitMQ.Client;
 using System;
@@ -18,8 +19,16 @@ namespace eStomatologServices.Servisi
    
     public class RezervacijaService : BaseCRUDService<eStomatologModel.Rezervacija, Database.Rezervacija, RezervacijaSearchRequest, RezervacijaInsertRequest, RezervacijaInsertRequest>, IRezervacijeService
     {
-        public RezervacijaService(eStomatologContext context, IMapper mapper) : base(context, mapper)
+        private readonly IMessageProducer _messageProducer;
+        private readonly IPacijentService _pacijentService;
+        private readonly IKorisniciService _korisniciService;
+        private readonly IDoktorService _doktorService;
+        public RezervacijaService(eStomatologContext context, IMapper mapper, IMessageProducer messageProducer, IPacijentService pacijentService, IKorisniciService korisniciService, IDoktorService doktorService) : base(context, mapper)
         {
+            _messageProducer = messageProducer;
+            _pacijentService = pacijentService;
+            _korisniciService = korisniciService;
+            _doktorService = doktorService;
         }
 
         public override IEnumerable<Rezervacija> Get(RezervacijaSearchRequest search = null)
@@ -31,26 +40,41 @@ namespace eStomatologServices.Servisi
 
         public override eStomatologModel.Rezervacija Insert(RezervacijaInsertRequest insert)
         {
-         
             var entity = base.Insert(insert);
+            string email = "";
+            string doktorIme = "";
+           
 
-            //var factory = new ConnectionFactory { HostName = "localhost", Port = 15672, UserName = "test", Password = "test123" };
-            //using var connection = factory.CreateConnection();
-            //using var channel = connection.CreateModel();
+            var pacijent = _pacijentService.GetById(entity.PacijentId);
+            var doktor = _doktorService.GetById(entity.DoktorId);
 
-            //channel.QueueDeclare(queue: "reservation_added",
-            //                     durable: false,
-            //                     exclusive: false,
-            //                     autoDelete: false,
-            //                     arguments: null);
+            if(pacijent!=null)
+            {
+                var korisnik = _korisniciService.GetById(pacijent.KorisnikId);
 
-            //const string message = "Reservation added!";
-            //var body = Encoding.UTF8.GetBytes(message);
+                if (korisnik != null)
+                {
+                    email=korisnik.Email;
+                }
 
-            //channel.BasicPublish(exchange: string.Empty,
-            //                     routingKey: "reservation_added",
-            //                     basicProperties: null,
-            //                     body: body);
+            }
+            if (doktor != null)
+            {
+                doktorIme = doktor.Ime;
+            }
+
+            if (entity != null)
+            {
+                eStomatologModel.ReservationNotifier reservation = new ReservationNotifier
+                {
+                    Id = entity.RezervacijaId,
+                    DoktorIme=doktorIme,
+                    Email=email,
+                    DatumVrijeme=entity.Od
+                    
+                };
+                _messageProducer.SendingObject(reservation);
+            }
 
             using var bus = RabbitHutch.CreateBus("host=localhost");
                   
