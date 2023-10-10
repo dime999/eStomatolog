@@ -73,35 +73,67 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                                     IconButton(
                                       icon: Icon(Icons.delete),
                                       onPressed: () async {
-                                        try {
-                                          await _korisniciProvider
-                                              .delete(doktor.korisnikId);
-                                          var updatedDoctors =
-                                              await fetchDoctors(context);
-                                          // Postavite novu listu koristeći setState
-                                          setState(() {
-                                            doktori = updatedDoctors;
-                                          });
-                                        } on Exception catch (e) {
-                                          String errorMessage =
-                                              "Nije moguce izbrisati odabranog doktora!";
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                title: Text("Greška"),
-                                                content: Text(errorMessage),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () =>
-                                                        Navigator.pop(context),
-                                                    child: Text("OK"),
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          );
-                                        }
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text("Potvrda"),
+                                              content: Text(
+                                                  "Da li ste sigurni da želite izbrisati korisnika?"),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () async {
+                                                    try {
+                                                      await _korisniciProvider
+                                                          .delete(doktor
+                                                              .korisnikId);
+                                                      var updatedDoctors =
+                                                          await fetchDoctors(
+                                                              context);
+                                                      setState(() {
+                                                        doktori =
+                                                            updatedDoctors;
+                                                      });
+                                                      Navigator.pop(
+                                                          context); // Zatvori dialog
+                                                    } on Exception catch (e) {
+                                                      String errorMessage =
+                                                          "Nije moguće izbrisati odabranog doktora!";
+                                                      // Prikaži grešku ako brisanje nije uspelo
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (BuildContext
+                                                            context) {
+                                                          return AlertDialog(
+                                                            title:
+                                                                Text("Greška"),
+                                                            content: Text(
+                                                                errorMessage),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        context),
+                                                                child:
+                                                                    Text("OK"),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      );
+                                                    }
+                                                  },
+                                                  child: Text("Da"),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () => Navigator.pop(
+                                                      context), // Zatvori dialog ako korisnik odabere "Ne"
+                                                  child: Text("Ne"),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
                                       },
                                     ),
                                   ],
