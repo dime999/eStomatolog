@@ -16,6 +16,7 @@ namespace eStomatolog.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public virtual IEnumerable<T> Get([FromQuery] TSearch search = null)
         {
             return Service.Get(search);
