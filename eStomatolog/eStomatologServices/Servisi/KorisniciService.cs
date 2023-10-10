@@ -15,6 +15,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace eStomatologServices.Servisi
 {
 
@@ -188,6 +189,33 @@ namespace eStomatologServices.Servisi
             }
             return query;
         }
+
+        public override eStomatologModel.Korisnik Delete(int id)
+        {
+
+
+            var korisniciUloge = Context.KorisnikUloge.Where(ku => ku.KorisnikId == id).ToList();
+
+            foreach (var korisnikUloga in korisniciUloge)
+            {
+                Context.KorisnikUloge.Remove(korisnikUloga);
+            }
+
+            var set = Context.Set<Models.Korisnik>(); 
+
+
+            var entity = set.Find(id);
+
+            set.Remove(entity);
+
+            Context.SaveChanges();
+
+            return Mapper.Map<eStomatologModel.Korisnik>(entity);
+        }
+
+
+
+
 
         public async Task<eStomatologModel.Korisnik> Login(string username, string password)
         {

@@ -66,11 +66,10 @@ class LoginPage extends StatelessWidget {
                 onPressed: () async {
                   var korisnickoIme = _korisnickoImeController.text;
                   var lozinka = _lozinkaController.text;
-                  print("$korisnickoIme $lozinka");
                   Authorization.korisnickoIme = korisnickoIme;
                   Authorization.lozinka = lozinka;
                   try {
-                    await _korisniciProvider.get();
+                    await _korisniciProvider.login();
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(builder: (context) => HomeScreen()),

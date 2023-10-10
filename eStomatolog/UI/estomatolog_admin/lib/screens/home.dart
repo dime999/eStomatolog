@@ -1,4 +1,6 @@
+import 'package:estomatolog_admin/providers/doktor_provider.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
+import 'package:estomatolog_admin/screens/doktori_screen.dart';
 import 'package:estomatolog_admin/widgets/master_screeen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,19 +38,29 @@ class CardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Container(
       margin: EdgeInsets.all(16.0),
-      child: InkWell(
-        onTap: () {
-          // Akcija koja će se izvršiti kada korisnik pritisne karticu
-        },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 50.0, color: Colors.blue),
-            SizedBox(height: 10.0),
-            Text(title, style: TextStyle(fontSize: 18.0)),
-          ],
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.blue, width: 2.0),
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Card(
+        elevation: 0,
+        child: InkWell(
+          onTap: () async {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DoctorsScreen()),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, size: 50.0, color: Colors.blue),
+              SizedBox(height: 10.0),
+              Text(title, style: TextStyle(fontSize: 18.0)),
+            ],
+          ),
         ),
       ),
     );

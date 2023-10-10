@@ -12,6 +12,7 @@ namespace eStomatolog.Controllers
     public class KorisnikController : BaseCRUDController<eStomatologModel.Korisnik, KorisnikSearchObject,KorisniciInsertRequest,KorisniciUpdateRequest>
     {
         private readonly IKorisniciService service;
+       
         public KorisnikController(IKorisniciService service)
             : base(service)
         {
@@ -28,6 +29,13 @@ namespace eStomatolog.Controllers
         public override eStomatologModel.Korisnik Update(int id,[FromBody] KorisniciUpdateRequest update)
         {
             return base.Update(id,update);
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public override eStomatologModel.Korisnik Delete(int id)
+        {
+            return service.Delete(id);
+           
         }
 
 
