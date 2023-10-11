@@ -38,6 +38,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
       emailController.text = korisnik.email ?? '';
       telefonController.text = korisnik.telefon ?? '';
       korisnickoImeController.text = korisnik.korisnickoIme ?? '';
+      status = korisnik.status ?? true;
     });
     return korisnik;
   }
@@ -147,7 +148,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
 
   Widget _buildSaveButton() {
     return Container(
-      width: double.infinity,
+      width: 200.0,
       child: ElevatedButton(
         onPressed: () {
           // Implementirajte logiku za spremanje doktora s unesenim vrijednostima

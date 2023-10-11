@@ -15,9 +15,12 @@ class Korisnik {
   String? email;
   String? telefon;
   String? korisnickoIme;
+  String? password;
+  String? passwordPotvrda;
+  bool? status;
 
   Korisnik(this.korisnikId, this.ime, this.prezime, this.email, this.telefon,
-      this.korisnickoIme);
+      this.korisnickoIme, this.password, this.passwordPotvrda, this.status);
 
   factory Korisnik.fromJson(Map<String, dynamic> json) =>
       _$KorisnikFromJson(json);
