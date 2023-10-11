@@ -75,6 +75,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    _buildMultiselect(context),
                     _buildFormField('Ime', imeController),
                     SizedBox(height: 16.0),
                     _buildFormField('Prezime', prezimeController),
@@ -95,6 +96,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                         isObscure: true),
                     SizedBox(height: 32.0), // Razmak između formi
                     _buildStatusField(),
+                    _buildMultiselect(context),
                     SizedBox(height: 16.0),
                     SizedBox(
                         height: 32.0), // Dodatni razmak između formi i gumba
@@ -110,23 +112,18 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
   }
 
   Widget _buildMultiselect(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Multi-Select Dropdown'),
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: DropDownMultiSelect(
-            onChanged: (List<String> values) {
-              setState(() {
-                selectedValues = values;
-              });
-            },
-            options: ['Option 1', 'Option 2', 'Option 3', 'Option 4'],
-            selectedValues: selectedValues,
-            whenEmpty: 'Select Options',
-          ),
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: DropDownMultiSelect(
+          onChanged: (List<String> values) {
+            setState(() {
+              selectedValues = values;
+            });
+          },
+          options: ['Option 1', 'Option 2', 'Option 3', 'Option 4'],
+          selectedValues: selectedValues,
+          whenEmpty: 'Select Options',
         ),
       ),
     );
