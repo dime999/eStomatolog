@@ -4,7 +4,6 @@ import 'package:estomatolog_admin/providers/korisnici_provider.dart';
 import 'package:estomatolog_admin/providers/specijalizacija_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_multiselect/flutter_multiselect.dart';
 
 class EditPacijentScreen extends StatefulWidget {
   final int korisnikId;

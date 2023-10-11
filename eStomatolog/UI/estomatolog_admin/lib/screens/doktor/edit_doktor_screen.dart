@@ -1,10 +1,8 @@
 import 'package:estomatolog_admin/models/Korisnik/korisnik.dart';
-import 'package:estomatolog_admin/models/Specijalizacija/specijalizacija.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
-import 'package:estomatolog_admin/providers/specijalizacija_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_multiselect/flutter_multiselect.dart';
+import 'package:multiselect/multiselect.dart';
 
 class EditDoctorScreen extends StatefulWidget {
   final int korisnikId;
@@ -54,6 +52,8 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
   TextEditingController passwordPotvrdaController = TextEditingController();
   bool status = true;
 
+  List<String> selectedValues = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,13 +95,37 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                         isObscure: true),
                     SizedBox(height: 32.0), // Razmak između formi
                     _buildStatusField(),
-                    SizedBox(height: 16.0)
+                    SizedBox(height: 16.0),
+                    SizedBox(
+                        height: 32.0), // Dodatni razmak između formi i gumba
+                    _buildSaveButton(),
                   ],
                 ),
               ),
-              SizedBox(height: 32.0), // Dodatni razmak između formi i gumba
-              _buildSaveButton(),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMultiselect(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Multi-Select Dropdown'),
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: DropDownMultiSelect(
+            onChanged: (List<String> values) {
+              setState(() {
+                selectedValues = values;
+              });
+            },
+            options: ['Option 1', 'Option 2', 'Option 3', 'Option 4'],
+            selectedValues: selectedValues,
+            whenEmpty: 'Select Options',
           ),
         ),
       ),
