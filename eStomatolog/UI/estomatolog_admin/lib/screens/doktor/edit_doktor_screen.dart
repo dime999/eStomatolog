@@ -1,6 +1,7 @@
 import 'package:estomatolog_admin/models/Korisnik/korisnik.dart';
 import 'package:estomatolog_admin/models/Specijalizacija/specijalizacija.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
+import 'package:estomatolog_admin/providers/specijalizacija_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_multiselect/flutter_multiselect.dart';
@@ -15,7 +16,7 @@ class EditDoctorScreen extends StatefulWidget {
 }
 
 class _EditDoctorScreenState extends State<EditDoctorScreen> {
-  List<Specijalizacija> specijalizacije = [];
+  List<int> selectedSpecijalizacije = [];
   late int korisnikId;
   late Korisnik korisnik;
 
@@ -94,6 +95,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                         isObscure: true),
                     SizedBox(height: 32.0), // Razmak između formi
                     _buildStatusField(),
+                    SizedBox(height: 16.0)
                   ],
                 ),
               ),
