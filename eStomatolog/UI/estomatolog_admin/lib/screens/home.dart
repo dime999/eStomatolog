@@ -1,10 +1,6 @@
-import 'package:estomatolog_admin/providers/doktor_provider.dart';
-import 'package:estomatolog_admin/providers/korisnici_provider.dart';
 import 'package:estomatolog_admin/screens/doktor/doktori_screen.dart';
 import 'package:estomatolog_admin/screens/pacijent/pacijenti_screen.dart';
-import 'package:estomatolog_admin/widgets/master_screeen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:estomatolog_admin/utils/util.dart';
 
 class HomeScreen extends StatelessWidget {

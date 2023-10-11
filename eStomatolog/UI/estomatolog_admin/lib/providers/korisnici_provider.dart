@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:estomatolog_admin/models/Korisnik/korisnik.dart';
-import 'package:estomatolog_admin/models/search_result.dart';
 import 'package:estomatolog_admin/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;

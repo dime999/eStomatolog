@@ -64,6 +64,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                         String errorMessage =
                             "Nije moguće izbrisati odabranog doktora!";
                         // Prikaži grešku ako brisanje nije uspelo
+                        // ignore: use_build_context_synchronously
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {

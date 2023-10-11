@@ -93,7 +93,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
               SizedBox(height: 16.0),
               FractionallySizedBox(
                 alignment: Alignment.topLeft,
-                widthFactor: 0.5, // Forme zauzimaju polovicu ekrana
+                widthFactor: 0.5,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -115,12 +115,11 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                     _buildFormField(
                         'Potvrda lozinke', passwordPotvrdaController,
                         isObscure: true),
-                    SizedBox(height: 32.0), // Razmak između formi
+                    SizedBox(height: 32.0),
                     _buildStatusField(),
                     SizedBox(height: 16.0),
-                    _buildMultiselect(context),
-                    SizedBox(
-                        height: 32.0), // Dodatni razmak između formi i gumba
+                    _buildMultiselect('Specijalizacije', context),
+                    SizedBox(height: 32.0),
                     _buildSaveButton(),
                   ],
                 ),
@@ -132,27 +131,30 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
     );
   }
 
-  Widget _buildMultiselect(BuildContext context) {
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: DropDownMultiSelect(
-          onChanged: (List<String> values) {
-            setState(() {
-              selectedValues = values;
-              odabraneSpecijalizacije = values
-                  .map((value) =>
-                      idSpecijalizacija[naziviSpecijalizacija.indexOf(value)])
-                  .toList();
-
-              print(odabraneSpecijalizacije);
-            });
-          },
-          options: naziviSpecijalizacija,
-          selectedValues: selectedValues,
-          whenEmpty: 'Select Options',
+  Widget _buildMultiselect(String label, BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label,
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: DropDownMultiSelect(
+            onChanged: (List<String> values) {
+              setState(() {
+                selectedValues = values;
+                odabraneSpecijalizacije = values
+                    .map((value) =>
+                        idSpecijalizacija[naziviSpecijalizacija.indexOf(value)])
+                    .toList();
+              });
+            },
+            options: naziviSpecijalizacija,
+            selectedValues: selectedValues,
+            whenEmpty: 'Odaberite specijalizacije',
+          ),
         ),
-      ),
+      ],
     );
   }
 

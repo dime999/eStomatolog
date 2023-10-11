@@ -1,4 +1,3 @@
-import 'package:estomatolog_admin/models/Specijalizacija/specijalizacija.dart';
 import 'package:estomatolog_admin/providers/doktor_provider.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
 import 'package:estomatolog_admin/providers/pacijent_provider.dart';
