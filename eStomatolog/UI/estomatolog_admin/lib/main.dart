@@ -1,6 +1,8 @@
+import 'package:estomatolog_admin/models/Specijalizacija/specijalizacija.dart';
 import 'package:estomatolog_admin/providers/doktor_provider.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
 import 'package:estomatolog_admin/providers/pacijent_provider.dart';
+import 'package:estomatolog_admin/providers/specijalizacija_provider.dart';
 import 'package:estomatolog_admin/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +12,8 @@ void main() {
     providers: [
       ChangeNotifierProvider(create: (_) => KorisniciProvider()),
       ChangeNotifierProvider(create: (_) => DoktorProvider()),
-      ChangeNotifierProvider(create: (_) => PacijentProvider())
+      ChangeNotifierProvider(create: (_) => PacijentProvider()),
+      ChangeNotifierProvider(create: (_) => SpecijalizacijaProvider())
     ],
     child: const MyApp(),
   ));

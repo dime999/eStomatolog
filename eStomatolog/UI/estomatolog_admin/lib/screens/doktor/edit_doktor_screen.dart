@@ -1,5 +1,7 @@
 import 'package:estomatolog_admin/models/Korisnik/korisnik.dart';
+import 'package:estomatolog_admin/models/Specijalizacija/specijalizacija.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
+import 'package:estomatolog_admin/providers/specijalizacija_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:multiselect/multiselect.dart';
@@ -14,22 +16,25 @@ class EditDoctorScreen extends StatefulWidget {
 }
 
 class _EditDoctorScreenState extends State<EditDoctorScreen> {
-  List<int> selectedSpecijalizacije = [];
+  List<int> idSpecijalizacija = [];
   late int korisnikId;
   late Korisnik korisnik;
+  List<Specijalizacija> specijalizacije = [];
+  List<String> naziviSpecijalizacija = [];
+  List<int> odabraneSpecijalizacije = [];
 
   @override
   void initState() {
     super.initState();
     korisnikId = widget.korisnikId;
     fetchUsers(context);
+    fetchSpecijalizacije(context);
   }
 
   Future<Korisnik> fetchUsers(BuildContext context) async {
     var korisnikProvider =
         Provider.of<KorisniciProvider>(context, listen: false);
     var fetchedUser = await korisnikProvider.getById(korisnikId);
-    print(fetchedUser);
     setState(() {
       korisnik = fetchedUser;
       imeController.text = korisnik.ime ?? '';
@@ -40,6 +45,23 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
       status = korisnik.status ?? true;
     });
     return korisnik;
+  }
+
+  Future<List<Specijalizacija>> fetchSpecijalizacije(
+      BuildContext context) async {
+    var provider = Provider.of<SpecijalizacijaProvider>(context, listen: false);
+    var fetchedspecijalizacije = await provider.get();
+    naziviSpecijalizacija = fetchedspecijalizacije.result
+        .map((specijalizacija) => specijalizacija.naziv ?? '')
+        .toList();
+
+    idSpecijalizacija = fetchedspecijalizacije.result
+        .map((specijalizacija) => specijalizacija.specijalizacijaId ?? 0)
+        .toList();
+    setState(() {
+      specijalizacije = fetchedspecijalizacije.result;
+    });
+    return specijalizacije;
   }
 
   TextEditingController imeController = TextEditingController();
@@ -75,7 +97,6 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildMultiselect(context),
                     _buildFormField('Ime', imeController),
                     SizedBox(height: 16.0),
                     _buildFormField('Prezime', prezimeController),
@@ -96,8 +117,8 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                         isObscure: true),
                     SizedBox(height: 32.0), // Razmak između formi
                     _buildStatusField(),
-                    _buildMultiselect(context),
                     SizedBox(height: 16.0),
+                    _buildMultiselect(context),
                     SizedBox(
                         height: 32.0), // Dodatni razmak između formi i gumba
                     _buildSaveButton(),
@@ -119,9 +140,15 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
           onChanged: (List<String> values) {
             setState(() {
               selectedValues = values;
+              odabraneSpecijalizacije = values
+                  .map((value) =>
+                      idSpecijalizacija[naziviSpecijalizacija.indexOf(value)])
+                  .toList();
+
+              print(odabraneSpecijalizacije);
             });
           },
-          options: ['Option 1', 'Option 2', 'Option 3', 'Option 4'],
+          options: naziviSpecijalizacija,
           selectedValues: selectedValues,
           whenEmpty: 'Select Options',
         ),
