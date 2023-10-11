@@ -17,11 +17,11 @@ class EditDoctorScreen extends StatefulWidget {
 
 class _EditDoctorScreenState extends State<EditDoctorScreen> {
   List<int> idSpecijalizacija = [];
+  List<String> naziviSpecijalizacija = [];
+  List<Specijalizacija> specijalizacije = [];
+  List<int> odabraneSpecijalizacije = [];
   late int korisnikId;
   late Korisnik korisnik;
-  List<Specijalizacija> specijalizacije = [];
-  List<String> naziviSpecijalizacija = [];
-  List<int> odabraneSpecijalizacije = [];
 
   @override
   void initState() {
