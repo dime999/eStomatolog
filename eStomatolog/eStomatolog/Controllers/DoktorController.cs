@@ -7,8 +7,7 @@ using static Microsoft.VisualStudio.Services.Notifications.VssNotificationEvent;
 
 namespace eStomatolog.Controllers
 {
-   
-    public class DoktorController : BaseController<eStomatologModel.Doktor, DoktoriSearchRequest>
+    public class DoktorController : BaseCRUDController<eStomatologModel.Doktor, BaseSearchObject, DoktorUpsertRequest, DoktorUpsertRequest>
     {
         public IDoktorService service { get; set; }
         public DoktorController(IDoktorService service)
@@ -17,8 +16,7 @@ namespace eStomatolog.Controllers
             this.service = service;
         }
 
-       
-   
+
 
         [Authorize(Roles = "Administrator")]
         [HttpGet("/GetByKorisnikId/{id}")]
@@ -29,4 +27,7 @@ namespace eStomatolog.Controllers
             return doktor;
         }
     }
+
+
+
 }

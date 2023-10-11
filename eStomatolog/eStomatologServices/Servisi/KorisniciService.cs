@@ -4,6 +4,7 @@ using eStomatologModel.Requests;
 using eStomatologModel.SearchObjects;
 using eStomatologServices.Database;
 using eStomatologServices.Interfejsi;
+using eStomatologServices.Migrations;
 using eStomatologServices.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Services.Users;
@@ -123,7 +124,126 @@ namespace eStomatologServices.Servisi
             return entity;
         }
 
-       
+        public override eStomatologModel.Korisnik Update(int id,KorisniciUpdateRequest insert)
+        {
+            if (insert.Password != insert.PasswordPotvrda)
+            {
+                throw new UserException("Password and confirmation must be the same");
+            }
+
+            var set = Context.Set<eStomatologServices.Models.Korisnik>();
+            var entity = set.Find(id);
+
+        
+
+            entity.KorisnickoIme = insert.KorisnickoIme;
+            entity.Prezime=insert.Prezime;
+            entity.Telefon=insert.Telefon;
+            entity.Email=insert.Email;  
+            entity.Ime=insert.Ime;
+            entity.Status=insert.Status;
+
+
+            if (entity != null)
+            {
+                Mapper.Map(insert, entity);
+            }
+
+
+            foreach (var ulogaId in insert.UlogeIdList)
+            {
+                Database.KorisniciUloge korisniciUloge = new Database.KorisniciUloge();
+                korisniciUloge.UlogaId = ulogaId;
+                korisniciUloge.KorisnikId = id;
+                korisniciUloge.DatumIzmjene = DateTime.Now;
+                Context.KorisnikUloge.Add(korisniciUloge);
+
+            }
+
+            Context.SaveChanges();
+
+
+            if (insert.UlogeIdList.Contains(1))
+            {
+               
+                var doktor = Context.Doktori.FirstOrDefault(x=> x.KorisnikId==id);
+                doktor.Ime = insert.Ime;
+                doktor.Prezime= insert.Prezime; 
+                doktor.GradId=insert.GradId;
+                Context.Doktori.Update(doktor);
+                Context.SaveChanges();
+
+
+
+                var existingDoktorSpecijalizacije = Context.DoktoriSpecijalizacije.Where(x => x.DoktorId == doktor.Id).ToList();
+
+
+                Context.DoktoriSpecijalizacije.RemoveRange(existingDoktorSpecijalizacije);
+                Context.SaveChanges();
+
+                foreach (var specijalizacijaId in insert.SpecijalizacijeIdList)
+                {
+                    Database.DoktoriSpecijalizacije doktoriSpecijalizacije = new Database.DoktoriSpecijalizacije();
+                    doktoriSpecijalizacije.SpecijalizacijaId = specijalizacijaId;
+                    doktoriSpecijalizacije.DoktorId = doktor.Id;
+                    doktoriSpecijalizacije.Doktor = doktor;
+                    doktoriSpecijalizacije.Specijalizacija = Context.Specijalizacije.FirstOrDefault(x => x.SpecijalizacijaId == specijalizacijaId);
+                    Context.DoktoriSpecijalizacije.Add(doktoriSpecijalizacije);
+                    doktor.DoktoriSpecijalizacije.Add(doktoriSpecijalizacije);
+                    Context.SaveChanges();
+
+
+                }
+                var existingDoktorOrdinacije = Context.DoktoriOrdinacije.Where(x => x.DoktorId == doktor.Id).ToList();
+
+                
+                Context.DoktoriOrdinacije.RemoveRange(existingDoktorOrdinacije);
+                Context.SaveChanges();
+                foreach (var ordinacijaId in insert.OrdinacijeIdList)
+                {
+                    Database.DoktorOrdinacija doktoriOrdinacije = new Database.DoktorOrdinacija();
+                    doktoriOrdinacije.OrdinacijaId = ordinacijaId;
+                    doktoriOrdinacije.DoktorId = doktor.Id;
+                    doktoriOrdinacije.Doktor = doktor;
+                    doktoriOrdinacije.Ordinacija = Context.Ordinacija.FirstOrDefault(x => x.OrdinacijaId == ordinacijaId);
+                    Context.DoktoriOrdinacije.Add(doktoriOrdinacije);
+                    doktor.DoktorOrdinacije.Add(doktoriOrdinacije);
+                    Context.SaveChanges();
+
+                }
+
+
+            }
+            if (insert.UlogeIdList.Contains(2))
+            {
+                var pacijent = Context.Pacijenti.FirstOrDefault(x => x.KorisnikId == id);
+                pacijent.Ime = insert.Ime;
+                pacijent.Prezime = insert.Prezime;
+                pacijent.GradId = insert.GradId;
+                Context.Pacijenti.Update(pacijent);
+               
+                Context.SaveChanges();
+
+
+                foreach (var ordinacijaId in insert.OrdinacijeIdList)
+                {
+                    Database.PacijentOrdinacija pacijentOrdinacija = new Database.PacijentOrdinacija();
+                    pacijentOrdinacija.OrdinacijaId = ordinacijaId;
+                    pacijentOrdinacija.PacijentId = pacijent.Id;
+                    pacijentOrdinacija.Pacijnet = pacijent;
+                    pacijentOrdinacija.Ordinacija = Context.Ordinacija.FirstOrDefault(x => x.OrdinacijaId == ordinacijaId);
+                    Context.PacijentiOrdinacije.Add(pacijentOrdinacija);
+                    pacijent.PacijentOrdinacije.Add(pacijentOrdinacija);
+                    Context.SaveChanges();
+                }
+
+
+            }
+
+            return Mapper.Map<eStomatologModel.Korisnik>(entity);
+        }
+
+
 
 
 

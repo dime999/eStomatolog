@@ -1,7 +1,8 @@
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
+import 'package:estomatolog_admin/screens/doktor/edit_doktor_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:estomatolog_admin/models/doktor.dart';
+import 'package:estomatolog_admin/models/Doktor/doktor.dart';
 import 'package:estomatolog_admin/providers/doktor_provider.dart';
 
 class DoctorsScreen extends StatefulWidget {
@@ -60,14 +61,17 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                                     IconButton(
                                       icon: Icon(Icons.edit),
                                       onPressed: () {
-                                        // Otvorite ekran za uređivanje sa Navigator.push() metodom
-                                        // Primer:
-                                        // Navigator.push(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //     builder: (context) => EditDoctorScreen(doctor: doktor),
-                                        //   ),
-                                        // );
+                                        int korisnikId = doktor
+                                            .korisnikId; // Dohvati korisnikId iz objekta doktor
+                                        // Otvorite ekran za uređivanje i proslijedite korisnikId
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                EditDoctorScreen(
+                                                    korisnikId: korisnikId),
+                                          ),
+                                        );
                                       },
                                     ),
                                     IconButton(

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:estomatolog_admin/models/doktor.dart';
+import 'package:estomatolog_admin/models/Doktor/doktor.dart';
 import 'package:estomatolog_admin/models/search_result.dart';
 import 'package:estomatolog_admin/utils/util.dart';
 import 'package:flutter/material.dart';

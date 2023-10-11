@@ -1,5 +1,6 @@
 import 'dart:convert';
-
+import 'package:estomatolog_admin/models/Korisnik/korisnik.dart';
+import 'package:estomatolog_admin/models/search_result.dart';
 import 'package:estomatolog_admin/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -24,6 +25,25 @@ class KorisniciProvider with ChangeNotifier {
     if (isValidResponse(response)) {
       var data = jsonDecode(response.body);
       return data;
+    } else {
+      throw new Exception("Nepoznata greška!");
+    }
+  }
+
+  Future<dynamic> getById(id) async {
+    var url = "$_baseUrl$_endpoint/${id}";
+
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+
+    var response = await http.get(uri, headers: headers);
+    if (isValidResponse(response)) {
+      var data = jsonDecode(response.body);
+      Korisnik korisnik;
+
+      korisnik = Korisnik.fromJson(data);
+      print(korisnik.ime);
+      return korisnik;
     } else {
       throw new Exception("Nepoznata greška!");
     }

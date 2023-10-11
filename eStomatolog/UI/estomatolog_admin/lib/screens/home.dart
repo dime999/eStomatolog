@@ -4,6 +4,7 @@ import 'package:estomatolog_admin/screens/doktor/doktori_screen.dart';
 import 'package:estomatolog_admin/widgets/master_screeen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:estomatolog_admin/utils/util.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -11,6 +12,20 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Početna Stranica'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 22.0),
+                child: Text(
+                    'Prijavljeni korisnik: ${Authorization.korisnickoIme}',
+                    style: TextStyle(fontSize: 16)),
+              ),
+            ),
+          ),
+        ],
       ),
       body: GridView.count(
         crossAxisCount: 3,

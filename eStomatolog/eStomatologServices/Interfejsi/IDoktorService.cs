@@ -1,4 +1,5 @@
 ﻿using eStomatologModel;
+using eStomatologModel.Requests;
 using eStomatologModel.SearchObjects;
 using eStomatologServices.Models;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Interfejsi
 {
-    public interface IDoktorService : IService<eStomatologModel.Doktor, DoktoriSearchRequest>
+    public interface IDoktorService : ICRUDService<eStomatologModel.Doktor, BaseSearchObject,DoktorUpsertRequest,DoktorUpsertRequest>
     {
         public eStomatologModel.Doktor GetByKorisnikId(int id);
     }
