@@ -25,6 +25,7 @@ class GenericListScreen<T> extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
+          print(snapshot.error);
           return Center(child: Text('Greška pri dohvatanju podataka'));
         } else {
           var items = snapshot.data!;
@@ -32,22 +33,29 @@ class GenericListScreen<T> extends StatelessWidget {
             itemCount: items.length,
             itemBuilder: (context, index) {
               var item = items[index];
-              return ListTile(
-                leading: Icon(icon),
-                title: Text(getTitle(item)),
-                subtitle: Text(getSubtitle(item)),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.edit),
-                      onPressed: () => onEditPressed(item),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () => onDeletePressed(item),
-                    ),
-                  ],
+              return Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                      color: Colors
+                          .grey), // Postavite boju i širinu granice kako želite
+                ),
+                child: ListTile(
+                  leading: Icon(icon),
+                  title: Text(getTitle(item)),
+                  subtitle: Text(getSubtitle(item)),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.edit),
+                        onPressed: () => onEditPressed(item),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () => onDeletePressed(item),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },

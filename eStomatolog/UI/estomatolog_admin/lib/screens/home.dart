@@ -1,6 +1,7 @@
 import 'package:estomatolog_admin/providers/doktor_provider.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
 import 'package:estomatolog_admin/screens/doktor/doktori_screen.dart';
+import 'package:estomatolog_admin/screens/pacijent/pacijenti_screen.dart';
 import 'package:estomatolog_admin/widgets/master_screeen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -63,10 +64,17 @@ class CardItem extends StatelessWidget {
         elevation: 0,
         child: InkWell(
           onTap: () async {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => DoctorsScreen()),
-            );
+            if (icon == Icons.medical_services && title == 'Doktori') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DoctorsScreen()),
+              );
+            } else if (icon == Icons.people && title == 'Pacijenti') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PacijentScreen()),
+              );
+            }
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
