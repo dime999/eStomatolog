@@ -1,9 +1,9 @@
 import 'package:estomatolog_admin/models/Korisnik/korisnik.dart';
+import 'package:estomatolog_admin/models/Specijalizacija/specijalizacija.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:estomatolog_admin/models/Doktor/doktor.dart';
-import 'package:estomatolog_admin/providers/doktor_provider.dart';
+import 'package:flutter_multiselect/flutter_multiselect.dart';
 
 class EditDoctorScreen extends StatefulWidget {
   final int korisnikId;
@@ -15,15 +15,15 @@ class EditDoctorScreen extends StatefulWidget {
 }
 
 class _EditDoctorScreenState extends State<EditDoctorScreen> {
+  List<Specijalizacija> specijalizacije = [];
   late int korisnikId;
   late Korisnik korisnik;
 
   @override
   void initState() {
     super.initState();
-    korisnikId = widget
-        .korisnikId; // Postavite korisnikId u initState koristeći widget objekt
-    fetchUsers(context); // Pozovite metodu za dohvaćanje podataka
+    korisnikId = widget.korisnikId;
+    fetchUsers(context);
   }
 
   Future<Korisnik> fetchUsers(BuildContext context) async {
