@@ -1,6 +1,8 @@
+import 'package:estomatolog_admin/models/Grad/grad.dart';
 import 'package:estomatolog_admin/models/Korisnik/korisnik.dart';
 import 'package:estomatolog_admin/models/Ordinacija/ordinacija.dart';
 import 'package:estomatolog_admin/models/Specijalizacija/specijalizacija.dart';
+import 'package:estomatolog_admin/providers/grad_provider.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
 import 'package:estomatolog_admin/providers/ordinacija_provider.dart';
 import 'package:estomatolog_admin/providers/specijalizacija_provider.dart';
@@ -27,6 +29,12 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
   List<String> naziviOrdinacija = [];
   List<Ordinacija> ordinacije = [];
   List<int> odabraneOrdinacije = [];
+
+  List<int> idGradova = [];
+  List<String> naziviGradova = [];
+  List<Grad> gradovi = [];
+  int odabraniGrad = 1;
+
   late int korisnikId;
   late Korisnik korisnik;
 
@@ -37,6 +45,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
     fetchUsers(context);
     fetchSpecijalizacije(context);
     fetchOrdinacije(context);
+    fetchGradovi(context);
   }
 
   Future<Korisnik> fetchUsers(BuildContext context) async {
@@ -88,6 +97,19 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
     return ordinacije;
   }
 
+  Future<List<Grad>> fetchGradovi(BuildContext context) async {
+    var provider = Provider.of<GradProvider>(context, listen: false);
+    var fetchedGradovi = await provider.get();
+    naziviGradova =
+        fetchedGradovi.result.map((grad) => grad.naziv ?? '').toList();
+
+    idGradova = fetchedGradovi.result.map((grad) => grad.gradId ?? 0).toList();
+    setState(() {
+      gradovi = fetchedGradovi.result;
+    });
+    return gradovi;
+  }
+
   TextEditingController imeController = TextEditingController();
   TextEditingController prezimeController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -100,6 +122,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
 
   List<String> selectedValuesOrdinacije = [];
   List<String> selectedValuesSpecijalizacije = [];
+  String? selectedValueGrad;
 
   @override
   Widget build(BuildContext context) {
@@ -160,6 +183,8 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                             'Specijalizacije', context),
                         SizedBox(height: 32.0),
                         _buildMultiselectOrdinacije('Ordinacije', context),
+                        SizedBox(height: 32.0),
+                        _buildSingleSelectGrad('Gradovi', context),
                         SizedBox(height: 32.0),
                         _buildSaveButton(),
                       ],
@@ -228,6 +253,50 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
     );
   }
 
+  Widget _buildSingleSelectGrad(String label, BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border:
+            Border.all(color: Color.fromARGB(255, 146, 140, 140), width: 1.0),
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              label,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: DropdownButton<String>(
+                value: selectedValueGrad,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedValueGrad = newValue!;
+
+                    int indexOfSelectedGrad = naziviGradova.indexOf(newValue);
+                    if (indexOfSelectedGrad != -1) {
+                      odabraniGrad = idGradova[indexOfSelectedGrad];
+                    }
+                  });
+                },
+                items: naziviGradova.map((String grad) {
+                  return DropdownMenuItem<String>(
+                    value: grad,
+                    child: Text(grad),
+                  );
+                }).toList(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildFormField(String label, TextEditingController controller,
       {bool isObscure = false}) {
     return Container(
@@ -273,7 +342,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
       width: 200.0,
       child: ElevatedButton(
         onPressed: () {
-          // Implementirajte logiku za spremanje doktora s unesenim vrijednostima
+          print('saved');
         },
         child: Text('Spremi'),
       ),
