@@ -39,9 +39,7 @@ class KorisniciProvider with ChangeNotifier {
     if (isValidResponse(response)) {
       var data = jsonDecode(response.body);
       Korisnik korisnik;
-
       korisnik = Korisnik.fromJson(data);
-      print(korisnik.ime);
       return korisnik;
     } else {
       throw new Exception("Nepoznata greška!");
@@ -76,9 +74,6 @@ class KorisniciProvider with ChangeNotifier {
   Map<String, String> createHeaders() {
     String username = Authorization.korisnickoIme ?? "";
     String password = Authorization.lozinka ?? "";
-
-    print("$username");
-
     String basicAuth =
         "Basic ${base64Encode(utf8.encode('$username:$password'))}";
     var headers = {

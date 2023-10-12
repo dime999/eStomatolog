@@ -22,7 +22,6 @@ class SpecijalizacijaProvider with ChangeNotifier {
     var headers = createHeaders();
 
     var response = await http.get(uri, headers: headers);
-    print(response.body);
     if (isValidResponse(response)) {
       var data = jsonDecode(response.body);
       var result = SearchResult<Specijalizacija>();

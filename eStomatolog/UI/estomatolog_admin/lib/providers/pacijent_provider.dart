@@ -15,13 +15,9 @@ class PacijentProvider with ChangeNotifier {
   }
 
   Future<SearchResult<Pacijent>> get() async {
-    print("Ulaz");
     var url = "$_baseUrl$_endpoint";
-
     var uri = Uri.parse(url);
     var headers = createHeaders();
-    print(uri);
-
     var response = await http.get(uri, headers: headers);
     if (isValidResponse(response)) {
       var data = jsonDecode(response.body);

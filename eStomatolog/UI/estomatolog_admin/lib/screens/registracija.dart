@@ -1,6 +1,4 @@
-import 'package:estomatolog_admin/main.dart';
 import 'package:estomatolog_admin/screens/login.dart';
-import 'package:estomatolog_admin/widgets/master_screeen.dart';
 import 'package:flutter/material.dart';
 
 TextStyle inputTextStyle = TextStyle(

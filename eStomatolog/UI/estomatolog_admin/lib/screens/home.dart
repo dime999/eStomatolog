@@ -51,7 +51,7 @@ class CardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(16.0),
+      margin: EdgeInsets.all(20.0),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.blue, width: 2.0),
         borderRadius: BorderRadius.circular(8.0),
@@ -75,7 +75,7 @@ class CardItem extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, size: 50.0, color: Colors.blue),
+              Icon(icon, size: 60.0, color: Colors.blue),
               SizedBox(height: 10.0),
               Text(title, style: TextStyle(fontSize: 18.0)),
             ],

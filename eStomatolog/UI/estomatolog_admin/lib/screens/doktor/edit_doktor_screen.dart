@@ -1,6 +1,8 @@
 import 'package:estomatolog_admin/models/Korisnik/korisnik.dart';
+import 'package:estomatolog_admin/models/Ordinacija/ordinacija.dart';
 import 'package:estomatolog_admin/models/Specijalizacija/specijalizacija.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
+import 'package:estomatolog_admin/providers/ordinacija_provider.dart';
 import 'package:estomatolog_admin/providers/specijalizacija_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +22,11 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
   List<String> naziviSpecijalizacija = [];
   List<Specijalizacija> specijalizacije = [];
   List<int> odabraneSpecijalizacije = [];
+
+  List<int> idOrdinacija = [];
+  List<String> naziviOrdinacija = [];
+  List<Ordinacija> ordinacije = [];
+  List<int> odabraneOrdinacije = [];
   late int korisnikId;
   late Korisnik korisnik;
 
@@ -29,6 +36,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
     korisnikId = widget.korisnikId;
     fetchUsers(context);
     fetchSpecijalizacije(context);
+    fetchOrdinacije(context);
   }
 
   Future<Korisnik> fetchUsers(BuildContext context) async {
@@ -64,6 +72,22 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
     return specijalizacije;
   }
 
+  Future<List<Ordinacija>> fetchOrdinacije(BuildContext context) async {
+    var provider = Provider.of<OrdinacijaProvider>(context, listen: false);
+    var fetchedOrdinacije = await provider.get();
+    naziviOrdinacija = fetchedOrdinacije.result
+        .map((ordinacija) => ordinacija.naziv ?? '')
+        .toList();
+
+    idOrdinacija = fetchedOrdinacije.result
+        .map((ordinacija) => ordinacija.ordinacijaId ?? 0)
+        .toList();
+    setState(() {
+      ordinacije = fetchedOrdinacije.result;
+    });
+    return ordinacije;
+  }
+
   TextEditingController imeController = TextEditingController();
   TextEditingController prezimeController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -74,7 +98,8 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
   TextEditingController passwordPotvrdaController = TextEditingController();
   bool status = true;
 
-  List<String> selectedValues = [];
+  List<String> selectedValuesOrdinacije = [];
+  List<String> selectedValuesSpecijalizacije = [];
 
   @override
   Widget build(BuildContext context) {
@@ -88,41 +113,59 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Lični podaci korisnika',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(
+                'Lični podaci korisnika',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
               SizedBox(height: 16.0),
-              FractionallySizedBox(
-                alignment: Alignment.topLeft,
-                widthFactor: 0.5,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildFormField('Ime', imeController),
-                    SizedBox(height: 16.0),
-                    _buildFormField('Prezime', prezimeController),
-                    SizedBox(height: 16.0),
-                    _buildFormField('Email', emailController),
-                    SizedBox(height: 16.0),
-                    _buildFormField('Telefon', telefonController),
-                    SizedBox(height: 16.0),
-                    _buildFormField('Korisničko ime', korisnickoImeController),
-                    SizedBox(height: 16.0),
-                    _buildFormField('Lozinka', passwordController,
-                        isObscure: true),
-                    SizedBox(height: 16.0),
-                    _buildFormField('Datum rođenja', datumRodjenjaController),
-                    SizedBox(height: 16.0),
-                    _buildFormField(
-                        'Potvrda lozinke', passwordPotvrdaController,
-                        isObscure: true),
-                    SizedBox(height: 32.0),
-                    _buildStatusField(),
-                    SizedBox(height: 16.0),
-                    _buildMultiselect('Specijalizacije', context),
-                    SizedBox(height: 32.0),
-                    _buildSaveButton(),
-                  ],
-                ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildFormField('Ime', imeController),
+                        SizedBox(height: 16.0),
+                        _buildFormField('Prezime', prezimeController),
+                        SizedBox(height: 16.0),
+                        _buildFormField('Email', emailController),
+                        SizedBox(height: 16.0),
+                        _buildFormField('Telefon', telefonController),
+                        SizedBox(height: 16.0),
+                        _buildFormField(
+                            'Korisničko ime', korisnickoImeController),
+                        SizedBox(height: 16.0),
+                        _buildFormField('Lozinka', passwordController,
+                            isObscure: true),
+                        SizedBox(height: 16.0),
+                        _buildFormField(
+                            'Datum rođenja', datumRodjenjaController),
+                        SizedBox(height: 16.0),
+                        _buildFormField(
+                            'Potvrda lozinke', passwordPotvrdaController,
+                            isObscure: true),
+                        SizedBox(height: 32.0),
+                        _buildStatusField(),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                      width: 32.0), // Razmak između lijevog i desnog stupca
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildMultiselectSpecijalizacije(
+                            'Specijalizacije', context),
+                        SizedBox(height: 32.0),
+                        _buildMultiselectOrdinacije('Ordinacije', context),
+                        SizedBox(height: 32.0),
+                        _buildSaveButton(),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -131,7 +174,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
     );
   }
 
-  Widget _buildMultiselect(String label, BuildContext context) {
+  Widget _buildMultiselectSpecijalizacije(String label, BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -142,7 +185,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
           child: DropDownMultiSelect(
             onChanged: (List<String> values) {
               setState(() {
-                selectedValues = values;
+                selectedValuesSpecijalizacije = values;
                 odabraneSpecijalizacije = values
                     .map((value) =>
                         idSpecijalizacija[naziviSpecijalizacija.indexOf(value)])
@@ -150,8 +193,35 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
               });
             },
             options: naziviSpecijalizacija,
-            selectedValues: selectedValues,
+            selectedValues: selectedValuesSpecijalizacije,
             whenEmpty: 'Odaberite specijalizacije',
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMultiselectOrdinacije(String label, BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label,
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: DropDownMultiSelect(
+            onChanged: (List<String> values) {
+              setState(() {
+                selectedValuesOrdinacije = values;
+                odabraneOrdinacije = values
+                    .map((value) =>
+                        idOrdinacija[naziviOrdinacija.indexOf(value)])
+                    .toList();
+              });
+            },
+            options: naziviOrdinacija,
+            selectedValues: selectedValuesOrdinacije,
+            whenEmpty: 'Odaberite ordinacije',
           ),
         ),
       ],

@@ -6,8 +6,10 @@ import 'package:estomatolog_admin/providers/korisnici_provider.dart';
 import 'package:estomatolog_admin/widgets/lista.dart';
 import 'package:provider/provider.dart';
 
+// ignore: use_key_in_widget_constructors
 class DoctorsScreen extends StatefulWidget {
   @override
+  // ignore: library_private_types_in_public_api
   _DoctorsScreenState createState() => _DoctorsScreenState();
 }
 
@@ -26,6 +28,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
     _korisniciProvider = Provider.of<KorisniciProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
+        // ignore: prefer_const_constructors
         title: Text('Doktori'),
       ),
       body: GenericListScreen<Doktor>(
@@ -47,19 +50,24 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
+                // ignore: prefer_const_constructors
                 title: Text("Potvrda"),
                 content:
+                    // ignore: prefer_const_constructors
                     Text("Da li ste sigurni da želite izbrisati korisnika?"),
                 actions: [
                   TextButton(
                     onPressed: () async {
                       try {
                         await _korisniciProvider.delete(doktor.korisnikId);
+                        // ignore: use_build_context_synchronously
                         var updatedDoctors = await fetchDoctors(context);
                         setState(() {
                           doktori = updatedDoctors;
                         });
+                        // ignore: use_build_context_synchronously
                         Navigator.pop(context); // Zatvori dialog
+                        // ignore: unused_catch_clause
                       } on Exception catch (e) {
                         String errorMessage =
                             "Nije moguće izbrisati odabranog doktora!";
@@ -69,11 +77,13 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
+                              // ignore: prefer_const_constructors
                               title: Text("Greška"),
                               content: Text(errorMessage),
                               actions: [
                                 TextButton(
                                   onPressed: () => Navigator.pop(context),
+                                  // ignore: prefer_const_constructors
                                   child: Text("OK"),
                                 ),
                               ],
@@ -82,11 +92,13 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                         );
                       }
                     },
+                    // ignore: prefer_const_constructors
                     child: Text("Da"),
                   ),
                   TextButton(
                     onPressed: () => Navigator.pop(
                         context), // Zatvori dialog ako korisnik odabere "Ne"
+                    // ignore: prefer_const_constructors
                     child: Text("Ne"),
                   ),
                 ],
