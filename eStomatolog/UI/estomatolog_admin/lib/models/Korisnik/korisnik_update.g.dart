@@ -1,12 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'korisnik.dart';
+part of 'korisnik_update.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Korisnik _$KorisnikFromJson(Map<String, dynamic> json) => Korisnik(
+KorisnikUpdateModel _$KorisnikUpdateModelFromJson(Map<String, dynamic> json) =>
+    KorisnikUpdateModel(
+      json['korisnikId'] as int?,
       json['ime'] as String?,
       json['prezime'] as String?,
       json['email'] as String?,
@@ -19,16 +21,15 @@ Korisnik _$KorisnikFromJson(Map<String, dynamic> json) => Korisnik(
           .toList(),
       (json['ulogeIdList'] as List<dynamic>?)?.map((e) => e as int).toList(),
       (json['ordinacijeId'] as List<dynamic>?)?.map((e) => e as int).toList(),
-      json['password'] as String?,
-      json['passwordPotvrda'] as String?,
     );
 
-Map<String, dynamic> _$KorisnikToJson(Korisnik instance) => <String, dynamic>{
+Map<String, dynamic> _$KorisnikUpdateModelToJson(
+        KorisnikUpdateModel instance) =>
+    <String, dynamic>{
+      'korisnikId': instance.korisnikId,
       'ime': instance.ime,
       'prezime': instance.prezime,
       'email': instance.email,
-      'password': instance.password,
-      'passwordPotvrda': instance.passwordPotvrda,
       'telefon': instance.telefon,
       'korisnickoIme': instance.korisnickoIme,
       'status': instance.status,

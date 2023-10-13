@@ -1,3 +1,4 @@
+import 'package:estomatolog_admin/screens/doktor/add_doktor_screen.dart';
 import 'package:estomatolog_admin/screens/doktor/edit_doktor_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:estomatolog_admin/models/Doktor/doktor.dart';
@@ -119,6 +120,19 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
             },
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddDoctorScreen(),
+            ),
+          );
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.blue,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
     );
   }

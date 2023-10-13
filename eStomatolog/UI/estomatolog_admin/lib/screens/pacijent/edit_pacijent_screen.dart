@@ -1,4 +1,5 @@
 import 'package:estomatolog_admin/models/Korisnik/korisnik.dart';
+import 'package:estomatolog_admin/models/Korisnik/korisnik_update.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

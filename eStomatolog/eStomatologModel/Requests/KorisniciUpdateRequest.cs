@@ -20,7 +20,6 @@ namespace eStomatologModel.Requests
         [MinLength(4)]
         [Required(AllowEmptyStrings = false)]
         public string KorisnickoIme { get; set; }
-        public DateTime DatumRodjenja { get; set; }
 
 
         public bool? Status { get; set; }
