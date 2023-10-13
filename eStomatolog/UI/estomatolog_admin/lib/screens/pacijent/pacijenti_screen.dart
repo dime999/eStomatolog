@@ -1,5 +1,6 @@
 import 'package:estomatolog_admin/models/Pacijent/pacijent.dart';
 import 'package:estomatolog_admin/providers/pacijent_provider.dart';
+import 'package:estomatolog_admin/screens/pacijent/add_pacijent_screen.dart';
 import 'package:estomatolog_admin/screens/pacijent/edit_pacijent_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
@@ -94,6 +95,19 @@ class _PacijentScreenState extends State<PacijentScreen> {
             },
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddPacijentScreen(),
+            ),
+          );
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.blue,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       ),
     );
   }

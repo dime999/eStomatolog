@@ -1,14 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'korisnik_update.dart';
+part of 'pacijent_insert.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-KorisnikUpdateModel _$KorisnikUpdateModelFromJson(Map<String, dynamic> json) =>
-    KorisnikUpdateModel(
-      json['korisnikId'] as int?,
+PacijentInsertModel _$PacijentInsertModelFromJson(Map<String, dynamic> json) =>
+    PacijentInsertModel(
       json['ime'] as String?,
       json['prezime'] as String?,
       json['email'] as String?,
@@ -16,25 +15,24 @@ KorisnikUpdateModel _$KorisnikUpdateModelFromJson(Map<String, dynamic> json) =>
       json['korisnickoIme'] as String?,
       json['status'] as bool?,
       json['gradId'] as int?,
-      (json['specijalizacijeId'] as List<dynamic>?)
-          ?.map((e) => e as int)
-          .toList(),
       (json['ulogeIdList'] as List<dynamic>?)?.map((e) => e as int).toList(),
       (json['ordinacijeId'] as List<dynamic>?)?.map((e) => e as int).toList(),
+      json['password'] as String?,
+      json['passwordPotvrda'] as String?,
     );
 
-Map<String, dynamic> _$KorisnikUpdateModelToJson(
-        KorisnikUpdateModel instance) =>
+Map<String, dynamic> _$PacijentInsertModelToJson(
+        PacijentInsertModel instance) =>
     <String, dynamic>{
-      'korisnikId': instance.korisnikId,
       'ime': instance.ime,
       'prezime': instance.prezime,
       'email': instance.email,
       'telefon': instance.telefon,
       'korisnickoIme': instance.korisnickoIme,
       'status': instance.status,
-      'specijalizacijeId': instance.specijalizacijeId,
       'ordinacijeId': instance.ordinacijeId,
       'ulogeIdList': instance.ulogeIdList,
       'gradId': instance.gradId,
+      'password': instance.password,
+      'passwordPotvrda': instance.passwordPotvrda,
     };

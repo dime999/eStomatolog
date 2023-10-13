@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:estomatolog_admin/models/Korisnik/korisnik.dart';
-import 'package:estomatolog_admin/models/Korisnik/korisnik_update.dart';
+import 'package:estomatolog_admin/models/Korisnik/doktor_update.dart';
+import 'package:estomatolog_admin/models/Korisnik/pacijent_insert.dart';
+import 'package:estomatolog_admin/models/Korisnik/pacijent_update.dart';
 import 'package:estomatolog_admin/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -62,7 +64,7 @@ class KorisniciProvider with ChangeNotifier {
     }
   }
 
-  Future<Korisnik> insert([Korisnik? request]) async {
+  Future<Korisnik> insertDoktor([Korisnik? request]) async {
     var url = "$_baseUrl$_endpoint";
     var uri = Uri.parse(url);
     var headers = createHeaders();
@@ -78,8 +80,25 @@ class KorisniciProvider with ChangeNotifier {
     }
   }
 
-  Future<KorisnikUpdateModel> update(int id,
-      [KorisnikUpdateModel? request]) async {
+  Future<PacijentInsertModel> insertPacijent(
+      [PacijentInsertModel? request]) async {
+    var url = "$_baseUrl$_endpoint";
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+
+    var jsonRequest = jsonEncode(request);
+    var response = await http.post(uri, headers: headers, body: jsonRequest);
+
+    if (isValidResponse(response)) {
+      var data = jsonDecode(response.body);
+      return PacijentInsertModel.fromJson(data);
+    } else {
+      throw new Exception("Unknown error");
+    }
+  }
+
+  Future<DoktorUpdateModel> updateDoktor(int id,
+      [DoktorUpdateModel? request]) async {
     var url = "$_baseUrl$_endpoint/$id";
     var uri = Uri.parse(url);
     var headers = createHeaders();
@@ -89,7 +108,24 @@ class KorisniciProvider with ChangeNotifier {
 
     if (isValidResponse(response)) {
       var data = jsonDecode(response.body);
-      return KorisnikUpdateModel.fromJson(data);
+      return DoktorUpdateModel.fromJson(data);
+    } else {
+      throw new Exception("Unknown error");
+    }
+  }
+
+  Future<PacijentUpdateModel> updatePacijent(int id,
+      [PacijentUpdateModel? request]) async {
+    var url = "$_baseUrl$_endpoint/$id";
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+
+    var jsonRequest = jsonEncode(request);
+    var response = await http.put(uri, headers: headers, body: jsonRequest);
+
+    if (isValidResponse(response)) {
+      var data = jsonDecode(response.body);
+      return PacijentUpdateModel.fromJson(data);
     } else {
       throw new Exception("Unknown error");
     }

@@ -221,16 +221,22 @@ namespace eStomatologServices.Servisi
                 Context.SaveChanges();
 
 
+                var existingPacijentOrdinacije = Context.PacijentiOrdinacije.Where(x => x.PacijentId == pacijent.Id).ToList();
+
+
+                Context.PacijentiOrdinacije.RemoveRange(existingPacijentOrdinacije);
+                Context.SaveChanges();
                 foreach (var ordinacijaId in insert.OrdinacijeIdList)
                 {
                     Database.PacijentOrdinacija pacijentOrdinacija = new Database.PacijentOrdinacija();
                     pacijentOrdinacija.OrdinacijaId = ordinacijaId;
                     pacijentOrdinacija.PacijentId = pacijent.Id;
-                    pacijentOrdinacija.Pacijnet = pacijent;
+                    pacijentOrdinacija.Pacijnet= pacijent;
                     pacijentOrdinacija.Ordinacija = Context.Ordinacija.FirstOrDefault(x => x.OrdinacijaId == ordinacijaId);
                     Context.PacijentiOrdinacije.Add(pacijentOrdinacija);
                     pacijent.PacijentOrdinacije.Add(pacijentOrdinacija);
                     Context.SaveChanges();
+
                 }
 
 

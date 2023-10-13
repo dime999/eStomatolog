@@ -1,6 +1,6 @@
 import 'package:estomatolog_admin/models/Grad/grad.dart';
-import 'package:estomatolog_admin/models/Korisnik/doktor_update.dart';
 import 'package:estomatolog_admin/models/Korisnik/korisnik.dart';
+import 'package:estomatolog_admin/models/Korisnik/pacijent_insert.dart';
 import 'package:estomatolog_admin/models/Ordinacija/ordinacija.dart';
 import 'package:estomatolog_admin/models/Specijalizacija/specijalizacija.dart';
 import 'package:estomatolog_admin/providers/grad_provider.dart';
@@ -11,21 +11,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:multiselect/multiselect.dart';
 
-class EditDoctorScreen extends StatefulWidget {
-  final int korisnikId;
-
-  EditDoctorScreen({required this.korisnikId});
-
+class AddPacijentScreen extends StatefulWidget {
   @override
-  _EditDoctorScreenState createState() => _EditDoctorScreenState();
+  _AddPacijentScreenState createState() => _AddPacijentScreenState();
 }
 
-class _EditDoctorScreenState extends State<EditDoctorScreen> {
-  List<int> idSpecijalizacija = [];
-  List<String> naziviSpecijalizacija = [];
-  List<Specijalizacija> specijalizacije = [];
-  List<int> odabraneSpecijalizacije = [];
-
+class _AddPacijentScreenState extends State<AddPacijentScreen> {
   List<int> idOrdinacija = [];
   List<String> naziviOrdinacija = [];
   List<Ordinacija> ordinacije = [];
@@ -35,52 +26,14 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
   List<String> naziviGradova = [];
   List<Grad> gradovi = [];
   int odabraniGrad = 1;
-  List<int> uloga = [1];
-
-  late int korisnikId;
+  List<int> uloga = [2];
   late Korisnik korisnik;
 
   @override
   void initState() {
     super.initState();
-    korisnikId = widget.korisnikId;
-    fetchUsers(context);
-    fetchSpecijalizacije(context);
     fetchOrdinacije(context);
     fetchGradovi(context);
-  }
-
-  Future<Korisnik> fetchUsers(BuildContext context) async {
-    var korisnikProvider =
-        Provider.of<KorisniciProvider>(context, listen: false);
-    var fetchedUser = await korisnikProvider.getById(korisnikId);
-    setState(() {
-      korisnik = fetchedUser;
-      imeController.text = korisnik.ime ?? '';
-      prezimeController.text = korisnik.prezime ?? '';
-      emailController.text = korisnik.email ?? '';
-      telefonController.text = korisnik.telefon ?? '';
-      korisnickoImeController.text = korisnik.korisnickoIme ?? '';
-      status = korisnik.status ?? true;
-    });
-    return korisnik;
-  }
-
-  Future<List<Specijalizacija>> fetchSpecijalizacije(
-      BuildContext context) async {
-    var provider = Provider.of<SpecijalizacijaProvider>(context, listen: false);
-    var fetchedspecijalizacije = await provider.get();
-    naziviSpecijalizacija = fetchedspecijalizacije.result
-        .map((specijalizacija) => specijalizacija.naziv ?? '')
-        .toList();
-
-    idSpecijalizacija = fetchedspecijalizacije.result
-        .map((specijalizacija) => specijalizacija.specijalizacijaId ?? 0)
-        .toList();
-    setState(() {
-      specijalizacije = fetchedspecijalizacije.result;
-    });
-    return specijalizacije;
   }
 
   Future<List<Ordinacija>> fetchOrdinacije(BuildContext context) async {
@@ -118,10 +71,11 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
   TextEditingController telefonController = TextEditingController();
   TextEditingController korisnickoImeController = TextEditingController();
   TextEditingController datumRodjenjaController = TextEditingController();
+  TextEditingController lozinkaController = TextEditingController();
+  TextEditingController lozinkaPotvrdaController = TextEditingController();
   bool status = true;
 
   List<String> selectedValuesOrdinacije = [];
-  List<String> selectedValuesSpecijalizacije = [];
   String? selectedValueGrad;
   late KorisniciProvider _korisniciProvider;
 
@@ -129,7 +83,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Uredi doktora'),
+        title: Text('Dodaj novog pacijenta'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -159,6 +113,11 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                         SizedBox(height: 16.0),
                         _buildFormField(
                             'Korisničko ime', korisnickoImeController),
+                        SizedBox(height: 16.0),
+                        _buildPasswordField('Lozinka', lozinkaController),
+                        SizedBox(height: 16.0),
+                        _buildPasswordField(
+                            'Lozinka potvrda', lozinkaPotvrdaController),
                         SizedBox(height: 32.0),
                         _buildStatusField(),
                       ],
@@ -170,9 +129,6 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildMultiselectSpecijalizacije(
-                            'Specijalizacije', context),
-                        SizedBox(height: 32.0),
                         _buildMultiselectOrdinacije('Ordinacije', context),
                         SizedBox(height: 32.0),
                         _buildSingleSelectGrad('Gradovi', context),
@@ -187,33 +143,6 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildMultiselectSpecijalizacije(String label, BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: DropDownMultiSelect(
-            onChanged: (List<String> values) {
-              setState(() {
-                selectedValuesSpecijalizacije = values;
-                odabraneSpecijalizacije = values
-                    .map((value) =>
-                        idSpecijalizacija[naziviSpecijalizacija.indexOf(value)])
-                    .toList();
-              });
-            },
-            options: naziviSpecijalizacija,
-            selectedValues: selectedValuesSpecijalizacije,
-            whenEmpty: 'Odaberite specijalizacije',
-          ),
-        ),
-      ],
     );
   }
 
@@ -307,6 +236,24 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
     );
   }
 
+  Widget _buildPasswordField(String label, TextEditingController controller) {
+    return Container(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(label),
+          SizedBox(height: 8.0),
+          TextField(
+            controller: controller,
+            obscureText: true, // Postavite na true da biste sakrili tekst
+            decoration: InputDecoration(border: OutlineInputBorder()),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildStatusField() {
     return Container(
       width: double.infinity,
@@ -330,8 +277,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
 
   Widget _buildSaveButton() {
     _korisniciProvider = Provider.of<KorisniciProvider>(context, listen: false);
-    DoktorUpdateModel updatedKorisnik = new DoktorUpdateModel(
-        korisnikId,
+    PacijentInsertModel korisnik = new PacijentInsertModel(
         imeController.text,
         prezimeController.text,
         emailController.text,
@@ -339,9 +285,11 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
         korisnickoImeController.text,
         status,
         odabraniGrad,
-        odabraneSpecijalizacije,
         uloga,
-        odabraneOrdinacije);
+        odabraneOrdinacije,
+        lozinkaController.text,
+        lozinkaPotvrdaController.text);
+
     return Container(
       width: 200.0,
       child: ElevatedButton(
@@ -352,7 +300,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
               return AlertDialog(
                 title: Text("Potvrda ažuriranja"),
                 content: Text(
-                    "Da li ste sigurni da želite ažurirati korisnika sa unesenim informacijama?"),
+                    "Da li ste sigurni da želite dodati korisnika sa unesenim informacijama?"),
                 actions: [
                   TextButton(
                     onPressed: () {
@@ -363,12 +311,11 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                   TextButton(
                     onPressed: () async {
                       try {
-                        await _korisniciProvider.updateDoktor(
-                            korisnikId, updatedKorisnik);
+                        await _korisniciProvider.insertPacijent(korisnik);
                         Navigator.of(context).pop();
                         Navigator.of(context).pop();
                       } catch (e) {
-                        print("Greška prilikom ažuriranja: $e");
+                        print("Greška prilikom dodavanja: $e");
                         Navigator.of(context).pop();
                       }
                     },

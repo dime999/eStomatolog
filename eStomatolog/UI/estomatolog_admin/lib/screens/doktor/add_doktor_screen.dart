@@ -364,7 +364,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                   TextButton(
                     onPressed: () async {
                       try {
-                        await _korisniciProvider.insert(korisnik);
+                        await _korisniciProvider.insertDoktor(korisnik);
                         Navigator.of(context).pop();
                         Navigator.of(context).pop();
                       } catch (e) {
