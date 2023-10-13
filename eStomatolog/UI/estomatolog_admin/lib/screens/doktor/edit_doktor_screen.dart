@@ -34,6 +34,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
   List<String> naziviGradova = [];
   List<Grad> gradovi = [];
   int odabraniGrad = 1;
+  List<int> uloga = [1];
 
   late int korisnikId;
   late Korisnik korisnik;
@@ -115,14 +116,13 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController telefonController = TextEditingController();
   TextEditingController korisnickoImeController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
   TextEditingController datumRodjenjaController = TextEditingController();
-  TextEditingController passwordPotvrdaController = TextEditingController();
   bool status = true;
 
   List<String> selectedValuesOrdinacije = [];
   List<String> selectedValuesSpecijalizacije = [];
   String? selectedValueGrad;
+  late KorisniciProvider _korisniciProvider;
 
   @override
   Widget build(BuildContext context) {
@@ -159,15 +159,8 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                         _buildFormField(
                             'Korisničko ime', korisnickoImeController),
                         SizedBox(height: 16.0),
-                        _buildFormField('Lozinka', passwordController,
-                            isObscure: true),
-                        SizedBox(height: 16.0),
                         _buildFormField(
                             'Datum rođenja', datumRodjenjaController),
-                        SizedBox(height: 16.0),
-                        _buildFormField(
-                            'Potvrda lozinke', passwordPotvrdaController,
-                            isObscure: true),
                         SizedBox(height: 32.0),
                         _buildStatusField(),
                       ],
@@ -338,11 +331,55 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
   }
 
   Widget _buildSaveButton() {
+    _korisniciProvider = Provider.of<KorisniciProvider>(context, listen: false);
+    Korisnik updatedKorisnik = new Korisnik(
+        korisnikId,
+        imeController.text,
+        prezimeController.text,
+        emailController.text,
+        telefonController.text,
+        korisnickoImeController.text,
+        status,
+        odabraniGrad,
+        odabraneSpecijalizacije,
+        uloga,
+        odabraneOrdinacije);
     return Container(
       width: 200.0,
       child: ElevatedButton(
-        onPressed: () {
-          print('saved');
+        onPressed: () async {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text("Potvrda ažuriranja"),
+                content: Text(
+                    "Da li ste sigurni da želite ažurirati korisnika sa unesenim informacijama?"),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Zatvaranje dijaloga
+                    },
+                    child: Text("Otkaži"),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      try {
+                        await _korisniciProvider.update(
+                            korisnikId, updatedKorisnik);
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                      } catch (e) {
+                        print("Greška prilikom ažuriranja: $e");
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    child: Text("Potvrdi"),
+                  ),
+                ],
+              );
+            },
+          );
         },
         child: Text('Spremi'),
       ),

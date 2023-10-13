@@ -15,6 +15,21 @@ class DoctorsScreen extends StatefulWidget {
 
 class _DoctorsScreenState extends State<DoctorsScreen> {
   List<Doktor> doktori = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadDoctors();
+  }
+
+  Future<void> _loadDoctors() async {
+    var fetchedDoctors = await fetchDoctors(context);
+    print("Uslo");
+    setState(() {
+      doktori = fetchedDoctors;
+    });
+  }
+
   Future<List<Doktor>> fetchDoctors(BuildContext context) async {
     var doktorProvider = Provider.of<DoktorProvider>(context, listen: false);
     var fetchedDoctors = await doktorProvider.get();
@@ -71,7 +86,6 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                       } on Exception catch (e) {
                         String errorMessage =
                             "Nije moguće izbrisati odabranog doktora!";
-                        // Prikaži grešku ako brisanje nije uspelo
                         // ignore: use_build_context_synchronously
                         showDialog(
                           context: context,
@@ -96,8 +110,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                     child: Text("Da"),
                   ),
                   TextButton(
-                    onPressed: () => Navigator.pop(
-                        context), // Zatvori dialog ako korisnik odabere "Ne"
+                    onPressed: () => Navigator.pop(context),
                     // ignore: prefer_const_constructors
                     child: Text("Ne"),
                   ),

@@ -13,12 +13,24 @@ class Korisnik {
   String? email;
   String? telefon;
   String? korisnickoIme;
-  String? password;
-  String? passwordPotvrda;
   bool? status;
+  List<int>? specijalizacijeId;
+  List<int>? ordinacijeId;
+  List<int>? ulogeIdList;
+  int? gradId;
 
-  Korisnik(this.korisnikId, this.ime, this.prezime, this.email, this.telefon,
-      this.korisnickoIme, this.password, this.passwordPotvrda, this.status);
+  Korisnik(
+      this.korisnikId,
+      this.ime,
+      this.prezime,
+      this.email,
+      this.telefon,
+      this.korisnickoIme,
+      this.status,
+      this.gradId,
+      this.specijalizacijeId,
+      this.ulogeIdList,
+      this.ordinacijeId);
 
   factory Korisnik.fromJson(Map<String, dynamic> json) =>
       _$KorisnikFromJson(json);

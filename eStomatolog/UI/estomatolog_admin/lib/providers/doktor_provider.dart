@@ -29,7 +29,7 @@ class DoktorProvider with ChangeNotifier {
       for (var item in data) {
         result.result.add(Doktor.fromJson(item));
       }
-
+      notifyListeners();
       return result;
     } else {
       throw new Exception("Nepoznata greška!");
