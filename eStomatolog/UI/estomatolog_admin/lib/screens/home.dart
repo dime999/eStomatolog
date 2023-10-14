@@ -1,4 +1,5 @@
 import 'package:estomatolog_admin/screens/doktor/doktori_screen.dart';
+import 'package:estomatolog_admin/screens/ordinacija/ordinacije_screen.dart';
 import 'package:estomatolog_admin/screens/pacijent/pacijenti_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:estomatolog_admin/utils/util.dart';
@@ -69,6 +70,11 @@ class CardItem extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => PacijentScreen()),
+              );
+            } else if (icon == Icons.local_hospital && title == 'Ordinacije') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => OrdinacijaScreen()),
               );
             }
           },

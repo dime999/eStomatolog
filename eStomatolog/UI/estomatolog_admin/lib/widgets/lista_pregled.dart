@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 
-class GenericListScreen<T> extends StatelessWidget {
+class GenericListPregledScreen<T> extends StatelessWidget {
   final Future<List<T>> Function(BuildContext) fetchData;
   final String Function(T) getTitle;
   final String Function(T) getSubtitle;
   final IconData icon;
   final void Function(T) onEditPressed;
-  final void Function(T) onDeletePressed;
 
-  GenericListScreen({
+  GenericListPregledScreen({
     required this.fetchData,
     required this.getTitle,
     required this.getSubtitle,
     required this.icon,
     required this.onEditPressed,
-    required this.onDeletePressed,
   });
 
   @override
@@ -47,10 +45,6 @@ class GenericListScreen<T> extends StatelessWidget {
                       IconButton(
                         icon: Icon(Icons.edit),
                         onPressed: () => onEditPressed(item),
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.delete),
-                        onPressed: () => onDeletePressed(item),
                       ),
                     ],
                   ),
