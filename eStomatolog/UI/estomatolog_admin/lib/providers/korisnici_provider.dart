@@ -51,8 +51,6 @@ class KorisniciProvider with ChangeNotifier {
 
   Future<void> delete(int id) async {
     var url = "$_baseUrl$_endpoint?id=${id}";
-    print(url);
-
     var uri = Uri.parse(url);
     var headers = createHeaders();
 

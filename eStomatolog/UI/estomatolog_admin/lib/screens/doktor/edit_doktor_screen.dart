@@ -368,7 +368,6 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                         Navigator.of(context).pop();
                         Navigator.of(context).pop();
                       } catch (e) {
-                        print("Greška prilikom ažuriranja: $e");
                         Navigator.of(context).pop();
                       }
                     },

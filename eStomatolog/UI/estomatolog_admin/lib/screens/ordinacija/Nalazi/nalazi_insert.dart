@@ -1,4 +1,10 @@
+import 'package:estomatolog_admin/models/Doktor/doktor.dart';
+import 'package:estomatolog_admin/models/Pacijent/pacijent.dart';
+import 'package:estomatolog_admin/providers/doktor_provider.dart';
+import 'package:estomatolog_admin/providers/pacijent_provider.dart';
+import 'package:estomatolog_admin/utils/util.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DodajNalazScreen extends StatefulWidget {
   final int pacijentId;
@@ -11,23 +17,35 @@ class DodajNalazScreen extends StatefulWidget {
 
 class _DodajNalazScreenState extends State<DodajNalazScreen> {
   TextEditingController opisController = TextEditingController();
+  late Pacijent pacijent;
 
-  void _snimiNalaz() async {
-    String opis = opisController.text;
-    DateTime datum = DateTime.now();
-
-    // Ovdje pozovite vaš API endpoint za spremanje nalaza
-    // Primjer poziva API-ja sa http paketom:
-    // await http.post('https://api.example.com/nalazi', body: {'opis': opis, 'datum': datum.toString(), 'pacijentId': widget.pacijentId.toString()});
-
-    // Nakon spremanja nalaza možete izvršiti odgovarajuće akcije, npr. prikazati poruku o uspješnom spremanju.
+  Future<Pacijent> fetchPacijent(BuildContext context) async {
+    var pacijentProvider =
+        Provider.of<PacijentProvider>(context, listen: false);
+    var pacijent = await pacijentProvider.getByKorisnikId(widget.pacijentId);
+    return pacijent;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dodaj novi nalaz'),
+        title: FutureBuilder<Pacijent>(
+          future: fetchPacijent(context),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Text('Dodaj nalaz - Učitavanje...');
+            } else if (snapshot.hasError) {
+              return Text('Greška pri dohvatu pacijenta.');
+            } else if (!snapshot.hasData) {
+              return Text('Nema dostupnih podataka o pacijentu.');
+            } else {
+              pacijent = snapshot.data!;
+              return Text(
+                  'Dodaj nalaz za: - ${pacijent.ime} ${pacijent.prezime} ');
+            }
+          },
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -45,7 +63,12 @@ class _DodajNalazScreenState extends State<DodajNalazScreen> {
             Text('Datum: ${DateTime.now().toString()}'),
             Spacer(),
             ElevatedButton(
-              onPressed: _snimiNalaz,
+              onPressed: () async {
+                try {} catch (e) {
+                  print("Greška prilikom dodavanja: $e");
+                  Navigator.of(context).pop();
+                }
+              },
               child: Text('Snimi nalaz'),
             ),
           ],

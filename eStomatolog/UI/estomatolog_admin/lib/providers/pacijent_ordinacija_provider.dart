@@ -16,7 +16,6 @@ class PacijentOrdinacijaProvider with ChangeNotifier {
 
   Future<SearchResult<PacijentOrdinacija>> get(int id) async {
     var url = "$_baseUrl$_endpoint/$id";
-    print(url);
     var uri = Uri.parse(url);
     var headers = createHeaders();
     var response = await http.get(uri, headers: headers);

@@ -9,6 +9,7 @@ import 'package:http/http.dart';
 class GradProvider with ChangeNotifier {
   static String? _baseUrl;
   String _endpoint = "Grad";
+
   GradProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue: "https://localhost:7265/");

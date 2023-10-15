@@ -138,8 +138,7 @@ class _EditPacijentScreenState extends State<EditPacijentScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(
-                      width: 32.0), // Razmak između lijevog i desnog stupca
+                  SizedBox(width: 32.0),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

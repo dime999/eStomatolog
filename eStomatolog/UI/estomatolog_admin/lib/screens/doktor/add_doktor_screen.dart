@@ -368,7 +368,6 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                         Navigator.of(context).pop();
                         Navigator.of(context).pop();
                       } catch (e) {
-                        print("Greška prilikom dodavanja: $e");
                         Navigator.of(context).pop();
                       }
                     },

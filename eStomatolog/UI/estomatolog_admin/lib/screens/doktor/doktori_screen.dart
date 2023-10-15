@@ -25,7 +25,6 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
 
   Future<void> _loadDoctors() async {
     var fetchedDoctors = await fetchDoctors(context);
-    print("Uslo");
     setState(() {
       doktori = fetchedDoctors;
     });

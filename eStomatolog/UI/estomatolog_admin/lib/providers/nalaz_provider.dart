@@ -15,7 +15,6 @@ class NalazProvider with ChangeNotifier {
   }
 
   Future<SearchResult<Nalaz>> getByPacijentId(int id) async {
-    print(id);
     var url = "$_baseUrl$_endpoint/$id";
     var uri = Uri.parse(url);
     var headers = createHeaders();
@@ -30,6 +29,22 @@ class NalazProvider with ChangeNotifier {
       return result;
     } else {
       throw new Exception("Nepoznata greška!");
+    }
+  }
+
+  Future<Nalaz> insertDoktor([Nalaz? request]) async {
+    var url = "$_baseUrl$_endpoint";
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+
+    var jsonRequest = jsonEncode(request);
+    var response = await http.post(uri, headers: headers, body: jsonRequest);
+
+    if (isValidResponse(response)) {
+      var data = jsonDecode(response.body);
+      return Nalaz.fromJson(data);
+    } else {
+      throw new Exception("Unknown error");
     }
   }
 
