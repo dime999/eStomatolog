@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using eStomatologModel.Requests;
 using eStomatologModel.SearchObjects;
+using eStomatologServices.Database;
 using eStomatologServices.Interfejsi;
 using eStomatologServices.Models;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,13 @@ namespace eStomatologServices.Servisi
         public PacijentService(eStomatologContext context, IMapper mapper) : base(context, mapper)
         {
 
+        }
+
+        public eStomatologModel.Pacijent GetByKorisnikId(int id)
+        {
+            var Pacijent = Context.Set<Pacijent>().FirstOrDefault(d => d.KorisnikId == id);
+
+            return Mapper.Map<eStomatologModel.Pacijent>(Pacijent);
         }
 
         public override IQueryable<eStomatologServices.Database.Pacijent> AddFilter(IQueryable<eStomatologServices.Database.Pacijent> query, PacijentSearchObject search = null)

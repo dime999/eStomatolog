@@ -7,7 +7,7 @@ part of 'pacijent.dart';
 // **************************************************************************
 
 Pacijent _$PacijentFromJson(Map<String, dynamic> json) => Pacijent(
-      json['id'] as int?,
+      json['id'] as int,
       json['ime'] as String?,
       json['prezime'] as String?,
       json['korisnikId'] as int,

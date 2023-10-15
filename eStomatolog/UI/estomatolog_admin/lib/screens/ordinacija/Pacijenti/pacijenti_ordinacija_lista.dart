@@ -1,7 +1,9 @@
 import 'package:estomatolog_admin/models/Pacijent/pacijent_ordinacija.dart';
 import 'package:estomatolog_admin/providers/pacijent_ordinacija_provider.dart';
+import 'package:estomatolog_admin/screens/ordinacija/Pacijenti/pacijent_ordinacija_info.dart';
 import 'package:estomatolog_admin/screens/pacijent/add_pacijent_screen.dart';
 import 'package:estomatolog_admin/screens/pacijent/edit_pacijent_screen.dart';
+import 'package:estomatolog_admin/widgets/lista_pregled.dart';
 import 'package:flutter/material.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
 import 'package:estomatolog_admin/widgets/lista.dart';
@@ -33,7 +35,7 @@ class _PacijentOrdinacijaScreenState extends State<PacijentOrdinacijaScreen> {
       appBar: AppBar(
         title: Text('Pacijenti'),
       ),
-      body: GenericListScreen<PacijentOrdinacija>(
+      body: GenericListPregledScreen<PacijentOrdinacija>(
         fetchData: (context) => fetchPacijenti(context),
         getTitle: (pacijent) => pacijent.pacijentIme ?? 'N/A',
         getSubtitle: (pacijent) => pacijent.pacijentPrezime ?? 'N/A',
@@ -43,59 +45,11 @@ class _PacijentOrdinacijaScreenState extends State<PacijentOrdinacijaScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => EditPacijentScreen(korisnikId: korisnikId),
+              builder: (context) => PacijentOrdinacijaInfoScreen(
+                ordinacijaId: widget.ordinacijaId,
+                pacijentId: korisnikId,
+              ),
             ),
-          );
-        },
-        onDeletePressed: (pacijent) async {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text("Potvrda"),
-                content:
-                    Text("Da li ste sigurni da želite izbrisati korisnika?"),
-                actions: [
-                  TextButton(
-                    onPressed: () async {
-                      try {
-                        await _korisniciProvider.delete(pacijent.korisnikId);
-                        var updatedPacijenti = await fetchPacijenti(context);
-                        setState(() {
-                          pacijenti = updatedPacijenti;
-                        });
-                        Navigator.pop(context); // Zatvori dialog
-                      } on Exception catch (e) {
-                        String errorMessage =
-                            "Nije moguće izbrisati odabranog pacijenta!";
-                        // Prikaži grešku ako brisanje nije uspelo
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text("Greška"),
-                              content: Text(errorMessage),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: Text("OK"),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
-                    },
-                    child: Text("Da"),
-                  ),
-                  TextButton(
-                    onPressed: () => Navigator.pop(
-                        context), // Zatvori dialog ako korisnik odabere "Ne"
-                    child: Text("Ne"),
-                  ),
-                ],
-              );
-            },
           );
         },
       ),

@@ -1,51 +1,33 @@
 import 'dart:convert';
-import 'package:estomatolog_admin/models/Pacijent/pacijent.dart';
+import 'package:estomatolog_admin/models/Nalaz/nalaz.dart';
 import 'package:estomatolog_admin/models/search_result.dart';
 import 'package:estomatolog_admin/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
-class PacijentProvider with ChangeNotifier {
+class NalazProvider with ChangeNotifier {
   static String? _baseUrl;
-  String _endpoint = "Pacijent";
-  String _getByKorisnik = "GetPacijentByKorisnikId";
-  PacijentProvider() {
+  String _endpoint = "GetByPacijent";
+  NalazProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue: "https://localhost:7265/");
   }
 
-  Future<SearchResult<Pacijent>> get() async {
-    var url = "$_baseUrl$_endpoint";
+  Future<SearchResult<Nalaz>> getByPacijentId(int id) async {
+    print(id);
+    var url = "$_baseUrl$_endpoint/$id";
     var uri = Uri.parse(url);
     var headers = createHeaders();
     var response = await http.get(uri, headers: headers);
     if (isValidResponse(response)) {
       var data = jsonDecode(response.body);
-      var result = SearchResult<Pacijent>();
-
+      var result = SearchResult<Nalaz>();
       for (var item in data) {
-        result.result.add(Pacijent.fromJson(item));
+        result.result.add(Nalaz.fromJson(item));
       }
 
       return result;
-    } else {
-      throw new Exception("Nepoznata greška!");
-    }
-  }
-
-  Future<dynamic> getByKorisnikId(id) async {
-    var url = "$_baseUrl$_getByKorisnik/${id}";
-
-    var uri = Uri.parse(url);
-    var headers = createHeaders();
-
-    var response = await http.get(uri, headers: headers);
-    if (isValidResponse(response)) {
-      var data = jsonDecode(response.body);
-      Pacijent pacijent;
-      pacijent = Pacijent.fromJson(data);
-      return pacijent;
     } else {
       throw new Exception("Nepoznata greška!");
     }

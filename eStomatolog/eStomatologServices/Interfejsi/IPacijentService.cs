@@ -11,6 +11,6 @@ namespace eStomatologServices.Interfejsi
 {
     public interface IPacijentService : ICRUDService<eStomatologModel.Pacijent, PacijentSearchObject,PacijentUpdateRequest,PacijentUpdateRequest>
     {
-       
+        public eStomatologModel.Pacijent GetByKorisnikId(int id);
     }
 }
