@@ -43,7 +43,7 @@ class GenericListPregledScreen<T> extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                        icon: Icon(Icons.edit),
+                        icon: Icon(Icons.view_carousel),
                         onPressed: () => onEditPressed(item),
                       ),
                     ],

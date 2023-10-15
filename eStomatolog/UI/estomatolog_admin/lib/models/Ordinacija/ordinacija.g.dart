@@ -7,7 +7,7 @@ part of 'ordinacija.dart';
 // **************************************************************************
 
 Ordinacija _$OrdinacijaFromJson(Map<String, dynamic> json) => Ordinacija(
-      json['ordinacijaId'] as int?,
+      json['ordinacijaId'] as int,
       json['naziv'] as String?,
       json['adresa'] as String?,
       json['telefon'] as String?,

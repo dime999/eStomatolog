@@ -1,15 +1,18 @@
 import 'package:estomatolog_admin/screens/doktor/doktori_screen.dart';
+import 'package:estomatolog_admin/screens/ordinacija/Pacijenti/pacijenti_ordinacija_lista.dart';
 import 'package:estomatolog_admin/screens/ordinacija/ordinacije_screen.dart';
-import 'package:estomatolog_admin/screens/pacijent/pacijenti_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:estomatolog_admin/utils/util.dart';
 
-class HomeScreen extends StatelessWidget {
+class OrdinacijaHomeScreen extends StatelessWidget {
+  final int ordinacijaId;
+  OrdinacijaHomeScreen({required this.ordinacijaId});
   @override
   Widget build(BuildContext context) {
+    print(ordinacijaId);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Početna Stranica'),
+        title: Text('Izbornik ordinacije'),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -31,9 +34,30 @@ class HomeScreen extends StatelessWidget {
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         children: [
-          CardItem(icon: Icons.people, title: 'Pacijenti'),
-          CardItem(icon: Icons.medical_services, title: 'Doktori'),
-          CardItem(icon: Icons.local_hospital, title: 'Ordinacije'),
+          CardItem(
+              icon: Icons.people,
+              title: 'Pacijenti',
+              ordinacijaId: ordinacijaId),
+          CardItem(
+              icon: Icons.medical_services,
+              title: 'Doktori',
+              ordinacijaId: ordinacijaId),
+          CardItem(
+              icon: Icons.note_add,
+              title: 'Rezervacije',
+              ordinacijaId: ordinacijaId),
+          CardItem(
+              icon: Icons.rate_review,
+              title: 'Recenzije',
+              ordinacijaId: ordinacijaId),
+          CardItem(
+              icon: Icons.wallet_giftcard,
+              title: 'Poklon bonovi',
+              ordinacijaId: ordinacijaId),
+          CardItem(
+              icon: Icons.report,
+              title: 'Izvještaji',
+              ordinacijaId: ordinacijaId),
         ],
       ),
     );
@@ -43,8 +67,10 @@ class HomeScreen extends StatelessWidget {
 class CardItem extends StatelessWidget {
   final IconData icon;
   final String title;
+  final int ordinacijaId;
 
-  CardItem({required this.icon, required this.title});
+  CardItem(
+      {required this.icon, required this.title, required this.ordinacijaId});
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +92,9 @@ class CardItem extends StatelessWidget {
             } else if (icon == Icons.people && title == 'Pacijenti') {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => PacijentScreen()),
+                MaterialPageRoute(
+                    builder: (context) =>
+                        PacijentOrdinacijaScreen(ordinacijaId: ordinacijaId)),
               );
             } else if (icon == Icons.local_hospital && title == 'Ordinacije') {
               Navigator.push(

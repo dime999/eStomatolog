@@ -1,4 +1,5 @@
 import 'package:estomatolog_admin/providers/ordinacija_provider.dart';
+import 'package:estomatolog_admin/screens/ordinacija/home_ordinacija.dart';
 import 'package:estomatolog_admin/screens/pacijent/add_pacijent_screen.dart';
 import 'package:estomatolog_admin/widgets/lista_pregled.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,6 @@ import 'package:estomatolog_admin/models/Ordinacija/ordinacija.dart';
 
 class OrdinacijaScreen extends StatefulWidget {
   @override
-  // ignore: library_private_types_in_public_api
   _OrdinacijaScreenState createState() => _OrdinacijaScreenState();
 }
 
@@ -32,9 +32,14 @@ class _OrdinacijaScreenState extends State<OrdinacijaScreen> {
         getSubtitle: (ordinacija) => ordinacija.adresa ?? 'N/A',
         icon: Icons.local_hospital_rounded,
         onEditPressed: (ordinacija) {
-          int? ordinacijaId = ordinacija.ordinacijaId;
-
-          print(ordinacijaId);
+          int ordinacijaId = ordinacija.ordinacijaId;
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  OrdinacijaHomeScreen(ordinacijaId: ordinacijaId),
+            ),
+          );
         },
       ),
       floatingActionButton: FloatingActionButton(
