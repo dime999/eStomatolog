@@ -1,18 +1,42 @@
+import 'package:estomatolog_admin/models/Ordinacija/ordinacija.dart';
+import 'package:estomatolog_admin/providers/ordinacija_provider.dart';
 import 'package:estomatolog_admin/screens/doktor/doktori_screen.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Pacijenti/pacijenti_ordinacija_lista.dart';
 import 'package:estomatolog_admin/screens/ordinacija/ordinacije_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:estomatolog_admin/utils/util.dart';
+import 'package:provider/provider.dart';
 
 class OrdinacijaHomeScreen extends StatelessWidget {
   final int ordinacijaId;
   OrdinacijaHomeScreen({required this.ordinacijaId});
+  Future<Ordinacija> fetchOrdinacija(BuildContext context) async {
+    var pacijentProvider =
+        Provider.of<OrdinacijaProvider>(context, listen: false);
+    var ordinacija = await pacijentProvider.getById(ordinacijaId);
+    return ordinacija;
+  }
+
   @override
   Widget build(BuildContext context) {
-    print(ordinacijaId);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Izbornik ordinacije'),
+        title: FutureBuilder<Ordinacija>(
+          future: fetchOrdinacija(context),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Text('Lista nalaza - Učitavanje...');
+            } else if (snapshot.hasError) {
+              return Text('Greška pri dohvatu podataka o ordinaciji.');
+            } else if (!snapshot.hasData) {
+              return Text('Nema dostupnih podataka o pacijentu.');
+            } else {
+              Ordinacija ordinacija = snapshot.data!;
+              return Text(
+                  'Izbornik ordinacije: - ${ordinacija.naziv} ${ordinacija.adresa} ');
+            }
+          },
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),

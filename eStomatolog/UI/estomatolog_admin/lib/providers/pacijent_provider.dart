@@ -34,6 +34,23 @@ class PacijentProvider with ChangeNotifier {
     }
   }
 
+  Future<dynamic> getById(id) async {
+    var url = "$_baseUrl$_endpoint/$id";
+
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+
+    var response = await http.get(uri, headers: headers);
+    if (isValidResponse(response)) {
+      var data = jsonDecode(response.body);
+      Pacijent pacijent;
+      pacijent = Pacijent.fromJson(data);
+      return pacijent;
+    } else {
+      throw new Exception("Nepoznata greška!");
+    }
+  }
+
   Future<dynamic> getByKorisnikId(id) async {
     var url = "$_baseUrl$_getByKorisnik/${id}";
 

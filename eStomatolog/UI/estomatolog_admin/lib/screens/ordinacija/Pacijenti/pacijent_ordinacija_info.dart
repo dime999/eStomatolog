@@ -1,19 +1,47 @@
+import 'package:estomatolog_admin/models/Korisnik/korisnik.dart';
+import 'package:estomatolog_admin/models/Pacijent/pacijent.dart';
+import 'package:estomatolog_admin/providers/korisnici_provider.dart';
+import 'package:estomatolog_admin/providers/pacijent_provider.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Nalazi/nalazi_lista.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Pacijenti/pacijenti_ordinacija_lista.dart';
 import 'package:estomatolog_admin/screens/ordinacija/ordinacije_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:estomatolog_admin/utils/util.dart';
+import 'package:provider/provider.dart';
 
 class PacijentOrdinacijaInfoScreen extends StatelessWidget {
   final int ordinacijaId;
   final int pacijentId;
   PacijentOrdinacijaInfoScreen(
       {required this.ordinacijaId, required this.pacijentId});
+
+  Future<Korisnik> fetchPacijent(BuildContext context) async {
+    var pacijentProvider =
+        Provider.of<KorisniciProvider>(context, listen: false);
+    var ordinacija = await pacijentProvider.getById(pacijentId);
+    return ordinacija;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Izbornik detalja o pacijentu'),
+        title: FutureBuilder<Korisnik>(
+          future: fetchPacijent(context),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Text('Lista nalaza - Učitavanje...');
+            } else if (snapshot.hasError) {
+              return Text('Greška pri dohvatu pacijenta.');
+            } else if (!snapshot.hasData) {
+              return Text('Nema dostupnih podataka o pacijentu.');
+            } else {
+              Korisnik pacijent = snapshot.data!;
+              return Text(
+                  'Izbornik detalja za pacijenta: - ${pacijent.ime} ${pacijent.prezime} ');
+            }
+          },
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
