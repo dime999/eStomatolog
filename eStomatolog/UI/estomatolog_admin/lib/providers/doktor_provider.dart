@@ -10,7 +10,7 @@ import 'package:http/http.dart';
 class DoktorProvider with ChangeNotifier {
   static String? _baseUrl;
   String _endpoint = "Doktor";
-  String _getByKorisnik = "GetPacijentByKorisnikId";
+  String _getByKorisnik = "GetByKorisnikId";
   DoktorProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue: "https://localhost:7265/");
@@ -41,12 +41,14 @@ class DoktorProvider with ChangeNotifier {
     var url = "$_baseUrl$_getByKorisnik/${id}";
     var uri = Uri.parse(url);
     var headers = createHeaders();
+    print(url);
 
     var response = await http.get(uri, headers: headers);
     if (isValidResponse(response)) {
       var data = jsonDecode(response.body);
       Doktor doktor;
       doktor = Doktor.fromJson(data);
+      print(doktor.id);
       return doktor;
     } else {
       throw new Exception("Nepoznata greška!");

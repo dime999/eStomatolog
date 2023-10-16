@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:estomatolog_admin/models/Korisnik/korisnik.dart';
 import 'package:estomatolog_admin/models/Korisnik/doktor_update.dart';
+import 'package:estomatolog_admin/models/Korisnik/korisnik_basic.dart';
 import 'package:estomatolog_admin/models/Korisnik/pacijent_insert.dart';
 import 'package:estomatolog_admin/models/Korisnik/pacijent_update.dart';
 import 'package:estomatolog_admin/utils/util.dart';
@@ -12,6 +13,7 @@ class KorisniciProvider with ChangeNotifier {
   static String? _baseUrl;
   String _login_endpoint = "Login";
   String _endpoint = "Korisnik";
+  String _getByKorisnickoIme = "GetByKorisnickoIme?ime=";
   KorisniciProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue: "https://localhost:7265/");
@@ -43,6 +45,23 @@ class KorisniciProvider with ChangeNotifier {
       var data = jsonDecode(response.body);
       Korisnik korisnik;
       korisnik = Korisnik.fromJson(data);
+      return korisnik;
+    } else {
+      throw new Exception("Nepoznata greška!");
+    }
+  }
+
+  Future<dynamic> getByKorisickoIme(ime) async {
+    var url = "$_baseUrl$_getByKorisnickoIme$ime";
+
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+
+    var response = await http.get(uri, headers: headers);
+    if (isValidResponse(response)) {
+      var data = jsonDecode(response.body);
+      KorisnikBasic korisnik;
+      korisnik = KorisnikBasic.fromJson(data);
       return korisnik;
     } else {
       throw new Exception("Nepoznata greška!");

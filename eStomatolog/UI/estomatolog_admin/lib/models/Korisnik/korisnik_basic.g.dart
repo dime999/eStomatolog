@@ -1,21 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'doktor.dart';
+part of 'korisnik_basic.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Doktor _$DoktorFromJson(Map<String, dynamic> json) => Doktor(
-      json['id'] as int,
+KorisnikBasic _$KorisnikBasicFromJson(Map<String, dynamic> json) =>
+    KorisnikBasic(
+      json['korisnikId'] as int,
       json['ime'] as String?,
       json['prezime'] as String?,
-      json['korisnikId'] as int,
+      json['email'] as String?,
     );
 
-Map<String, dynamic> _$DoktorToJson(Doktor instance) => <String, dynamic>{
-      'id': instance.id,
+Map<String, dynamic> _$KorisnikBasicToJson(KorisnikBasic instance) =>
+    <String, dynamic>{
+      'korisnikId': instance.korisnikId,
       'ime': instance.ime,
       'prezime': instance.prezime,
-      'korisnikId': instance.korisnikId,
+      'email': instance.email,
     };

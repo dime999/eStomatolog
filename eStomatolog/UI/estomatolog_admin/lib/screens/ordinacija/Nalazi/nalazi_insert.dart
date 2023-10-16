@@ -1,9 +1,15 @@
 import 'package:estomatolog_admin/models/Doktor/doktor.dart';
+import 'package:estomatolog_admin/models/Korisnik/korisnik.dart';
+import 'package:estomatolog_admin/models/Korisnik/korisnik_basic.dart';
+import 'package:estomatolog_admin/models/Nalaz/nalaz_insert.dart';
 import 'package:estomatolog_admin/models/Pacijent/pacijent.dart';
 import 'package:estomatolog_admin/providers/doktor_provider.dart';
+import 'package:estomatolog_admin/providers/korisnici_provider.dart';
+import 'package:estomatolog_admin/providers/nalaz_provider.dart';
 import 'package:estomatolog_admin/providers/pacijent_provider.dart';
 import 'package:estomatolog_admin/utils/util.dart';
 import 'package:flutter/material.dart';
+import 'package:multiselect/multiselect.dart';
 import 'package:provider/provider.dart';
 
 class DodajNalazScreen extends StatefulWidget {
@@ -26,8 +32,27 @@ class _DodajNalazScreenState extends State<DodajNalazScreen> {
     return pacijent;
   }
 
+  Future<KorisnikBasic> fetchDoktor(BuildContext context) async {
+    var korisickiProvider =
+        Provider.of<KorisniciProvider>(context, listen: false);
+    KorisnikBasic doktor =
+        await korisickiProvider.getByKorisickoIme(Authorization.korisnickoIme);
+    return doktor;
+  }
+
+  Future<Doktor> fetchDoktorId(BuildContext context) async {
+    var doktorProvicer = Provider.of<DoktorProvider>(context, listen: false);
+    KorisnikBasic korisnik = await fetchDoktor(context);
+    int korisnikId = korisnik.korisnikId;
+    Doktor doktor = await doktorProvicer.getByKorisnikId(korisnikId);
+    return doktor;
+  }
+
+  late NalazProvider _nalazProvider;
+
   @override
   Widget build(BuildContext context) {
+    _nalazProvider = Provider.of<NalazProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: FutureBuilder<Pacijent>(
@@ -42,7 +67,7 @@ class _DodajNalazScreenState extends State<DodajNalazScreen> {
             } else {
               pacijent = snapshot.data!;
               return Text(
-                  'Dodaj nalaz za: - ${pacijent.ime} ${pacijent.prezime} ');
+                  'Dodaj nalaz za:  ${pacijent.ime} ${pacijent.prezime} ');
             }
           },
         ),
@@ -64,7 +89,14 @@ class _DodajNalazScreenState extends State<DodajNalazScreen> {
             Spacer(),
             ElevatedButton(
               onPressed: () async {
-                try {} catch (e) {
+                try {
+                  Doktor doktor = await fetchDoktorId(context);
+                  Pacijent pacijent = await fetchPacijent(context);
+                  NalazInsert nalaz = NalazInsert(doktor.id, pacijent.id,
+                      opisController.text, DateTime.now());
+                  print(nalaz.opis);
+                  await _nalazProvider.insert(nalaz);
+                } catch (e) {
                   print("Greška prilikom dodavanja: $e");
                   Navigator.of(context).pop();
                 }

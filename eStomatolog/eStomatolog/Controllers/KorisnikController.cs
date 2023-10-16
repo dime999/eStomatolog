@@ -38,6 +38,14 @@ namespace eStomatolog.Controllers
            
         }
 
+        [Authorize(Roles = "Administrator")]
+        [HttpGet("/GetByKorisnickoIme")]
+        public eStomatologModel.Korisnik GetByKorisnickoIme(string ime)
+        {
+            return service.GetByKorisnickoIme(ime);
+
+        }
+
 
         [AllowAnonymous]
         [HttpGet("/Login")]
@@ -45,6 +53,8 @@ namespace eStomatolog.Controllers
         {
             return await service.Login(request.Username, request.Password);
         }
+
+
 
 
     }

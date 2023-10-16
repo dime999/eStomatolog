@@ -335,6 +335,12 @@ namespace eStomatologServices.Servisi
             return Mapper.Map<eStomatologModel.Korisnik>(entity);
         }
 
+        public eStomatologModel.Korisnik GetByKorisnickoIme(string ime)
+        {
+            var korisnik = Context.Korisnik.FirstOrDefault(ku => ku.KorisnickoIme == ime);
+            return Mapper.Map<eStomatologModel.Korisnik>(korisnik);
+        }
+
 
 
 

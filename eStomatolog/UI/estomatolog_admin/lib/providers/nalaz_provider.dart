@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:estomatolog_admin/models/Nalaz/nalaz.dart';
+import 'package:estomatolog_admin/models/Nalaz/nalaz_insert.dart';
 import 'package:estomatolog_admin/models/search_result.dart';
 import 'package:estomatolog_admin/utils/util.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:http/http.dart';
 class NalazProvider with ChangeNotifier {
   static String? _baseUrl;
   String _endpoint = "GetByPacijent";
+  String _endpointInsert = "Dijagnoza";
   NalazProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue: "https://localhost:7265/");
@@ -32,8 +34,10 @@ class NalazProvider with ChangeNotifier {
     }
   }
 
-  Future<Nalaz> insertDoktor([Nalaz? request]) async {
-    var url = "$_baseUrl$_endpoint";
+  Future<NalazInsert> insert([NalazInsert? request]) async {
+    print("uslo");
+    var url = "$_baseUrl$_endpointInsert";
+    print(url);
     var uri = Uri.parse(url);
     var headers = createHeaders();
 
@@ -42,7 +46,7 @@ class NalazProvider with ChangeNotifier {
 
     if (isValidResponse(response)) {
       var data = jsonDecode(response.body);
-      return Nalaz.fromJson(data);
+      return NalazInsert.fromJson(data);
     } else {
       throw new Exception("Unknown error");
     }
