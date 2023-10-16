@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using eStomatologServices.Database;
 using eStomatologServices.Models;
 using Microsoft.EntityFrameworkCore;
@@ -189,20 +190,13 @@ public partial class eStomatologContext : DbContext
             entity.ToTable("Termini");
 
             entity.Property(e => e.TerminId).HasColumnName("TerminID");
-            entity.Property(e => e.DatumVrijeme).HasColumnType("datetime");
-            entity.Property(e => e.DoktorId).HasColumnName("DoktorID");
-            entity.Property(e => e.Napomena).HasMaxLength(200);
-            entity.Property(e => e.PacijentId).HasColumnName("PacijentID");
-            entity.Property(e => e.UslugaId).HasColumnName("UslugaID");
+            entity.Property(e => e.Vrijeme)
+         .HasColumnName("Vrijeme")
+       .HasConversion(
+            v => v.ToString("HH:mm:ss"), 
+            v => DateTime.ParseExact(v, "HH:mm:ss", CultureInfo.InvariantCulture) 
+        );
 
-
-
-          
-
-            entity.HasOne(d => d.Usluga).WithMany(p => p.Terminis)
-                .HasForeignKey(d => d.UslugaId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Termini__UslugaI__5165187F");
         });
 
         modelBuilder.Entity<Usluga>(entity =>

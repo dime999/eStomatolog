@@ -48,7 +48,6 @@ namespace eStomatolog.WinUi
                         Email = txtEmail.Text,
                         Telefon = txtTelefon.Text,
                         KorisnickoIme = txtUsername.Text,
-                        DatumRodjenja = dtpDatum.Value,
                         Password = txtPassword.Text,
                         PasswordPotvrda = txtPasswordPotvrda.Text,
                         Status = chkStatus.Checked,

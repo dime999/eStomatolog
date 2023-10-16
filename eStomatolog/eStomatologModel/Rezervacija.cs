@@ -7,6 +7,9 @@ namespace eStomatologModel
     public class Rezervacija
     {
         public int RezervacijaId { get; set; }
+        public DateTime Datum { get; set; }
+        public int TerminId { get; set; }
+        public virtual Termin Termin { get; set; }
 
         public int DoktorId { get; set; }
         public virtual Doktor Doktor { get; set; }
@@ -17,8 +20,7 @@ namespace eStomatologModel
         public int OrdinacijaId { get; set; }
         public virtual Ordinacije Ordinacija { get; set; }
 
-        public DateTime Od { get; set; }
-        public DateTime Do { get; set; }
+
 
         public string DoktorIme => Doktor?.Ime;
         public string PacijentPrezime => Pacijent?.Prezime;

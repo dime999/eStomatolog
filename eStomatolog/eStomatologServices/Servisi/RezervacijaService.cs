@@ -70,7 +70,6 @@ namespace eStomatologServices.Servisi
                     Id = entity.RezervacijaId,
                     DoktorIme=doktorIme,
                     Email=email,
-                    DatumVrijeme=entity.Od
                     
                 };
                 _messageProducer.SendingObject(reservation);

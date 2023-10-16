@@ -11,5 +11,10 @@ namespace eStomatolog.Controllers
             : base(service)
         {
         }
+
+        public override IEnumerable<eStomatologModel.Termin> Get([FromQuery] BaseSearchObject search = null)
+        {
+            return base.Get(search);
+        }
     }
 }
