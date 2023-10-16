@@ -11,6 +11,7 @@ namespace eStomatologServices.Database
     {
         public int RezervacijaId { get; set; }
         public DateTime Datum { get; set; }
+
         public int TerminId { get; set; }
         public virtual Termin Termin { get; set; }
 
@@ -22,8 +23,6 @@ namespace eStomatologServices.Database
 
         public int OrdinacijaId { get; set; }
         public virtual Ordinacije Ordinacija { get; set; }
-
-
 
         public string DoktorIme => Doktor?.Ime;
         public string PacijentPrezime => Pacijent?.Prezime;

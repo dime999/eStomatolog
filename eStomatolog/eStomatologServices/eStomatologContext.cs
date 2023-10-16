@@ -125,10 +125,22 @@ public partial class eStomatologContext : DbContext
 
 
         });
-    
+
+        modelBuilder.Entity<Rezervacija>(entity =>
+        {
+            entity.HasKey(e => e.RezervacijaId).HasName("PK_Rezervacija");
+
+            entity.ToTable("Rezervacije");
+            entity.Property(e => e.Datum).HasColumnName("Datum").HasColumnType("datetime").IsRequired();
 
 
-    modelBuilder.Entity<Pacijent>(entity =>
+
+        });
+
+
+
+
+        modelBuilder.Entity<Pacijent>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Pacijenti__3214EC07B54830TE");
 
