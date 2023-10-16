@@ -41,14 +41,12 @@ class DoktorProvider with ChangeNotifier {
     var url = "$_baseUrl$_getByKorisnik/${id}";
     var uri = Uri.parse(url);
     var headers = createHeaders();
-    print(url);
 
     var response = await http.get(uri, headers: headers);
     if (isValidResponse(response)) {
       var data = jsonDecode(response.body);
       Doktor doktor;
       doktor = Doktor.fromJson(data);
-      print(doktor.id);
       return doktor;
     } else {
       throw new Exception("Nepoznata greška!");

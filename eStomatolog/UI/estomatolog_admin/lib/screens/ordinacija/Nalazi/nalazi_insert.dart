@@ -94,7 +94,6 @@ class _DodajNalazScreenState extends State<DodajNalazScreen> {
                   Pacijent pacijent = await fetchPacijent(context);
                   NalazInsert nalaz = NalazInsert(doktor.id, pacijent.id,
                       opisController.text, DateTime.now());
-                  print(nalaz.opis);
                   await _nalazProvider.insert(nalaz);
                 } catch (e) {
                   print("Greška prilikom dodavanja: $e");

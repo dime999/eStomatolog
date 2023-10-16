@@ -35,9 +35,7 @@ class NalazProvider with ChangeNotifier {
   }
 
   Future<NalazInsert> insert([NalazInsert? request]) async {
-    print("uslo");
     var url = "$_baseUrl$_endpointInsert";
-    print(url);
     var uri = Uri.parse(url);
     var headers = createHeaders();
 
