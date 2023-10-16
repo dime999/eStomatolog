@@ -12,8 +12,8 @@ using eStomatologServices;
 namespace eStomatologServices.Migrations
 {
     [DbContext(typeof(eStomatologContext))]
-    [Migration("20231016135218_deleteTermini")]
-    partial class deleteTermini
+    [Migration("20231016143519_Termini")]
+    partial class Termini
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -565,22 +565,21 @@ namespace eStomatologServices.Migrations
                     b.Property<int>("TerminId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("TerminID");
+                        .HasColumnName("TerminId");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TerminId"));
 
-                    b.Property<int?>("UslugaId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Vrijeme")
+                    b.Property<string>("Opis")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Opis");
+
+                    b.Property<DateTime>("Vrijeme")
+                        .HasColumnType("datetime")
                         .HasColumnName("Vrijeme");
 
                     b.HasKey("TerminId")
-                        .HasName("PK__Termini__42126CB53F850D3A");
-
-                    b.HasIndex("UslugaId");
+                        .HasName("PK_Termini");
 
                     b.ToTable("Termini", (string)null);
                 });
@@ -839,13 +838,6 @@ namespace eStomatologServices.Migrations
                     b.Navigation("Doktor");
                 });
 
-            modelBuilder.Entity("eStomatologServices.Models.Termin", b =>
-                {
-                    b.HasOne("eStomatologServices.Models.Usluga", null)
-                        .WithMany("Terminis")
-                        .HasForeignKey("UslugaId");
-                });
-
             modelBuilder.Entity("eStomatologServices.Database.Grad", b =>
                 {
                     b.Navigation("Doktori");
@@ -883,11 +875,6 @@ namespace eStomatologServices.Migrations
             modelBuilder.Entity("eStomatologServices.Models.Korisnik", b =>
                 {
                     b.Navigation("KorisniciUloges");
-                });
-
-            modelBuilder.Entity("eStomatologServices.Models.Usluga", b =>
-                {
-                    b.Navigation("Terminis");
                 });
 #pragma warning restore 612, 618
         }

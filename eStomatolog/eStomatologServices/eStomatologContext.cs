@@ -29,9 +29,9 @@ public partial class eStomatologContext : DbContext
 
     public virtual DbSet<Recept> Recepti { get; set; }
 
-    public virtual DbSet<Termin> Termini { get; set; }
-
     public virtual DbSet<Usluga> Usluge { get; set; }
+
+    public virtual DbSet<Termin> Termini { get; set; }
 
     public virtual DbSet<Korisnik> Korisnik { get; set; }
 
@@ -99,6 +99,8 @@ public partial class eStomatologContext : DbContext
 
         });
 
+      
+
         modelBuilder.Entity<Pacijent>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Pacijneti__3214EC07B54830TE");
@@ -110,10 +112,23 @@ public partial class eStomatologContext : DbContext
 
         });
 
+   
 
-        
+        modelBuilder.Entity<Termin>(entity =>
+        {
+            entity.HasKey(e => e.TerminId).HasName("PK_Termini");
 
-        modelBuilder.Entity<Pacijent>(entity =>
+            entity.ToTable("Termini");     
+            entity.Property(e => e.TerminId).HasColumnName("TerminId").IsRequired();
+            entity.Property(e => e.Vrijeme).HasColumnName("Vrijeme").HasColumnType("datetime").IsRequired();
+          
+
+
+        });
+    
+
+
+    modelBuilder.Entity<Pacijent>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Pacijenti__3214EC07B54830TE");
 
@@ -183,21 +198,7 @@ public partial class eStomatologContext : DbContext
 
         });
 
-        modelBuilder.Entity<Termin>(entity =>
-        {
-            entity.HasKey(e => e.TerminId).HasName("PK__Termini__42126CB53F850D3A");
 
-            entity.ToTable("Termini");
-
-            entity.Property(e => e.TerminId).HasColumnName("TerminID");
-            entity.Property(e => e.Vrijeme)
-         .HasColumnName("Vrijeme")
-       .HasConversion(
-            v => v.ToString("HH:mm:ss"), 
-            v => DateTime.ParseExact(v, "HH:mm:ss", CultureInfo.InvariantCulture) 
-        );
-
-        });
 
         modelBuilder.Entity<Usluga>(entity =>
         {

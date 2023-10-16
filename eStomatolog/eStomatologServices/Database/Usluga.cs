@@ -13,5 +13,5 @@ public partial class Usluga
 
     public decimal Cijena { get; set; }
 
-    public virtual ICollection<Termin> Terminis { get; } = new List<Termin>();
+    
 }

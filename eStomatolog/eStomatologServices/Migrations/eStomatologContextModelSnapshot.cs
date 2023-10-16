@@ -562,22 +562,16 @@ namespace eStomatologServices.Migrations
                     b.Property<int>("TerminId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("TerminID");
+                        .HasColumnName("TerminId");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TerminId"));
 
-                    b.Property<int?>("UslugaId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Vrijeme")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                    b.Property<DateTime>("Vrijeme")
+                        .HasColumnType("datetime")
                         .HasColumnName("Vrijeme");
 
                     b.HasKey("TerminId")
-                        .HasName("PK__Termini__42126CB53F850D3A");
-
-                    b.HasIndex("UslugaId");
+                        .HasName("PK_Termini");
 
                     b.ToTable("Termini", (string)null);
                 });
@@ -836,13 +830,6 @@ namespace eStomatologServices.Migrations
                     b.Navigation("Doktor");
                 });
 
-            modelBuilder.Entity("eStomatologServices.Models.Termin", b =>
-                {
-                    b.HasOne("eStomatologServices.Models.Usluga", null)
-                        .WithMany("Terminis")
-                        .HasForeignKey("UslugaId");
-                });
-
             modelBuilder.Entity("eStomatologServices.Database.Grad", b =>
                 {
                     b.Navigation("Doktori");
@@ -880,11 +867,6 @@ namespace eStomatologServices.Migrations
             modelBuilder.Entity("eStomatologServices.Models.Korisnik", b =>
                 {
                     b.Navigation("KorisniciUloges");
-                });
-
-            modelBuilder.Entity("eStomatologServices.Models.Usluga", b =>
-                {
-                    b.Navigation("Terminis");
                 });
 #pragma warning restore 612, 618
         }
