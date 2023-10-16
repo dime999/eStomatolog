@@ -72,7 +72,7 @@ class OrdinacijaHomeScreen extends StatelessWidget {
               ordinacijaId: ordinacijaId),
           CardItem(
               icon: Icons.rate_review,
-              title: 'Recenzije',
+              title: 'Ordinacija info',
               ordinacijaId: ordinacijaId),
           CardItem(
               icon: Icons.wallet_giftcard,
@@ -120,7 +120,8 @@ class CardItem extends StatelessWidget {
                     builder: (context) =>
                         PacijentOrdinacijaScreen(ordinacijaId: ordinacijaId)),
               );
-            } else if (icon == Icons.local_hospital && title == 'Ordinacije') {
+            } else if (icon == Icons.rate_review &&
+                title == 'Ordinacija info') {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => OrdinacijaScreen()),

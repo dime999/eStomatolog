@@ -42,19 +42,6 @@ class _OrdinacijaScreenState extends State<OrdinacijaScreen> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AddPacijentScreen(),
-            ),
-          );
-        },
-        child: Icon(Icons.add),
-        backgroundColor: Colors.blue,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-      ),
     );
   }
 }

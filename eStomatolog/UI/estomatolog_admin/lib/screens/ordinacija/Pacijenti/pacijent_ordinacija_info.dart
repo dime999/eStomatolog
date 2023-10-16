@@ -5,6 +5,7 @@ import 'package:estomatolog_admin/providers/pacijent_provider.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Nalazi/nalazi_lista.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Pacijenti/pacijenti_ordinacija_lista.dart';
 import 'package:estomatolog_admin/screens/ordinacija/ordinacije_screen.dart';
+import 'package:estomatolog_admin/screens/pacijent/edit_pacijent_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:estomatolog_admin/utils/util.dart';
 import 'package:provider/provider.dart';
@@ -125,7 +126,10 @@ class CardItem extends StatelessWidget {
                 title == 'Informacije o pacijentu') {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => OrdinacijaScreen()),
+                MaterialPageRoute(
+                    builder: (context) => EditPacijentScreen(
+                          korisnikId: pacijentId,
+                        )),
               );
             }
           },
