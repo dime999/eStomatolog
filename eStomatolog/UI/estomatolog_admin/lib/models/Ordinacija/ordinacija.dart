@@ -8,10 +8,10 @@ part 'ordinacija.g.dart';
 @JsonSerializable()
 class Ordinacija {
   int ordinacijaId;
-  String? naziv;
-  String? adresa;
-  String? telefon;
-  int? gradId;
+  String naziv;
+  String adresa;
+  String telefon;
+  int gradId;
 
   Ordinacija(
       this.ordinacijaId, this.naziv, this.adresa, this.telefon, this.gradId);

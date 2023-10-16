@@ -1,6 +1,5 @@
 import 'package:estomatolog_admin/providers/ordinacija_provider.dart';
 import 'package:estomatolog_admin/screens/ordinacija/home_ordinacija.dart';
-import 'package:estomatolog_admin/screens/pacijent/add_pacijent_screen.dart';
 import 'package:estomatolog_admin/widgets/lista_pregled.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

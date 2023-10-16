@@ -8,10 +8,10 @@ part of 'ordinacija.dart';
 
 Ordinacija _$OrdinacijaFromJson(Map<String, dynamic> json) => Ordinacija(
       json['ordinacijaId'] as int,
-      json['naziv'] as String?,
-      json['adresa'] as String?,
-      json['telefon'] as String?,
-      json['gradId'] as int?,
+      json['naziv'] as String,
+      json['adresa'] as String,
+      json['telefon'] as String,
+      json['gradId'] as int,
     );
 
 Map<String, dynamic> _$OrdinacijaToJson(Ordinacija instance) =>

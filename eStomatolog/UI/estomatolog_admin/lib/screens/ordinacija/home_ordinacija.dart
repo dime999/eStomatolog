@@ -2,7 +2,7 @@ import 'package:estomatolog_admin/models/Ordinacija/ordinacija.dart';
 import 'package:estomatolog_admin/providers/ordinacija_provider.dart';
 import 'package:estomatolog_admin/screens/doktor/doktori_screen.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Pacijenti/pacijenti_ordinacija_lista.dart';
-import 'package:estomatolog_admin/screens/ordinacija/ordinacije_screen.dart';
+import 'package:estomatolog_admin/screens/ordinacija/ordinacija_info.dart';
 import 'package:flutter/material.dart';
 import 'package:estomatolog_admin/utils/util.dart';
 import 'package:provider/provider.dart';
@@ -122,9 +122,13 @@ class CardItem extends StatelessWidget {
               );
             } else if (icon == Icons.rate_review &&
                 title == 'Ordinacija info') {
+              print(ordinacijaId);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => OrdinacijaScreen()),
+                MaterialPageRoute(
+                    builder: (context) => OrdinacijaDetaljiScreen(
+                          ordinacijaId: ordinacijaId,
+                        )),
               );
             }
           },
