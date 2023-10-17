@@ -63,7 +63,14 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
 
         await slikaProvider.insertSlikaOrdinacija(insert);
       } catch (e) {
-        print("Error uploading image: $e");
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OrdinacijaDetaljiScreen(
+              ordinacijaId: ordinacija.ordinacijaId,
+            ), // Zamijenite VašaScreenKlasa sa stvarnim imenom vaše klase ekrana
+          ),
+        );
       }
     }
   }
@@ -100,9 +107,11 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
   TextEditingController telefonController = TextEditingController();
   TextEditingController gradController = TextEditingController();
   late OrdinacijaProvider _ordinacijaProvider;
+  late SlikaProvider _slikaProvider;
 
   @override
   Widget build(BuildContext context) {
+    _slikaProvider = Provider.of<SlikaProvider>(context, listen: false);
     return Scaffold(
         appBar: AppBar(title: Text("Ordinacija info")),
         body: Center(
@@ -214,7 +223,18 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                                             padding: const EdgeInsets.all(16.0),
                                             child: ElevatedButton(
                                               onPressed: () async {
-                                                await _uploadImage();
+                                                try {
+                                                  await _uploadImage();
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        OrdinacijaDetaljiScreen(
+                                                      ordinacijaId: ordinacija
+                                                          .ordinacijaId,
+                                                    ),
+                                                  );
+                                                } catch (e) {
+                                                  print(e);
+                                                }
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 padding: EdgeInsets.symmetric(
@@ -224,6 +244,126 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                                               ),
                                               child: Text(
                                                 'Dodaj novu sliku',
+                                                style: TextStyle(
+                                                  fontSize: 18.0,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(16.0),
+                                            child: ElevatedButton(
+                                              onPressed: () async {
+                                                showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDialog(
+                                                      title: Text("Potvrda"),
+                                                      content: Text(
+                                                          "Da li ste sigurni da želite izbrisati sliku?"),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () async {
+                                                            try {
+                                                              await _slikaProvider
+                                                                  .delete(slikeIds[
+                                                                      currentIndex]);
+                                                              showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (BuildContext
+                                                                        context) {
+                                                                  return AlertDialog(
+                                                                    title: Text(
+                                                                        'Uspješno ste izbrisali sliku'),
+                                                                    actions: <Widget>[
+                                                                      TextButton(
+                                                                        child: Text(
+                                                                            'OK'),
+                                                                        onPressed:
+                                                                            () {
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                          Navigator
+                                                                              .pushReplacement(
+                                                                            context,
+                                                                            MaterialPageRoute(
+                                                                              builder: (context) => OrdinacijaDetaljiScreen(
+                                                                                ordinacijaId: ordinacija.ordinacijaId,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                },
+                                                              );
+                                                              Navigator
+                                                                  .pushReplacement(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          OrdinacijaDetaljiScreen(
+                                                                    ordinacijaId:
+                                                                        ordinacija
+                                                                            .ordinacijaId,
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            } on Exception catch (e) {
+                                                              String
+                                                                  errorMessage =
+                                                                  "Nije moguće izbrisati odabranu sliku!";
+                                                              showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (BuildContext
+                                                                        context) {
+                                                                  return AlertDialog(
+                                                                    title: Text(
+                                                                        "Greška"),
+                                                                    content: Text(
+                                                                        errorMessage),
+                                                                    actions: [
+                                                                      TextButton(
+                                                                        onPressed:
+                                                                            () =>
+                                                                                Navigator.pop(context),
+                                                                        child: Text(
+                                                                            "OK"),
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                },
+                                                              );
+                                                            }
+                                                          },
+                                                          child: Text("Da"),
+                                                        ),
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  context), // Zatvori dialog ako korisnik odabere "Ne"
+                                                          child: Text("Ne"),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                  padding: EdgeInsets.symmetric(
+                                                    horizontal: 32.0,
+                                                    vertical: 16.0,
+                                                  ),
+                                                  backgroundColor: Colors.red),
+                                              child: Text(
+                                                'Izbriši sliku',
                                                 style: TextStyle(
                                                   fontSize: 18.0,
                                                 ),

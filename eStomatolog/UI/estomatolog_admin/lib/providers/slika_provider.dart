@@ -13,12 +13,13 @@ class SlikaProvider with ChangeNotifier {
   String _endpoint = "InsertOrdinacijaSlika";
   String _getSlikeEndpoint = "OrdinacijaSlikeIds?ordinacijaId=";
   String _ucitajSlikuEndpoint = "SlikaStream?slikaId=";
+  String _slikaDelete = "Slika?id=";
   SlikaProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue: "https://localhost:7265/");
   }
 
-  Future<SlikaInsert> insertSlikaOrdinacija(SlikaInsert requestModel) async {
+  Future<int> insertSlikaOrdinacija(SlikaInsert requestModel) async {
     var uri = Uri.parse("https://localhost:7265/InsertOrdinacijaSlika");
 
     var request = http.MultipartRequest('POST', uri)
@@ -31,7 +32,8 @@ class SlikaProvider with ChangeNotifier {
 
     if (isValidResponse(response)) {
       var data = jsonDecode(response.body);
-      return SlikaInsert.fromJson(data);
+      SlikaInsert value = SlikaInsert.fromJson(data);
+      return value.OrdinacijaId;
     } else {
       throw Exception("Unknown error");
     }
@@ -49,6 +51,20 @@ class SlikaProvider with ChangeNotifier {
       return slikeIds;
     } else {
       throw new Exception("Nepoznata greška!");
+    }
+  }
+
+  Future<void> delete(int id) async {
+    var url = "$_baseUrl$_slikaDelete$id";
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+    print(url);
+
+    var response = await http.delete(uri, headers: headers);
+    if (response.statusCode == 200) {
+      notifyListeners();
+    } else {
+      throw Exception("Brisanje nije uspelo");
     }
   }
 
