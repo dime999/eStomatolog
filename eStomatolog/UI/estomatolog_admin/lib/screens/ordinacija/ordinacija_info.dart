@@ -1,8 +1,5 @@
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:estomatolog_admin/models/Ordinacija/ordinacija.dart';
-import 'package:estomatolog_admin/models/Slika/ordinacija_slika.dart';
 import 'package:estomatolog_admin/models/Slika/slika_insert.dart';
 import 'package:estomatolog_admin/providers/slika_provider.dart';
 import 'package:flutter/material.dart';
@@ -114,7 +111,6 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                               ),
                             ),
                           ),
-                          // Desna strana - Slike i gumb za dodavanje nove slike
                           Expanded(
                             child: Column(
                               children: [
@@ -133,7 +129,6 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                                           'Nema dostupnih ID-ova slika.');
                                     } else {
                                       List<int> slikeIds = snapshot.data!;
-                                      int currentIndex = 0;
 
                                       return Column(
                                         children: [
@@ -154,7 +149,7 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                                                 onPressed: () {
                                                   if (currentIndex > 0) {
                                                     setState(() {
-                                                      currentIndex--; // Prikazi prethodnu sliku
+                                                      currentIndex--;
                                                     });
                                                   }
                                                 },
@@ -166,7 +161,7 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                                                   if (currentIndex <
                                                       slikeIds.length - 1) {
                                                     setState(() {
-                                                      currentIndex++; // Prikazi sljedeću sliku
+                                                      currentIndex++;
                                                     });
                                                   }
                                                 },
@@ -179,7 +174,6 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                                             child: ElevatedButton(
                                               onPressed: () async {
                                                 await _uploadImage();
-                                                // Možete otvoriti dijalog za odabir slike iz galerije ili koristiti kameru
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 padding: EdgeInsets.symmetric(
