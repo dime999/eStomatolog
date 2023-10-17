@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:estomatolog_admin/models/Ordinacija/ordinacija.dart';
+import 'package:estomatolog_admin/models/Slika/slika_insert.dart';
+import 'package:estomatolog_admin/providers/slika_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../providers/ordinacija_provider.dart';
 
@@ -28,6 +33,24 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
     return ordinacija;
   }
 
+  Future<void> _uploadImage() async {
+    final picker = ImagePicker();
+    XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      File imageFile = File(pickedFile.path);
+
+      try {
+        SlikaInsert insert = SlikaInsert(widget.ordinacijaId, imageFile.path);
+        var slikaProvider = Provider.of<SlikaProvider>(context, listen: false);
+
+        await slikaProvider.insertSlikaOrdinacija(insert);
+      } catch (e) {
+        print("Error uploading image: $e");
+        // Rukovanje greškom prilikom slanja slike
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +60,7 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
           future: _ordinacijaFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator(); // Pričekaj dok se podaci učitaju
+              return CircularProgressIndicator();
             } else if (snapshot.hasError) {
               return Text('Greška pri dohvatu podataka o ordinaciji.');
             } else if (!snapshot.hasData) {
@@ -122,8 +145,8 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: ElevatedButton(
-                            onPressed: () {
-                              // Ovdje dodajte logiku za dodavanje nove slike
+                            onPressed: () async {
+                              await _uploadImage();
                               // Možete otvoriti dijalog za odabir slike iz galerije ili koristiti kameru
                             },
                             style: ElevatedButton.styleFrom(

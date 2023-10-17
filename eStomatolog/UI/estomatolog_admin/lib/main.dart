@@ -5,6 +5,7 @@ import 'package:estomatolog_admin/providers/nalaz_provider.dart';
 import 'package:estomatolog_admin/providers/ordinacija_provider.dart';
 import 'package:estomatolog_admin/providers/pacijent_ordinacija_provider.dart';
 import 'package:estomatolog_admin/providers/pacijent_provider.dart';
+import 'package:estomatolog_admin/providers/slika_provider.dart';
 import 'package:estomatolog_admin/providers/specijalizacija_provider.dart';
 import 'package:estomatolog_admin/screens/login.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,8 @@ void main() {
       ChangeNotifierProvider(create: (_) => OrdinacijaProvider()),
       ChangeNotifierProvider(create: (_) => GradProvider()),
       ChangeNotifierProvider(create: (_) => PacijentOrdinacijaProvider()),
-      ChangeNotifierProvider(create: (_) => NalazProvider())
+      ChangeNotifierProvider(create: (_) => NalazProvider()),
+      ChangeNotifierProvider(create: (_) => SlikaProvider())
     ],
     child: const MyApp(),
   ));
