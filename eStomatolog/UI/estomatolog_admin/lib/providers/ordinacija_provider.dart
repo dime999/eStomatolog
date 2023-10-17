@@ -54,8 +54,6 @@ class OrdinacijaProvider with ChangeNotifier {
     var url = "$_baseUrl$_endpoint/$id";
     var uri = Uri.parse(url);
     var headers = createHeaders();
-    print(uri);
-
     var jsonRequest = jsonEncode(request);
     var response = await http.put(uri, headers: headers, body: jsonRequest);
 

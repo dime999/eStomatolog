@@ -58,8 +58,6 @@ class SlikaProvider with ChangeNotifier {
     var url = "$_baseUrl$_slikaDelete$id";
     var uri = Uri.parse(url);
     var headers = createHeaders();
-    print(url);
-
     var response = await http.delete(uri, headers: headers);
     if (response.statusCode == 200) {
       notifyListeners();

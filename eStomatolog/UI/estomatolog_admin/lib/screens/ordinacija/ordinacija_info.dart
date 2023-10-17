@@ -269,6 +269,10 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                                                               await _slikaProvider
                                                                   .delete(slikeIds[
                                                                       currentIndex]);
+
+                                                              // ignore: use_build_context_synchronously
+                                                              Navigator.pop(
+                                                                  context);
                                                               showDialog(
                                                                 context:
                                                                     context,
@@ -277,63 +281,22 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                                                                         context) {
                                                                   return AlertDialog(
                                                                     title: Text(
-                                                                        'Uspješno ste izbrisali sliku'),
-                                                                    actions: <Widget>[
-                                                                      TextButton(
-                                                                        child: Text(
-                                                                            'OK'),
-                                                                        onPressed:
-                                                                            () {
-                                                                          Navigator.of(context)
-                                                                              .pop();
-                                                                          Navigator
-                                                                              .pushReplacement(
-                                                                            context,
-                                                                            MaterialPageRoute(
-                                                                              builder: (context) => OrdinacijaDetaljiScreen(
-                                                                                ordinacijaId: ordinacija.ordinacijaId,
-                                                                              ),
-                                                                            ),
-                                                                          );
-                                                                        },
-                                                                      ),
-                                                                    ],
-                                                                  );
-                                                                },
-                                                              );
-                                                              Navigator
-                                                                  .pushReplacement(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          OrdinacijaDetaljiScreen(
-                                                                    ordinacijaId:
-                                                                        ordinacija
-                                                                            .ordinacijaId,
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            } on Exception catch (e) {
-                                                              String
-                                                                  errorMessage =
-                                                                  "Nije moguće izbrisati odabranu sliku!";
-                                                              showDialog(
-                                                                context:
-                                                                    context,
-                                                                builder:
-                                                                    (BuildContext
-                                                                        context) {
-                                                                  return AlertDialog(
-                                                                    title: Text(
-                                                                        "Greška"),
+                                                                        "Potvrda"),
                                                                     content: Text(
-                                                                        errorMessage),
+                                                                        "Uspješno ste izbrisali sliku!"),
                                                                     actions: [
                                                                       TextButton(
                                                                         onPressed:
-                                                                            () =>
-                                                                                Navigator.pop(context),
+                                                                            () async {
+                                                                          try {
+                                                                            // ignore: use_build_context_synchronously
+
+                                                                            Navigator.pop(context);
+                                                                            Navigator.pop(context);
+                                                                          } on Exception catch (e) {
+                                                                            print(e);
+                                                                          }
+                                                                        },
                                                                         child: Text(
                                                                             "OK"),
                                                                       ),
@@ -341,6 +304,8 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                                                                   );
                                                                 },
                                                               );
+                                                            } on Exception catch (e) {
+                                                              print(e);
                                                             }
                                                           },
                                                           child: Text("Da"),
