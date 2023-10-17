@@ -34,6 +34,23 @@ class GradProvider with ChangeNotifier {
     }
   }
 
+  Future<dynamic> getById(id) async {
+    var url = "$_baseUrl$_endpoint/${id}";
+
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+
+    var response = await http.get(uri, headers: headers);
+    if (isValidResponse(response)) {
+      var data = jsonDecode(response.body);
+      Grad grad;
+      grad = Grad.fromJson(data);
+      return grad;
+    } else {
+      throw new Exception("Nepoznata greška!");
+    }
+  }
+
   bool isValidResponse(Response response) {
     if (response.statusCode < 299) {
       return true;

@@ -50,6 +50,23 @@ class OrdinacijaProvider with ChangeNotifier {
     }
   }
 
+  Future<Ordinacija> updateOrdinacija(int id, [Ordinacija? request]) async {
+    var url = "$_baseUrl$_endpoint/$id";
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+    print(uri);
+
+    var jsonRequest = jsonEncode(request);
+    var response = await http.put(uri, headers: headers, body: jsonRequest);
+
+    if (isValidResponse(response)) {
+      var data = jsonDecode(response.body);
+      return Ordinacija.fromJson(data);
+    } else {
+      throw new Exception("Unknown error");
+    }
+  }
+
   bool isValidResponse(Response response) {
     if (response.statusCode < 299) {
       return true;
