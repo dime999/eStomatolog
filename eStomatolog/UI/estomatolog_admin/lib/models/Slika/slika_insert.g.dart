@@ -7,12 +7,12 @@ part of 'slika_insert.dart';
 // **************************************************************************
 
 SlikaInsert _$SlikaInsertFromJson(Map<String, dynamic> json) => SlikaInsert(
-      json['ordinacijaId'] as int,
-      json['slikaFilePath'] as String,
+      json['OrdinacijaId'] as int,
+      json['SlikaFile'] as String,
     );
 
 Map<String, dynamic> _$SlikaInsertToJson(SlikaInsert instance) =>
     <String, dynamic>{
-      'ordinacijaId': instance.OrdinacijaId,
-      'slikaFilePath': instance.SlikaFile,
+      'OrdinacijaId': instance.OrdinacijaId,
+      'SlikaFile': instance.SlikaFile,
     };

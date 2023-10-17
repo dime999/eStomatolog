@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:estomatolog_admin/models/Ordinacija/ordinacija.dart';
+import 'package:estomatolog_admin/models/Slika/ordinacija_slika.dart';
 import 'package:estomatolog_admin/models/Slika/slika_insert.dart';
 import 'package:estomatolog_admin/providers/slika_provider.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +21,7 @@ class OrdinacijaDetaljiScreen extends StatefulWidget {
 
 class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
   late Future<Ordinacija> _ordinacijaFuture;
+  int currentIndex = 0;
 
   @override
   void initState() {
@@ -46,9 +49,16 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
         await slikaProvider.insertSlikaOrdinacija(insert);
       } catch (e) {
         print("Error uploading image: $e");
-        // Rukovanje greškom prilikom slanja slike
       }
     }
+  }
+
+  Future<List<int>> fetchOrdinacijaSlike(BuildContext context) async {
+    var ordinacijaSlikeProvider =
+        Provider.of<SlikaProvider>(context, listen: false);
+    var fetchedOrdinacije =
+        await ordinacijaSlikeProvider.getSlikeIds(widget.ordinacijaId);
+    return fetchedOrdinacije;
   }
 
   @override
@@ -58,18 +68,18 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
       body: Center(
         child: FutureBuilder<Ordinacija>(
           future: _ordinacijaFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
+          builder: (context, ordinacijaSnapshot) {
+            if (ordinacijaSnapshot.connectionState == ConnectionState.waiting) {
               return CircularProgressIndicator();
-            } else if (snapshot.hasError) {
+            } else if (ordinacijaSnapshot.hasError) {
               return Text('Greška pri dohvatu podataka o ordinaciji.');
-            } else if (!snapshot.hasData) {
+            } else if (!ordinacijaSnapshot.hasData) {
               return Text('Nema dostupnih podataka o ordinaciji.');
             } else {
-              Ordinacija ordinacija = snapshot.data!;
+              Ordinacija ordinacija = ordinacijaSnapshot.data!;
               return Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Lijeva strana - Informacije o ordinaciji
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
@@ -110,61 +120,92 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                       ),
                     ),
                   ),
+                  // Desna strana - Slike i gumb za dodavanje nove slike
                   Expanded(
-                    child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 20.0),
-                      height: 200.0,
-                      child: Wrap(
-                        spacing: 10.0,
-                        runSpacing: 10.0,
-                        children: List.generate(
-                          6, // Zamijenite ovo s brojem stvarnih slika
-                          (index) {
-                            // Ovdje trebate dohvatiti i prikazati stvarne slike
-                            return Container(
-                              width: 200.0,
-                              height: 200.0,
-                              color: Colors.grey,
-                              child: Center(
-                                child: Text(
-                                  'Slika ${index + 1}',
-                                  style: TextStyle(fontSize: 20.0),
-                                ),
-                              ),
-                            );
+                    child: Column(
+                      children: [
+                        FutureBuilder<List<int>>(
+                          future: fetchOrdinacijaSlike(context),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return CircularProgressIndicator();
+                            } else if (snapshot.hasError) {
+                              return Text(
+                                  'Greška prilikom dohvata ID-ova slika.');
+                            } else if (!snapshot.hasData ||
+                                snapshot.data!.isEmpty) {
+                              return Text('Nema dostupnih ID-ova slika.');
+                            } else {
+                              List<int> slikeIds = snapshot.data!;
+                              int currentIndex = 0;
+
+                              return Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Image.network(
+                                      "https://localhost:7265/SlikaStream?slikaId=${slikeIds[currentIndex]}",
+                                      width: 400,
+                                      height: 400,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          if (currentIndex > 0) {
+                                            setState(() {
+                                              currentIndex--; // Prikazi prethodnu sliku
+                                            });
+                                          }
+                                        },
+                                        child: Text('Prethodna slika'),
+                                      ),
+                                      SizedBox(width: 20),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          if (currentIndex <
+                                              slikeIds.length - 1) {
+                                            setState(() {
+                                              currentIndex++; // Prikazi sljedeću sliku
+                                            });
+                                          }
+                                        },
+                                        child: Text('Sljedeća slika'),
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: ElevatedButton(
+                                      onPressed: () async {
+                                        await _uploadImage();
+                                        // Možete otvoriti dijalog za odabir slike iz galerije ili koristiti kameru
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 32.0,
+                                          vertical: 16.0,
+                                        ),
+                                      ),
+                                      child: Text(
+                                        'Dodaj novu sliku',
+                                        style: TextStyle(
+                                          fontSize: 18.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }
                           },
                         ),
-                      ),
+                      ],
                     ),
-                  ),
-                  Stack(
-                    children: [
-                      // Vaša postojeća sadržaj i druge komponente
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              await _uploadImage();
-                              // Možete otvoriti dijalog za odabir slike iz galerije ili koristiti kameru
-                            },
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 32.0,
-                                  vertical:
-                                      16.0), // Prilagodite veličinu gumba ovdje
-                            ),
-                            child: Text(
-                              'Dodaj novu sliku',
-                              style: TextStyle(
-                                  fontSize:
-                                      18.0), // Prilagodite veličinu teksta ovdje
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               );
