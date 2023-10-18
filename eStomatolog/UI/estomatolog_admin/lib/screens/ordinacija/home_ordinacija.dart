@@ -135,7 +135,9 @@ class CardItem extends StatelessWidget {
               print(ordinacijaId);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => RezervacijaScreen()),
+                MaterialPageRoute(
+                    builder: (context) =>
+                        RezervacijaScreen(ordinacijaId: ordinacijaId)),
               );
             }
           },

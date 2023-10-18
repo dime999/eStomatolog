@@ -10,6 +10,8 @@ import 'package:estomatolog_admin/widgets/lista.dart';
 import 'package:provider/provider.dart';
 
 class RezervacijaScreen extends StatefulWidget {
+  final int ordinacijaId;
+  RezervacijaScreen({required this.ordinacijaId});
   @override
   _RezervacijaScreenState createState() => _RezervacijaScreenState();
 }
@@ -20,7 +22,7 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
   Future<List<Rezervacija>> fetchRezervacije(BuildContext context) async {
     var rezervacijaProvider =
         Provider.of<RezervacijaProvider>(context, listen: false);
-    var fetchedRezervacije = await rezervacijaProvider.get();
+    var fetchedRezervacije = await rezervacijaProvider.get(widget.ordinacijaId);
     return fetchedRezervacije.result;
   }
 

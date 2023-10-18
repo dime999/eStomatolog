@@ -10,14 +10,14 @@ import 'package:http/http.dart';
 
 class RezervacijaProvider with ChangeNotifier {
   static String? _baseUrl;
-  String _endpoint = "Rezervacija";
+  String _endpoint = "GetRezervacijeByOrdinacija/";
   RezervacijaProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue: "https://localhost:7265/");
   }
 
-  Future<SearchResult<Rezervacija>> get() async {
-    var url = "$_baseUrl$_endpoint";
+  Future<SearchResult<Rezervacija>> get(int id) async {
+    var url = "$_baseUrl$_endpoint$id";
 
     var uri = Uri.parse(url);
     var headers = createHeaders();
