@@ -26,8 +26,10 @@ namespace eStomatologServices.Database
         public virtual Ordinacije Ordinacija { get; set; }
 
         public string DoktorIme => Doktor?.Ime;
+        public string DoktorPrezime => Doktor?.Prezime;
+        public string PacijentIme => Pacijent?.Ime;
         public string PacijentPrezime => Pacijent?.Prezime;
         public string OrdinacijaNaziv => Ordinacija?.Naziv;
-        public string TerminVrijeme => Termin?.Vrijeme.ToString();
+        public DateTime TerminVrijeme => (DateTime)(Termin?.Vrijeme);
     }
 }

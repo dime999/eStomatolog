@@ -11,11 +11,22 @@ class Rezervacija {
   DateTime datum;
   String? email;
   String? doktorIme;
-  String? pacijentPrezime;
+  String doktorPrezime;
+  String pacijentPrezime;
+  String? pacijentIme;
   String? ordinacijaIme;
+  DateTime terminVrijeme;
 
-  Rezervacija(this.rezervacijaId, this.datum, this.doktorIme,
-      this.pacijentPrezime, this.ordinacijaIme, this.email);
+  Rezervacija(
+      this.rezervacijaId,
+      this.datum,
+      this.doktorIme,
+      this.doktorPrezime,
+      this.pacijentIme,
+      this.pacijentPrezime,
+      this.ordinacijaIme,
+      this.email,
+      this.terminVrijeme);
 
   factory Rezervacija.fromJson(Map<String, dynamic> json) =>
       _$RezervacijaFromJson(json);
