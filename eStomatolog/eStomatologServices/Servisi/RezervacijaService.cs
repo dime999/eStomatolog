@@ -38,6 +38,15 @@ namespace eStomatologServices.Servisi
             return Mapper.Map<IList<Rezervacija>>(list);
         }
 
+        public IEnumerable<Rezervacija> GetByOrdinacijaId(int id)
+        {
+            var Rezervacije = Context.Set<Database.Rezervacija>().Where(d => d.OrdinacijaId == id).AsQueryable();
+            var list = Rezervacije.ToList();
+
+            return Mapper.Map<IList<Rezervacija>>(list);
+        }
+
+
         public override eStomatologModel.Rezervacija Insert(RezervacijaInsertRequest insert)
         {
             var entity = base.Insert(insert);
