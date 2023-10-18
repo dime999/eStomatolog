@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eStomatologServices;
 
@@ -11,9 +12,11 @@ using eStomatologServices;
 namespace eStomatologServices.Migrations
 {
     [DbContext(typeof(eStomatologContext))]
-    partial class eStomatologContextModelSnapshot : ModelSnapshot
+    [Migration("20231018124512_deleteReservation")]
+    partial class deleteReservation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -262,43 +265,6 @@ namespace eStomatologServices.Migrations
                     b.HasIndex("OrdinacijaId");
 
                     b.ToTable("PacijentiOrdinacije");
-                });
-
-            modelBuilder.Entity("eStomatologServices.Database.Rezervacija", b =>
-                {
-                    b.Property<int>("RezervacijaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RezervacijaId"));
-
-                    b.Property<DateTime>("Datum")
-                        .HasColumnType("datetime");
-
-                    b.Property<int>("DoktorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrdinacijaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PacijentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TerminId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RezervacijaId")
-                        .HasName("PK_Rezervacija");
-
-                    b.HasIndex("DoktorId");
-
-                    b.HasIndex("OrdinacijaId");
-
-                    b.HasIndex("PacijentId");
-
-                    b.HasIndex("TerminId");
-
-                    b.ToTable("Rezervacije");
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.Slika", b =>
@@ -745,41 +711,6 @@ namespace eStomatologServices.Migrations
                     b.Navigation("Ordinacija");
 
                     b.Navigation("Pacijnet");
-                });
-
-            modelBuilder.Entity("eStomatologServices.Database.Rezervacija", b =>
-                {
-                    b.HasOne("eStomatologServices.Models.Doktor", "Doktor")
-                        .WithMany()
-                        .HasForeignKey("DoktorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("eStomatologServices.Database.Ordinacije", "Ordinacija")
-                        .WithMany()
-                        .HasForeignKey("OrdinacijaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("eStomatologServices.Database.Pacijent", "Pacijent")
-                        .WithMany()
-                        .HasForeignKey("PacijentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("eStomatologServices.Models.Termin", "Termin")
-                        .WithMany()
-                        .HasForeignKey("TerminId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Doktor");
-
-                    b.Navigation("Ordinacija");
-
-                    b.Navigation("Pacijent");
-
-                    b.Navigation("Termin");
                 });
 
             modelBuilder.Entity("eStomatologServices.Models.Dijagnoza", b =>

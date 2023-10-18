@@ -112,7 +112,30 @@ public partial class eStomatologContext : DbContext
 
         });
 
-   
+        modelBuilder.Entity<Rezervacija>(entity =>
+        {
+            entity.HasKey(e => e.RezervacijaId).HasName("PK_Rezervacija");
+            entity.Property(e => e.Datum).HasColumnType("datetime");
+            entity.HasOne(e => e.Termin)
+                .WithMany()
+                .HasForeignKey(e => e.TerminId);
+
+            entity.HasOne(e => e.Doktor)
+                .WithMany()
+                .HasForeignKey(e => e.DoktorId);
+
+            entity.HasOne(e => e.Pacijent)
+                .WithMany()
+                .HasForeignKey(e => e.PacijentId);
+
+            entity.HasOne(e => e.Ordinacija)
+                .WithMany()
+                .HasForeignKey(e => e.OrdinacijaId);
+
+
+        });
+
+
 
         modelBuilder.Entity<Termin>(entity =>
         {
@@ -122,17 +145,6 @@ public partial class eStomatologContext : DbContext
             entity.Property(e => e.TerminId).HasColumnName("TerminId").IsRequired();
             entity.Property(e => e.Vrijeme).HasColumnName("Vrijeme").HasColumnType("datetime").IsRequired();
           
-
-
-        });
-
-        modelBuilder.Entity<Rezervacija>(entity =>
-        {
-            entity.HasKey(e => e.RezervacijaId).HasName("PK_Rezervacija");
-
-            entity.ToTable("Rezervacije");
-            entity.Property(e => e.Datum).HasColumnName("Datum").HasColumnType("datetime").IsRequired();
-
 
 
         });

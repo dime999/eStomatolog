@@ -33,7 +33,7 @@ namespace eStomatologServices.Servisi
 
         public override IEnumerable<Rezervacija> Get(RezervacijaSearchRequest search = null)
         {
-            var entity = Context.Set<eStomatologServices.Database.Rezervacija>().Include(pac => pac.Pacijent).Include(dok=> dok.Doktor).Include(ord=> ord.Ordinacija).AsQueryable();
+            var entity = Context.Set<eStomatologServices.Database.Rezervacija>().AsQueryable();
             var list = entity.ToList();
             return Mapper.Map<IList<Rezervacija>>(list);
         }
@@ -63,21 +63,21 @@ namespace eStomatologServices.Servisi
                 doktorIme = doktor.Ime;
             }
 
-            if (entity != null)
-            {
-                eStomatologModel.ReservationNotifier reservation = new ReservationNotifier
-                {
-                    Id = entity.RezervacijaId,
-                    DoktorIme=doktorIme,
-                    Email=email,
+            //if (entity != null)
+            //{
+            //    eStomatologModel.ReservationNotifier reservation = new ReservationNotifier
+            //    {
+            //        Id = entity.RezervacijaId,
+            //        DoktorIme=doktorIme,
+            //        Email=email,
                     
-                };
-                _messageProducer.SendingObject(reservation);
-            }
+            //    };
+            //    _messageProducer.SendingObject(reservation);
+            //}
 
-            using var bus = RabbitHutch.CreateBus("host=localhost");
+            //using var bus = RabbitHutch.CreateBus("host=localhost");
                   
-            bus.PubSub.Publish(entity);               
+            //bus.PubSub.Publish(entity);               
             
             return entity;
         }
