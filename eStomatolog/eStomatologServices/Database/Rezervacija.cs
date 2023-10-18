@@ -30,6 +30,6 @@ namespace eStomatologServices.Database
         public string PacijentIme => Pacijent?.Ime;
         public string PacijentPrezime => Pacijent?.Prezime;
         public string OrdinacijaNaziv => Ordinacija?.Naziv;
-        public DateTime TerminVrijeme => (DateTime)(Termin?.Vrijeme);
+        public DateTime? TerminVrijeme => Termin?.Vrijeme ?? DateTime.MinValue;
     }
 }

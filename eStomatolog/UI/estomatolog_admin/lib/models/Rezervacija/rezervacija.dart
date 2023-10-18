@@ -14,7 +14,7 @@ class Rezervacija {
   String doktorPrezime;
   String pacijentPrezime;
   String? pacijentIme;
-  String? ordinacijaIme;
+  String? ordinacijaNaziv;
   DateTime terminVrijeme;
 
   Rezervacija(
@@ -24,7 +24,7 @@ class Rezervacija {
       this.doktorPrezime,
       this.pacijentIme,
       this.pacijentPrezime,
-      this.ordinacijaIme,
+      this.ordinacijaNaziv,
       this.email,
       this.terminVrijeme);
 

@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:estomatolog_admin/models/Rezervacija/rezervacija.dart';
-import 'package:estomatolog_admin/models/Specijalizacija/specijalizacija.dart';
 import 'package:estomatolog_admin/models/search_result.dart';
 import 'package:estomatolog_admin/utils/util.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +9,7 @@ import 'package:http/http.dart';
 class RezervacijaProvider with ChangeNotifier {
   static String? _baseUrl;
   String _endpoint = "GetRezervacijeByOrdinacija/";
+  String _endpointDelete = "Rezervacija?id=";
   RezervacijaProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue: "https://localhost:7265/");
@@ -38,7 +37,7 @@ class RezervacijaProvider with ChangeNotifier {
   }
 
   Future<void> delete(int id) async {
-    var url = "$_baseUrl$_endpoint?id=${id}";
+    var url = "$_baseUrl$_endpointDelete$id";
     var uri = Uri.parse(url);
     var headers = createHeaders();
 

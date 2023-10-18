@@ -15,8 +15,6 @@ class RezervacijaScreen extends StatefulWidget {
 
 class _RezervacijaScreenState extends State<RezervacijaScreen> {
   List<Rezervacija> rezervacije = [];
-  List<Pacijent> pacijenti = [];
-  List<Doktor> doktori = [];
 
   Future<List<Rezervacija>> fetchRezervacije(BuildContext context) async {
     var rezervacijaProvider =
@@ -29,6 +27,8 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
 
   @override
   Widget build(BuildContext context) {
+    _rezervacijaProvider =
+        Provider.of<RezervacijaProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: Text('Rezervacije'),
@@ -50,35 +50,40 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
                     columns: <DataColumn>[
                       DataColumn(
                         label: SizedBox(
-                          width: 200, // Postavite željenu širinu kolone
+                          width: 100,
                           child: Text('Pacijent'),
                         ),
                       ),
                       DataColumn(
                         label: SizedBox(
-                          width: 200, // Postavite željenu širinu kolone
+                          width: 100,
                           child: Text('Doktor'),
                         ),
                       ),
                       DataColumn(
                         label: SizedBox(
-                          width: 200, // Postavite željenu širinu kolone
+                          width: 100,
                           child: Text('Ordinacija'),
                         ),
                       ),
                       DataColumn(
                         label: SizedBox(
-                          width: 200, // Postavite željenu širinu kolone
+                          width: 100,
                           child: Text('Email potvrde rezervacije'),
                         ),
                       ),
                       DataColumn(
                         label: SizedBox(
-                          width: 200, // Postavite željenu širinu kolone
+                          width: 250,
                           child: Text('Termin vrijeme i datum'),
                         ),
                       ),
-                      // Dodajte kolone za ostale informacije koje želite prikazati
+                      DataColumn(
+                        label: SizedBox(
+                          width: 50,
+                          child: Text('Akcije'),
+                        ),
+                      ),
                     ],
                     rows: snapshot.data!.map((rezervacija) {
                       DateTime trenutnoVreme = DateTime.now();
@@ -99,7 +104,7 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
                                   ' ' +
                                   rezervacija.doktorPrezime ??
                               'N/A')),
-                          DataCell(Text(rezervacija.ordinacijaIme ?? 'N/A')),
+                          DataCell(Text(rezervacija.ordinacijaNaziv ?? 'N/A')),
                           DataCell(Text(rezervacija.email ?? 'N/A')),
                           DataCell(
                             Text(
@@ -111,7 +116,71 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
                                   color: jeAktivna ? Colors.green : Colors.red),
                             ),
                           ),
-                          // Dodajte ćelije za ostale informacije koje želite prikazati
+                          DataCell(
+                            GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text("Potvrda"),
+                                      content: Text(
+                                          "Da li ste sigurni da želite izbrisati rezervaciju?"),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () async {
+                                            try {
+                                              _rezervacijaProvider.delete(
+                                                  rezervacija.rezervacijaId);
+                                              var updatedRezervacije =
+                                                  await fetchRezervacije(
+                                                      context);
+                                              setState(() {
+                                                rezervacije =
+                                                    updatedRezervacije;
+                                              });
+
+                                              Navigator.pop(
+                                                  context); // Zatvori dialog
+                                            } on Exception catch (e) {
+                                              String errorMessage =
+                                                  "Nije moguće izbrisati odabranu rezervaciju!";
+                                              // Prikaži grešku ako brisanje nije uspelo
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title: Text("Greška"),
+                                                    content: Text(errorMessage),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                context),
+                                                        child: Text("OK"),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            }
+                                          },
+                                          child: Text("Da"),
+                                        ),
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          child: Text("Ne"),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                              child: Icon(Icons.delete),
+                            ),
+                          ),
                         ],
                       );
                     }).toList(),
