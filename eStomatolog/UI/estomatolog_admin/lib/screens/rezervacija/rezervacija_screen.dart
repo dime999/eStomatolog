@@ -1,13 +1,8 @@
 import 'package:estomatolog_admin/models/Doktor/doktor.dart';
 import 'package:estomatolog_admin/models/Pacijent/pacijent.dart';
 import 'package:estomatolog_admin/models/Rezervacija/rezervacija.dart';
-import 'package:estomatolog_admin/providers/pacijent_provider.dart';
 import 'package:estomatolog_admin/providers/rezervacija_provider.dart';
-import 'package:estomatolog_admin/screens/pacijent/add_pacijent_screen.dart';
-import 'package:estomatolog_admin/screens/pacijent/edit_pacijent_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:estomatolog_admin/providers/korisnici_provider.dart';
-import 'package:estomatolog_admin/widgets/lista.dart';
 import 'package:provider/provider.dart';
 
 class RezervacijaScreen extends StatefulWidget {
@@ -33,86 +28,68 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _rezervacijaProvider =
-        Provider.of<RezervacijaProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: Text('Rezervacije'),
       ),
-      body: GenericListScreen<Rezervacija>(
-        fetchData: (context) => fetchRezervacije(context),
-        getTitle: (rezervacija) => rezervacija.email ?? 'N/A',
-        getSubtitle: (rezervacija) => rezervacija.datum.toString() ?? 'N/A',
-        icon: Icons.person,
-        onEditPressed: (pacijent) {
-          print("Rezervacija");
-        },
-        onDeletePressed: (rezervacija) async {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text("Potvrda"),
-                content:
-                    Text("Da li ste sigurni da želite izbrisati rezervaciju?"),
-                actions: [
-                  TextButton(
-                    onPressed: () async {
-                      try {
-                        await _rezervacijaProvider
-                            .delete(rezervacija.rezervacijaId);
-                        var updatedRezervacije =
-                            await fetchRezervacije(context);
-                        setState(() {
-                          rezervacije = updatedRezervacije;
-                        });
-                        Navigator.pop(context); // Zatvori dialog
-                      } on Exception catch (e) {
-                        String errorMessage =
-                            "Nije moguće izbrisati odabranu rezervaciju!";
-                        // Prikaži grešku ako brisanje nije uspelo
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text("Greška"),
-                              content: Text(errorMessage),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: Text("OK"),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
-                    },
-                    child: Text("Da"),
+      body: Center(
+        child: FutureBuilder<List<Rezervacija>>(
+          future: fetchRezervacije(context),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('Greška: ${snapshot.error}');
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return Center(child: Text('Nema dostupnih rezervacija.'));
+            } else {
+              return Expanded(
+                child: ListView(scrollDirection: Axis.vertical, children: [
+                  DataTable(
+                    columns: <DataColumn>[
+                      DataColumn(
+                        label: SizedBox(
+                          width: 200, // Postavite željenu širinu kolone
+                          child: Text('Prezime pacijenta'),
+                        ),
+                      ),
+                      DataColumn(
+                        label: SizedBox(
+                          width: 200, // Postavite željenu širinu kolone
+                          child: Text('Ime Doktora'),
+                        ),
+                      ),
+                      DataColumn(
+                        label: SizedBox(
+                          width: 200, // Postavite željenu širinu kolone
+                          child: Text('Ordinacija'),
+                        ),
+                      ),
+                      DataColumn(
+                        label: SizedBox(
+                          width: 200, // Postavite željenu širinu kolone
+                          child: Text('Email potvrde rezervacije'),
+                        ),
+                      ),
+                      // Dodajte kolone za ostale informacije koje želite prikazati
+                    ],
+                    rows: snapshot.data!.map((rezervacija) {
+                      return DataRow(
+                        cells: <DataCell>[
+                          DataCell(Text(rezervacija.pacijentPrezime ?? 'N/A')),
+                          DataCell(Text(rezervacija.doktorIme ?? 'N/A')),
+                          DataCell(Text(rezervacija.ordinacijaIme ?? 'N/A')),
+                          DataCell(Text(rezervacija.email ?? 'N/A')),
+                          // Dodajte ćelije za ostale informacije koje želite prikazati
+                        ],
+                      );
+                    }).toList(),
                   ),
-                  TextButton(
-                    onPressed: () => Navigator.pop(
-                        context), // Zatvori dialog ako korisnik odabere "Ne"
-                    child: Text("Ne"),
-                  ),
-                ],
+                ]),
               );
-            },
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AddPacijentScreen(),
-            ),
-          );
-        },
-        child: Icon(Icons.add),
-        backgroundColor: Colors.blue,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+            }
+          },
+        ),
       ),
     );
   }
