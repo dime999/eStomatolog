@@ -10,6 +10,7 @@ namespace eStomatologModel.Requests
         public int PacijentId { get; set; }
         public int OrdinacijaId { get; set; }
         public int TerminId { get; set; }
+        public string Email { get; set; }
         public DateTime Datum { get; set; }
     }
 }

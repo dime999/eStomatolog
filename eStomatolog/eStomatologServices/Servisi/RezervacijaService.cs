@@ -41,44 +41,34 @@ namespace eStomatologServices.Servisi
         public override eStomatologModel.Rezervacija Insert(RezervacijaInsertRequest insert)
         {
             var entity = base.Insert(insert);
-            string email = "";
             string doktorIme = "";
            
 
             var pacijent = _pacijentService.GetById(entity.PacijentId);
             var doktor = _doktorService.GetById(entity.DoktorId);
 
-            if(pacijent!=null)
-            {
-                var korisnik = _korisniciService.GetById(pacijent.KorisnikId);
-
-                if (korisnik != null)
-                {
-                    email=korisnik.Email;
-                }
-
-            }
+           
             if (doktor != null)
             {
                 doktorIme = doktor.Ime;
             }
 
-            //if (entity != null)
-            //{
-            //    eStomatologModel.ReservationNotifier reservation = new ReservationNotifier
-            //    {
-            //        Id = entity.RezervacijaId,
-            //        DoktorIme=doktorIme,
-            //        Email=email,
-                    
-            //    };
-            //    _messageProducer.SendingObject(reservation);
-            //}
+            if (entity != null)
+            {
+                eStomatologModel.ReservationNotifier reservation = new ReservationNotifier
+                {
+                    Id = entity.RezervacijaId,
+                    DoktorIme = doktorIme,
+                    Email = entity.Email,
 
-            //using var bus = RabbitHutch.CreateBus("host=localhost");
-                  
-            //bus.PubSub.Publish(entity);               
-            
+                };
+                _messageProducer.SendingObject(reservation);
+            }
+
+            using var bus = RabbitHutch.CreateBus("host=localhost");
+
+            bus.PubSub.Publish(entity);
+
             return entity;
         }
 

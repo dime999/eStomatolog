@@ -11,6 +11,7 @@ namespace eStomatologModel
         public int TerminId { get; set; }
         public int DoktorId { get; set; }
         public int PacijentId { get; set; }
+        public string Email { get; set; }
         public int OrdinacijaId { get; set; }
 
     }
