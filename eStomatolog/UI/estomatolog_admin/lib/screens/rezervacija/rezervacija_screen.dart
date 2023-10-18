@@ -1,3 +1,4 @@
+import 'package:estomatolog_admin/models/Doktor/doktor.dart';
 import 'package:estomatolog_admin/models/Pacijent/pacijent.dart';
 import 'package:estomatolog_admin/models/Rezervacija/rezervacija.dart';
 import 'package:estomatolog_admin/providers/pacijent_provider.dart';
@@ -18,6 +19,8 @@ class RezervacijaScreen extends StatefulWidget {
 
 class _RezervacijaScreenState extends State<RezervacijaScreen> {
   List<Rezervacija> rezervacije = [];
+  List<Pacijent> pacijenti = [];
+  List<Doktor> doktori = [];
 
   Future<List<Rezervacija>> fetchRezervacije(BuildContext context) async {
     var rezervacijaProvider =

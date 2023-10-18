@@ -27,6 +27,7 @@ namespace eStomatologServices.Database
 
         public string DoktorIme => Doktor?.Ime;
         public string PacijentPrezime => Pacijent?.Prezime;
-        public string OrdinacijaIme => Ordinacija?.Naziv;
+        public string OrdinacijaNaziv => Ordinacija?.Naziv;
+        public string TerminVrijeme => Termin?.Vrijeme.ToString();
     }
 }

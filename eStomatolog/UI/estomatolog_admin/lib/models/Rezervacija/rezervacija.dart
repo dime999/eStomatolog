@@ -9,14 +9,13 @@ part 'rezervacija.g.dart';
 class Rezervacija {
   int rezervacijaId;
   DateTime datum;
-  int pacijentId;
-  int doktorId;
-  int terminId;
-  int ordinacijaId;
   String? email;
+  String? doktorIme;
+  String? pacijentPrezime;
+  String? ordinacijaIme;
 
-  Rezervacija(this.rezervacijaId, this.datum, this.pacijentId, this.terminId,
-      this.doktorId, this.ordinacijaId, this.email);
+  Rezervacija(this.rezervacijaId, this.datum, this.doktorIme,
+      this.pacijentPrezime, this.ordinacijaIme, this.email);
 
   factory Rezervacija.fromJson(Map<String, dynamic> json) =>
       _$RezervacijaFromJson(json);

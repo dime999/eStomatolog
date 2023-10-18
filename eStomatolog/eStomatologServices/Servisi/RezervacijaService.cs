@@ -23,12 +23,16 @@ namespace eStomatologServices.Servisi
         private readonly IPacijentService _pacijentService;
         private readonly IKorisniciService _korisniciService;
         private readonly IDoktorService _doktorService;
-        public RezervacijaService(eStomatologContext context, IMapper mapper, IMessageProducer messageProducer, IPacijentService pacijentService, IKorisniciService korisniciService, IDoktorService doktorService) : base(context, mapper)
+        private readonly ITerminService _terminService;
+        private readonly IOrdinacijaService _ordinacijaService;
+        public RezervacijaService(eStomatologContext context, IMapper mapper, IMessageProducer messageProducer, IPacijentService pacijentService, IKorisniciService korisniciService, IDoktorService doktorService,ITerminService terminService, IOrdinacijaService ordinacijaService) : base(context, mapper)
         {
             _messageProducer = messageProducer;
             _pacijentService = pacijentService;
             _korisniciService = korisniciService;
             _doktorService = doktorService;
+            _terminService = terminService;
+            _ordinacijaService= ordinacijaService;
         }
 
         public override IEnumerable<Rezervacija> Get(RezervacijaSearchRequest search = null)
@@ -40,7 +44,7 @@ namespace eStomatologServices.Servisi
 
         public IEnumerable<Rezervacija> GetByOrdinacijaId(int id)
         {
-            var Rezervacije = Context.Set<Database.Rezervacija>().Where(d => d.OrdinacijaId == id).AsQueryable();
+            var Rezervacije = Context.Set<Database.Rezervacija>().Where(d => d.OrdinacijaId == id).Include(r => r.Doktor).Include(r => r.Pacijent).Include(t=>t.Termin).Include(o=>o.Ordinacija).AsQueryable();
             var list = Rezervacije.ToList();
 
             return Mapper.Map<IList<Rezervacija>>(list);
@@ -51,32 +55,44 @@ namespace eStomatologServices.Servisi
         {
             var entity = base.Insert(insert);
             string doktorIme = "";
-           
-
             var pacijent = _pacijentService.GetById(entity.PacijentId);
-            var doktor = _doktorService.GetById(entity.DoktorId);
-
-           
+            var doktor = _doktorService.GetById(entity.DoktorId);  
+            var termin = _terminService.GetById(entity.TerminId);
+            var ordinacija = _ordinacijaService.GetById(entity.OrdinacijaId);
             if (doktor != null)
             {
                 doktorIme = doktor.Ime;
+                entity.Doktor = doktor;
             }
-
-            if (entity != null)
+            if(pacijent!= null)
             {
-                eStomatologModel.ReservationNotifier reservation = new ReservationNotifier
-                {
-                    Id = entity.RezervacijaId,
-                    DoktorIme = doktorIme,
-                    Email = entity.Email,
-
-                };
-                _messageProducer.SendingObject(reservation);
+                entity.Pacijent = pacijent;
             }
+            if (termin != null)
+            {
+                entity.Termin = termin;
+            }
+            if (ordinacija != null)
+            {
+                entity.Ordinacija = ordinacija;
+            }
+            Context.SaveChanges();
 
-            using var bus = RabbitHutch.CreateBus("host=localhost");
+            //if (entity != null)
+            //{
+            //    eStomatologModel.ReservationNotifier reservation = new ReservationNotifier
+            //    {
+            //        Id = entity.RezervacijaId,
+            //        DoktorIme = doktorIme,
+            //        Email = entity.Email,
 
-            bus.PubSub.Publish(entity);
+            //    };
+            //    _messageProducer.SendingObject(reservation);
+            //}
+
+            //using var bus = RabbitHutch.CreateBus("host=localhost");
+
+            //bus.PubSub.Publish(entity);
 
             return entity;
         }
