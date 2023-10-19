@@ -17,6 +17,7 @@ class RezervacijaPacijentScreen extends StatefulWidget {
 
 class _RezervacijaScreenState extends State<RezervacijaPacijentScreen> {
   List<Rezervacija> rezervacije = [];
+  late Pacijent pacijentInfo;
 
   Future<List<Rezervacija>> fetchRezervacije(BuildContext context) async {
     var pacijentProvider =
@@ -31,15 +32,34 @@ class _RezervacijaScreenState extends State<RezervacijaPacijentScreen> {
     return fetchedRezervacije.result;
   }
 
+  Future<Pacijent> fetchPacijent(BuildContext context) async {
+    var pacijentProvider =
+        Provider.of<PacijentProvider>(context, listen: false);
+    return await pacijentProvider.getByKorisnikId(widget.pacijentId);
+  }
+
   late RezervacijaProvider _rezervacijaProvider;
 
   @override
   Widget build(BuildContext context) {
-    _rezervacijaProvider =
-        Provider.of<RezervacijaProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Rezervacije'),
+        title: FutureBuilder<Pacijent>(
+          future: fetchPacijent(context),
+          builder: (BuildContext context, AsyncSnapshot<Pacijent> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Text('Učitavanje...');
+            } else if (snapshot.hasError) {
+              return Text('Greška pri učitavanju pacijenta');
+            } else if (snapshot.hasData) {
+              var pacijent = snapshot.data;
+              return Text(
+                  'Rezervacije za ${pacijent!.ime} ${pacijent.prezime}');
+            } else {
+              return Text('Nema podataka o pacijentu');
+            }
+          },
+        ),
       ),
       body: Center(
         child: FutureBuilder<List<Rezervacija>>(
