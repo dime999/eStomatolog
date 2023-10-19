@@ -42,6 +42,14 @@ namespace eStomatologServices.Servisi
             return Mapper.Map<IList<Rezervacija>>(list);
         }
 
+        public IEnumerable<Rezervacija> GetByPacijentId(int ordinacijaId,int pacijentId)
+        {
+            var Rezervacije = Context.Set<Database.Rezervacija>().Where(d => d.OrdinacijaId == ordinacijaId && d.PacijentId==pacijentId).Include(r => r.Doktor).Include(r => r.Pacijent).Include(t => t.Termin).Include(o => o.Ordinacija).AsQueryable();
+            var list = Rezervacije.ToList();
+
+            return Mapper.Map<IList<Rezervacija>>(list);
+        }
+
         public IEnumerable<Rezervacija> GetByOrdinacijaId(int id)
         {
             var Rezervacije = Context.Set<Database.Rezervacija>().Where(d => d.OrdinacijaId == id).Include(r => r.Doktor).Include(r => r.Pacijent).Include(t=>t.Termin).Include(o=>o.Ordinacija).AsQueryable();

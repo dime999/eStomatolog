@@ -13,5 +13,6 @@ namespace eStomatologServices.Interfejsi
     public interface IRezervacijeService : ICRUDService<eStomatologModel.Rezervacija, RezervacijaSearchRequest, RezervacijaInsertRequest, RezervacijaInsertRequest>
     {
         public IEnumerable<Rezervacija> GetByOrdinacijaId(int id);
+        public IEnumerable<Rezervacija> GetByPacijentId(int ordinacijaId, int pacijentId);
     }
 }

@@ -3,6 +3,7 @@ import 'package:estomatolog_admin/models/Pacijent/pacijent.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
 import 'package:estomatolog_admin/providers/pacijent_provider.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Nalazi/nalazi_lista.dart';
+import 'package:estomatolog_admin/screens/ordinacija/Pacijenti/pacijent_rezervacije.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Pacijenti/pacijenti_ordinacija_lista.dart';
 import 'package:estomatolog_admin/screens/ordinacija/ordinacije_screen.dart';
 import 'package:estomatolog_admin/screens/pacijent/edit_pacijent_screen.dart';
@@ -115,12 +116,14 @@ class CardItem extends StatelessWidget {
                 MaterialPageRoute(
                     builder: (context) => NalaziScreen(pacijentId: pacijentId)),
               );
-            } else if (icon == Icons.people && title == 'Rezervacije') {
+            } else if (icon == Icons.note && title == 'Rezervacije') {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        PacijentOrdinacijaScreen(ordinacijaId: ordinacijaId)),
+                    builder: (context) => RezervacijaPacijentScreen(
+                          ordinacijaId: ordinacijaId,
+                          pacijentId: pacijentId,
+                        )),
               );
             } else if (icon == Icons.people &&
                 title == 'Informacije o pacijentu') {

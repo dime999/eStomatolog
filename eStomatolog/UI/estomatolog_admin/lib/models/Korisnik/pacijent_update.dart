@@ -14,7 +14,7 @@ class PacijentUpdateModel {
   String? telefon;
   String? korisnickoIme;
   bool? status;
-  List<int>? ordinacijeId;
+  List<int>? ordinacijeIdList;
   List<int>? ulogeIdList;
   int? gradId;
 
@@ -28,7 +28,7 @@ class PacijentUpdateModel {
       this.status,
       this.gradId,
       this.ulogeIdList,
-      this.ordinacijeId);
+      this.ordinacijeIdList);
 
   factory PacijentUpdateModel.fromJson(Map<String, dynamic> json) =>
       _$PacijentUpdateModelFromJson(json);

@@ -10,6 +10,7 @@ class RezervacijaProvider with ChangeNotifier {
   static String? _baseUrl;
   String _endpoint = "GetRezervacijeByOrdinacija/";
   String _endpointDelete = "Rezervacija?id=";
+  String _endpointPacijent = "GetRezervacijeByPacijent";
   RezervacijaProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue: "https://localhost:7265/");
@@ -17,6 +18,29 @@ class RezervacijaProvider with ChangeNotifier {
 
   Future<SearchResult<Rezervacija>> get(int id) async {
     var url = "$_baseUrl$_endpoint$id";
+
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+
+    var response = await http.get(uri, headers: headers);
+    if (isValidResponse(response)) {
+      var data = jsonDecode(response.body);
+      var result = SearchResult<Rezervacija>();
+
+      for (var item in data) {
+        result.result.add(Rezervacija.fromJson(item));
+      }
+
+      return result;
+    } else {
+      throw new Exception("Nepoznata greška!");
+    }
+  }
+
+  Future<SearchResult<Rezervacija>> getByPacijent(
+      int ordinacijaId, int pacijentId) async {
+    var url = "$_baseUrl$_endpointPacijent/$ordinacijaId/$pacijentId";
+    print(url);
 
     var uri = Uri.parse(url);
     var headers = createHeaders();

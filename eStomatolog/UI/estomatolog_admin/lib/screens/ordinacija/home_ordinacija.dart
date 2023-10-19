@@ -3,7 +3,7 @@ import 'package:estomatolog_admin/providers/ordinacija_provider.dart';
 import 'package:estomatolog_admin/screens/doktor/doktori_screen.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Pacijenti/pacijenti_ordinacija_lista.dart';
 import 'package:estomatolog_admin/screens/ordinacija/ordinacija_info.dart';
-import 'package:estomatolog_admin/screens/rezervacija/rezervacija_screen.dart';
+import 'package:estomatolog_admin/screens/ordinacija/Rezervacije/rezervacija_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:estomatolog_admin/utils/util.dart';
 import 'package:provider/provider.dart';

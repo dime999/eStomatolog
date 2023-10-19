@@ -28,5 +28,14 @@ namespace eStomatolog.Controllers
             return rezervacije;
         }
 
+        [Authorize(Roles = "Administrator")]
+        [HttpGet("/GetRezervacijeByPacijent/{ordinacijaId}/{pacijentId}")]
+        public IEnumerable<eStomatologModel.Rezervacija> GetRezervacijeByPacijent(int ordinacijaId,int pacijentId)
+        {
+            var rezervacije = service.GetByPacijentId(ordinacijaId,pacijentId);
+
+            return rezervacije;
+        }
+
     }
 }

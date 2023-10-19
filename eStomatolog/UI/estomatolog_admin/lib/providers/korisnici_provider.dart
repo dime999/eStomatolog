@@ -138,6 +138,7 @@ class KorisniciProvider with ChangeNotifier {
     var headers = createHeaders();
 
     var jsonRequest = jsonEncode(request);
+    print(jsonRequest);
     var response = await http.put(uri, headers: headers, body: jsonRequest);
 
     if (isValidResponse(response)) {

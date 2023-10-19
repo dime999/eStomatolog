@@ -273,6 +273,7 @@ class _EditPacijentScreenState extends State<EditPacijentScreen> {
 
   Widget _buildSaveButton() {
     _korisniciProvider = Provider.of<KorisniciProvider>(context, listen: false);
+    print(odabraneOrdinacije);
     PacijentUpdateModel updatedKorisnik = new PacijentUpdateModel(
         korisnikId,
         imeController.text,
@@ -284,6 +285,7 @@ class _EditPacijentScreenState extends State<EditPacijentScreen> {
         odabraniGrad,
         uloga,
         odabraneOrdinacije);
+    print(updatedKorisnik.ordinacijeIdList);
     return Container(
       width: 200.0,
       child: ElevatedButton(
