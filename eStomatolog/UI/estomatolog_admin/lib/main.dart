@@ -1,3 +1,4 @@
+import 'package:estomatolog_admin/providers/doktor_ordinacija_provider.dart';
 import 'package:estomatolog_admin/providers/doktor_provider.dart';
 import 'package:estomatolog_admin/providers/grad_provider.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
@@ -24,7 +25,8 @@ void main() {
       ChangeNotifierProvider(create: (_) => PacijentOrdinacijaProvider()),
       ChangeNotifierProvider(create: (_) => NalazProvider()),
       ChangeNotifierProvider(create: (_) => SlikaProvider()),
-      ChangeNotifierProvider(create: (_) => RezervacijaProvider())
+      ChangeNotifierProvider(create: (_) => RezervacijaProvider()),
+      ChangeNotifierProvider(create: (_) => DoktorOrdinacijaProvider())
     ],
     child: const MyApp(),
   ));

@@ -1,30 +1,34 @@
+import 'package:estomatolog_admin/models/Doktor/doktor_ordinacija.dart';
+import 'package:estomatolog_admin/providers/doktor_ordinacija_provider.dart';
 import 'package:estomatolog_admin/screens/doktor/add_doktor_screen.dart';
 import 'package:estomatolog_admin/screens/doktor/edit_doktor_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:estomatolog_admin/models/Doktor/doktor.dart';
-import 'package:estomatolog_admin/providers/doktor_provider.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
 import 'package:estomatolog_admin/widgets/lista.dart';
 import 'package:provider/provider.dart';
 
 // ignore: use_key_in_widget_constructors
-class DoctorsScreen extends StatefulWidget {
+class DoctorsOrdinacijaScreen extends StatefulWidget {
+  final int ordinacijaId;
+  DoctorsOrdinacijaScreen({required this.ordinacijaId});
   @override
   // ignore: library_private_types_in_public_api
-  _DoctorsScreenState createState() => _DoctorsScreenState();
+  _DoctorsOrdinacijaScreenState createState() =>
+      _DoctorsOrdinacijaScreenState();
 }
 
-class _DoctorsScreenState extends State<DoctorsScreen> {
+class _DoctorsOrdinacijaScreenState extends State<DoctorsOrdinacijaScreen> {
   TextEditingController searchController = TextEditingController();
-  List<Doktor> doktori = [];
+  List<DoktorOrdinacija> doktori = [];
 
-  Future<List<Doktor>> fetchDoctors(
+  Future<List<DoktorOrdinacija>> fetchDoctors(
       BuildContext context, String searchQuery) async {
-    var doktortProvider = Provider.of<DoktorProvider>(context, listen: false);
-    var fetchedDoctors = await doktortProvider.get();
+    var doktorProvider =
+        Provider.of<DoktorOrdinacijaProvider>(context, listen: false);
+    var fetchedDoctors = await doktorProvider.get(widget.ordinacijaId);
     var filteredDoktori = fetchedDoctors.result.where((doktor) {
-      var ime = doktor.ime?.toLowerCase() ?? '';
-      var prezime = doktor.prezime?.toLowerCase() ?? '';
+      var ime = doktor.doktorIme?.toLowerCase() ?? '';
+      var prezime = doktor.doktorPrezime?.toLowerCase() ?? '';
       return ime.contains(searchQuery.toLowerCase()) ||
           prezime.contains(searchQuery.toLowerCase());
     }).toList();
@@ -53,10 +57,10 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
       body: ValueListenableBuilder<String>(
         valueListenable: searchQueryNotifier,
         builder: (context, searchQuery, child) {
-          return GenericListScreen<Doktor>(
+          return GenericListScreen<DoktorOrdinacija>(
             fetchData: (context) => fetchDoctors(context, searchQuery),
-            getTitle: (doktor) => doktor.ime ?? 'N/A',
-            getSubtitle: (doktor) => doktor.prezime ?? 'N/A',
+            getTitle: (doktor) => doktor.doktorIme ?? 'N/A',
+            getSubtitle: (doktor) => doktor.doktorPrezime ?? 'N/A',
             icon: Icons.person,
             onEditPressed: (pacijent) {
               int korisnikId = pacijent.korisnikId;

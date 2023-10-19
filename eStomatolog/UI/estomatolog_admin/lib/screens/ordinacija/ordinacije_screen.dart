@@ -13,35 +13,58 @@ class OrdinacijaScreen extends StatefulWidget {
 class _OrdinacijaScreenState extends State<OrdinacijaScreen> {
   TextEditingController searchController = TextEditingController();
   List<Ordinacija> ordinacije = [];
-  Future<List<Ordinacija>> fetchOrdinacije(BuildContext context) async {
+
+  Future<List<Ordinacija>> fetchOrdinacije(
+      BuildContext context, String searchQuery) async {
     var ordinacijaProvider =
         Provider.of<OrdinacijaProvider>(context, listen: false);
     var fetchedOrdinacije = await ordinacijaProvider.get();
-    return fetchedOrdinacije.result;
+    var filteredOrdinacije = fetchedOrdinacije.result.where((ordinacija) {
+      var naziv = ordinacija.naziv?.toLowerCase() ?? '';
+
+      return naziv.contains(searchQuery.toLowerCase());
+    }).toList();
+    return filteredOrdinacije;
+  }
+
+  ValueNotifier<String> searchQueryNotifier = ValueNotifier<String>('');
+
+  @override
+  void initState() {
+    super.initState();
+    searchController.addListener(() {
+      searchQueryNotifier.value = searchController.text;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ordinacije'),
+        title: Text('Lista ordinacija'),
       ),
-      body: GenericListPregledScreen<Ordinacija>(
-        fetchData: (context) => fetchOrdinacije(context),
-        getTitle: (ordinacija) => ordinacija.naziv ?? 'N/A',
-        getSubtitle: (ordinacija) => ordinacija.adresa ?? 'N/A',
-        icon: Icons.local_hospital_rounded,
-        onEditPressed: (ordinacija) {
-          int ordinacijaId = ordinacija.ordinacijaId;
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  OrdinacijaHomeScreen(ordinacijaId: ordinacijaId),
-            ),
+      body: ValueListenableBuilder<String>(
+        valueListenable: searchQueryNotifier,
+        builder: (context, searchQuery, child) {
+          return GenericListPregledScreen<Ordinacija>(
+            fetchData: (context) => fetchOrdinacije(context, searchQuery),
+            getTitle: (ordinacija) => ordinacija.naziv ?? 'N/A',
+            getSubtitle: (ordinacija) => ordinacija.adresa ?? 'N/A',
+            icon: Icons.person,
+            onEditPressed: (ordinacija) {
+              int ordinacijaId = ordinacija.ordinacijaId;
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OrdinacijaHomeScreen(
+                    ordinacijaId: ordinacijaId,
+                  ),
+                ),
+              );
+            },
+            searchController: searchController,
           );
         },
-        searchController: searchController,
       ),
     );
   }

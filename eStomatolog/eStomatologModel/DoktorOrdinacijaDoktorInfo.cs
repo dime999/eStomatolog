@@ -12,5 +12,7 @@ namespace eStomatologModel
         public string DoktorIme => Doktor?.Ime;
 
         public string DoktorPrezime => Doktor?.Prezime;
+
+        public int KorisnikId => Doktor.KorisnikId;
     }
 }
