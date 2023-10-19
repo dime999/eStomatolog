@@ -98,7 +98,6 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
   Future<Grad> fetchGrad(BuildContext context, int id) async {
     var provider = Provider.of<GradProvider>(context, listen: false);
     defaultniGrad = await provider.getById(id);
-    print(defaultniGrad);
     return defaultniGrad;
   }
 
