@@ -15,108 +15,112 @@ class DoctorsScreen extends StatefulWidget {
 }
 
 class _DoctorsScreenState extends State<DoctorsScreen> {
+  TextEditingController searchController = TextEditingController();
   List<Doktor> doktori = [];
+
+  Future<List<Doktor>> fetchDoctors(
+      BuildContext context, String searchQuery) async {
+    var pacijentProvider = Provider.of<DoktorProvider>(context, listen: false);
+    var fetchedDoctors = await pacijentProvider.get();
+    var filteredDoktori = fetchedDoctors.result.where((doktor) {
+      var ime = doktor.ime?.toLowerCase() ?? '';
+      var prezime = doktor.prezime?.toLowerCase() ?? '';
+      return ime.contains(searchQuery.toLowerCase()) ||
+          prezime.contains(searchQuery.toLowerCase());
+    }).toList();
+    return filteredDoktori;
+  }
+
+  ValueNotifier<String> searchQueryNotifier = ValueNotifier<String>('');
+
+  late KorisniciProvider _korisniciProvider;
 
   @override
   void initState() {
     super.initState();
-    _loadDoctors();
-  }
-
-  Future<void> _loadDoctors() async {
-    var fetchedDoctors = await fetchDoctors(context);
-    setState(() {
-      doktori = fetchedDoctors;
+    searchController.addListener(() {
+      searchQueryNotifier.value = searchController.text;
     });
   }
-
-  Future<List<Doktor>> fetchDoctors(BuildContext context) async {
-    var doktorProvider = Provider.of<DoktorProvider>(context, listen: false);
-    var fetchedDoctors = await doktorProvider.get();
-    return fetchedDoctors.result;
-  }
-
-  late KorisniciProvider _korisniciProvider;
 
   @override
   Widget build(BuildContext context) {
     _korisniciProvider = Provider.of<KorisniciProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        // ignore: prefer_const_constructors
-        title: Text('Doktori'),
+        title: Text('Pacijenti'),
       ),
-      body: GenericListScreen<Doktor>(
-        fetchData: (context) => fetchDoctors(context),
-        getTitle: (doktor) => doktor.ime ?? 'N/A',
-        getSubtitle: (doktor) => doktor.prezime ?? 'N/A',
-        icon: Icons.person,
-        onEditPressed: (doktor) {
-          int korisnikId = doktor.korisnikId;
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => EditDoctorScreen(korisnikId: korisnikId),
-            ),
-          );
-        },
-        onDeletePressed: (doktor) async {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                // ignore: prefer_const_constructors
-                title: Text("Potvrda"),
-                content:
-                    // ignore: prefer_const_constructors
-                    Text("Da li ste sigurni da želite izbrisati korisnika?"),
-                actions: [
-                  TextButton(
-                    onPressed: () async {
-                      try {
-                        await _korisniciProvider.delete(doktor.korisnikId);
-                        // ignore: use_build_context_synchronously
-                        var updatedDoctors = await fetchDoctors(context);
-                        setState(() {
-                          doktori = updatedDoctors;
-                        });
-                        // ignore: use_build_context_synchronously
-                        Navigator.pop(context); // Zatvori dialog
-                        // ignore: unused_catch_clause
-                      } on Exception catch (e) {
-                        String errorMessage =
-                            "Nije moguće izbrisati odabranog doktora!";
-                        // ignore: use_build_context_synchronously
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              // ignore: prefer_const_constructors
-                              title: Text("Greška"),
-                              content: Text(errorMessage),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  // ignore: prefer_const_constructors
-                                  child: Text("OK"),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
-                    },
-                    // ignore: prefer_const_constructors
-                    child: Text("Da"),
-                  ),
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    // ignore: prefer_const_constructors
-                    child: Text("Ne"),
-                  ),
-                ],
+      body: ValueListenableBuilder<String>(
+        valueListenable: searchQueryNotifier,
+        builder: (context, searchQuery, child) {
+          return GenericListScreen<Doktor>(
+            fetchData: (context) => fetchDoctors(context, searchQuery),
+            getTitle: (doktor) => doktor.ime ?? 'N/A',
+            getSubtitle: (doktor) => doktor.prezime ?? 'N/A',
+            icon: Icons.person,
+            onEditPressed: (pacijent) {
+              int korisnikId = pacijent.korisnikId;
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      EditDoctorScreen(korisnikId: korisnikId),
+                ),
               );
             },
+            onDeletePressed: (doktor) async {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text("Potvrda"),
+                    content: Text(
+                        "Da li ste sigurni da želite izbrisati korisnika?"),
+                    actions: [
+                      TextButton(
+                        onPressed: () async {
+                          try {
+                            await _korisniciProvider.delete(doktor.korisnikId);
+                            var updatedDoktori =
+                                await fetchDoctors(context, searchQuery);
+                            setState(() {
+                              doktori = updatedDoktori;
+                            });
+                            Navigator.pop(context); // Zatvori dialog
+                          } on Exception catch (e) {
+                            String errorMessage =
+                                "Nije moguće izbrisati odabranog pacijenta!";
+                            // Prikaži grešku ako brisanje nije uspelo
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text("Greška"),
+                                  content: Text(errorMessage),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: Text("OK"),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                        },
+                        child: Text("Da"),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.pop(
+                            context), // Zatvori dialog ako korisnik odabere "Ne"
+                        child: Text("Ne"),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            searchController: searchController,
           );
         },
       ),

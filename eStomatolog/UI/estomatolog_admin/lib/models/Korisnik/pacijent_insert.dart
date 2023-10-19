@@ -13,7 +13,7 @@ class PacijentInsertModel {
   String? telefon;
   String? korisnickoIme;
   bool? status;
-  List<int>? ordinacijeId;
+  List<int>? ordinacijeIdList;
   List<int>? ulogeIdList;
   int? gradId;
   String? password;
@@ -28,7 +28,7 @@ class PacijentInsertModel {
       this.status,
       this.gradId,
       this.ulogeIdList,
-      this.ordinacijeId,
+      this.ordinacijeIdList,
       this.password,
       this.passwordPotvrda);
 

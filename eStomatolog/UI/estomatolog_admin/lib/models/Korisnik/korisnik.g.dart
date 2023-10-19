@@ -18,7 +18,9 @@ Korisnik _$KorisnikFromJson(Map<String, dynamic> json) => Korisnik(
           ?.map((e) => e as int)
           .toList(),
       (json['ulogeIdList'] as List<dynamic>?)?.map((e) => e as int).toList(),
-      (json['ordinacijeId'] as List<dynamic>?)?.map((e) => e as int).toList(),
+      (json['ordinacijeIdList'] as List<dynamic>?)
+          ?.map((e) => e as int)
+          .toList(),
       json['password'] as String?,
       json['passwordPotvrda'] as String?,
     );
@@ -33,7 +35,7 @@ Map<String, dynamic> _$KorisnikToJson(Korisnik instance) => <String, dynamic>{
       'korisnickoIme': instance.korisnickoIme,
       'status': instance.status,
       'specijalizacijeId': instance.specijalizacijeId,
-      'ordinacijeId': instance.ordinacijeId,
+      'ordinacijeIdList': instance.ordinacijeIdList,
       'ulogeIdList': instance.ulogeIdList,
       'gradId': instance.gradId,
     };

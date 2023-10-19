@@ -16,7 +16,9 @@ PacijentInsertModel _$PacijentInsertModelFromJson(Map<String, dynamic> json) =>
       json['status'] as bool?,
       json['gradId'] as int?,
       (json['ulogeIdList'] as List<dynamic>?)?.map((e) => e as int).toList(),
-      (json['ordinacijeId'] as List<dynamic>?)?.map((e) => e as int).toList(),
+      (json['ordinacijeIdList'] as List<dynamic>?)
+          ?.map((e) => e as int)
+          .toList(),
       json['password'] as String?,
       json['passwordPotvrda'] as String?,
     );
@@ -30,7 +32,7 @@ Map<String, dynamic> _$PacijentInsertModelToJson(
       'telefon': instance.telefon,
       'korisnickoIme': instance.korisnickoIme,
       'status': instance.status,
-      'ordinacijeId': instance.ordinacijeId,
+      'ordinacijeIdList': instance.ordinacijeIdList,
       'ulogeIdList': instance.ulogeIdList,
       'gradId': instance.gradId,
       'password': instance.password,

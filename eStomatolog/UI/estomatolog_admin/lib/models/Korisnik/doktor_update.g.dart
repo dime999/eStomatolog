@@ -20,7 +20,9 @@ DoktorUpdateModel _$DoktorUpdateModelFromJson(Map<String, dynamic> json) =>
           ?.map((e) => e as int)
           .toList(),
       (json['ulogeIdList'] as List<dynamic>?)?.map((e) => e as int).toList(),
-      (json['ordinacijeId'] as List<dynamic>?)?.map((e) => e as int).toList(),
+      (json['ordinacijeIdList'] as List<dynamic>?)
+          ?.map((e) => e as int)
+          .toList(),
     );
 
 Map<String, dynamic> _$DoktorUpdateModelToJson(DoktorUpdateModel instance) =>
@@ -33,7 +35,7 @@ Map<String, dynamic> _$DoktorUpdateModelToJson(DoktorUpdateModel instance) =>
       'korisnickoIme': instance.korisnickoIme,
       'status': instance.status,
       'specijalizacijeId': instance.specijalizacijeId,
-      'ordinacijeId': instance.ordinacijeId,
+      'ordinacijeIdList': instance.ordinacijeIdList,
       'ulogeIdList': instance.ulogeIdList,
       'gradId': instance.gradId,
     };
