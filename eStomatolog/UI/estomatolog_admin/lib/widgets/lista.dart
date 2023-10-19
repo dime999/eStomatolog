@@ -7,7 +7,7 @@ class GenericListScreen<T> extends StatelessWidget {
   final IconData icon;
   final void Function(T) onEditPressed;
   final void Function(T) onDeletePressed;
-  final TextEditingController searchController; // Dodajte ovde kontroler
+  final TextEditingController searchController;
 
   GenericListScreen({
     required this.fetchData,
@@ -16,10 +16,9 @@ class GenericListScreen<T> extends StatelessWidget {
     required this.icon,
     required this.onEditPressed,
     required this.onDeletePressed,
-    required this.searchController, // Dodajte kontroler u konstruktor
+    required this.searchController,
   });
 
-  @override
   @override
   Widget build(BuildContext context) {
     return Column(

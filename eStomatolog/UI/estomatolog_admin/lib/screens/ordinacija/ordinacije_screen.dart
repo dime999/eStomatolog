@@ -11,6 +11,7 @@ class OrdinacijaScreen extends StatefulWidget {
 }
 
 class _OrdinacijaScreenState extends State<OrdinacijaScreen> {
+  TextEditingController searchController = TextEditingController();
   List<Ordinacija> ordinacije = [];
   Future<List<Ordinacija>> fetchOrdinacije(BuildContext context) async {
     var ordinacijaProvider =
@@ -40,6 +41,7 @@ class _OrdinacijaScreenState extends State<OrdinacijaScreen> {
             ),
           );
         },
+        searchController: searchController,
       ),
     );
   }

@@ -18,12 +18,30 @@ class PacijentOrdinacijaScreen extends StatefulWidget {
 }
 
 class _PacijentOrdinacijaScreenState extends State<PacijentOrdinacijaScreen> {
+  TextEditingController searchController = TextEditingController();
   List<PacijentOrdinacija> pacijenti = [];
-  Future<List<PacijentOrdinacija>> fetchPacijenti(BuildContext context) async {
+  Future<List<PacijentOrdinacija>> fetchPacijenti(
+      BuildContext context, String searchQuery) async {
     var pacijentProvider =
         Provider.of<PacijentOrdinacijaProvider>(context, listen: false);
     var fetchedPacijenti = await pacijentProvider.get(widget.ordinacijaId);
-    return fetchedPacijenti.result;
+    var filteredPacijenti = fetchedPacijenti.result.where((pacijent) {
+      var ime = pacijent.pacijentIme?.toLowerCase() ?? '';
+      var prezime = pacijent.pacijentPrezime?.toLowerCase() ?? '';
+      return ime.contains(searchQuery.toLowerCase()) ||
+          prezime.contains(searchQuery.toLowerCase());
+    }).toList();
+    return filteredPacijenti;
+  }
+
+  ValueNotifier<String> searchQueryNotifier = ValueNotifier<String>('');
+
+  @override
+  void initState() {
+    super.initState();
+    searchController.addListener(() {
+      searchQueryNotifier.value = searchController.text;
+    });
   }
 
   Future<Ordinacija> fetchOrdinacija(BuildContext context) async {
@@ -44,9 +62,9 @@ class _PacijentOrdinacijaScreenState extends State<PacijentOrdinacijaScreen> {
           future: fetchOrdinacija(context),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text('Lista nalaza - Učitavanje...');
+              return Text('Lista pacijenata - Učitavanje...');
             } else if (snapshot.hasError) {
-              return Text('Greška pri dohvatu nalaza.');
+              return Text('Greška pri dohvatu pacijenata.');
             } else if (!snapshot.hasData) {
               return Text('Nema dostupnih podataka o pacijentu.');
             } else {
@@ -57,21 +75,27 @@ class _PacijentOrdinacijaScreenState extends State<PacijentOrdinacijaScreen> {
           },
         ),
       ),
-      body: GenericListPregledScreen<PacijentOrdinacija>(
-        fetchData: (context) => fetchPacijenti(context),
-        getTitle: (pacijent) => pacijent.pacijentIme ?? 'N/A',
-        getSubtitle: (pacijent) => pacijent.pacijentPrezime ?? 'N/A',
-        icon: Icons.person,
-        onEditPressed: (pacijent) {
-          int korisnikId = pacijent.korisnikId;
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PacijentOrdinacijaInfoScreen(
-                ordinacijaId: widget.ordinacijaId,
-                pacijentId: korisnikId,
-              ),
-            ),
+      body: ValueListenableBuilder<String>(
+        valueListenable: searchQueryNotifier,
+        builder: (context, searchQuery, child) {
+          return GenericListPregledScreen<PacijentOrdinacija>(
+            fetchData: (context) => fetchPacijenti(context, searchQuery),
+            getTitle: (pacijent) => pacijent.pacijentIme ?? 'N/A',
+            getSubtitle: (pacijent) => pacijent.pacijentPrezime ?? 'N/A',
+            icon: Icons.person,
+            onEditPressed: (pacijent) {
+              int korisnikId = pacijent.korisnikId;
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PacijentOrdinacijaInfoScreen(
+                    pacijentId: korisnikId,
+                    ordinacijaId: widget.ordinacijaId,
+                  ),
+                ),
+              );
+            },
+            searchController: searchController,
           );
         },
       ),
