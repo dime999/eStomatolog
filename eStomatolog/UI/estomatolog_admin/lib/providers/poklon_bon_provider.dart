@@ -10,6 +10,7 @@ import 'package:http/http.dart';
 class PoklonBonProvider with ChangeNotifier {
   static String? _baseUrl;
   String _endpoint = "GetPoklonBonByOrdinacija/";
+  String _delete = "PoklonBon?id=";
 
   PoklonBonProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
@@ -35,6 +36,19 @@ class PoklonBonProvider with ChangeNotifier {
       return result;
     } else {
       throw new Exception("Nepoznata greška!");
+    }
+  }
+
+  Future<void> delete(int id) async {
+    var url = "$_baseUrl$_delete$id";
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+
+    var response = await http.delete(uri, headers: headers);
+    if (response.statusCode == 200) {
+      notifyListeners();
+    } else {
+      throw Exception("Brisanje nije uspelo");
     }
   }
 
