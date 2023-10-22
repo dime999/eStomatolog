@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:estomatolog_admin/models/Poklon%20bon/poklon_bon.dart';
-import 'package:estomatolog_admin/models/Rezervacija/rezervacija.dart';
 import 'package:estomatolog_admin/models/search_result.dart';
 import 'package:estomatolog_admin/utils/util.dart';
 import 'package:flutter/material.dart';
@@ -26,9 +25,7 @@ class PoklonBonProvider with ChangeNotifier {
     var response = await http.get(uri, headers: headers);
     if (isValidResponse(response)) {
       var data = jsonDecode(response.body);
-      print(data);
       var result = SearchResult<PoklonBon>();
-
       for (var item in data) {
         result.result.add(PoklonBon.fromJson(item));
       }

@@ -1,5 +1,3 @@
-import 'package:estomatolog_admin/models/Doktor/doktor.dart';
-import 'package:estomatolog_admin/models/Pacijent/pacijent.dart';
 import 'package:estomatolog_admin/models/Poklon%20bon/poklon_bon.dart';
 import 'package:estomatolog_admin/providers/poklon_bon_provider.dart';
 import 'package:flutter/material.dart';

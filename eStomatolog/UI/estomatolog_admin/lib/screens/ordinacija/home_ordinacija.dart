@@ -1,6 +1,5 @@
 import 'package:estomatolog_admin/models/Ordinacija/ordinacija.dart';
 import 'package:estomatolog_admin/providers/ordinacija_provider.dart';
-import 'package:estomatolog_admin/screens/doktor/doktori_screen.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Doktori/doktori_ordinacija.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Pacijenti/pacijenti_ordinacija_lista.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Pokon%20bon/poklon_bon.dart';
