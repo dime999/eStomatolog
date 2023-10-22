@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eStomatologServices;
 
@@ -11,9 +12,11 @@ using eStomatologServices;
 namespace eStomatologServices.Migrations
 {
     [DbContext(typeof(eStomatologContext))]
-    partial class eStomatologContextModelSnapshot : ModelSnapshot
+    [Migration("20231022140840_poklon_bon_update")]
+    partial class poklon_bon_update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -286,9 +289,6 @@ namespace eStomatologServices.Migrations
                     b.Property<string>("ImePrezimeKorisnikaKojiKoristi")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Iskoristeno")
-                        .HasColumnType("bit");
 
                     b.Property<decimal>("IznosPlacanja")
                         .HasColumnType("decimal(18,2)");

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eStomatologServices;
 
@@ -11,9 +12,11 @@ using eStomatologServices;
 namespace eStomatologServices.Migrations
 {
     [DbContext(typeof(eStomatologContext))]
-    partial class eStomatologContextModelSnapshot : ModelSnapshot
+    [Migration("20231022134229_poklon_bon")]
+    partial class poklon_bon
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -287,18 +290,12 @@ namespace eStomatologServices.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Iskoristeno")
-                        .HasColumnType("bit");
-
                     b.Property<decimal>("IznosPlacanja")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Opis")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("OrdinacijaId")
-                        .HasColumnType("int");
 
                     b.Property<int>("PacijentId")
                         .HasColumnType("int");
@@ -308,8 +305,6 @@ namespace eStomatologServices.Migrations
 
                     b.HasKey("PoklonBonId")
                         .HasName("PK_PoklonBon");
-
-                    b.HasIndex("OrdinacijaId");
 
                     b.HasIndex("PacijentId");
 
@@ -805,19 +800,11 @@ namespace eStomatologServices.Migrations
 
             modelBuilder.Entity("eStomatologServices.Database.PoklonBon", b =>
                 {
-                    b.HasOne("eStomatologServices.Database.Ordinacije", "Ordinacija")
-                        .WithMany("PoklonBonovi")
-                        .HasForeignKey("OrdinacijaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("eStomatologServices.Database.Pacijent", "Pacijent")
                         .WithMany("PoklonBonovi")
                         .HasForeignKey("PacijentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Ordinacija");
 
                     b.Navigation("Pacijent");
                 });
@@ -911,11 +898,6 @@ namespace eStomatologServices.Migrations
                     b.Navigation("Doktori");
 
                     b.Navigation("Pacijenti");
-                });
-
-            modelBuilder.Entity("eStomatologServices.Database.Ordinacije", b =>
-                {
-                    b.Navigation("PoklonBonovi");
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.Pacijent", b =>

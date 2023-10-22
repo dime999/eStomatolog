@@ -21,5 +21,7 @@ namespace eStomatologServices.Database
 
         public Grad Grad { get; set; }
 
+        public virtual ICollection<PoklonBon> PoklonBonovi { get; set; }
+
     }
 }

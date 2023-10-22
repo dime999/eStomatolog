@@ -3,6 +3,7 @@ import 'package:estomatolog_admin/providers/ordinacija_provider.dart';
 import 'package:estomatolog_admin/screens/doktor/doktori_screen.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Doktori/doktori_ordinacija.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Pacijenti/pacijenti_ordinacija_lista.dart';
+import 'package:estomatolog_admin/screens/ordinacija/Pokon%20bon/poklon_bon.dart';
 import 'package:estomatolog_admin/screens/ordinacija/ordinacija_info.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Rezervacije/rezervacija_screen.dart';
 import 'package:flutter/material.dart';
@@ -135,12 +136,19 @@ class CardItem extends StatelessWidget {
                         )),
               );
             } else if (icon == Icons.note_add && title == 'Rezervacije') {
-              print(ordinacijaId);
               Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
                         RezervacijaScreen(ordinacijaId: ordinacijaId)),
+              );
+            } else if (icon == Icons.wallet_giftcard &&
+                title == 'Poklon bonovi') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        PoklonBonScreen(ordinacijaId: ordinacijaId)),
               );
             }
           },
