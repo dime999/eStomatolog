@@ -55,6 +55,7 @@ builder.Services.AddTransient<ISlikaService, SlikaService>();
 builder.Services.AddTransient<IRezervacijeService, RezervacijaService>();
 builder.Services.AddScoped<IMessageProducer, MessageProducer>();
 builder.Services.AddTransient<IPoklonBonService, PoklonBonService>();
+builder.Services.AddTransient<IOcjenaService, OcjeneService>();
 
 
 

@@ -31,4 +31,5 @@ public partial class Doktor
 
     public virtual ICollection<DoktorOrdinacija> DoktorOrdinacije { get; set; }
     public virtual ICollection<DoktoriSpecijalizacije> DoktoriSpecijalizacije { get; set; }
+    public virtual ICollection<Ocjene> Ocjene { get; set; }
 }

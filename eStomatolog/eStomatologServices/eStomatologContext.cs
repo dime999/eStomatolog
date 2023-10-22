@@ -332,11 +332,18 @@ public partial class eStomatologContext : DbContext
         modelBuilder.Entity<Ocjene>(entity =>
         {
             entity.HasKey(e => e.Id);
-
             entity.ToTable("Ocjene");
 
             entity.Property(e => e.Datum).HasColumnType("datetime");
             entity.Property(e => e.Ocjena).IsRequired();
+            entity.HasOne(d => d.Pacijent)
+               .WithMany(p => p.Ocjene)
+               .HasForeignKey(d => d.PacijentId);
+            entity.ToTable("Ocjene");
+            entity.HasOne(d => d.Doktor)
+               .WithMany(p => p.Ocjene)
+               .HasForeignKey(d => d.DoktorId);
+            entity.ToTable("Ocjene");
 
         });
 

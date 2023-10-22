@@ -1,5 +1,3 @@
-import 'package:estomatolog_admin/models/Doktor/doktor.dart';
-import 'package:estomatolog_admin/models/Pacijent/pacijent.dart';
 import 'package:estomatolog_admin/models/Rezervacija/rezervacija.dart';
 import 'package:estomatolog_admin/providers/rezervacija_provider.dart';
 import 'package:flutter/material.dart';

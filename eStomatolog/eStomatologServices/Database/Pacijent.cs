@@ -31,5 +31,7 @@ namespace eStomatologServices.Database
         public virtual ICollection<PacijentOrdinacija> PacijentOrdinacije { get; set; }
 
         public virtual ICollection<PoklonBon> PoklonBonovi { get; set; }
+
+        public virtual ICollection<Ocjene> Ocjene { get; set; }
     }
 }
