@@ -2,6 +2,8 @@ import 'package:estomatolog_admin/models/Doktor/doktor_ordinacija.dart';
 import 'package:estomatolog_admin/providers/doktor_ordinacija_provider.dart';
 import 'package:estomatolog_admin/screens/doktor/add_doktor_screen.dart';
 import 'package:estomatolog_admin/screens/doktor/edit_doktor_screen.dart';
+import 'package:estomatolog_admin/screens/ordinacija/Ocjene/ocjene_screen.dart';
+import 'package:estomatolog_admin/widgets/lista_edit.dart';
 import 'package:flutter/material.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
 import 'package:estomatolog_admin/widgets/lista.dart';
@@ -57,7 +59,7 @@ class _DoctorsOrdinacijaScreenState extends State<DoctorsOrdinacijaScreen> {
       body: ValueListenableBuilder<String>(
         valueListenable: searchQueryNotifier,
         builder: (context, searchQuery, child) {
-          return GenericListScreen<DoktorOrdinacija>(
+          return GenericListScreenEdit<DoktorOrdinacija>(
             fetchData: (context) => fetchDoctors(context, searchQuery),
             getTitle: (doktor) => doktor.doktorIme ?? 'N/A',
             getSubtitle: (doktor) => doktor.doktorPrezime ?? 'N/A',
@@ -73,55 +75,13 @@ class _DoctorsOrdinacijaScreenState extends State<DoctorsOrdinacijaScreen> {
               );
             },
             onDeletePressed: (doktor) async {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: Text("Potvrda"),
-                    content: Text(
-                        "Da li ste sigurni da želite izbrisati korisnika?"),
-                    actions: [
-                      TextButton(
-                        onPressed: () async {
-                          try {
-                            await _korisniciProvider.delete(doktor.korisnikId);
-                            var updatedDoktori =
-                                await fetchDoctors(context, searchQuery);
-                            setState(() {
-                              doktori = updatedDoktori;
-                            });
-                            Navigator.pop(context); // Zatvori dialog
-                          } on Exception catch (e) {
-                            String errorMessage =
-                                "Nije moguće izbrisati odabranog pacijenta!";
-                            // Prikaži grešku ako brisanje nije uspelo
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text("Greška"),
-                                  content: Text(errorMessage),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () => Navigator.pop(context),
-                                      child: Text("OK"),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          }
-                        },
-                        child: Text("Da"),
-                      ),
-                      TextButton(
-                        onPressed: () => Navigator.pop(
-                            context), // Zatvori dialog ako korisnik odabere "Ne"
-                        child: Text("Ne"),
-                      ),
-                    ],
-                  );
-                },
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OcjeneScreen(
+                    doktorId: doktor.korisnikId,
+                  ),
+                ),
               );
             },
             searchController: searchController,
