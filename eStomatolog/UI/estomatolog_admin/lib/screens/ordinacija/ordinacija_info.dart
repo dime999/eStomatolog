@@ -461,7 +461,7 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                   TextButton(
                     onPressed: () async {
                       try {
-                        await _ordinacijaProvider.updateOrdinacija(
+                        await _ordinacijaProvider.update(
                             widget.ordinacijaId, updatedOrdinacija);
                         Navigator.of(context).pop();
                         Navigator.of(context).pop();

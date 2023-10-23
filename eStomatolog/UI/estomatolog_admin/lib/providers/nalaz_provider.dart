@@ -2,21 +2,25 @@ import 'dart:convert';
 import 'package:estomatolog_admin/models/Nalaz/nalaz.dart';
 import 'package:estomatolog_admin/models/Nalaz/nalaz_insert.dart';
 import 'package:estomatolog_admin/models/search_result.dart';
-import 'package:estomatolog_admin/utils/util.dart';
-import 'package:flutter/material.dart';
+import 'package:estomatolog_admin/providers/base_provider.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 
-class NalazProvider with ChangeNotifier {
-  static String? _baseUrl;
-  String _endpoint = "GetByPacijent";
-  String _endpointInsert = "Dijagnoza";
-  NalazProvider() {
-    _baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "https://localhost:7265/");
+class NalazProvider extends BaseProvider<NalazInsert> {
+  late String _baseUrl;
+  NalazProvider() : super("Dijagnoza") {
+    _baseUrl = const String.fromEnvironment(
+      "ApiUrl",
+      defaultValue: "https://localhost:7265/",
+    );
+  }
+
+  @override
+  NalazInsert fromJson(data) {
+    return NalazInsert.fromJson(data);
   }
 
   Future<SearchResult<Nalaz>> getByPacijentId(int id) async {
+    String _endpoint = "GetByPacijent";
     var url = "$_baseUrl$_endpoint/$id";
     var uri = Uri.parse(url);
     var headers = createHeaders();
@@ -32,44 +36,5 @@ class NalazProvider with ChangeNotifier {
     } else {
       throw new Exception("Nepoznata greška!");
     }
-  }
-
-  Future<NalazInsert> insert([NalazInsert? request]) async {
-    var url = "$_baseUrl$_endpointInsert";
-    var uri = Uri.parse(url);
-    var headers = createHeaders();
-
-    var jsonRequest = jsonEncode(request);
-    var response = await http.post(uri, headers: headers, body: jsonRequest);
-
-    if (isValidResponse(response)) {
-      var data = jsonDecode(response.body);
-      return NalazInsert.fromJson(data);
-    } else {
-      throw new Exception("Unknown error");
-    }
-  }
-
-  bool isValidResponse(Response response) {
-    if (response.statusCode < 299) {
-      return true;
-    } else if (response.statusCode == 401) {
-      throw new Exception("Nije autorizovano");
-    } else {
-      throw new Exception("Desila se greška");
-    }
-  }
-
-  Map<String, String> createHeaders() {
-    String username = Authorization.korisnickoIme ?? "";
-    String password = Authorization.lozinka ?? "";
-    String basicAuth =
-        "Basic ${base64Encode(utf8.encode('$username:$password'))}";
-    var headers = {
-      "Content-Type": "application/json",
-      "Authorization": basicAuth
-    };
-
-    return headers;
   }
 }

@@ -299,7 +299,7 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
           SizedBox(height: 8.0),
           TextField(
             controller: controller,
-            obscureText: true, // Postavite na true da biste sakrili tekst
+            obscureText: true,
             decoration: InputDecoration(border: OutlineInputBorder()),
           ),
         ],
@@ -357,14 +357,14 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
                 actions: [
                   TextButton(
                     onPressed: () {
-                      Navigator.of(context).pop(); // Zatvaranje dijaloga
+                      Navigator.of(context).pop();
                     },
                     child: Text("Otkaži"),
                   ),
                   TextButton(
                     onPressed: () async {
                       try {
-                        await _korisniciProvider.insertDoktor(korisnik);
+                        await _korisniciProvider.insert(korisnik);
                         Navigator.of(context).pop();
                         Navigator.of(context).pop();
                       } catch (e) {

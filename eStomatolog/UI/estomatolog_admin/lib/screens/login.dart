@@ -1,4 +1,5 @@
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
+import 'package:estomatolog_admin/providers/login_provider.dart';
 import 'package:estomatolog_admin/screens/home.dart';
 import 'package:estomatolog_admin/screens/registracija.dart';
 import 'package:estomatolog_admin/utils/util.dart';
@@ -9,11 +10,11 @@ class LoginPage extends StatelessWidget {
   TextEditingController _korisnickoImeController = new TextEditingController();
   TextEditingController _lozinkaController = new TextEditingController();
 
-  late KorisniciProvider _korisniciProvider;
+  late LoginProvider _loginProvider;
 
   @override
   Widget build(BuildContext context) {
-    _korisniciProvider = context.read<KorisniciProvider>();
+    _loginProvider = context.read<LoginProvider>();
     return Scaffold(
       appBar: AppBar(title: Text("Prijavi se")),
       body: Center(
@@ -69,7 +70,7 @@ class LoginPage extends StatelessWidget {
                   Authorization.korisnickoIme = korisnickoIme;
                   Authorization.lozinka = lozinka;
                   try {
-                    await _korisniciProvider.login();
+                    await _loginProvider.login();
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(builder: (context) => HomeScreen()),

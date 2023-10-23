@@ -27,7 +27,8 @@ class _DoctorsOrdinacijaScreenState extends State<DoctorsOrdinacijaScreen> {
       BuildContext context, String searchQuery) async {
     var doktorProvider =
         Provider.of<DoktorOrdinacijaProvider>(context, listen: false);
-    var fetchedDoctors = await doktorProvider.get(widget.ordinacijaId);
+    var fetchedDoctors =
+        await doktorProvider.getByOrdinacijaId(widget.ordinacijaId);
     var filteredDoktori = fetchedDoctors.result.where((doktor) {
       var ime = doktor.doktorIme?.toLowerCase() ?? '';
       var prezime = doktor.doktorPrezime?.toLowerCase() ?? '';

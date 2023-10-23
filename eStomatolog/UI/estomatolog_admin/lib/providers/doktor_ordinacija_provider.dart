@@ -1,20 +1,25 @@
 import 'dart:convert';
 import 'package:estomatolog_admin/models/Doktor/doktor_ordinacija.dart';
 import 'package:estomatolog_admin/models/search_result.dart';
-import 'package:estomatolog_admin/utils/util.dart';
-import 'package:flutter/material.dart';
+import 'package:estomatolog_admin/providers/base_provider.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 
-class DoktorOrdinacijaProvider with ChangeNotifier {
-  static String? _baseUrl;
-  String _endpoint = "GetByOrdinacijaId";
-  DoktorOrdinacijaProvider() {
-    _baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "https://localhost:7265/");
+class DoktorOrdinacijaProvider extends BaseProvider<DoktorOrdinacija> {
+  late String _baseUrl;
+  DoktorOrdinacijaProvider() : super("GetByOrdinacijaId") {
+    _baseUrl = const String.fromEnvironment(
+      "ApiUrl",
+      defaultValue: "https://localhost:7265/",
+    );
   }
 
-  Future<SearchResult<DoktorOrdinacija>> get(int id) async {
+  @override
+  DoktorOrdinacija fromJson(data) {
+    return DoktorOrdinacija.fromJson(data);
+  }
+
+  Future<SearchResult<DoktorOrdinacija>> getByOrdinacijaId(int id) async {
+    String _endpoint = "GetByOrdinacijaId";
     var url = "$_baseUrl$_endpoint/$id";
     var uri = Uri.parse(url);
     var headers = createHeaders();
@@ -31,28 +36,5 @@ class DoktorOrdinacijaProvider with ChangeNotifier {
     } else {
       throw new Exception("Nepoznata greška!");
     }
-  }
-
-  bool isValidResponse(Response response) {
-    if (response.statusCode < 299) {
-      return true;
-    } else if (response.statusCode == 401) {
-      throw new Exception("Nije autorizovano");
-    } else {
-      throw new Exception("Desila se greška");
-    }
-  }
-
-  Map<String, String> createHeaders() {
-    String username = Authorization.korisnickoIme ?? "";
-    String password = Authorization.lozinka ?? "";
-    String basicAuth =
-        "Basic ${base64Encode(utf8.encode('$username:$password'))}";
-    var headers = {
-      "Content-Type": "application/json",
-      "Authorization": basicAuth
-    };
-
-    return headers;
   }
 }

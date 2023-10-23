@@ -1,21 +1,26 @@
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:estomatolog_admin/models/Pacijent/pacijent_ordinacija.dart';
 import 'package:estomatolog_admin/models/search_result.dart';
-import 'package:estomatolog_admin/utils/util.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
+import 'package:estomatolog_admin/providers/base_provider.dart';
 
-class PacijentOrdinacijaProvider with ChangeNotifier {
-  static String? _baseUrl;
-  String _endpoint = "GetPacijentiByOrdinacijaId";
-  PacijentOrdinacijaProvider() {
-    _baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "https://localhost:7265/");
+class PacijentOrdinacijaProvider extends BaseProvider<PacijentOrdinacija> {
+  late String _baseUrl;
+  PacijentOrdinacijaProvider() : super("GetPacijentiByOrdinacijaId") {
+    _baseUrl = const String.fromEnvironment(
+      "ApiUrl",
+      defaultValue: "https://localhost:7265/",
+    );
   }
 
-  Future<SearchResult<PacijentOrdinacija>> get(int id) async {
-    var url = "$_baseUrl$_endpoint/$id";
+  @override
+  PacijentOrdinacija fromJson(data) {
+    return PacijentOrdinacija.fromJson(data);
+  }
+
+  Future<SearchResult<PacijentOrdinacija>> getByOrdinacijaId(int id) async {
+    String _endpointPacijentOrdinacija = "GetPacijentiByOrdinacijaId";
+    var url = "$_baseUrl$_endpointPacijentOrdinacija/$id";
     var uri = Uri.parse(url);
     var headers = createHeaders();
     var response = await http.get(uri, headers: headers);
@@ -31,28 +36,5 @@ class PacijentOrdinacijaProvider with ChangeNotifier {
     } else {
       throw new Exception("Nepoznata greška!");
     }
-  }
-
-  bool isValidResponse(Response response) {
-    if (response.statusCode < 299) {
-      return true;
-    } else if (response.statusCode == 401) {
-      throw new Exception("Nije autorizovano");
-    } else {
-      throw new Exception("Desila se greška");
-    }
-  }
-
-  Map<String, String> createHeaders() {
-    String username = Authorization.korisnickoIme ?? "";
-    String password = Authorization.lozinka ?? "";
-    String basicAuth =
-        "Basic ${base64Encode(utf8.encode('$username:$password'))}";
-    var headers = {
-      "Content-Type": "application/json",
-      "Authorization": basicAuth
-    };
-
-    return headers;
   }
 }

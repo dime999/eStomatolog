@@ -2,6 +2,7 @@ import 'package:estomatolog_admin/providers/doktor_ordinacija_provider.dart';
 import 'package:estomatolog_admin/providers/doktor_provider.dart';
 import 'package:estomatolog_admin/providers/grad_provider.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
+import 'package:estomatolog_admin/providers/login_provider.dart';
 import 'package:estomatolog_admin/providers/nalaz_provider.dart';
 import 'package:estomatolog_admin/providers/ocjene_provider.dart';
 import 'package:estomatolog_admin/providers/ordinacija_provider.dart';
@@ -30,7 +31,8 @@ void main() {
       ChangeNotifierProvider(create: (_) => RezervacijaProvider()),
       ChangeNotifierProvider(create: (_) => DoktorOrdinacijaProvider()),
       ChangeNotifierProvider(create: (_) => PoklonBonProvider()),
-      ChangeNotifierProvider(create: (_) => OcjeneProvider())
+      ChangeNotifierProvider(create: (_) => OcjeneProvider()),
+      ChangeNotifierProvider(create: (_) => LoginProvider()),
     ],
     child: const MyApp(),
   ));
