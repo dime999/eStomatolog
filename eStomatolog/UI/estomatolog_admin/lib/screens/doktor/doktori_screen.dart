@@ -48,7 +48,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
     _korisniciProvider = Provider.of<KorisniciProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Doktori'),
+        title: const Text('Doktori'),
       ),
       body: ValueListenableBuilder<String>(
         valueListenable: searchQueryNotifier,
@@ -73,8 +73,8 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: Text("Potvrda"),
-                    content: Text(
+                    title: const Text("Potvrda"),
+                    content: const Text(
                         "Da li ste sigurni da želite izbrisati korisnika?"),
                     actions: [
                       TextButton(
@@ -87,7 +87,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                               doktori = updatedDoktori;
                             });
                             Navigator.pop(context); // Zatvori dialog
-                          } on Exception catch (e) {
+                          } on Exception {
                             String errorMessage =
                                 "Nije moguće izbrisati odabranog pacijenta!";
                             // Prikaži grešku ako brisanje nije uspelo
@@ -95,12 +95,12 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  title: Text("Greška"),
+                                  title: const Text("Greška"),
                                   content: Text(errorMessage),
                                   actions: [
                                     TextButton(
                                       onPressed: () => Navigator.pop(context),
-                                      child: Text("OK"),
+                                      child: const Text("OK"),
                                     ),
                                   ],
                                 );
@@ -108,12 +108,12 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                             );
                           }
                         },
-                        child: Text("Da"),
+                        child: const Text("Da"),
                       ),
                       TextButton(
                         onPressed: () => Navigator.pop(
                             context), // Zatvori dialog ako korisnik odabere "Ne"
-                        child: Text("Ne"),
+                        child: const Text("Ne"),
                       ),
                     ],
                   );
@@ -129,13 +129,13 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AddDoctorScreen(),
+              builder: (context) => const AddDoctorScreen(),
             ),
           );
         },
-        child: Icon(Icons.add),
         backgroundColor: Colors.blue,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        child: const Icon(Icons.add),
       ),
     );
   }

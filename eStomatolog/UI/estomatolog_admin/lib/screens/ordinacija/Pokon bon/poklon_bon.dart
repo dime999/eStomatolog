@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 class PoklonBonScreen extends StatefulWidget {
   final int ordinacijaId;
-  PoklonBonScreen({required this.ordinacijaId});
+  const PoklonBonScreen({super.key, required this.ordinacijaId});
   @override
   _PoklonBonScreenScreenState createState() => _PoklonBonScreenScreenState();
 }
@@ -26,23 +26,23 @@ class _PoklonBonScreenScreenState extends State<PoklonBonScreen> {
     _poklonBonProvider = Provider.of<PoklonBonProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Poklon bonovi'),
+        title: const Text('Poklon bonovi'),
       ),
       body: Center(
         child: FutureBuilder<List<PoklonBon>>(
           future: fetchBonovi(context),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             } else if (snapshot.hasError) {
               return Text('Greška: ${snapshot.error}');
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return Center(child: Text('Nema dostupnih bonova.'));
+              return const Center(child: Text('Nema dostupnih bonova.'));
             } else {
               return Expanded(
                 child: ListView(scrollDirection: Axis.vertical, children: [
                   DataTable(
-                    columns: <DataColumn>[
+                    columns: const <DataColumn>[
                       DataColumn(
                         label: SizedBox(
                           width: 50,
@@ -100,7 +100,7 @@ class _PoklonBonScreenScreenState extends State<PoklonBonScreen> {
                       return DataRow(
                         cells: <DataCell>[
                           DataCell(Text(
-                              bon.pacijentIme! + ' ' + bon.pacijentPrezime ??
+                              '${bon.pacijentIme} ${bon.pacijentPrezime}' ??
                                   'N/A')),
                           DataCell(Text(bon.ordinacijaNaziv ?? 'N/A')),
                           DataCell(Text(
@@ -109,14 +109,14 @@ class _PoklonBonScreenScreenState extends State<PoklonBonScreen> {
                           DataCell(Text(bon.iznosPlacanja.toString())),
                           DataCell(
                             Text(
-                              '$placeno' ?? 'N/A',
+                              placeno ?? 'N/A',
                               style: TextStyle(
                                   color: jeAktivna ? Colors.green : Colors.red),
                             ),
                           ),
                           DataCell(
                             Text(
-                              '$status' ?? 'N/A',
+                              status ?? 'N/A',
                               style: TextStyle(
                                   color: jeAktivna ? Colors.green : Colors.red),
                             ),
@@ -128,8 +128,8 @@ class _PoklonBonScreenScreenState extends State<PoklonBonScreen> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: Text("Potvrda"),
-                                      content: Text(
+                                      title: const Text("Potvrda"),
+                                      content: const Text(
                                           "Da li ste sigurni da želite izbrisati poklon bon?"),
                                       actions: [
                                         TextButton(
@@ -145,7 +145,7 @@ class _PoklonBonScreenScreenState extends State<PoklonBonScreen> {
 
                                               Navigator.pop(
                                                   context); // Zatvori dialog
-                                            } on Exception catch (e) {
+                                            } on Exception {
                                               String errorMessage =
                                                   "Nije moguće izbrisati odabrani poklon bon!";
                                               // Prikaži grešku ako brisanje nije uspelo
@@ -154,14 +154,14 @@ class _PoklonBonScreenScreenState extends State<PoklonBonScreen> {
                                                 builder:
                                                     (BuildContext context) {
                                                   return AlertDialog(
-                                                    title: Text("Greška"),
+                                                    title: const Text("Greška"),
                                                     content: Text(errorMessage),
                                                     actions: [
                                                       TextButton(
                                                         onPressed: () =>
                                                             Navigator.pop(
                                                                 context),
-                                                        child: Text("OK"),
+                                                        child: const Text("OK"),
                                                       ),
                                                     ],
                                                   );
@@ -169,19 +169,19 @@ class _PoklonBonScreenScreenState extends State<PoklonBonScreen> {
                                               );
                                             }
                                           },
-                                          child: Text("Da"),
+                                          child: const Text("Da"),
                                         ),
                                         TextButton(
                                           onPressed: () =>
                                               Navigator.pop(context),
-                                          child: Text("Ne"),
+                                          child: const Text("Ne"),
                                         ),
                                       ],
                                     );
                                   },
                                 );
                               },
-                              child: Icon(Icons.delete),
+                              child: const Icon(Icons.delete),
                             ),
                           ),
                         ],

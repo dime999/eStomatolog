@@ -11,6 +11,8 @@ import 'package:provider/provider.dart';
 import 'package:multiselect/multiselect.dart';
 
 class RegistracijaScreen extends StatefulWidget {
+  const RegistracijaScreen({super.key});
+
   @override
   _RegistracijatScreenState createState() => _RegistracijatScreenState();
 }
@@ -106,7 +108,7 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registracija doktora'),
+        title: const Text('Registracija doktora'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -114,11 +116,11 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Lični podaci korisnika',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -127,26 +129,26 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _buildFormField('Ime', imeController),
-                        SizedBox(height: 16.0),
+                        const SizedBox(height: 16.0),
                         _buildFormField('Prezime', prezimeController),
-                        SizedBox(height: 16.0),
+                        const SizedBox(height: 16.0),
                         _buildFormField('Email', emailController),
-                        SizedBox(height: 16.0),
+                        const SizedBox(height: 16.0),
                         _buildFormField('Telefon', telefonController),
-                        SizedBox(height: 16.0),
+                        const SizedBox(height: 16.0),
                         _buildFormField(
                             'Korisničko ime', korisnickoImeController),
-                        SizedBox(height: 16.0),
+                        const SizedBox(height: 16.0),
                         _buildPasswordField('Lozinka', lozinkaController),
-                        SizedBox(height: 16.0),
+                        const SizedBox(height: 16.0),
                         _buildPasswordField(
                             'Lozinka potvrda', lozinkaPotvrdaController),
-                        SizedBox(height: 32.0),
+                        const SizedBox(height: 32.0),
                         _buildStatusField(),
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                       width: 32.0), // Razmak između lijevog i desnog stupca
                   Expanded(
                     child: Column(
@@ -154,11 +156,11 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
                       children: [
                         _buildMultiselectSpecijalizacije(
                             'Specijalizacije', context),
-                        SizedBox(height: 32.0),
+                        const SizedBox(height: 32.0),
                         _buildMultiselectOrdinacije('Ordinacije', context),
-                        SizedBox(height: 32.0),
+                        const SizedBox(height: 32.0),
                         _buildSingleSelectGrad('Gradovi', context),
-                        SizedBox(height: 32.0),
+                        const SizedBox(height: 32.0),
                         _buildSaveButton(),
                       ],
                     ),
@@ -177,7 +179,7 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: DropDownMultiSelect(
@@ -204,7 +206,7 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: DropDownMultiSelect(
@@ -230,7 +232,7 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
     return Container(
       decoration: BoxDecoration(
         border:
-            Border.all(color: Color.fromARGB(255, 146, 140, 140), width: 1.0),
+            Border.all(color: const Color.fromARGB(255, 146, 140, 140), width: 1.0),
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Padding(
@@ -240,7 +242,7 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
           children: [
             Text(
               label,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
@@ -272,17 +274,17 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
 
   Widget _buildFormField(String label, TextEditingController controller,
       {bool isObscure = false}) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(label),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
           TextField(
             controller: controller,
             obscureText: isObscure,
-            decoration: InputDecoration(border: OutlineInputBorder()),
+            decoration: const InputDecoration(border: OutlineInputBorder()),
           ),
         ],
       ),
@@ -290,17 +292,17 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
   }
 
   Widget _buildPasswordField(String label, TextEditingController controller) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(label),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
           TextField(
             controller: controller,
             obscureText: true,
-            decoration: InputDecoration(border: OutlineInputBorder()),
+            decoration: const InputDecoration(border: OutlineInputBorder()),
           ),
         ],
       ),
@@ -308,13 +310,13 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
   }
 
   Widget _buildStatusField() {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Status'),
-          SizedBox(height: 8.0),
+          const Text('Status'),
+          const SizedBox(height: 8.0),
           Switch(
             value: status,
             onChanged: (newValue) {
@@ -330,7 +332,7 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
 
   Widget _buildSaveButton() {
     _korisniciProvider = Provider.of<KorisniciProvider>(context, listen: false);
-    Korisnik korisnik = new Korisnik(
+    Korisnik korisnik = Korisnik(
         imeController.text,
         prezimeController.text,
         emailController.text,
@@ -343,7 +345,7 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
         odabraneOrdinacije,
         lozinkaController.text,
         lozinkaPotvrdaController.text);
-    return Container(
+    return SizedBox(
       width: 200.0,
       child: ElevatedButton(
         onPressed: () async {
@@ -351,15 +353,15 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Text("Potvrda ažuriranja"),
-                content: Text(
+                title: const Text("Potvrda ažuriranja"),
+                content: const Text(
                     "Da li ste sigurni da želite dodati korisnika sa unesenim informacijama?"),
                 actions: [
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: Text("Otkaži"),
+                    child: const Text("Otkaži"),
                   ),
                   TextButton(
                     onPressed: () async {
@@ -372,14 +374,14 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
                         Navigator.of(context).pop();
                       }
                     },
-                    child: Text("Potvrdi"),
+                    child: const Text("Potvrdi"),
                   ),
                 ],
               );
             },
           );
         },
-        child: Text('Spremi'),
+        child: const Text('Spremi'),
       ),
     );
   }

@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 class NalaziScreen extends StatelessWidget {
   final int pacijentId;
 
-  NalaziScreen({required this.pacijentId});
+  const NalaziScreen({super.key, required this.pacijentId});
 
   Future<Pacijent> fetchPacijent(BuildContext context, int id) async {
     var pacijentProvider =
@@ -19,7 +19,7 @@ class NalaziScreen extends StatelessWidget {
   }
 
   Future<List<Nalaz>> fetchNalazi(BuildContext context) async {
-    Pacijent pacijent = await fetchPacijent(context, pacijentId) as Pacijent;
+    Pacijent pacijent = await fetchPacijent(context, pacijentId);
     var nalaziProvider = Provider.of<NalazProvider>(context, listen: false);
     var fetchedNalazi = await nalaziProvider.getByPacijentId(pacijent.id);
     return fetchedNalazi.result;
@@ -33,11 +33,11 @@ class NalaziScreen extends StatelessWidget {
           future: fetchPacijent(context, pacijentId),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text('Lista nalaza - Učitavanje...');
+              return const Text('Lista nalaza - Učitavanje...');
             } else if (snapshot.hasError) {
-              return Text('Greška pri dohvatu pacijenta.');
+              return const Text('Greška pri dohvatu pacijenta.');
             } else if (!snapshot.hasData) {
-              return Text('Nema dostupnih podataka o pacijentu.');
+              return const Text('Nema dostupnih podataka o pacijentu.');
             } else {
               Pacijent pacijent = snapshot.data!;
               return Text('Lista nalaza - ${pacijent.ime} ${pacijent.prezime}');
@@ -49,11 +49,11 @@ class NalaziScreen extends StatelessWidget {
         future: fetchNalazi(context),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Greška pri dohvatu nalaza.'));
+            return const Center(child: Text('Greška pri dohvatu nalaza.'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('Nema dostupnih nalaza.'));
+            return const Center(child: Text('Nema dostupnih nalaza.'));
           } else {
             List<Nalaz> nalazi = snapshot.data!;
             return ListView.builder(
@@ -81,8 +81,8 @@ class NalaziScreen extends StatelessWidget {
             ),
           );
         },
-        child: Icon(Icons.add),
         tooltip: 'Dodaj novi nalaz',
+        child: const Icon(Icons.add),
       ),
     );
   }

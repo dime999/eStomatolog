@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 
 class PacijentOrdinacijaScreen extends StatefulWidget {
   final int ordinacijaId;
-  PacijentOrdinacijaScreen({required this.ordinacijaId});
+  const PacijentOrdinacijaScreen({super.key, required this.ordinacijaId});
   @override
   _PacijentOrdinacijaScreenState createState() =>
       _PacijentOrdinacijaScreenState();
@@ -63,11 +63,11 @@ class _PacijentOrdinacijaScreenState extends State<PacijentOrdinacijaScreen> {
           future: fetchOrdinacija(context),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text('Lista pacijenata - Učitavanje...');
+              return const Text('Lista pacijenata - Učitavanje...');
             } else if (snapshot.hasError) {
-              return Text('Greška pri dohvatu pacijenata.');
+              return const Text('Greška pri dohvatu pacijenata.');
             } else if (!snapshot.hasData) {
-              return Text('Nema dostupnih podataka o pacijentu.');
+              return const Text('Nema dostupnih podataka o pacijentu.');
             } else {
               Ordinacija ordinacija = snapshot.data!;
               return Text(
@@ -105,13 +105,13 @@ class _PacijentOrdinacijaScreenState extends State<PacijentOrdinacijaScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AddPacijentScreen(),
+              builder: (context) => const AddPacijentScreen(),
             ),
           );
         },
-        child: Icon(Icons.add),
         backgroundColor: Colors.blue,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        child: const Icon(Icons.add),
       ),
     );
   }

@@ -8,8 +8,8 @@ import 'package:http/http.dart';
 
 class PoklonBonProvider with ChangeNotifier {
   static String? _baseUrl;
-  String _endpoint = "GetPoklonBonByOrdinacija/";
-  String _delete = "PoklonBon?id=";
+  final String _endpoint = "GetPoklonBonByOrdinacija/";
+  final String _delete = "PoklonBon?id=";
 
   PoklonBonProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
@@ -32,7 +32,7 @@ class PoklonBonProvider with ChangeNotifier {
 
       return result;
     } else {
-      throw new Exception("Nepoznata greška!");
+      throw Exception("Nepoznata greška!");
     }
   }
 
@@ -53,9 +53,9 @@ class PoklonBonProvider with ChangeNotifier {
     if (response.statusCode < 299) {
       return true;
     } else if (response.statusCode == 401) {
-      throw new Exception("Nije autorizovano");
+      throw Exception("Nije autorizovano");
     } else {
-      throw new Exception("Desila se greška");
+      throw Exception("Desila se greška");
     }
   }
 

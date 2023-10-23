@@ -8,8 +8,8 @@ import 'package:http/http.dart';
 
 class OcjeneProvider with ChangeNotifier {
   static String? _baseUrl;
-  String _endpoint = "GetOcjeneByDoktorId/";
-  String _delete = "Ocjene?id=";
+  final String _endpoint = "GetOcjeneByDoktorId/";
+  final String _delete = "Ocjene?id=";
 
   OcjeneProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
@@ -31,7 +31,7 @@ class OcjeneProvider with ChangeNotifier {
 
       return result;
     } else {
-      throw new Exception("Nepoznata greška!");
+      throw Exception("Nepoznata greška!");
     }
   }
 
@@ -52,9 +52,9 @@ class OcjeneProvider with ChangeNotifier {
     if (response.statusCode < 299) {
       return true;
     } else if (response.statusCode == 401) {
-      throw new Exception("Nije autorizovano");
+      throw Exception("Nije autorizovano");
     } else {
-      throw new Exception("Desila se greška");
+      throw Exception("Desila se greška");
     }
   }
 

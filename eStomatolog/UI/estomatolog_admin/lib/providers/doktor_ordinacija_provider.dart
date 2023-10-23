@@ -19,8 +19,8 @@ class DoktorOrdinacijaProvider extends BaseProvider<DoktorOrdinacija> {
   }
 
   Future<SearchResult<DoktorOrdinacija>> getByOrdinacijaId(int id) async {
-    String _endpoint = "GetByOrdinacijaId";
-    var url = "$_baseUrl$_endpoint/$id";
+    String endpoint = "GetByOrdinacijaId";
+    var url = "$_baseUrl$endpoint/$id";
     var uri = Uri.parse(url);
     var headers = createHeaders();
     var response = await http.get(uri, headers: headers);
@@ -34,7 +34,7 @@ class DoktorOrdinacijaProvider extends BaseProvider<DoktorOrdinacija> {
 
       return result;
     } else {
-      throw new Exception("Nepoznata greška!");
+      throw Exception("Nepoznata greška!");
     }
   }
 }

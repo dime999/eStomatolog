@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:estomatolog_admin/models/Ordinacija/ordinacija.dart';
 
 class OrdinacijaScreen extends StatefulWidget {
+  const OrdinacijaScreen({super.key});
+
   @override
   _OrdinacijaScreenState createState() => _OrdinacijaScreenState();
 }
@@ -20,7 +22,7 @@ class _OrdinacijaScreenState extends State<OrdinacijaScreen> {
         Provider.of<OrdinacijaProvider>(context, listen: false);
     var fetchedOrdinacije = await ordinacijaProvider.get();
     var filteredOrdinacije = fetchedOrdinacije.result.where((ordinacija) {
-      var naziv = ordinacija.naziv?.toLowerCase() ?? '';
+      var naziv = ordinacija.naziv.toLowerCase() ?? '';
 
       return naziv.contains(searchQuery.toLowerCase());
     }).toList();
@@ -41,7 +43,7 @@ class _OrdinacijaScreenState extends State<OrdinacijaScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lista ordinacija'),
+        title: const Text('Lista ordinacija'),
       ),
       body: ValueListenableBuilder<String>(
         valueListenable: searchQueryNotifier,

@@ -18,8 +18,8 @@ class DoktorProvider extends BaseProvider<Doktor> {
   }
 
   Future<dynamic> getByKorisnikId(id) async {
-    String _getByKorisnik = "GetByKorisnikId";
-    var url = "$_baseUrl$_getByKorisnik/${id}";
+    String getByKorisnik = "GetByKorisnikId";
+    var url = "$_baseUrl$getByKorisnik/$id";
     var uri = Uri.parse(url);
     var headers = createHeaders();
 
@@ -30,7 +30,7 @@ class DoktorProvider extends BaseProvider<Doktor> {
       doktor = Doktor.fromJson(data);
       return doktor;
     } else {
-      throw new Exception("Nepoznata greška!");
+      throw Exception("Nepoznata greška!");
     }
   }
 }

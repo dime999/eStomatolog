@@ -1,4 +1,3 @@
-import 'package:estomatolog_admin/providers/korisnici_provider.dart';
 import 'package:estomatolog_admin/providers/login_provider.dart';
 import 'package:estomatolog_admin/screens/home.dart';
 import 'package:estomatolog_admin/screens/registracija.dart';
@@ -7,23 +6,25 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
-  TextEditingController _korisnickoImeController = new TextEditingController();
-  TextEditingController _lozinkaController = new TextEditingController();
+  final TextEditingController _korisnickoImeController = TextEditingController();
+  final TextEditingController _lozinkaController = TextEditingController();
 
   late LoginProvider _loginProvider;
+
+  LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     _loginProvider = context.read<LoginProvider>();
     return Scaffold(
-      appBar: AppBar(title: Text("Prijavi se")),
+      appBar: AppBar(title: const Text("Prijavi se")),
       body: Center(
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(
+              const Text(
                 'eStomatolog',
                 style: TextStyle(
                   fontSize: 24,
@@ -31,17 +32,17 @@ class LoginPage extends StatelessWidget {
                   color: Colors.blue,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Image.asset(
                 "assets/images/logo.avif",
                 width: 300,
                 height: 300,
               ),
-              SizedBox(height: 20),
-              Container(
+              const SizedBox(height: 20),
+              SizedBox(
                 width: 300,
                 child: TextField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Korisničko ime',
                     prefixIcon: Icon(Icons.email),
                     border: OutlineInputBorder(),
@@ -49,12 +50,12 @@ class LoginPage extends StatelessWidget {
                   controller: _korisnickoImeController,
                 ),
               ),
-              SizedBox(height: 10),
-              Container(
+              const SizedBox(height: 10),
+              SizedBox(
                 width: 300,
                 child: TextField(
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.key),
                     labelText: 'Lozinka',
                     border: OutlineInputBorder(),
@@ -62,7 +63,7 @@ class LoginPage extends StatelessWidget {
                   controller: _lozinkaController,
                 ),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () async {
                   var korisnickoIme = _korisnickoImeController.text;
@@ -73,22 +74,22 @@ class LoginPage extends StatelessWidget {
                     await _loginProvider.login();
                     Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                      MaterialPageRoute(builder: (context) => const HomeScreen()),
                       (route) => false,
                     );
-                  } on Exception catch (e) {
+                  } on Exception {
                     String errorMessage =
                         "Netačno korisničko ime ili lozinka. Molimo pokušajte ponovo.";
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text("Greška"),
+                          title: const Text("Greška"),
                           content: Text(errorMessage),
                           actions: [
                             TextButton(
                               onPressed: () => Navigator.pop(context),
-                              child: Text("OK"),
+                              child: const Text("OK"),
                             ),
                           ],
                         );
@@ -96,7 +97,7 @@ class LoginPage extends StatelessWidget {
                     );
                   }
                 },
-                child: Padding(
+                child: const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   child: Text(
                     'Prijavi se',
@@ -104,13 +105,13 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => RegistracijaScreen()));
+                      builder: (context) => const RegistracijaScreen()));
                 },
-                child: Text(
+                child: const Text(
                   'Nemate račun? Registruj se!',
                   style: TextStyle(color: Colors.blue),
                 ),

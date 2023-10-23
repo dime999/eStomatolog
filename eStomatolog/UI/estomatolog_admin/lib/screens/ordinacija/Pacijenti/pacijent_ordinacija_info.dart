@@ -1,11 +1,7 @@
 import 'package:estomatolog_admin/models/Korisnik/korisnik.dart';
-import 'package:estomatolog_admin/models/Pacijent/pacijent.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
-import 'package:estomatolog_admin/providers/pacijent_provider.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Nalazi/nalazi_lista.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Pacijenti/pacijent_rezervacije.dart';
-import 'package:estomatolog_admin/screens/ordinacija/Pacijenti/pacijenti_ordinacija_lista.dart';
-import 'package:estomatolog_admin/screens/ordinacija/ordinacije_screen.dart';
 import 'package:estomatolog_admin/screens/pacijent/edit_pacijent_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:estomatolog_admin/utils/util.dart';
@@ -14,8 +10,8 @@ import 'package:provider/provider.dart';
 class PacijentOrdinacijaInfoScreen extends StatelessWidget {
   final int ordinacijaId;
   final int pacijentId;
-  PacijentOrdinacijaInfoScreen(
-      {required this.ordinacijaId, required this.pacijentId});
+  const PacijentOrdinacijaInfoScreen(
+      {super.key, required this.ordinacijaId, required this.pacijentId});
 
   Future<Korisnik> fetchPacijent(BuildContext context) async {
     var pacijentProvider =
@@ -32,11 +28,11 @@ class PacijentOrdinacijaInfoScreen extends StatelessWidget {
           future: fetchPacijent(context),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text('Lista nalaza - Učitavanje...');
+              return const Text('Lista nalaza - Učitavanje...');
             } else if (snapshot.hasError) {
-              return Text('Greška pri dohvatu pacijenta.');
+              return const Text('Greška pri dohvatu pacijenta.');
             } else if (!snapshot.hasData) {
-              return Text('Nema dostupnih podataka o pacijentu.');
+              return const Text('Nema dostupnih podataka o pacijentu.');
             } else {
               Korisnik pacijent = snapshot.data!;
               return Text(
@@ -53,7 +49,7 @@ class PacijentOrdinacijaInfoScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 22.0),
                 child: Text(
                     'Prijavljeni doktor: ${Authorization.korisnickoIme}',
-                    style: TextStyle(fontSize: 16)),
+                    style: const TextStyle(fontSize: 16)),
               ),
             ),
           ),
@@ -63,7 +59,7 @@ class PacijentOrdinacijaInfoScreen extends StatelessWidget {
         crossAxisCount: 3,
         childAspectRatio: 1.2,
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: [
           CardItem(
               icon: Icons.medical_information,
@@ -92,8 +88,8 @@ class CardItem extends StatelessWidget {
   final int ordinacijaId;
   final int pacijentId;
 
-  CardItem(
-      {required this.icon,
+  const CardItem(
+      {super.key, required this.icon,
       required this.title,
       required this.ordinacijaId,
       required this.pacijentId});
@@ -101,7 +97,7 @@ class CardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(20.0),
+      margin: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.blue, width: 2.0),
         borderRadius: BorderRadius.circular(8.0),
@@ -140,8 +136,8 @@ class CardItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(icon, size: 60.0, color: Colors.blue),
-              SizedBox(height: 10.0),
-              Text(title, style: TextStyle(fontSize: 18.0)),
+              const SizedBox(height: 10.0),
+              Text(title, style: const TextStyle(fontSize: 18.0)),
             ],
           ),
         ),

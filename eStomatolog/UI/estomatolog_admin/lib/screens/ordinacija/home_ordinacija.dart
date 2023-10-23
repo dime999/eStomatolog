@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 
 class OrdinacijaHomeScreen extends StatelessWidget {
   final int ordinacijaId;
-  OrdinacijaHomeScreen({required this.ordinacijaId});
+  const OrdinacijaHomeScreen({super.key, required this.ordinacijaId});
   Future<Ordinacija> fetchOrdinacija(BuildContext context) async {
     var pacijentProvider =
         Provider.of<OrdinacijaProvider>(context, listen: false);
@@ -27,11 +27,11 @@ class OrdinacijaHomeScreen extends StatelessWidget {
           future: fetchOrdinacija(context),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text('Lista nalaza - Učitavanje...');
+              return const Text('Lista nalaza - Učitavanje...');
             } else if (snapshot.hasError) {
-              return Text('Greška pri dohvatu podataka o ordinaciji.');
+              return const Text('Greška pri dohvatu podataka o ordinaciji.');
             } else if (!snapshot.hasData) {
-              return Text('Nema dostupnih podataka o pacijentu.');
+              return const Text('Nema dostupnih podataka o pacijentu.');
             } else {
               Ordinacija ordinacija = snapshot.data!;
               return Text(
@@ -48,7 +48,7 @@ class OrdinacijaHomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 22.0),
                 child: Text(
                     'Prijavljeni korisnik: ${Authorization.korisnickoIme}',
-                    style: TextStyle(fontSize: 16)),
+                    style: const TextStyle(fontSize: 16)),
               ),
             ),
           ),
@@ -58,7 +58,7 @@ class OrdinacijaHomeScreen extends StatelessWidget {
         crossAxisCount: 3,
         childAspectRatio: 1.2,
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: [
           CardItem(
               icon: Icons.people,
@@ -95,13 +95,13 @@ class CardItem extends StatelessWidget {
   final String title;
   final int ordinacijaId;
 
-  CardItem(
-      {required this.icon, required this.title, required this.ordinacijaId});
+  const CardItem(
+      {super.key, required this.icon, required this.title, required this.ordinacijaId});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(20.0),
+      margin: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.blue, width: 2.0),
         borderRadius: BorderRadius.circular(8.0),
@@ -155,8 +155,8 @@ class CardItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(icon, size: 60.0, color: Colors.blue),
-              SizedBox(height: 10.0),
-              Text(title, style: TextStyle(fontSize: 18.0)),
+              const SizedBox(height: 10.0),
+              Text(title, style: const TextStyle(fontSize: 18.0)),
             ],
           ),
         ),

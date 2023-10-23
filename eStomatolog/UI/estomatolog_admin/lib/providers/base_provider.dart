@@ -30,7 +30,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
 
       return result;
     } else {
-      throw new Exception("Nepoznata greška!");
+      throw Exception("Nepoznata greška!");
     }
   }
 
@@ -46,12 +46,12 @@ abstract class BaseProvider<T> with ChangeNotifier {
       var data = jsonDecode(response.body);
       return fromJson(data);
     } else {
-      throw new Exception("Unknown error");
+      throw Exception("Unknown error");
     }
   }
 
   Future<T> getById(id) async {
-    var url = "$_baseUrl$_endpoint/${id}";
+    var url = "$_baseUrl$_endpoint/$id";
 
     var uri = Uri.parse(url);
     var headers = createHeaders();
@@ -61,12 +61,12 @@ abstract class BaseProvider<T> with ChangeNotifier {
       var data = jsonDecode(response.body);
       return fromJson(data);
     } else {
-      throw new Exception("Nepoznata greška!");
+      throw Exception("Nepoznata greška!");
     }
   }
 
   Future<void> delete(int id) async {
-    var url = "$_baseUrl$_endpoint?id=${id}";
+    var url = "$_baseUrl$_endpoint?id=$id";
     var uri = Uri.parse(url);
     var headers = createHeaders();
 
@@ -90,7 +90,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
       var data = jsonDecode(response.body);
       return fromJson(data);
     } else {
-      throw new Exception("Unknown error");
+      throw Exception("Unknown error");
     }
   }
 
@@ -102,9 +102,9 @@ abstract class BaseProvider<T> with ChangeNotifier {
     if (response.statusCode < 299) {
       return true;
     } else if (response.statusCode == 401) {
-      throw new Exception("Unauthorized");
+      throw Exception("Unauthorized");
     } else {
-      throw new Exception("Something bad happened please try again");
+      throw Exception("Something bad happened please try again");
     }
   }
 
@@ -143,7 +143,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
         }
         query += '$prefix$key=$encoded';
       } else if (value is DateTime) {
-        query += '$prefix$key=${(value as DateTime).toIso8601String()}';
+        query += '$prefix$key=${(value).toIso8601String()}';
       } else if (value is List || value is Map) {
         if (value is List) value = value.asMap();
         value.forEach((k, v) {

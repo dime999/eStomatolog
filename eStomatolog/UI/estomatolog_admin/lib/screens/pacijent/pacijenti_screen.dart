@@ -8,6 +8,8 @@ import 'package:estomatolog_admin/widgets/lista.dart';
 import 'package:provider/provider.dart';
 
 class PacijentScreen extends StatefulWidget {
+  const PacijentScreen({super.key});
+
   @override
   _PacijentScreenState createState() => _PacijentScreenState();
 }
@@ -46,7 +48,7 @@ class _PacijentScreenState extends State<PacijentScreen> {
     _korisniciProvider = Provider.of<KorisniciProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pacijenti'),
+        title: const Text('Pacijenti'),
       ),
       body: ValueListenableBuilder<String>(
         valueListenable: searchQueryNotifier,
@@ -71,8 +73,8 @@ class _PacijentScreenState extends State<PacijentScreen> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: Text("Potvrda"),
-                    content: Text(
+                    title: const Text("Potvrda"),
+                    content: const Text(
                         "Da li ste sigurni da želite izbrisati korisnika?"),
                     actions: [
                       TextButton(
@@ -86,7 +88,7 @@ class _PacijentScreenState extends State<PacijentScreen> {
                               pacijenti = updatedPacijenti;
                             });
                             Navigator.pop(context); // Zatvori dialog
-                          } on Exception catch (e) {
+                          } on Exception {
                             String errorMessage =
                                 "Nije moguće izbrisati odabranog pacijenta!";
                             // Prikaži grešku ako brisanje nije uspelo
@@ -94,12 +96,12 @@ class _PacijentScreenState extends State<PacijentScreen> {
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  title: Text("Greška"),
+                                  title: const Text("Greška"),
                                   content: Text(errorMessage),
                                   actions: [
                                     TextButton(
                                       onPressed: () => Navigator.pop(context),
-                                      child: Text("OK"),
+                                      child: const Text("OK"),
                                     ),
                                   ],
                                 );
@@ -107,12 +109,12 @@ class _PacijentScreenState extends State<PacijentScreen> {
                             );
                           }
                         },
-                        child: Text("Da"),
+                        child: const Text("Da"),
                       ),
                       TextButton(
                         onPressed: () => Navigator.pop(
                             context), // Zatvori dialog ako korisnik odabere "Ne"
-                        child: Text("Ne"),
+                        child: const Text("Ne"),
                       ),
                     ],
                   );
@@ -128,13 +130,13 @@ class _PacijentScreenState extends State<PacijentScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AddPacijentScreen(),
+              builder: (context) => const AddPacijentScreen(),
             ),
           );
         },
-        child: Icon(Icons.add),
         backgroundColor: Colors.blue,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        child: const Icon(Icons.add),
       ),
     );
   }

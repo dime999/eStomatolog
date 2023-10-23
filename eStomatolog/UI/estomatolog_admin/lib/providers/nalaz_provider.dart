@@ -20,8 +20,8 @@ class NalazProvider extends BaseProvider<NalazInsert> {
   }
 
   Future<SearchResult<Nalaz>> getByPacijentId(int id) async {
-    String _endpoint = "GetByPacijent";
-    var url = "$_baseUrl$_endpoint/$id";
+    String endpoint = "GetByPacijent";
+    var url = "$_baseUrl$endpoint/$id";
     var uri = Uri.parse(url);
     var headers = createHeaders();
     var response = await http.get(uri, headers: headers);
@@ -34,7 +34,7 @@ class NalazProvider extends BaseProvider<NalazInsert> {
 
       return result;
     } else {
-      throw new Exception("Nepoznata greška!");
+      throw Exception("Nepoznata greška!");
     }
   }
 }

@@ -8,9 +8,9 @@ import 'package:http/http.dart';
 
 class RezervacijaProvider with ChangeNotifier {
   static String? _baseUrl;
-  String _endpoint = "GetRezervacijeByOrdinacija/";
-  String _endpointDelete = "Rezervacija?id=";
-  String _endpointPacijent = "GetRezervacijeByPacijent";
+  final String _endpoint = "GetRezervacijeByOrdinacija/";
+  final String _endpointDelete = "Rezervacija?id=";
+  final String _endpointPacijent = "GetRezervacijeByPacijent";
   RezervacijaProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue: "https://localhost:7265/");
@@ -33,7 +33,7 @@ class RezervacijaProvider with ChangeNotifier {
 
       return result;
     } else {
-      throw new Exception("Nepoznata greška!");
+      throw Exception("Nepoznata greška!");
     }
   }
 
@@ -56,7 +56,7 @@ class RezervacijaProvider with ChangeNotifier {
 
       return result;
     } else {
-      throw new Exception("Nepoznata greška!");
+      throw Exception("Nepoznata greška!");
     }
   }
 
@@ -77,9 +77,9 @@ class RezervacijaProvider with ChangeNotifier {
     if (response.statusCode < 299) {
       return true;
     } else if (response.statusCode == 401) {
-      throw new Exception("Nije autorizovano");
+      throw Exception("Nije autorizovano");
     } else {
-      throw new Exception("Desila se greška");
+      throw Exception("Desila se greška");
     }
   }
 

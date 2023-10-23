@@ -1,5 +1,4 @@
 import 'package:estomatolog_admin/models/Doktor/doktor.dart';
-import 'package:estomatolog_admin/models/Korisnik/korisnik.dart';
 import 'package:estomatolog_admin/models/Korisnik/korisnik_basic.dart';
 import 'package:estomatolog_admin/models/Nalaz/nalaz_insert.dart';
 import 'package:estomatolog_admin/models/Pacijent/pacijent.dart';
@@ -9,13 +8,12 @@ import 'package:estomatolog_admin/providers/nalaz_provider.dart';
 import 'package:estomatolog_admin/providers/pacijent_provider.dart';
 import 'package:estomatolog_admin/utils/util.dart';
 import 'package:flutter/material.dart';
-import 'package:multiselect/multiselect.dart';
 import 'package:provider/provider.dart';
 
 class DodajNalazScreen extends StatefulWidget {
   final int pacijentId;
 
-  DodajNalazScreen({required this.pacijentId});
+  const DodajNalazScreen({super.key, required this.pacijentId});
 
   @override
   _DodajNalazScreenState createState() => _DodajNalazScreenState();
@@ -59,11 +57,11 @@ class _DodajNalazScreenState extends State<DodajNalazScreen> {
           future: fetchPacijent(context),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text('Dodaj nalaz - Učitavanje...');
+              return const Text('Dodaj nalaz - Učitavanje...');
             } else if (snapshot.hasError) {
-              return Text('Greška pri dohvatu pacijenta.');
+              return const Text('Greška pri dohvatu pacijenta.');
             } else if (!snapshot.hasData) {
-              return Text('Nema dostupnih podataka o pacijentu.');
+              return const Text('Nema dostupnih podataka o pacijentu.');
             } else {
               pacijent = snapshot.data!;
               return Text(
@@ -73,20 +71,20 @@ class _DodajNalazScreenState extends State<DodajNalazScreen> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
               controller: opisController,
               maxLines: 5,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Unesite opis nalaza',
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Text('Datum: ${DateTime.now().toString()}'),
-            Spacer(),
+            const Spacer(),
             ElevatedButton(
               onPressed: () async {
                 try {
@@ -101,7 +99,7 @@ class _DodajNalazScreenState extends State<DodajNalazScreen> {
                   Navigator.of(context).pop();
                 }
               },
-              child: Text('Snimi nalaz'),
+              child: const Text('Snimi nalaz'),
             ),
           ],
         ),

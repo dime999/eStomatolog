@@ -6,7 +6,7 @@ import 'package:http/http.dart';
 
 class LoginProvider with ChangeNotifier {
   static String? _baseUrl;
-  String _login_endpoint = "Login";
+  final String _login_endpoint = "Login";
   LoginProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue: "https://localhost:7265/");
@@ -23,7 +23,7 @@ class LoginProvider with ChangeNotifier {
       var data = jsonDecode(response.body);
       return data;
     } else {
-      throw new Exception("Nepoznata greška!");
+      throw Exception("Nepoznata greška!");
     }
   }
 
@@ -31,9 +31,9 @@ class LoginProvider with ChangeNotifier {
     if (response.statusCode < 299) {
       return true;
     } else if (response.statusCode == 401) {
-      throw new Exception("Nije autorizovano");
+      throw Exception("Nije autorizovano");
     } else {
-      throw new Exception("Desila se greška");
+      throw Exception("Desila se greška");
     }
   }
 

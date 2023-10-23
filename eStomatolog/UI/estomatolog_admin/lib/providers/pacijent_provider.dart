@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:estomatolog_admin/models/Doktor/doktor.dart';
 import 'package:estomatolog_admin/models/Pacijent/pacijent.dart';
 import 'package:estomatolog_admin/providers/base_provider.dart';
 import 'package:http/http.dart' as http;
@@ -19,8 +18,8 @@ class PacijentProvider extends BaseProvider<Pacijent> {
   }
 
   Future<dynamic> getByKorisnikId(id) async {
-    String _getByKorisnik = "GetPacijentByKorisnikId";
-    var url = "$_baseUrl$_getByKorisnik/${id}";
+    String getByKorisnik = "GetPacijentByKorisnikId";
+    var url = "$_baseUrl$getByKorisnik/$id";
     var uri = Uri.parse(url);
     var headers = createHeaders();
     var response = await http.get(uri, headers: headers);
@@ -30,7 +29,7 @@ class PacijentProvider extends BaseProvider<Pacijent> {
       doktor = Pacijent.fromJson(data);
       return doktor;
     } else {
-      throw new Exception("Nepoznata greška!");
+      throw Exception("Nepoznata greška!");
     }
   }
 }

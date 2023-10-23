@@ -9,8 +9,8 @@ import 'package:provider/provider.dart';
 class RezervacijaPacijentScreen extends StatefulWidget {
   final int ordinacijaId;
   final int pacijentId;
-  RezervacijaPacijentScreen(
-      {required this.ordinacijaId, required this.pacijentId});
+  const RezervacijaPacijentScreen(
+      {super.key, required this.ordinacijaId, required this.pacijentId});
   @override
   _RezervacijaScreenState createState() => _RezervacijaScreenState();
 }
@@ -48,15 +48,15 @@ class _RezervacijaScreenState extends State<RezervacijaPacijentScreen> {
           future: fetchPacijent(context),
           builder: (BuildContext context, AsyncSnapshot<Pacijent> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text('Učitavanje...');
+              return const Text('Učitavanje...');
             } else if (snapshot.hasError) {
-              return Text('Greška pri učitavanju pacijenta');
+              return const Text('Greška pri učitavanju pacijenta');
             } else if (snapshot.hasData) {
               var pacijent = snapshot.data;
               return Text(
                   'Rezervacije za ${pacijent!.ime} ${pacijent.prezime}');
             } else {
-              return Text('Nema podataka o pacijentu');
+              return const Text('Nema podataka o pacijentu');
             }
           },
         ),
@@ -66,16 +66,16 @@ class _RezervacijaScreenState extends State<RezervacijaPacijentScreen> {
           future: fetchRezervacije(context),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             } else if (snapshot.hasError) {
               return Text('Greška: ${snapshot.error}');
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return Center(child: Text('Nema dostupnih rezervacija.'));
+              return const Center(child: Text('Nema dostupnih rezervacija.'));
             } else {
               return Expanded(
                 child: ListView(scrollDirection: Axis.vertical, children: [
                   DataTable(
-                    columns: <DataColumn>[
+                    columns: const <DataColumn>[
                       DataColumn(
                         label: SizedBox(
                           width: 100,
@@ -124,21 +124,15 @@ class _RezervacijaScreenState extends State<RezervacijaPacijentScreen> {
                       String status = jeAktivna ? 'AKTIVNO' : 'NEAKTIVNO';
                       return DataRow(
                         cells: <DataCell>[
-                          DataCell(Text(rezervacija.pacijentIme! +
-                                  ' ' +
-                                  rezervacija.pacijentPrezime ??
+                          DataCell(Text('${rezervacija.pacijentIme!} ${rezervacija.pacijentPrezime}' ??
                               'N/A')),
-                          DataCell(Text(rezervacija.doktorIme! +
-                                  ' ' +
-                                  rezervacija.doktorPrezime ??
+                          DataCell(Text('${rezervacija.doktorIme!} ${rezervacija.doktorPrezime}' ??
                               'N/A')),
                           DataCell(Text(rezervacija.ordinacijaNaziv ?? 'N/A')),
                           DataCell(Text(rezervacija.email ?? 'N/A')),
                           DataCell(
                             Text(
-                              '$status: $formattedDate' +
-                                      ' / ' +
-                                      '$formattedTime' ??
+                              '$status: $formattedDate / $formattedTime' ??
                                   'N/A',
                               style: TextStyle(
                                   color: jeAktivna ? Colors.green : Colors.red),
@@ -151,8 +145,8 @@ class _RezervacijaScreenState extends State<RezervacijaPacijentScreen> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: Text("Potvrda"),
-                                      content: Text(
+                                      title: const Text("Potvrda"),
+                                      content: const Text(
                                           "Da li ste sigurni da želite izbrisati rezervaciju?"),
                                       actions: [
                                         TextButton(
@@ -170,7 +164,7 @@ class _RezervacijaScreenState extends State<RezervacijaPacijentScreen> {
 
                                               Navigator.pop(
                                                   context); // Zatvori dialog
-                                            } on Exception catch (e) {
+                                            } on Exception {
                                               String errorMessage =
                                                   "Nije moguće izbrisati odabranu rezervaciju!";
                                               // Prikaži grešku ako brisanje nije uspelo
@@ -179,14 +173,14 @@ class _RezervacijaScreenState extends State<RezervacijaPacijentScreen> {
                                                 builder:
                                                     (BuildContext context) {
                                                   return AlertDialog(
-                                                    title: Text("Greška"),
+                                                    title: const Text("Greška"),
                                                     content: Text(errorMessage),
                                                     actions: [
                                                       TextButton(
                                                         onPressed: () =>
                                                             Navigator.pop(
                                                                 context),
-                                                        child: Text("OK"),
+                                                        child: const Text("OK"),
                                                       ),
                                                     ],
                                                   );
@@ -194,19 +188,19 @@ class _RezervacijaScreenState extends State<RezervacijaPacijentScreen> {
                                               );
                                             }
                                           },
-                                          child: Text("Da"),
+                                          child: const Text("Da"),
                                         ),
                                         TextButton(
                                           onPressed: () =>
                                               Navigator.pop(context),
-                                          child: Text("Ne"),
+                                          child: const Text("Ne"),
                                         ),
                                       ],
                                     );
                                   },
                                 );
                               },
-                              child: Icon(Icons.delete),
+                              child: const Icon(Icons.delete),
                             ),
                           ),
                         ],

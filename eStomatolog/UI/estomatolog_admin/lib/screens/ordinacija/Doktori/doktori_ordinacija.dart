@@ -6,13 +6,12 @@ import 'package:estomatolog_admin/screens/ordinacija/Ocjene/ocjene_screen.dart';
 import 'package:estomatolog_admin/widgets/lista_edit.dart';
 import 'package:flutter/material.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
-import 'package:estomatolog_admin/widgets/lista.dart';
 import 'package:provider/provider.dart';
 
 // ignore: use_key_in_widget_constructors
 class DoctorsOrdinacijaScreen extends StatefulWidget {
   final int ordinacijaId;
-  DoctorsOrdinacijaScreen({required this.ordinacijaId});
+  const DoctorsOrdinacijaScreen({super.key, required this.ordinacijaId});
   @override
   // ignore: library_private_types_in_public_api
   _DoctorsOrdinacijaScreenState createState() =>
@@ -55,7 +54,7 @@ class _DoctorsOrdinacijaScreenState extends State<DoctorsOrdinacijaScreen> {
     _korisniciProvider = Provider.of<KorisniciProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Doktori'),
+        title: const Text('Doktori'),
       ),
       body: ValueListenableBuilder<String>(
         valueListenable: searchQueryNotifier,
@@ -94,13 +93,13 @@ class _DoctorsOrdinacijaScreenState extends State<DoctorsOrdinacijaScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AddDoctorScreen(),
+              builder: (context) => const AddDoctorScreen(),
             ),
           );
         },
-        child: Icon(Icons.add),
         backgroundColor: Colors.blue,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        child: const Icon(Icons.add),
       ),
     );
   }

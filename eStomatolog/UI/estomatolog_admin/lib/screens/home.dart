@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:estomatolog_admin/utils/util.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Početna Stranica'),
+        title: const Text('Početna Stranica'),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -19,7 +21,7 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 22.0),
                 child: Text(
                     'Prijavljeni korisnik: ${Authorization.korisnickoIme}',
-                    style: TextStyle(fontSize: 16)),
+                    style: const TextStyle(fontSize: 16)),
               ),
             ),
           ),
@@ -29,8 +31,8 @@ class HomeScreen extends StatelessWidget {
         crossAxisCount: 3,
         childAspectRatio: 1.2,
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        children: [
+        physics: const NeverScrollableScrollPhysics(),
+        children: const [
           CardItem(icon: Icons.people, title: 'Pacijenti'),
           CardItem(icon: Icons.medical_services, title: 'Doktori'),
           CardItem(icon: Icons.local_hospital, title: 'Ordinacije'),
@@ -44,12 +46,12 @@ class CardItem extends StatelessWidget {
   final IconData icon;
   final String title;
 
-  CardItem({required this.icon, required this.title});
+  const CardItem({super.key, required this.icon, required this.title});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(20.0),
+      margin: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.blue, width: 2.0),
         borderRadius: BorderRadius.circular(8.0),
@@ -66,12 +68,12 @@ class CardItem extends StatelessWidget {
             } else if (icon == Icons.people && title == 'Pacijenti') {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => PacijentScreen()),
+                MaterialPageRoute(builder: (context) => const PacijentScreen()),
               );
             } else if (icon == Icons.local_hospital && title == 'Ordinacije') {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => OrdinacijaScreen()),
+                MaterialPageRoute(builder: (context) => const OrdinacijaScreen()),
               );
             }
           },
@@ -79,8 +81,8 @@ class CardItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(icon, size: 60.0, color: Colors.blue),
-              SizedBox(height: 10.0),
-              Text(title, style: TextStyle(fontSize: 18.0)),
+              const SizedBox(height: 10.0),
+              Text(title, style: const TextStyle(fontSize: 18.0)),
             ],
           ),
         ),

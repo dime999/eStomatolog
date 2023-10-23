@@ -9,7 +9,7 @@ class GenericListScreen<T> extends StatelessWidget {
   final void Function(T) onDeletePressed;
   final TextEditingController searchController;
 
-  GenericListScreen({
+  const GenericListScreen({super.key, 
     required this.fetchData,
     required this.getTitle,
     required this.getSubtitle,
@@ -27,7 +27,7 @@ class GenericListScreen<T> extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: TextField(
             controller: searchController,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: 'Pretraži...',
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -40,10 +40,10 @@ class GenericListScreen<T> extends StatelessWidget {
             future: fetchData(context),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 print(snapshot.error);
-                return Center(child: Text('Greška pri dohvatanju podataka'));
+                return const Center(child: Text('Greška pri dohvatanju podataka'));
               } else {
                 var items = snapshot.data!;
                 var filteredList = items.where((item) {
@@ -70,11 +70,11 @@ class GenericListScreen<T> extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
-                              icon: Icon(Icons.edit),
+                              icon: const Icon(Icons.edit),
                               onPressed: () => onEditPressed(item),
                             ),
                             IconButton(
-                              icon: Icon(Icons.delete),
+                              icon: const Icon(Icons.delete),
                               onPressed: () => onDeletePressed(item),
                             ),
                           ],

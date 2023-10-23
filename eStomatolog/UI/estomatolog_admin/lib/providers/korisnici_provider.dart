@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 
 class KorisniciProvider extends BaseProvider<Korisnik> {
   late String _baseUrl;
-  late String _endpoint = "Korisnik";
+  late final String _endpoint = "Korisnik";
   KorisniciProvider() : super("Korisnik") {
     _baseUrl = const String.fromEnvironment(
       "ApiUrl",
@@ -37,7 +37,7 @@ class KorisniciProvider extends BaseProvider<Korisnik> {
       korisnik = KorisnikBasic.fromJson(data);
       return korisnik;
     } else {
-      throw new Exception("Nepoznata greška!");
+      throw Exception("Nepoznata greška!");
     }
   }
 
@@ -54,7 +54,7 @@ class KorisniciProvider extends BaseProvider<Korisnik> {
       var data = jsonDecode(response.body);
       return PacijentInsertModel.fromJson(data);
     } else {
-      throw new Exception("Unknown error");
+      throw Exception("Unknown error");
     }
   }
 
@@ -70,7 +70,7 @@ class KorisniciProvider extends BaseProvider<Korisnik> {
       var data = jsonDecode(response.body);
       return DoktorUpdateModel.fromJson(data);
     } else {
-      throw new Exception("Unknown error");
+      throw Exception("Unknown error");
     }
   }
 
@@ -87,7 +87,7 @@ class KorisniciProvider extends BaseProvider<Korisnik> {
       var data = jsonDecode(response.body);
       return PacijentUpdateModel.fromJson(data);
     } else {
-      throw new Exception("Unknown error");
+      throw Exception("Unknown error");
     }
   }
 }

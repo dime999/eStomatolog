@@ -11,7 +11,7 @@ import '../../providers/ordinacija_provider.dart';
 
 class OrdinacijaDetaljiScreen extends StatefulWidget {
   final int ordinacijaId;
-  OrdinacijaDetaljiScreen({required this.ordinacijaId});
+  const OrdinacijaDetaljiScreen({super.key, required this.ordinacijaId});
 
   @override
   _OrdinacijaDetaljiScreenState createState() =>
@@ -112,19 +112,19 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
   Widget build(BuildContext context) {
     _slikaProvider = Provider.of<SlikaProvider>(context, listen: false);
     return Scaffold(
-        appBar: AppBar(title: Text("Ordinacija info")),
+        appBar: AppBar(title: const Text("Ordinacija info")),
         body: Center(
             child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Lični podaci pacijenta',
+                      const Text(
+                        'Osnovne informacije o ordinaciji:',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 16.0),
+                      const SizedBox(height: 16.0),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -132,7 +132,7 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                             child: Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: Container(
-                                padding: EdgeInsets.all(16.0),
+                                padding: const EdgeInsets.all(16.0),
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                       color: Colors.blue, width: 2.0),
@@ -142,18 +142,18 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     _buildFormField('Naziv', nazivController),
-                                    SizedBox(height: 16.0),
+                                    const SizedBox(height: 16.0),
                                     _buildFormField('Adresa', adresaController),
-                                    SizedBox(height: 16.0),
+                                    const SizedBox(height: 16.0),
                                     _buildFormField(
                                         'Telefon', telefonController),
                                     _buildFormFieldGrad(
                                         'Trenutni grad', gradController),
-                                    SizedBox(height: 16.0),
+                                    const SizedBox(height: 16.0),
                                     _buildSingleSelectGrad(
                                         'Odaberi drugi grad', context),
-                                    SizedBox(height: 16.0),
-                                    SizedBox(height: 32.0),
+                                    const SizedBox(height: 16.0),
+                                    const SizedBox(height: 32.0),
                                     _buildSaveButton(),
                                   ],
                                 ),
@@ -168,13 +168,13 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.waiting) {
-                                      return CircularProgressIndicator();
+                                      return const CircularProgressIndicator();
                                     } else if (snapshot.hasError) {
-                                      return Text(
+                                      return const Text(
                                           'Greška prilikom dohvata ID-ova slika.');
                                     } else if (!snapshot.hasData ||
                                         snapshot.data!.isEmpty) {
-                                      return Text(
+                                      return const Text(
                                           'Nema dostupnih ID-ova slika.');
                                     } else {
                                       List<int> slikeIds = snapshot.data!;
@@ -202,9 +202,10 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                                                     });
                                                   }
                                                 },
-                                                child: Text('Prethodna slika'),
+                                                child: const Text(
+                                                    'Prethodna slika'),
                                               ),
-                                              SizedBox(width: 20),
+                                              const SizedBox(width: 20),
                                               ElevatedButton(
                                                 onPressed: () {
                                                   if (currentIndex <
@@ -214,7 +215,8 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                                                     });
                                                   }
                                                 },
-                                                child: Text('Sljedeća slika'),
+                                                child: const Text(
+                                                    'Sljedeća slika'),
                                               ),
                                             ],
                                           ),
@@ -236,12 +238,13 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                                                 }
                                               },
                                               style: ElevatedButton.styleFrom(
-                                                padding: EdgeInsets.symmetric(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
                                                   horizontal: 32.0,
                                                   vertical: 16.0,
                                                 ),
                                               ),
-                                              child: Text(
+                                              child: const Text(
                                                 'Dodaj novu sliku',
                                                 style: TextStyle(
                                                   fontSize: 18.0,
@@ -258,8 +261,9 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                                                   builder:
                                                       (BuildContext context) {
                                                     return AlertDialog(
-                                                      title: Text("Potvrda"),
-                                                      content: Text(
+                                                      title:
+                                                          const Text("Potvrda"),
+                                                      content: const Text(
                                                           "Da li ste sigurni da želite izbrisati sliku?"),
                                                       actions: [
                                                         TextButton(
@@ -279,10 +283,11 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                                                                     (BuildContext
                                                                         context) {
                                                                   return AlertDialog(
-                                                                    title: Text(
+                                                                    title: const Text(
                                                                         "Potvrda"),
-                                                                    content: Text(
-                                                                        "Uspješno ste izbrisali sliku!"),
+                                                                    content:
+                                                                        const Text(
+                                                                            "Uspješno ste izbrisali sliku!"),
                                                                     actions: [
                                                                       TextButton(
                                                                         onPressed:
@@ -296,7 +301,7 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                                                                             print(e);
                                                                           }
                                                                         },
-                                                                        child: Text(
+                                                                        child: const Text(
                                                                             "OK"),
                                                                       ),
                                                                     ],
@@ -307,13 +312,15 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                                                               print(e);
                                                             }
                                                           },
-                                                          child: Text("Da"),
+                                                          child:
+                                                              const Text("Da"),
                                                         ),
                                                         TextButton(
                                                           onPressed: () =>
                                                               Navigator.pop(
                                                                   context), // Zatvori dialog ako korisnik odabere "Ne"
-                                                          child: Text("Ne"),
+                                                          child:
+                                                              const Text("Ne"),
                                                         ),
                                                       ],
                                                     );
@@ -321,12 +328,13 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                                                 );
                                               },
                                               style: ElevatedButton.styleFrom(
-                                                  padding: EdgeInsets.symmetric(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
                                                     horizontal: 32.0,
                                                     vertical: 16.0,
                                                   ),
                                                   backgroundColor: Colors.red),
-                                              child: Text(
+                                              child: const Text(
                                                 'Izbriši sliku',
                                                 style: TextStyle(
                                                   fontSize: 18.0,
@@ -349,17 +357,17 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
 
   Widget _buildFormField(String label, TextEditingController controller,
       {bool isObscure = false}) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(label),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
           TextField(
             controller: controller,
             obscureText: isObscure,
-            decoration: InputDecoration(border: OutlineInputBorder()),
+            decoration: const InputDecoration(border: OutlineInputBorder()),
           ),
         ],
       ),
@@ -368,18 +376,18 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
 
   Widget _buildFormFieldGrad(String label, TextEditingController controller,
       {bool isObscure = false}) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(label),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
           TextField(
             controller: controller,
             obscureText: isObscure,
             readOnly: true,
-            decoration: InputDecoration(border: OutlineInputBorder()),
+            decoration: const InputDecoration(border: OutlineInputBorder()),
           ),
         ],
       ),
@@ -389,8 +397,8 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
   Widget _buildSingleSelectGrad(String label, BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border:
-            Border.all(color: Color.fromARGB(255, 146, 140, 140), width: 1.0),
+        border: Border.all(
+            color: const Color.fromARGB(255, 146, 140, 140), width: 1.0),
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Padding(
@@ -400,7 +408,7 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
           children: [
             Text(
               label,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
@@ -433,14 +441,14 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
   Widget _buildSaveButton() {
     _ordinacijaProvider =
         Provider.of<OrdinacijaProvider>(context, listen: false);
-    Ordinacija updatedOrdinacija = new Ordinacija(
+    Ordinacija updatedOrdinacija = Ordinacija(
       widget.ordinacijaId,
       nazivController.text,
       adresaController.text,
       telefonController.text,
       odabraniGrad,
     );
-    return Container(
+    return SizedBox(
       width: 200.0,
       child: ElevatedButton(
         onPressed: () async {
@@ -448,15 +456,15 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Text("Potvrda ažuriranja"),
-                content: Text(
+                title: const Text("Potvrda ažuriranja"),
+                content: const Text(
                     "Da li ste sigurni da želite ažurirati ordinaciju sa unesenim informacijama?"),
                 actions: [
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pop(); // Zatvaranje dijaloga
                     },
-                    child: Text("Otkaži"),
+                    child: const Text("Otkaži"),
                   ),
                   TextButton(
                     onPressed: () async {
@@ -470,14 +478,14 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                         Navigator.of(context).pop();
                       }
                     },
-                    child: Text("Potvrdi"),
+                    child: const Text("Potvrdi"),
                   ),
                 ],
               );
             },
           );
         },
-        child: Text('Spremi'),
+        child: const Text('Spremi'),
       ),
     );
   }

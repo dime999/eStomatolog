@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 class OcjeneScreen extends StatelessWidget {
   final int doktorId;
 
-  OcjeneScreen({required this.doktorId});
+  const OcjeneScreen({super.key, required this.doktorId});
 
   Future<Doktor> fetchDoktor(BuildContext context, int id) async {
     var doktorProvider = Provider.of<DoktorProvider>(context, listen: false);
@@ -18,7 +18,7 @@ class OcjeneScreen extends StatelessWidget {
 
   Future<List<Ocjene>> fetchOcjene(BuildContext context) async {
     print("Aaa");
-    Doktor doktor = await fetchDoktor(context, doktorId) as Doktor;
+    Doktor doktor = await fetchDoktor(context, doktorId);
     print("bbb");
     print(doktor.id);
     var ocjeneProvider = Provider.of<OcjeneProvider>(context, listen: false);
@@ -34,11 +34,11 @@ class OcjeneScreen extends StatelessWidget {
           future: fetchDoktor(context, doktorId),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text('Lista ocjena - Učitavanje...');
+              return const Text('Lista ocjena - Učitavanje...');
             } else if (snapshot.hasError) {
-              return Text('Greška pri dohvatu doktora.');
+              return const Text('Greška pri dohvatu doktora.');
             } else if (!snapshot.hasData) {
-              return Text('Nema dostupnih podataka o doktoru.');
+              return const Text('Nema dostupnih podataka o doktoru.');
             } else {
               Doktor doktor = snapshot.data!;
               return Text('Lista ocjena - ${doktor.ime} ${doktor.prezime}');
@@ -50,11 +50,11 @@ class OcjeneScreen extends StatelessWidget {
         future: fetchOcjene(context),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Greška pri dohvatu ocjena.'));
+            return const Center(child: Text('Greška pri dohvatu ocjena.'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('Nema dostupnih ocjena.'));
+            return const Center(child: Text('Nema dostupnih ocjena.'));
           } else {
             List<Ocjene> ocjene = snapshot.data!;
             return ListView.builder(
