@@ -124,8 +124,7 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
                 ),
               ),
               Text(
-                ordinacija?.naziv ??
-                    '', // Koristi naziv ordinacije ili prazan string ako ordinacija nije dostupna
+                ordinacija?.naziv ?? '',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 20,
@@ -136,8 +135,7 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
                 height: 5,
               ),
               Text(
-                ordinacija?.adresa ??
-                    '', // Koristi adresu ordinacije ili prazan string ako adresa nije dostupna
+                ordinacija?.adresa ?? '',
                 style: TextStyle(color: Colors.black, fontSize: 15),
               ),
               const SizedBox(
@@ -157,13 +155,80 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
                 height: 10,
               ),
               Text(
-                'Naša ordinacija se zove ${ordinacija!.naziv} i nalazimo se na adresi ${ordinacija!.adresa}. Naše ljubazno osoblje će vas primiti i riješiti bilo koji problem koji imate sa oralnim zdravljem. ',
+                ordinacija != null
+                    ? 'Naša ordinacija se zove ${ordinacija!.naziv ?? 'N/A'} i nalazimo se na adresi ${ordinacija!.adresa ?? 'N/A'}. Naše ljubazno osoblje će vas primiti i riješiti bilo koji problem koji imate sa oralnim zdravljem. '
+                    : 'Podaci o ordinaciji nisu dostupni',
                 style: Theme.of(context)
                     .textTheme
                     .bodyText2!
                     .copyWith(color: Colors.black),
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 15),
+                child: Divider(
+                  height: 4,
+                ),
+              ),
+              GridView.count(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                crossAxisCount: 2, // Broj elemenata u jednom redu
+                crossAxisSpacing:
+                    12, // Razmak između elemenata u horizontalnom smjeru
+                mainAxisSpacing:
+                    12, // Razmak između redova u vertikalnom smjeru
+                children: [
+                  _buildItem('Rezervacija', Icons.event, () {
+                    // Navigacija do ekrana rezervacija
+                  }),
+                  _buildItem('Lista doktora', Icons.people, () {
+                    // Navigacija do ekrana liste doktora
+                  }),
+                  _buildItem('Poklon bonovi', Icons.card_giftcard, () {
+                    // Navigacija do ekrana poklon bonova
+                  }),
+                  _buildItem('Galerija', Icons.image, () {
+                    // Navigacija do ekrana galerije
+                  }),
+                ],
+              )
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildItem(String label, IconData icon, VoidCallback onTap) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0), // Dodajte padding
+      child: GestureDetector(
+        onTap: onTap,
+        child: Card(
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                  8)), // Smanjite radijus zaobljenih ivica
+          child: Padding(
+            padding: const EdgeInsets.all(8.0), // Dodajte unutrašnji padding
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  icon,
+                  size: 36, // Smanjite veličinu ikone
+                  color: Colors.blue,
+                ),
+                SizedBox(height: 4),
+                Text(
+                  label,
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
           ),
         ),
       ),
