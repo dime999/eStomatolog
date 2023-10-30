@@ -1,9 +1,8 @@
-import 'package:estomatolog_mobile/models/Ordinacija/ordinacija.dart';
 import 'package:estomatolog_mobile/models/Ordinacija/ordinacija_pacijent.dart';
 import 'package:estomatolog_mobile/models/Pacijent/pacijent.dart';
-import 'package:estomatolog_mobile/providers/ordinacija_provider.dart';
 import 'package:estomatolog_mobile/providers/pacijent_ordinacija_provider.dart';
 import 'package:estomatolog_mobile/providers/pacijent_provider.dart';
+import 'package:estomatolog_mobile/screens/ordinacija_details_screen.dart';
 import 'package:estomatolog_mobile/widgets/clinic_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -92,27 +91,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: ordinacije
-                      .length, // Koristi listu ordinacija umesto fiksne liste clinics
+                  itemCount: ordinacije.length,
                   itemBuilder: (context, index) {
-                    var ordinacija = ordinacije[
-                        index]; // Dobavi trenutnu ordinaciju iz liste
+                    var ordinacija = ordinacije[index];
 
                     return InkWell(
                       onTap: () {
-                        // Navigacija na detalje ordinacije ili neka druga akcija po izboru
-                        /* Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => ClinicDetailScreen(ordinacija: ordinacija),
-          ),
-        ); */
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => OrdinacijaDetailScreen(
+                              ordinacijaId: ordinacija.ordinacijaId,
+                            ),
+                          ),
+                        );
                       },
                       child: ClinicListItem(
-                        title: ordinacija
-                            .ordinacijaNaziv, // Prilagodite kako se dohvata naziv ordinacije
-                        address: ordinacija
-                            .ordinacijaAdresa, // Prilagodite kako se dohvata adresa ordinacije
+                        title: ordinacija.ordinacijaNaziv,
+                        address: ordinacija.ordinacijaAdresa,
                       ),
                     );
                   },

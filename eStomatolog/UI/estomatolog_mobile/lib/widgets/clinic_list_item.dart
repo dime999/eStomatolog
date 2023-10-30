@@ -11,7 +11,7 @@ class ClinicListItem extends StatelessWidget {
     required this.address,
   }) : super(key: key);
 
-  String image = "assets/images/klinika1.jpg";
+  String image = "assets/images/klinika3.jpg";
 
   @override
   Widget build(BuildContext context) {

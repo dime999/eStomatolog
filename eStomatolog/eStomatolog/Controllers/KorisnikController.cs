@@ -18,14 +18,14 @@ namespace eStomatolog.Controllers
         {
             this.service = service;
         }
-        //[Authorize(Roles ="Administrator")]
+        
         [AllowAnonymous]
         public override eStomatologModel.Korisnik Insert([FromBody] KorisniciInsertRequest insert)
         {
             return base.Insert(insert);
         }
 
-        [Authorize(Roles = "Administrator")]
+      
         public override eStomatologModel.Korisnik Update(int id,[FromBody] KorisniciUpdateRequest update)
         {
             return base.Update(id,update);

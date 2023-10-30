@@ -40,7 +40,6 @@ class PacijentOrdinacijaProvider extends BaseProvider<PacijentOrdinacija> {
   }
 
   Future<SearchResult<OrdinacijaPacijent>> getByPacijentId(int id) async {
-    print("Uslo u getByPacijentId");
     String endpointPacijentOrdinacija = "GetOrdinacijeByPacijentId";
     var url = "$_baseUrl$endpointPacijentOrdinacija/$id";
     var uri = Uri.parse(url);

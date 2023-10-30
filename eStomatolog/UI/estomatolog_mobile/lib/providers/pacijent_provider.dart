@@ -22,14 +22,12 @@ class PacijentProvider extends BaseProvider<Pacijent> {
     var url = "$_baseUrl$getByKorisnik/$id";
     var uri = Uri.parse(url);
     var headers = createHeaders();
-    print(uri);
+
     var response = await http.get(uri, headers: headers);
-    print(response.body);
     if (isValidResponse(response)) {
       var data = jsonDecode(response.body);
       Pacijent pacijent;
       pacijent = Pacijent.fromJson(data);
-      print(pacijent);
       return pacijent;
     } else {
       throw Exception("Nepoznata greška!");

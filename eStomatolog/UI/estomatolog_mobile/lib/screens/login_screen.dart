@@ -1,5 +1,6 @@
 import 'package:estomatolog_mobile/providers/login_provider.dart';
 import 'package:estomatolog_mobile/screens/home_screen.dart';
+import 'package:estomatolog_mobile/screens/registracija_screen.dart';
 import 'package:estomatolog_mobile/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -79,7 +80,6 @@ class _LoginPageState extends State<LoginPage> {
                       Authorization.korisnickoIme = korisnickoIme;
                       Authorization.lozinka = lozinka;
                       try {
-                        print("Ovdje");
                         await _loginProvider.login();
                         var id = Authorization.korisnikId;
                         Navigator.pushAndRemoveUntil(
@@ -123,8 +123,8 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 10),
                   TextButton(
                     onPressed: () {
-                      //  Navigator.of(context).push(MaterialPageRoute(
-                      //    builder: (context) => const RegistracijaScreen()));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const RegistracijaScreen()));
                     },
                     child: const Text(
                       'Nemate račun? Registruj se!',
