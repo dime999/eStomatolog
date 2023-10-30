@@ -14,15 +14,16 @@ class LoginProvider with ChangeNotifier {
   Future<dynamic> login() async {
     var url =
         "$_baseUrl$_login_endpoint?Username=${Authorization.korisnickoIme}&Password=${Authorization.lozinka}";
-
     var uri = Uri.parse(url);
     var headers = createHeaders();
     try {
       var response = await http.get(uri, headers: headers);
       if (isValidResponse(response)) {
         var data = jsonDecode(response.body);
-        print(data);
+
         var prviUlogaId = data['korisniciUloges'][0]['ulogaId'];
+        var korisnikId = data['korisnikId'];
+        Authorization.korisnikId = korisnikId;
         if (prviUlogaId == 1) {
           throw Exception("Aplikaciji mođe pristupiti samo pacijent");
         } else {

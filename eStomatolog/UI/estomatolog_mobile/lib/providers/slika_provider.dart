@@ -11,11 +11,11 @@ class SlikaProvider with ChangeNotifier {
   final String _slikaDelete = "Slika?id=";
   SlikaProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "https://localhost:7265/");
+        defaultValue: "https://10.0.2.2:7265/");
   }
 
   Future<int> insertSlikaOrdinacija(SlikaInsert requestModel) async {
-    var uri = Uri.parse("https://localhost:7265/InsertOrdinacijaSlika");
+    var uri = Uri.parse("https://10.0.2.2:7265/InsertOrdinacijaSlika");
 
     var request = http.MultipartRequest('POST', uri)
       ..fields['OrdinacijaId'] = requestModel.OrdinacijaId.toString()

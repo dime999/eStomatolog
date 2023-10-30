@@ -21,12 +21,28 @@ namespace eStomatologServices.Servisi
 
         }
 
+        public override IEnumerable<PacijentOrdinacija> Get(BaseSearchObject search = null)
+        {
+            var entity = Context.Set<eStomatologServices.Database.PacijentOrdinacija>().Include(pac => pac.Pacijnet).AsQueryable();
+            var list = entity.ToList();
+            return Mapper.Map<IList<PacijentOrdinacija>>(list);
+        }
+
         public IEnumerable<PacijentOrdinacija> GetByOrdinacijaId(int id)
         {
             var entity = Context.Set<eStomatologServices.Database.PacijentOrdinacija>().Include(pac => pac.Pacijnet).Where(x => x.OrdinacijaId == id).AsQueryable();
             var list = entity.ToList();
             return Mapper.Map<IList<PacijentOrdinacija>>(list);
         }
+
+        public IEnumerable<OrdinacijaPacijent> GetByPacijentId(int id)
+        {
+            var entity = Context.Set<eStomatologServices.Database.PacijentOrdinacija>().Include(pac => pac.Ordinacija).Where(x => x.PacijentId == id).AsQueryable();
+            var list = entity.ToList();
+            return Mapper.Map<IList<OrdinacijaPacijent>>(list);
+        }
+
+
 
     }
 

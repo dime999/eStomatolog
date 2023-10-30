@@ -27,6 +27,8 @@ namespace eStomatologServices.Servisi
             return Mapper.Map<eStomatologModel.Pacijent>(Pacijent);
         }
 
+      
+
         public override IQueryable<eStomatologServices.Database.Pacijent> AddFilter(IQueryable<eStomatologServices.Database.Pacijent> query, PacijentSearchObject search = null)
         {
             var filteredQuery = base.AddFilter(query, search);

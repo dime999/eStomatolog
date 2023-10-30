@@ -31,6 +31,7 @@ namespace eStomatologServices
             CreateMap<Database.DoktorOrdinacija, eStomatologModel.DoktorOrdinacijaDoktorInfo>();
             CreateMap<Models.Dijagnoza, eStomatologModel.DijagnozaInfoModel>();
             CreateMap<Database.PacijentOrdinacija, eStomatologModel.PacijentOrdinacija>();
+            CreateMap<Database.PacijentOrdinacija, eStomatologModel.OrdinacijaPacijent>();
             CreateMap<Database.Slika, eStomatologModel.Slika>();
             CreateMap<Database.OrdinacijaSlika, eStomatologModel.OrdinacijaSlika>();
             CreateMap<Database.Rezervacija, eStomatologModel.Rezervacija>();

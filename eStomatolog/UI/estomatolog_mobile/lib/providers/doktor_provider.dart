@@ -8,7 +8,7 @@ class DoktorProvider extends BaseProvider<Doktor> {
   DoktorProvider() : super("Doktor") {
     _baseUrl = const String.fromEnvironment(
       "ApiUrl",
-      defaultValue: "https://localhost:7265/",
+      defaultValue: "https://10.0.2.2:7265/",
     );
   }
 

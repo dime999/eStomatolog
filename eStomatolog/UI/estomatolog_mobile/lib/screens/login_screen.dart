@@ -1,4 +1,5 @@
 import 'package:estomatolog_mobile/providers/login_provider.dart';
+import 'package:estomatolog_mobile/screens/home_screen.dart';
 import 'package:estomatolog_mobile/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -80,11 +81,16 @@ class _LoginPageState extends State<LoginPage> {
                       try {
                         print("Ovdje");
                         await _loginProvider.login();
-                        /* Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomeScreen()),
-                      (route) => false,
-                    );*/
+                        var id = Authorization.korisnikId;
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeScreen(
+                              korisnikId: id,
+                            ),
+                          ),
+                          (route) => false,
+                        );
                       } on Exception {
                         String errorMessage =
                             "Netačno korisničko ime ili lozinka. Molimo pokušajte ponovo.";

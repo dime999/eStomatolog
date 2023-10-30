@@ -13,5 +13,6 @@ namespace eStomatologServices.Interfejsi
     public interface IPacijentiOrdinacijeService : ICRUDService<PacijentOrdinacija, BaseSearchObject, PacijentOrdinacijaInsertRequest, PacijentOrdinacijaInsertRequest>
     {
         public IEnumerable<PacijentOrdinacija> GetByOrdinacijaId(int id);
+        public IEnumerable<OrdinacijaPacijent> GetByPacijentId(int id);
     }
 }

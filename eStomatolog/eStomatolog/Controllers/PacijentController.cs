@@ -16,8 +16,6 @@ namespace eStomatolog.Controllers
             this.service = service;
         }
 
-
-        [Authorize(Roles = "Administrator")]
         [HttpGet("/GetPacijentByKorisnikId/{id}")]
         public async Task<eStomatologModel.Pacijent> GetByKorisnikId(int id)
         {

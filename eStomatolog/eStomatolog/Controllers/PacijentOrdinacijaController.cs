@@ -27,5 +27,13 @@ namespace eStomatolog.Controllers
 
             return list.ToList();
         }
+
+        [HttpGet("/GetOrdinacijeByPacijentId/{id}")]
+        public async Task<IEnumerable<OrdinacijaPacijent>> GetOrdinacije(int id)
+        {
+            var list = service.GetByPacijentId(id);
+
+            return list.ToList();
+        }
     }
 }
