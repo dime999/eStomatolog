@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:estomatolog_mobile/models/Ordinacija/ordinacija.dart';
 import 'package:estomatolog_mobile/providers/ordinacija_provider.dart';
+import 'package:estomatolog_mobile/screens/doktori_lista_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -185,7 +186,13 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
                     // Navigacija do ekrana rezervacija
                   }),
                   _buildItem('Lista doktora', Icons.people, () {
-                    // Navigacija do ekrana liste doktora
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DoctorsOrdinacijaScreen(
+                                ordinacijaId: widget.ordinacijaId,
+                              )),
+                    );
                   }),
                   _buildItem('Poklon bonovi', Icons.card_giftcard, () {
                     // Navigacija do ekrana poklon bonova
