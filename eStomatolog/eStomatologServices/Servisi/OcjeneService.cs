@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace eStomatologServices.Servisi
 {
@@ -27,20 +29,15 @@ namespace eStomatologServices.Servisi
 
         public override eStomatologModel.Ocjene Insert(OcjenaUpsertRequest insert)
         {
+            var existingOcjena = Context.Ocjene.FirstOrDefault(o => o.PacijentId == insert.PacijentId && o.DoktorId == insert.DoktorId);
+            if (existingOcjena != null)
+            {
+
+                return null;
+            }
+
             var entity = base.Insert(insert);
 
-            var pacijent = _pacijentService.GetById(insert.PacijentId);
-            var doktor = _doktorService.GetById(insert.DoktorId);
-
-            if (pacijent != null)
-            {
-                entity.Pacijent = pacijent;
-            }
-
-            if (doktor != null)
-            {
-                entity.Doktor = doktor;
-            }
             Context.SaveChanges();
             return entity;
         }

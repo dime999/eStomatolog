@@ -106,7 +106,8 @@ abstract class BaseProvider<T> with ChangeNotifier {
         return false;
       }
     } else if (response.statusCode == 204) {
-      return true;
+      print("Uslo u 204");
+      throw Exception("Radnja je već urađena!");
     } else if (response.statusCode == 400) {
       throw Exception("Bad request");
     } else if (response.statusCode == 401) {

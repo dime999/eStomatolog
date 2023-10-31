@@ -10,6 +10,7 @@ class OcjeneProvider with ChangeNotifier {
   static String? _baseUrl;
   final String _endpoint = "GetOcjeneByDoktorId/";
   final String _delete = "Ocjene?id=";
+  final String _insert = "Ocjene";
 
   OcjeneProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
@@ -45,6 +46,22 @@ class OcjeneProvider with ChangeNotifier {
       notifyListeners();
     } else {
       throw Exception("Brisanje nije uspelo");
+    }
+  }
+
+  Future<Ocjene> insert(Ocjene request) async {
+    var url = "$_baseUrl$_insert";
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+
+    var jsonRequest = jsonEncode(request);
+    var response = await http.post(uri, headers: headers, body: jsonRequest);
+
+    if (isValidResponse(response)) {
+      var data = jsonDecode(response.body);
+      return Ocjene.fromJson(data);
+    } else {
+      throw Exception("Unknown error");
     }
   }
 
