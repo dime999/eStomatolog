@@ -68,7 +68,7 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
           MaterialPageRoute(
             builder: (context) => OrdinacijaDetaljiScreen(
               ordinacijaId: ordinacija.ordinacijaId,
-            ), // Zamijenite VašaScreenKlasa sa stvarnim imenom vaše klase ekrana
+            ),
           ),
         );
       }
@@ -318,7 +318,7 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                                                         TextButton(
                                                           onPressed: () =>
                                                               Navigator.pop(
-                                                                  context), // Zatvori dialog ako korisnik odabere "Ne"
+                                                                  context),
                                                           child:
                                                               const Text("Ne"),
                                                         ),
@@ -462,7 +462,7 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                 actions: [
                   TextButton(
                     onPressed: () {
-                      Navigator.of(context).pop(); // Zatvaranje dijaloga
+                      Navigator.of(context).pop();
                     },
                     child: const Text("Otkaži"),
                   ),

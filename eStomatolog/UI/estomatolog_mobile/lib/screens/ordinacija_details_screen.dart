@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:estomatolog_mobile/models/Ordinacija/ordinacija.dart';
 import 'package:estomatolog_mobile/providers/ordinacija_provider.dart';
 import 'package:estomatolog_mobile/screens/doktori_lista_screen.dart';
+import 'package:estomatolog_mobile/screens/galerija_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -176,15 +177,11 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
               GridView.count(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                crossAxisCount: 2, // Broj elemenata u jednom redu
-                crossAxisSpacing:
-                    12, // Razmak između elemenata u horizontalnom smjeru
-                mainAxisSpacing:
-                    12, // Razmak između redova u vertikalnom smjeru
+                crossAxisCount: 2,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
                 children: [
-                  _buildItem('Rezervacija', Icons.event, () {
-                    // Navigacija do ekrana rezervacija
-                  }),
+                  _buildItem('Rezervacija', Icons.event, () {}),
                   _buildItem('Lista doktora', Icons.people, () {
                     Navigator.push(
                       context,
@@ -194,11 +191,15 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
                               )),
                     );
                   }),
-                  _buildItem('Poklon bonovi', Icons.card_giftcard, () {
-                    // Navigacija do ekrana poklon bonova
-                  }),
+                  _buildItem('Poklon bonovi', Icons.card_giftcard, () {}),
                   _buildItem('Galerija', Icons.image, () {
-                    // Navigacija do ekrana galerije
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => GalerijaScreen(
+                                ordinacijaId: widget.ordinacijaId,
+                              )),
+                    );
                   }),
                 ],
               )
@@ -211,22 +212,20 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
 
   Widget _buildItem(String label, IconData icon, VoidCallback onTap) {
     return Padding(
-      padding: const EdgeInsets.all(8.0), // Dodajte padding
+      padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: onTap,
         child: Card(
           elevation: 4,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                  8)), // Smanjite radijus zaobljenih ivica
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           child: Padding(
-            padding: const EdgeInsets.all(8.0), // Dodajte unutrašnji padding
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
                   icon,
-                  size: 36, // Smanjite veličinu ikone
+                  size: 36,
                   color: Colors.blue,
                 ),
                 SizedBox(height: 4),
