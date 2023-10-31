@@ -14,5 +14,8 @@ namespace eStomatologModel
         public virtual Doktor Doktor { get; set; }
         public virtual Specijalizacija Specijalizacija { get; set; }
 
+       
+
+        public string SpecijalizacijaNaziv => Specijalizacija?.Naziv;
     }
 }

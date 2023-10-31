@@ -16,5 +16,7 @@ namespace eStomatologServices.Database
 
         public virtual Doktor Doktor { get; set; } = null!;
         public virtual Specijalizacija Specijalizacija { get; set; } = null!;
+
+     
     }
 }

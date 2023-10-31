@@ -1,12 +1,11 @@
-import 'package:estomatolog_mobile/models/Grad/grad.dart';
+import 'package:estomatolog_mobile/models/Doktor/doktor.dart';
+import 'package:estomatolog_mobile/models/Doktor/doktor_specijalizacija.dart';
 import 'package:estomatolog_mobile/models/Korisnik/korisnik.dart';
-import 'package:estomatolog_mobile/models/Specijalizacija/specijalizacija.dart';
-import 'package:estomatolog_mobile/providers/grad_provider.dart';
+import 'package:estomatolog_mobile/providers/doktor_provider.dart';
+import 'package:estomatolog_mobile/providers/doktor_specijalizacije_provider.dart';
 import 'package:estomatolog_mobile/providers/korisnici_provider.dart';
-import 'package:estomatolog_mobile/providers/specijalizacija_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:multiselect/multiselect.dart';
 
 class DoktorInfoScreen extends StatefulWidget {
   final int korisnikId;
@@ -18,86 +17,62 @@ class DoktorInfoScreen extends StatefulWidget {
 }
 
 class _DoktorInfoScreenState extends State<DoktorInfoScreen> {
-  List<int> idSpecijalizacija = [];
-  List<String> naziviSpecijalizacija = [];
-  List<Specijalizacija> specijalizacije = [];
-  List<int> odabraneSpecijalizacije = [];
-
-  List<int> idGradova = [];
-  List<String> naziviGradova = [];
-  List<Grad> gradovi = [];
-  int odabraniGrad = 1;
-  List<int> uloga = [1];
-
   late int korisnikId;
   late Korisnik korisnik;
+  late Doktor doktor;
+  List<DoktorSpecijalizacija> specijalizacijeDoktora = [];
+  List<String> naziviSpecijalizacija = [];
 
   @override
   void initState() {
     super.initState();
     korisnikId = widget.korisnikId;
     fetchUsers(context);
-    fetchSpecijalizacije(context);
-    fetchGradovi(context);
   }
 
   Future<Korisnik> fetchUsers(BuildContext context) async {
     var korisnikProvider =
         Provider.of<KorisniciProvider>(context, listen: false);
+    var doktorProvider = Provider.of<DoktorProvider>(context, listen: false);
+    var fetchedDoktor = await doktorProvider.getByKorisnikId(widget.korisnikId);
     var fetchedUser = await korisnikProvider.getById(korisnikId);
     setState(() {
       korisnik = fetchedUser;
+      doktor = fetchedDoktor;
       imeController.text = korisnik.ime ?? '';
       prezimeController.text = korisnik.prezime ?? '';
       emailController.text = korisnik.email ?? '';
       telefonController.text = korisnik.telefon ?? '';
-      korisnickoImeController.text = korisnik.korisnickoIme ?? '';
       status = korisnik.status ?? true;
     });
+    await fetchDoktorSpecijalizacije(context);
     return korisnik;
   }
 
-  Future<List<Specijalizacija>> fetchSpecijalizacije(
+  Future<List<DoktorSpecijalizacija>> fetchDoktorSpecijalizacije(
       BuildContext context) async {
-    var provider = Provider.of<SpecijalizacijaProvider>(context, listen: false);
-    var fetchedspecijalizacije = await provider.get();
-    naziviSpecijalizacija = fetchedspecijalizacije.result
-        .map((specijalizacija) => specijalizacija.naziv ?? '')
-        .toList();
-
-    idSpecijalizacija = fetchedspecijalizacije.result
-        .map((specijalizacija) => specijalizacija.specijalizacijaId ?? 0)
+    var provider =
+        Provider.of<DoktorSpecijalizacijaProvider>(context, listen: false);
+    var fetchedSpec = await provider.getByDoktorId(doktor.id);
+    naziviSpecijalizacija = fetchedSpec.result
+        .map((specijalizacija) => specijalizacija.specijalizacijaNaziv ?? '')
         .toList();
     setState(() {
-      specijalizacije = fetchedspecijalizacije.result;
+      specijalizacijeDoktora = fetchedSpec.result;
     });
-    return specijalizacije;
-  }
-
-  Future<List<Grad>> fetchGradovi(BuildContext context) async {
-    var provider = Provider.of<GradProvider>(context, listen: false);
-    var fetchedGradovi = await provider.get();
-    naziviGradova =
-        fetchedGradovi.result.map((grad) => grad.naziv ?? '').toList();
-
-    idGradova = fetchedGradovi.result.map((grad) => grad.gradId ?? 0).toList();
-    setState(() {
-      gradovi = fetchedGradovi.result;
-    });
-    return gradovi;
+    print(naziviSpecijalizacija);
+    return specijalizacijeDoktora;
   }
 
   TextEditingController imeController = TextEditingController();
   TextEditingController prezimeController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController telefonController = TextEditingController();
-  TextEditingController korisnickoImeController = TextEditingController();
   TextEditingController datumRodjenjaController = TextEditingController();
   bool status = true;
 
   List<String> selectedValuesSpecijalizacije = [];
   String? selectedValueGrad;
-  late KorisniciProvider _korisniciProvider;
 
   @override
   Widget build(BuildContext context) {
@@ -125,8 +100,44 @@ class _DoktorInfoScreenState extends State<DoktorInfoScreen> {
                         _buildFormField('Email', emailController),
                         const SizedBox(height: 16.0),
                         _buildFormField('Telefon', telefonController),
-                        const SizedBox(height: 16.0),
                         const SizedBox(height: 32.0),
+                        Text(
+                          'Specijalizacije:',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 8.0),
+                        Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: Column(
+                            children: List.generate(
+                              naziviSpecijalizacija.length,
+                              (index) {
+                                Color color = Colors
+                                    .primaries[index % Colors.primaries.length];
+
+                                return Container(
+                                  width: double.infinity,
+                                  margin: EdgeInsets.symmetric(vertical: 4.0),
+                                  padding: EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                    color: color.withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  child: Text(
+                                    naziviSpecijalizacija[index],
+                                    style: TextStyle(color: color),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -159,11 +170,12 @@ class _DoktorInfoScreenState extends State<DoktorInfoScreen> {
             controller: controller,
             obscureText: isObscure,
             textAlign: TextAlign.center,
+            readOnly: true,
             style: TextStyle(
-              fontSize: 14.0,
-              fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 35, 87, 220),
-            ),
+                fontSize: 14.0,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 35, 87, 220),
+                fontFamily: ''),
             decoration: InputDecoration(
               contentPadding:
                   EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
