@@ -58,6 +58,14 @@ namespace eStomatologServices.Servisi
             return Mapper.Map<IList<Rezervacija>>(list);
         }
 
+        public IEnumerable<Rezervacija> DohvatiZauzeteTermine(int ordinacijaId, DateTime datum)
+        {
+
+            var Rezervacije = Context.Set<Database.Rezervacija>().Where(d => d.OrdinacijaId == ordinacijaId).Include(r => r.Doktor).Include(r => r.Ordinacija).Include(t => t.Termin).Where(r => r.OrdinacijaId == ordinacijaId && datum==r.Datum).AsQueryable();
+            var list = Rezervacije.ToList();
+            return Mapper.Map<IList<Rezervacija>>(list);
+        }
+
 
         public override eStomatologModel.Rezervacija Insert(RezervacijaInsertRequest insert)
         {

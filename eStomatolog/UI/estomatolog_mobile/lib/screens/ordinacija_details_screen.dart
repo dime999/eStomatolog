@@ -3,6 +3,8 @@ import 'package:estomatolog_mobile/models/Ordinacija/ordinacija.dart';
 import 'package:estomatolog_mobile/providers/ordinacija_provider.dart';
 import 'package:estomatolog_mobile/screens/doktori_lista_screen.dart';
 import 'package:estomatolog_mobile/screens/galerija_screen.dart';
+import 'package:estomatolog_mobile/screens/rezervacija_screen.dart';
+import 'package:estomatolog_mobile/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -181,7 +183,15 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
                 crossAxisSpacing: 12,
                 mainAxisSpacing: 12,
                 children: [
-                  _buildItem('Rezervacija', Icons.event, () {}),
+                  _buildItem('Rezervacija', Icons.event, () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => RezervacijaScreen(
+                                korisnikId: Authorization.korisnikId,
+                              )),
+                    );
+                  }),
                   _buildItem('Lista doktora', Icons.people, () {
                     Navigator.push(
                       context,

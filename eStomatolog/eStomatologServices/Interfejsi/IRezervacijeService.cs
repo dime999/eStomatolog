@@ -14,5 +14,6 @@ namespace eStomatologServices.Interfejsi
     {
         public IEnumerable<Rezervacija> GetByOrdinacijaId(int id);
         public IEnumerable<Rezervacija> GetByPacijentId(int ordinacijaId, int pacijentId);
+        public IEnumerable<Rezervacija> DohvatiZauzeteTermine(int ordinacijaId, DateTime datum);
     }
 }

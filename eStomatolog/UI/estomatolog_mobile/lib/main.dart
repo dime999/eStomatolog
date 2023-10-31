@@ -13,6 +13,7 @@ import 'package:estomatolog_mobile/providers/poklon_bon_provider.dart';
 import 'package:estomatolog_mobile/providers/rezervacija_provider.dart';
 import 'package:estomatolog_mobile/providers/slika_provider.dart';
 import 'package:estomatolog_mobile/providers/specijalizacija_provider.dart';
+import 'package:estomatolog_mobile/providers/termin_provider.dart';
 import 'package:estomatolog_mobile/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +38,7 @@ void main() {
       ChangeNotifierProvider(create: (_) => OcjeneProvider()),
       ChangeNotifierProvider(create: (_) => LoginProvider()),
       ChangeNotifierProvider(create: (_) => DoktorSpecijalizacijaProvider()),
+      ChangeNotifierProvider(create: (_) => TerminProvider()),
     ],
     child: const MyApp(),
   ));

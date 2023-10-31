@@ -2,6 +2,7 @@
 using eStomatologModel.Requests;
 using eStomatologModel.SearchObjects;
 using eStomatologServices.Interfejsi;
+using eStomatologServices.Migrations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static Microsoft.VisualStudio.Services.Notifications.VssNotificationEvent;
@@ -28,11 +29,20 @@ namespace eStomatolog.Controllers
             return rezervacije;
         }
 
-        [Authorize(Roles = "Administrator")]
         [HttpGet("/GetRezervacijeByPacijent/{ordinacijaId}/{pacijentId}")]
         public IEnumerable<eStomatologModel.Rezervacija> GetRezervacijeByPacijent(int ordinacijaId,int pacijentId)
         {
             var rezervacije = service.GetByPacijentId(ordinacijaId,pacijentId);
+
+            return rezervacije;
+        }
+
+
+        [HttpGet]
+        [Route("zauzeti-termini")]
+        public IEnumerable<eStomatologModel.Rezervacija> GetZauzetiTermini(int ordinacijaId, DateTime datum)
+        { 
+            var rezervacije = service.DohvatiZauzeteTermine(ordinacijaId, datum);
 
             return rezervacije;
         }
