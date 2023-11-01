@@ -131,6 +131,7 @@ class _DoktorInfoScreenState extends State<DoktorInfoScreen> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Informacije o doktoru'),
+          centerTitle: true,
         ),
         body: FutureBuilder<List<int>>(
           future: fetchSlikeIds(context),
@@ -254,7 +255,6 @@ class _DoktorInfoScreenState extends State<DoktorInfoScreen> {
                                       ],
                                     ),
                                     const SizedBox(height: 32.0),
-                                    const SizedBox(height: 16.0),
                                     Text(
                                       'Ocjeni ovog doktora:',
                                       style: TextStyle(
@@ -420,7 +420,6 @@ class _DoktorInfoScreenState extends State<DoktorInfoScreen> {
                                   ],
                                 ),
                                 const SizedBox(height: 32.0),
-                                const SizedBox(height: 16.0),
                                 Text(
                                   'Ocjeni ovog doktora:',
                                   style: TextStyle(
@@ -504,7 +503,11 @@ Widget prikaziZvjezdice(double prosjek) {
 
   List<Widget> zvjezdice = [];
   for (int i = 0; i < cijelaZvjezdica; i++) {
-    zvjezdice.add(Icon(Icons.star, color: Colors.yellow));
+    zvjezdice.add(Icon(
+      Icons.star,
+      color: Colors.yellow,
+      size: 40,
+    ));
   }
   if (imaPolaZvjezdice) {
     zvjezdice.add(Icon(Icons.star_half, color: Colors.yellow));
