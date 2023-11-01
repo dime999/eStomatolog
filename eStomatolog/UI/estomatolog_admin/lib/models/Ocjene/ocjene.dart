@@ -7,26 +7,13 @@ part 'ocjene.g.dart';
 
 @JsonSerializable()
 class Ocjene {
-  int id;
-  int pacijentId;
   int doktorId;
+  int pacijentId;
   DateTime datum;
   int ocjena;
-  String pacijentIme;
-  String pacijentPrezime;
-  String doktorIme;
-  String doktorPrezime;
+  String opis;
 
-  Ocjene(
-      this.id,
-      this.pacijentId,
-      this.doktorId,
-      this.datum,
-      this.ocjena,
-      this.doktorIme,
-      this.doktorPrezime,
-      this.pacijentIme,
-      this.pacijentPrezime);
+  Ocjene(this.doktorId, this.pacijentId, this.datum, this.ocjena, this.opis);
 
   factory Ocjene.fromJson(Map<String, dynamic> json) => _$OcjeneFromJson(json);
 

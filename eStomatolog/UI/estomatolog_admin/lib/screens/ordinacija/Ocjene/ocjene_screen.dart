@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 class OcjeneScreen extends StatelessWidget {
   final int doktorId;
 
-  const OcjeneScreen({super.key, required this.doktorId});
+  OcjeneScreen({super.key, required this.doktorId});
 
   Future<Doktor> fetchDoktor(BuildContext context, int id) async {
     var doktorProvider = Provider.of<DoktorProvider>(context, listen: false);
@@ -17,10 +17,7 @@ class OcjeneScreen extends StatelessWidget {
   }
 
   Future<List<Ocjene>> fetchOcjene(BuildContext context) async {
-    print("Aaa");
     Doktor doktor = await fetchDoktor(context, doktorId);
-    print("bbb");
-    print(doktor.id);
     var ocjeneProvider = Provider.of<OcjeneProvider>(context, listen: false);
     var fetchOcjene = await ocjeneProvider.get(doktor.id);
     return fetchOcjene.result;
@@ -62,8 +59,8 @@ class OcjeneScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 Ocjene ocjena = ocjene[index];
                 return ListTile(
-                  title: Text('Doktor: ${ocjena.doktorIme}'),
-                  subtitle: Text('Ocjena: ${ocjena.ocjena.toString()}'),
+                  title: Text('Ocjena: ${ocjena.ocjena.toString()}'),
+                  subtitle: Text('Opis: ${ocjena.opis}'),
                   trailing: Text('Datum: ${ocjena.datum.toString()}'),
                 );
               },

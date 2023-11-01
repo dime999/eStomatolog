@@ -143,12 +143,11 @@ class _PoklonBonScreenScreenState extends State<PoklonBonScreen> {
                                                 poklonBonovi = updatedBonovi;
                                               });
 
-                                              Navigator.pop(
-                                                  context); // Zatvori dialog
+                                              Navigator.pop(context);
                                             } on Exception {
                                               String errorMessage =
                                                   "Nije moguće izbrisati odabrani poklon bon!";
-                                              // Prikaži grešku ako brisanje nije uspelo
+
                                               showDialog(
                                                 context: context,
                                                 builder:

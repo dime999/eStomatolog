@@ -148,8 +148,7 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                      width: 32.0), // Razmak između lijevog i desnog stupca
+                  const SizedBox(width: 32.0),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -231,8 +230,8 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
   Widget _buildSingleSelectGrad(String label, BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border:
-            Border.all(color: const Color.fromARGB(255, 146, 140, 140), width: 1.0),
+        border: Border.all(
+            color: const Color.fromARGB(255, 146, 140, 140), width: 1.0),
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Padding(

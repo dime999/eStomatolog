@@ -123,8 +123,7 @@ class _AddPacijentScreenState extends State<AddPacijentScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                      width: 32.0), // Razmak između lijevog i desnog stupca
+                  const SizedBox(width: 32.0),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,8 +175,8 @@ class _AddPacijentScreenState extends State<AddPacijentScreen> {
   Widget _buildSingleSelectGrad(String label, BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border:
-            Border.all(color: const Color.fromARGB(255, 146, 140, 140), width: 1.0),
+        border: Border.all(
+            color: const Color.fromARGB(255, 146, 140, 140), width: 1.0),
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Padding(
@@ -246,7 +245,7 @@ class _AddPacijentScreenState extends State<AddPacijentScreen> {
           const SizedBox(height: 8.0),
           TextField(
             controller: controller,
-            obscureText: true, // Postavite na true da biste sakrili tekst
+            obscureText: true,
             decoration: const InputDecoration(border: OutlineInputBorder()),
           ),
         ],
@@ -304,7 +303,7 @@ class _AddPacijentScreenState extends State<AddPacijentScreen> {
                 actions: [
                   TextButton(
                     onPressed: () {
-                      Navigator.of(context).pop(); // Zatvaranje dijaloga
+                      Navigator.of(context).pop();
                     },
                     child: const Text("Otkaži"),
                   ),

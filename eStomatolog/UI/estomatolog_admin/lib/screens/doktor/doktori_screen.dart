@@ -86,11 +86,10 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                             setState(() {
                               doktori = updatedDoktori;
                             });
-                            Navigator.pop(context); // Zatvori dialog
+                            Navigator.pop(context);
                           } on Exception {
                             String errorMessage =
                                 "Nije moguće izbrisati odabranog pacijenta!";
-                            // Prikaži grešku ako brisanje nije uspelo
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
@@ -111,8 +110,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                         child: const Text("Da"),
                       ),
                       TextButton(
-                        onPressed: () => Navigator.pop(
-                            context), // Zatvori dialog ako korisnik odabere "Ne"
+                        onPressed: () => Navigator.pop(context),
                         child: const Text("Ne"),
                       ),
                     ],

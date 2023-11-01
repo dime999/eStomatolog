@@ -94,10 +94,12 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
                       String status = jeAktivna ? 'AKTIVNO' : 'NEAKTIVNO';
                       return DataRow(
                         cells: <DataCell>[
-                          DataCell(Text('${rezervacija.pacijentIme!} ${rezervacija.pacijentPrezime}' ??
-                              'N/A')),
-                          DataCell(Text('${rezervacija.doktorIme!} ${rezervacija.doktorPrezime}' ??
-                              'N/A')),
+                          DataCell(Text(
+                              '${rezervacija.pacijentIme!} ${rezervacija.pacijentPrezime}' ??
+                                  'N/A')),
+                          DataCell(Text(
+                              '${rezervacija.doktorIme!} ${rezervacija.doktorPrezime}' ??
+                                  'N/A')),
                           DataCell(Text(rezervacija.ordinacijaNaziv ?? 'N/A')),
                           DataCell(Text(rezervacija.email ?? 'N/A')),
                           DataCell(
@@ -132,12 +134,11 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
                                                     updatedRezervacije;
                                               });
 
-                                              Navigator.pop(
-                                                  context); // Zatvori dialog
+                                              Navigator.pop(context);
                                             } on Exception {
                                               String errorMessage =
                                                   "Nije moguće izbrisati odabranu rezervaciju!";
-                                              // Prikaži grešku ako brisanje nije uspelo
+
                                               showDialog(
                                                 context: context,
                                                 builder:
