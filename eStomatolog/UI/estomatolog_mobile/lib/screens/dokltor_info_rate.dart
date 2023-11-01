@@ -171,15 +171,16 @@ class _DoktorInfoScreenState extends State<DoktorInfoScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    _buildFormField('Ime', imeController),
+                                    _buildFormField('Ime', imeController.text),
                                     const SizedBox(height: 16.0),
                                     _buildFormField(
-                                        'Prezime', prezimeController),
-                                    const SizedBox(height: 16.0),
-                                    _buildFormField('Email', emailController),
+                                        'Prezime', prezimeController.text),
                                     const SizedBox(height: 16.0),
                                     _buildFormField(
-                                        'Telefon', telefonController),
+                                        'Email', emailController.text),
+                                    const SizedBox(height: 16.0),
+                                    _buildFormField(
+                                        'Telefon', telefonController.text),
                                     const SizedBox(height: 32.0),
                                     Text(
                                       'Specijalizacije:',
@@ -192,7 +193,9 @@ class _DoktorInfoScreenState extends State<DoktorInfoScreen> {
                                       width: double.infinity,
                                       padding: EdgeInsets.all(8.0),
                                       decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.grey),
+                                        border: Border.all(
+                                            color: const Color.fromARGB(
+                                                255, 220, 219, 219)),
                                         borderRadius:
                                             BorderRadius.circular(8.0),
                                       ),
@@ -339,13 +342,15 @@ class _DoktorInfoScreenState extends State<DoktorInfoScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                _buildFormField('Ime', imeController),
+                                _buildFormField('Ime', imeController.text),
                                 const SizedBox(height: 16.0),
-                                _buildFormField('Prezime', prezimeController),
+                                _buildFormField(
+                                    'Prezime', prezimeController.text),
                                 const SizedBox(height: 16.0),
-                                _buildFormField('Email', emailController),
+                                _buildFormField('Email', emailController.text),
                                 const SizedBox(height: 16.0),
-                                _buildFormField('Telefon', telefonController),
+                                _buildFormField(
+                                    'Telefon', telefonController.text),
                                 const SizedBox(height: 32.0),
                                 Text(
                                   'Specijalizacije:',
@@ -508,48 +513,26 @@ Widget prikaziZvjezdice(double prosjek) {
   return Row(children: zvjezdice);
 }
 
-Widget _buildFormField(String label, TextEditingController controller,
-    {bool isObscure = false}) {
-  return Container(
-    margin: EdgeInsets.only(bottom: 16.0),
+Widget _buildFormField(String label, String value) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 8.0),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label,
           style: TextStyle(
-            fontSize: 16.0,
+            fontSize: 20.0,
             fontWeight: FontWeight.bold,
             color: Colors.blue,
           ),
         ),
-        SizedBox(height: 8.0),
-        TextField(
-          controller: controller,
-          obscureText: isObscure,
-          textAlign: TextAlign.center,
-          readOnly: true,
+        SizedBox(height: 4.0),
+        Text(
+          value,
           style: TextStyle(
-              fontSize: 14.0,
-              fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 0, 0, 0),
-              fontFamily: ''),
-          decoration: InputDecoration(
-            contentPadding:
-                EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            filled: true,
-            fillColor: Color.fromARGB(255, 255, 255, 255),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey[400]!),
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blue),
-              borderRadius: BorderRadius.circular(10.0),
-            ),
+            fontSize: 16.0,
+            color: Colors.black,
           ),
         ),
       ],
