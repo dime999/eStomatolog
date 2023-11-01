@@ -54,6 +54,19 @@ namespace eStomatologServices.Servisi
             return galerija;
         }
 
+        public async Task<Galerija> GetDoktorSlikeIds(int doktorId)
+        {
+            var galerija = new Galerija();
+
+            galerija.Rows = await Context.DoktorSlike.Where(x => x.DoktorId == doktorId).Select(x => new Galerija.Row { slikaId = x.SlikaId }).ToListAsync();
+            galerija.slikeIds = new int[galerija.Rows.Count()];
+            for (int i = 0; i < galerija.Rows.Count(); i++)
+            {
+                galerija.slikeIds[i] = galerija.Rows.ElementAt(i).slikaId;
+            }
+            return galerija;
+        }
+
 
         public async Task<eStomatologModel.Slika> InsertOrdinacijaSlika(SlikaInsertRequest request)
         {
@@ -70,6 +83,29 @@ namespace eStomatologServices.Servisi
             var ordinacijaSlika = _context.OrdinacijaSlike.Add(new Database.OrdinacijaSlika()
             {
                 OrdinacijaId = (int)request.OrdinacijaId,
+                SlikaId = slikaId
+            });
+
+            _context.SaveChanges();
+
+            return Mapper.Map<eStomatologModel.Slika>(entry.Entity);
+        }
+
+        public async Task<eStomatologModel.Slika> InsertDoktorSlika(DoktorSlikaInsertRequest request)
+        {
+            var imagePath = await UploadFile(request.SlikaFile);
+
+            var entry = _context.Slike.Add(new Database.Slika()
+            {
+                Path = imagePath
+            });
+
+            _context.SaveChanges();
+
+            var slikaId = _context.Slike.OrderByDescending(x => x.SlikaId).First().SlikaId;
+            var doktorSlika = _context.DoktorSlike.Add(new Database.DoktorSlika()
+            {
+                DoktorId = (int)request.DoktorId,
                 SlikaId = slikaId
             });
 

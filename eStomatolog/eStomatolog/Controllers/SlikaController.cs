@@ -42,5 +42,21 @@ namespace eStomatolog.Controllers
             return await service.InsertOrdinacijaSlika(request);
         }
 
+        [AllowAnonymous]
+        [HttpGet("/DoktorSlikaIds")]
+        public async Task<Galerija> GetDoktorSlika([FromQuery] int doktorId)
+        {
+            var galerija = await service.GetDoktorSlikeIds(doktorId);
+            return galerija;
+        }
+
+        [HttpPost("/InsertDoktorSlika")]
+        public async Task<eStomatologModel.Slika> InsertDoktorSlika([FromForm] DoktorSlikaInsertRequest request)
+        {
+            var form = Request.Form;
+            request.SlikaFile = form.Files[0];
+            return await service.InsertDoktorSlika(request);
+        }
+
     }
 }

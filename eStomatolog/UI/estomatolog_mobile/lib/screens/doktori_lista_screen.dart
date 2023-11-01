@@ -65,11 +65,12 @@ class _DoctorsOrdinacijaScreenState extends State<DoctorsOrdinacijaScreen> {
             icon: Icons.medical_information,
             onEditPressed: (pacijent) {
               int korisnikId = pacijent.korisnikId;
+              int doktorId = pacijent.doktorId;
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      DoktorInfoScreen(korisnikId: korisnikId),
+                  builder: (context) => DoktorInfoScreen(
+                      korisnikId: korisnikId, doktorId: doktorId),
                 ),
               );
             },

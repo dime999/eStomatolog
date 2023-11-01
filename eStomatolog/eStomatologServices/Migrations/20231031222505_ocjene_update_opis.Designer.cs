@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eStomatologServices;
 
@@ -11,9 +12,11 @@ using eStomatologServices;
 namespace eStomatologServices.Migrations
 {
     [DbContext(typeof(eStomatologContext))]
-    partial class eStomatologContextModelSnapshot : ModelSnapshot
+    [Migration("20231031222505_ocjene_update_opis")]
+    partial class ocjene_update_opis
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,22 +65,6 @@ namespace eStomatologServices.Migrations
                     b.HasIndex("OrdinacijaId");
 
                     b.ToTable("DoktoriOrdinacije");
-                });
-
-            modelBuilder.Entity("eStomatologServices.Database.DoktorSlika", b =>
-                {
-                    b.Property<int>("DoktorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SlikaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DoktorId", "SlikaId")
-                        .HasName("PK_doktor_slika");
-
-                    b.HasIndex("SlikaId");
-
-                    b.ToTable("DoktorSlike");
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.DoktoriSpecijalizacije", b =>
@@ -706,25 +693,6 @@ namespace eStomatologServices.Migrations
                     b.Navigation("Doktor");
 
                     b.Navigation("Ordinacija");
-                });
-
-            modelBuilder.Entity("eStomatologServices.Database.DoktorSlika", b =>
-                {
-                    b.HasOne("eStomatologServices.Models.Doktor", "Doktor")
-                        .WithMany()
-                        .HasForeignKey("DoktorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("eStomatologServices.Database.Slika", "Slika")
-                        .WithMany()
-                        .HasForeignKey("SlikaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Doktor");
-
-                    b.Navigation("Slika");
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.DoktoriSpecijalizacije", b =>

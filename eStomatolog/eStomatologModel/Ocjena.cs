@@ -11,6 +11,7 @@ namespace eStomatologModel
         public int PacijentId { get; set; }
         public DateTime Datum { get; set; }
         public int Ocjena { get; set; }
+        public string Opis { get;set; }
 
     }
 }

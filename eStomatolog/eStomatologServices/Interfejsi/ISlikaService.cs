@@ -13,5 +13,7 @@ namespace eStomatologServices.Interfejsi
         Task<Byte[]> GetPictureStream(int slikaId);
         Task<Galerija> GetOrdinacijeSlikeIds(int ordinacijaId);
         Task<eStomatologModel.Slika> InsertOrdinacijaSlika(SlikaInsertRequest request);
+        Task<Galerija> GetDoktorSlikeIds(int doktorId);
+        Task<eStomatologModel.Slika> InsertDoktorSlika(DoktorSlikaInsertRequest request);
     }
 }

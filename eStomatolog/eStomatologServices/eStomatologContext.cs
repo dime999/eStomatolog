@@ -63,6 +63,8 @@ public partial class eStomatologContext : DbContext
 
     public virtual DbSet<OrdinacijaSlika> OrdinacijaSlike{ get; set; }
 
+    public virtual DbSet<DoktorSlika> DoktorSlike { get; set; }
+
     public virtual DbSet<PoklonBon> PoklonBonovi { get; set; }
 
 
@@ -336,6 +338,7 @@ public partial class eStomatologContext : DbContext
 
             entity.Property(e => e.Datum).HasColumnType("datetime");
             entity.Property(e => e.Ocjena).IsRequired();
+            entity.Property(e => e.Opis).IsRequired();
             entity.HasOne(d => d.Pacijent)
                .WithMany(p => p.Ocjene)
                .HasForeignKey(d => d.PacijentId);
@@ -388,6 +391,12 @@ public partial class eStomatologContext : DbContext
                 .HasName("PK_ordinacija_slika");
         });
 
+
+        modelBuilder.Entity<DoktorSlika>(entity =>
+        {
+            entity.HasKey(k => new { k.DoktorId, k.SlikaId })
+                .HasName("PK_doktor_slika");
+        });
 
     }
 

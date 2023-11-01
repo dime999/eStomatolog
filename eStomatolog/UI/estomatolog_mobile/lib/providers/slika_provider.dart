@@ -9,6 +9,7 @@ class SlikaProvider with ChangeNotifier {
   static String? _baseUrl;
   final String _getSlikeEndpoint = "OrdinacijaSlikeIds?ordinacijaId=";
   final String _slikaDelete = "Slika?id=";
+  final String _getDoktorSlika = "DoktorSlikaIds?doktorId=";
   SlikaProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue: "https://10.0.2.2:7265/");
@@ -31,6 +32,21 @@ class SlikaProvider with ChangeNotifier {
       return value.OrdinacijaId;
     } else {
       throw Exception("Unknown error");
+    }
+  }
+
+  Future<List<int>> getDoktorSlika(int doktorId) async {
+    var url = "$_baseUrl$_getDoktorSlika$doktorId";
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+
+    var response = await http.get(uri, headers: headers);
+    if (isValidResponse(response)) {
+      Map<String, dynamic> responseData = jsonDecode(response.body);
+      List<int> slikeIds = List<int>.from(responseData["slikeIds"]);
+      return slikeIds;
+    } else {
+      throw Exception("Nepoznata greška!");
     }
   }
 

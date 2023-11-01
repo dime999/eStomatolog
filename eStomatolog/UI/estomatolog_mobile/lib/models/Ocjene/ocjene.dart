@@ -11,8 +11,9 @@ class Ocjene {
   int pacijentId;
   DateTime datum;
   int ocjena;
+  String opis;
 
-  Ocjene(this.doktorId, this.pacijentId, this.datum, this.ocjena);
+  Ocjene(this.doktorId, this.pacijentId, this.datum, this.ocjena, this.opis);
 
   factory Ocjene.fromJson(Map<String, dynamic> json) => _$OcjeneFromJson(json);
 
