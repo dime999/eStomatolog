@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:estomatolog_mobile/models/Rezervacija/rezervacija.dart';
+import 'package:estomatolog_mobile/models/Rezervacija/rezervacija_insert.dart';
 import 'package:estomatolog_mobile/models/Termin/termin.dart';
 import 'package:estomatolog_mobile/models/Termin/termin_zauzeti.dart';
 import 'package:estomatolog_mobile/models/search_result.dart';
@@ -16,6 +17,7 @@ class RezervacijaProvider with ChangeNotifier {
   final String _endpointZauzetiTermini =
       "Rezervacija/zauzeti-termini?ordinacijaId=";
   final String _datum = "&datum=";
+  final String _default = "Rezervacija";
   RezervacijaProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue: "https://10.0.2.2:7265/");
@@ -85,6 +87,22 @@ class RezervacijaProvider with ChangeNotifier {
       return result;
     } else {
       throw Exception("Nepoznata greška!");
+    }
+  }
+
+  Future<RezervacijaInsert> insert([RezervacijaInsert? request]) async {
+    var url = "$_baseUrl$_default";
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+
+    var jsonRequest = jsonEncode(request);
+    var response = await http.post(uri, headers: headers, body: jsonRequest);
+
+    if (isValidResponse(response)) {
+      var data = jsonDecode(response.body);
+      return RezervacijaInsert.fromJson(data);
+    } else {
+      throw Exception("Unknown error");
     }
   }
 

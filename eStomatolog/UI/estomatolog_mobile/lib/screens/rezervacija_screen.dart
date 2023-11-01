@@ -1,8 +1,11 @@
 import 'package:estomatolog_mobile/models/Doktor/doktor_ordinacija.dart';
+import 'package:estomatolog_mobile/models/Pacijent/pacijent.dart';
 import 'package:estomatolog_mobile/models/Rezervacija/rezervacija.dart';
+import 'package:estomatolog_mobile/models/Rezervacija/rezervacija_insert.dart';
 import 'package:estomatolog_mobile/models/Termin/termin.dart';
 import 'package:estomatolog_mobile/models/Termin/termin_zauzeti.dart';
 import 'package:estomatolog_mobile/providers/doktor_ordinacija_provider.dart';
+import 'package:estomatolog_mobile/providers/pacijent_provider.dart';
 import 'package:estomatolog_mobile/providers/rezervacija_provider.dart';
 import 'package:estomatolog_mobile/providers/termin_provider.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +27,7 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
   List<Termin> _termini = [];
   List<TerminZauzeti> _zauzetiTermini = [];
   List<DoktorOrdinacija> doktori = [];
+  late Pacijent pacijent;
 
   @override
   void initState() {
@@ -31,7 +35,13 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
     _selectedDate = DateTime.now();
     _loadZauzetiTermini();
     _loadTermini();
-    fetchDoctors(context, '');
+    fetchPacijent(context);
+    _loadDoctors();
+  }
+
+  void _refreshData() async {
+    await _loadZauzetiTermini();
+    await _loadTermini();
   }
 
   Future<void> _loadZauzetiTermini() async {
@@ -57,6 +67,24 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
     doktori = fetchedDoctors.result;
 
     return doktori;
+  }
+
+  void _loadDoctors() async {
+    var doktori = await fetchDoctors(context, '');
+    setState(() {
+      selectedDoctorId =
+          doktori.isNotEmpty ? doktori[0].doktorId.toString() : '';
+      odabraniDoktor = int.tryParse(selectedDoctorId!);
+    });
+  }
+
+  Future<Pacijent> fetchPacijent(BuildContext context) async {
+    var pacijentProvider =
+        Provider.of<PacijentProvider>(context, listen: false);
+    var fetchedPacijent =
+        await pacijentProvider.getByKorisnikId(widget.korisnikId);
+    pacijent = fetchedPacijent;
+    return pacijent;
   }
 
   Future<List<Termin>> fetchTermini(BuildContext context) async {
@@ -93,12 +121,15 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
   }
 
   String? selectedDoctorId;
-  String? email;
   final TextEditingController _emailContorller = TextEditingController();
+  bool _isEmailValid = true;
+  int? odabraniDoktor;
+  late RezervacijaProvider _rezervacijaProvider;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text("Rezervacija pregleda"),
         centerTitle: true,
@@ -160,6 +191,37 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
+                                        'Unesite email za potvrdu rezervacije:',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 16),
+                                      Container(
+                                        width: 300,
+                                        child: TextField(
+                                            decoration: InputDecoration(
+                                              labelText:
+                                                  'Email za potvrdu rezervacije',
+                                              prefixIcon: Icon(Icons.email),
+                                              border: OutlineInputBorder(),
+                                              errorText: _isEmailValid
+                                                  ? null
+                                                  : 'Unesite ispravnu e-mail adresu',
+                                            ),
+                                            controller: _emailContorller,
+                                            onChanged: (email) {
+                                              bool isValid = RegExp(
+                                                      r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
+                                                  .hasMatch(email);
+                                              setState(() {
+                                                _isEmailValid = isValid;
+                                              });
+                                            }),
+                                      ),
+                                      SizedBox(height: 16),
+                                      Text(
                                         'Izaberite doktora:',
                                         style: TextStyle(
                                           fontSize: 18,
@@ -168,13 +230,14 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
                                       ),
                                       SizedBox(height: 16),
                                       Container(
-                                        width:
-                                            300, // Postavite željenu širinu ovde
+                                        width: 300,
                                         child: DropdownButtonFormField<String>(
                                           value: selectedDoctorId,
                                           onChanged: (newValue) {
                                             setState(() {
                                               selectedDoctorId = newValue!;
+                                              odabraniDoktor = int.tryParse(
+                                                  selectedDoctorId);
                                             });
                                           },
                                           decoration: InputDecoration(
@@ -195,28 +258,6 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
                                           ).toList(),
                                         ),
                                       ),
-                                      SizedBox(height: 32),
-                                      Text(
-                                        'Unesite email za potvrdu rezervacije:',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      SizedBox(height: 16),
-                                      Container(
-                                        width:
-                                            300, // Postavite željenu širinu ovde
-                                        child: TextField(
-                                          decoration: const InputDecoration(
-                                            labelText:
-                                                'Email za potvrdu rezervacije',
-                                            prefixIcon: Icon(Icons.email),
-                                            border: OutlineInputBorder(),
-                                          ),
-                                          controller: _emailContorller,
-                                        ),
-                                      ),
                                       SizedBox(height: 16),
                                       Text(
                                         'Vaša rezervacija će biti spremljena za datum ${DateFormat('dd.MM.yyyy').format(_selectedDate!)} u terminu ${DateFormat('HH:mm').format(_termini[index].vrijeme)}, ukoliko rezervacija bude uspješna bit ćete obaviješteni emailom.',
@@ -225,37 +266,62 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      SizedBox(height: 32),
+                                      SizedBox(height: 8),
                                       Align(
                                         alignment: Alignment.bottomRight,
                                         child: Padding(
                                           padding: const EdgeInsets.all(16.0),
                                           child: ElevatedButton(
-                                            onPressed: () {
-                                              // Implementirajte logiku za potvrdu rezervacije ovde
-                                              Navigator.of(context)
-                                                  .pop(); // Zatvorite modal
-                                              showDialog(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return AlertDialog(
-                                                    title: Text(
-                                                        'Potvrda rezervacije'),
-                                                    content: Text(
-                                                        'Rezervacija je uspešno potvrđena!'),
-                                                    actions: [
-                                                      TextButton(
-                                                        onPressed: () {
-                                                          Navigator.of(context)
-                                                              .pop(); // Zatvorite AlertDialog
-                                                        },
-                                                        child: Text('OK'),
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
-                                              );
+                                            onPressed: () async {
+                                              _rezervacijaProvider = Provider
+                                                  .of<RezervacijaProvider>(
+                                                      context,
+                                                      listen: false);
+                                              RezervacijaInsert
+                                                  rezervacijaInsert =
+                                                  RezervacijaInsert(
+                                                      _selectedDate!,
+                                                      _emailContorller.text,
+                                                      pacijent.id,
+                                                      widget.ordinacijaId,
+                                                      odabraniDoktor!,
+                                                      _termini[index].terminId);
+                                              print(rezervacijaInsert);
+
+                                              try {
+                                                print("uslo");
+                                                await _rezervacijaProvider
+                                                    .insert(rezervacijaInsert);
+                                                Navigator.of(context).pop();
+                                                // ignore: use_build_context_synchronously
+                                                showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDialog(
+                                                      title: Text(
+                                                          'Potvrda rezervacije'),
+                                                      content: Text(
+                                                          'Rezervacija je uspešno potvrđena!'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                            _refreshData();
+                                                          },
+                                                          child: Text('OK'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              } catch (e) {
+                                                print(
+                                                    "Greška prilikom dodavanja: $e");
+                                                Navigator.of(context).pop();
+                                              }
                                             },
                                             child: Text('Potvrdi rezervaciju'),
                                           ),
