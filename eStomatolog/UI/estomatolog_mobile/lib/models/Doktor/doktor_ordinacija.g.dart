@@ -19,5 +19,5 @@ Map<String, dynamic> _$DoktorOrdinacijaToJson(DoktorOrdinacija instance) =>
       'doktorIme': instance.doktorIme,
       'doktorPrezime': instance.doktorPrezime,
       'korisnikId': instance.korisnikId,
-      'doktorId': instance.doktorId
+      'doktorId': instance.doktorId,
     };

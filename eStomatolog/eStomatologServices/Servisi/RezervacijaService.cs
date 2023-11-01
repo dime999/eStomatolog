@@ -61,7 +61,7 @@ namespace eStomatologServices.Servisi
         public IEnumerable<Rezervacija> DohvatiZauzeteTermine(int ordinacijaId, DateTime datum)
         {
 
-            var Rezervacije = Context.Set<Database.Rezervacija>().Where(d => d.OrdinacijaId == ordinacijaId).Include(r => r.Doktor).Include(r => r.Ordinacija).Include(t => t.Termin).Where(r => r.OrdinacijaId == ordinacijaId && datum==r.Datum).AsQueryable();
+            var Rezervacije = Context.Set<Database.Rezervacija>().Where(d => d.OrdinacijaId == ordinacijaId).Include(r => r.Doktor).Include(r => r.Ordinacija).Include(t => t.Termin).Where(r => r.OrdinacijaId == ordinacijaId && datum.Date==r.Datum.Date).AsQueryable();
             var list = Rezervacije.ToList();
             return Mapper.Map<IList<Rezervacija>>(list);
         }

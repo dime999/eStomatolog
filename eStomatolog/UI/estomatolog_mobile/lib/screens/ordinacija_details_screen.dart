@@ -189,6 +189,7 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
                       MaterialPageRoute(
                           builder: (context) => RezervacijaScreen(
                                 korisnikId: Authorization.korisnikId,
+                                ordinacijaId: widget.ordinacijaId,
                               )),
                     );
                   }),

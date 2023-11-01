@@ -16,5 +16,6 @@ namespace eStomatologModel
         public string Prezime { get; set; } = null;
         public virtual ICollection<DoktorOrdinacija> DoktorOrdinacije { get; set; }
 
+
     }
 }
