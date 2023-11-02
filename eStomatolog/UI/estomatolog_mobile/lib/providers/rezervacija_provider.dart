@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:estomatolog_mobile/models/Rezervacija/rezervacija.dart';
 import 'package:estomatolog_mobile/models/Rezervacija/rezervacija_insert.dart';
-import 'package:estomatolog_mobile/models/Termin/termin.dart';
 import 'package:estomatolog_mobile/models/Termin/termin_zauzeti.dart';
 import 'package:estomatolog_mobile/models/search_result.dart';
 import 'package:estomatolog_mobile/utils/util.dart';

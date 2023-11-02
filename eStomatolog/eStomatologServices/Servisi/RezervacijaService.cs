@@ -94,21 +94,23 @@ namespace eStomatologServices.Servisi
             }
             Context.SaveChanges();
 
-            //if (entity != null)
-            //{
-            //    eStomatologModel.ReservationNotifier reservation = new ReservationNotifier
-            //    {
-            //        Id = entity.RezervacijaId,
-            //        DoktorIme = doktorIme,
-            //        Email = entity.Email,
+            if (entity != null)
+            {
+                eStomatologModel.ReservationNotifier reservation = new ReservationNotifier
+                {
+                    Id = entity.RezervacijaId,
+                    DoktorIme = doktorIme,
+                    Email = entity.Email,
+                    Datum=entity.Datum,
+                    Vrijeme=entity.Termin.Vrijeme
 
-            //    };
-            //    _messageProducer.SendingObject(reservation);
-            //}
+                };
+                _messageProducer.SendingObject(reservation);
+            }
 
-            //using var bus = RabbitHutch.CreateBus("host=localhost");
+            using var bus = RabbitHutch.CreateBus("host=localhost");
 
-            //bus.PubSub.Publish(entity);
+            bus.PubSub.Publish(entity);
 
             return entity;
         }

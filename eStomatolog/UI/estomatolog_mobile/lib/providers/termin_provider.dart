@@ -1,4 +1,3 @@
-import 'package:estomatolog_mobile/models/Grad/grad.dart';
 import 'package:estomatolog_mobile/models/Termin/termin.dart';
 import 'package:estomatolog_mobile/providers/base_provider.dart';
 

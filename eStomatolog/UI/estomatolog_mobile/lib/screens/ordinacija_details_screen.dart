@@ -3,6 +3,7 @@ import 'package:estomatolog_mobile/models/Ordinacija/ordinacija.dart';
 import 'package:estomatolog_mobile/providers/ordinacija_provider.dart';
 import 'package:estomatolog_mobile/screens/doktori_lista_screen.dart';
 import 'package:estomatolog_mobile/screens/galerija_screen.dart';
+import 'package:estomatolog_mobile/screens/poklon_bon.dart';
 import 'package:estomatolog_mobile/screens/rezervacija_screen.dart';
 import 'package:estomatolog_mobile/utils/util.dart';
 import 'package:flutter/material.dart';
@@ -202,7 +203,13 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
                               )),
                     );
                   }),
-                  _buildItem('Poklon bonovi', Icons.card_giftcard, () {}),
+                  _buildItem('Poklon bonovi', Icons.card_giftcard, () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PoklonBonScreen()),
+                    );
+                  }),
                   _buildItem('Galerija', Icons.image, () {
                     Navigator.push(
                       context,

@@ -88,6 +88,10 @@ flutter:
     - assets/RiveAssetsIcons/3d-button.riv
     - assets/RiveAssetsIcons/sign_up_rive_button.riv
     - assets/images/logo.avif
+    - assets/images/bon1.png
+    - assets/images/bon2.png
+    - assets/images/bon3.png
+    - assets/images/naslov.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

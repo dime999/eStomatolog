@@ -12,6 +12,7 @@ namespace eStomatologModel
         public int Id { get; set; }
         public string  DoktorIme { get; set; }
         public string Email { get; set; }
-        public DateTime DatumVrijeme { get; set; }
+        public DateTime Datum { get; set; }
+        public DateTime Vrijeme { get; set; }
     }
 }
