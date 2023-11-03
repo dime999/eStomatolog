@@ -40,15 +40,19 @@ class _PoklonBonInfoScreenState extends State<PoklonBonInfoScreen> {
           title: const Text('Poklon bon info'),
           centerTitle: true,
         ),
-        body: ListView(
+        body: SingleChildScrollView(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               height: 150,
               decoration: BoxDecoration(
-                  image: DecorationImage(
-                image: AssetImage("assets/images/bon_banner${valueSlike}.png"),
-                fit: BoxFit.cover,
-              )),
+                image: DecorationImage(
+                  image:
+                      AssetImage("assets/images/bon_banner${valueSlike}.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -81,7 +85,7 @@ class _PoklonBonInfoScreenState extends State<PoklonBonInfoScreen> {
                             const SizedBox(height: 8.0),
                             Container(
                               width: double.infinity,
-                              padding: EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(3.0),
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color:
@@ -138,6 +142,64 @@ class _PoklonBonInfoScreenState extends State<PoklonBonInfoScreen> {
                                 ),
                               ),
                             ),
+                            const SizedBox(height: 32.0),
+                            Container(
+                              height: 1.0,
+                              color: Colors.grey,
+                            ),
+                            SizedBox(height: 8.0),
+                            Center(
+                              child: Text(
+                                'Odaberite način plaćanja',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 32.0),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: Container(
+                                    width: 120,
+                                    height: 120,
+                                    decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.credit_card,
+                                        color: Colors.white,
+                                        size: 50,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: Container(
+                                    width: 120,
+                                    height: 120,
+                                    decoration: BoxDecoration(
+                                      color: Colors.green,
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.person,
+                                        color: Colors.white,
+                                        size: 50,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -147,7 +209,7 @@ class _PoklonBonInfoScreenState extends State<PoklonBonInfoScreen> {
               ),
             ),
           ],
-        ));
+        )));
   }
 
   Widget _buildFormField(String label, String value) {
