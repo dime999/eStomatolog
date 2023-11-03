@@ -74,7 +74,9 @@ class _PoklonBonInfoScreenState extends State<PoklonBonInfoScreen> {
                             Text(
                               'Usluge koje se mogu dobiti uz ovaj poklon bon:',
                               style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
+                                  color: Colors.blue,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 8.0),
                             Container(
