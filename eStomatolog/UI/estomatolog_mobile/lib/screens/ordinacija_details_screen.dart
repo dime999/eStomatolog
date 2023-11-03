@@ -102,7 +102,7 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
     return Padding(
       padding: const EdgeInsets.only(top: 200),
       child: Container(
-        height: 700,
+        height: 600,
         padding: const EdgeInsets.symmetric(horizontal: 20),
         decoration: const BoxDecoration(
           color: Colors.white,

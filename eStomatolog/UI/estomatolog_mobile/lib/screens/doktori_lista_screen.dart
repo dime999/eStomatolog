@@ -1,7 +1,7 @@
 import 'package:estomatolog_mobile/models/Doktor/doktor_ordinacija.dart';
 import 'package:estomatolog_mobile/providers/doktor_ordinacija_provider.dart';
 import 'package:estomatolog_mobile/providers/korisnici_provider.dart';
-import 'package:estomatolog_mobile/screens/dokltor_info_rate.dart';
+import 'package:estomatolog_mobile/screens/doktor_info_rate.dart';
 import 'package:estomatolog_mobile/widgets/lista_pregled.dart';
 import 'package:flutter/material.dart';
 

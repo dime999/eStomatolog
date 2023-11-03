@@ -9,11 +9,9 @@ class PoklonBonoviLista {
 
 List<PoklonBonoviLista> bonovi = [
   PoklonBonoviLista(
-      naziv: 'POKLON BON', imageUrl: 'assets/images/bon1.png', cijena: '30 KM'),
+      naziv: 'POKLON BON', imageUrl: 'assets/images/bon1.png', cijena: '30'),
   PoklonBonoviLista(
-      naziv: 'POKLON BON', imageUrl: 'assets/images/bon2.png', cijena: '50 KM'),
+      naziv: 'POKLON BON', imageUrl: 'assets/images/bon2.png', cijena: '50'),
   PoklonBonoviLista(
-      naziv: 'POKLON BON',
-      imageUrl: 'assets/images/bon3.png',
-      cijena: '100 KM'),
+      naziv: 'POKLON BON', imageUrl: 'assets/images/bon3.png', cijena: '100'),
 ];

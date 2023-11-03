@@ -1,4 +1,5 @@
 import 'package:estomatolog_mobile/models/PoklonBon/poklon_bonovi_lista.dart';
+import 'package:estomatolog_mobile/screens/poklon_bon_details.dart';
 import 'package:estomatolog_mobile/widgets/poklon_bonovi_list_item.dart';
 import 'package:flutter/material.dart';
 
@@ -46,16 +47,18 @@ class _PoklonBonScreenState extends State<PoklonBonScreen> {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        /*  Navigator.push(
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => const ClinicDetailScreen(),
+                            builder: (_) => PoklonBonInfoScreen(
+                              index: index,
+                            ),
                           ),
-                        ); */
+                        );
                       },
                       child: PoklonBonoviListItem(
                           naziv: bonovi[index].naziv,
-                          cijena: bonovi[index].cijena,
+                          cijena: bonovi[index].cijena.toString() + " KM",
                           imageUrl: bonovi[index].imageUrl),
                     );
                   },

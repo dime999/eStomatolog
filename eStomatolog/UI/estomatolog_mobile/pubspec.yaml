@@ -92,6 +92,9 @@ flutter:
     - assets/images/bon2.png
     - assets/images/bon3.png
     - assets/images/naslov.png
+    - assets/images/bon_banner1.png
+    - assets/images/bon_banner2.png
+    - assets/images/bon_banner3.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
