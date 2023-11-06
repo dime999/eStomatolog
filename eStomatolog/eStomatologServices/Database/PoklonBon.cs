@@ -11,7 +11,7 @@ namespace eStomatologServices.Database
     public class PoklonBon
     {
         public int PoklonBonId { get; set; }
-        public string Opis { get; set; }
+        public string Kod { get; set; }
         public decimal IznosPlacanja { get; set; }
         public int PacijentId { get; set; } 
         public Pacijent Pacijent { get; set; }

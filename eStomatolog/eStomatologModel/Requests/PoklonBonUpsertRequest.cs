@@ -6,7 +6,7 @@ namespace eStomatologModel.Requests
 {
     public class PoklonBonUpsertRequest
     {
-        public string Opis { get; set; }
+        public string Kod { get; set; }
         public decimal IznosPlacanja { get; set; }
         public int PacijentId { get; set; }
         public int OrdinacijaId { get; set; }

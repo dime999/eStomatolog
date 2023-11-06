@@ -207,7 +207,9 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => PoklonBonScreen()),
+                          builder: (context) => PoklonBonScreen(
+                                ordinacijaId: widget.ordinacijaId,
+                              )),
                     );
                   }),
                   _buildItem('Galerija', Icons.image, () {

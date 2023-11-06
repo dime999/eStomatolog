@@ -4,6 +4,9 @@ import 'package:estomatolog_mobile/widgets/poklon_bonovi_list_item.dart';
 import 'package:flutter/material.dart';
 
 class PoklonBonScreen extends StatefulWidget {
+  final int ordinacijaId;
+  const PoklonBonScreen({required this.ordinacijaId, Key? key})
+      : super(key: key);
   @override
   _PoklonBonScreenState createState() => _PoklonBonScreenState();
 }
@@ -52,6 +55,7 @@ class _PoklonBonScreenState extends State<PoklonBonScreen> {
                           MaterialPageRoute(
                             builder: (_) => PoklonBonInfoScreen(
                               index: index,
+                              ordinacijaId: widget.ordinacijaId,
                             ),
                           ),
                         );

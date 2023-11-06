@@ -1,11 +1,22 @@
+import 'package:estomatolog_mobile/models/Ordinacija/ordinacija.dart';
+import 'package:estomatolog_mobile/models/Pacijent/pacijent.dart';
+import 'package:estomatolog_mobile/models/PoklonBon/poklon_bon_insert.dart';
 import 'package:estomatolog_mobile/models/PoklonBon/poklon_bon_usluge.dart';
 import 'package:estomatolog_mobile/models/PoklonBon/poklon_bonovi_lista.dart';
+import 'package:estomatolog_mobile/providers/ordinacija_provider.dart';
+import 'package:estomatolog_mobile/providers/pacijent_provider.dart';
+import 'package:estomatolog_mobile/providers/poklon_bon_provider.dart';
+import 'package:estomatolog_mobile/utils/util.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class PoklonBonInfoScreen extends StatefulWidget {
   final int index;
+  final int ordinacijaId;
 
-  const PoklonBonInfoScreen({required this.index, Key? key}) : super(key: key);
+  const PoklonBonInfoScreen(
+      {required this.index, required this.ordinacijaId, Key? key})
+      : super(key: key);
 
   @override
   _PoklonBonInfoScreenState createState() => _PoklonBonInfoScreenState();
@@ -24,10 +35,40 @@ class _PoklonBonInfoScreenState extends State<PoklonBonInfoScreen> {
   late int slikaIndex;
   late String valueSlike;
   late int giftCardPrice;
+  late PoklonBonProvider _poklonBonProvider;
+  late Pacijent pacijent;
+  final TextEditingController _nazivOsobe = TextEditingController();
+
+  Ordinacija? ordinacija;
+
+  Future<Ordinacija> fetchOrdinacija(BuildContext context) async {
+    var pacijentProvider =
+        Provider.of<OrdinacijaProvider>(context, listen: false);
+    var ordinacija = await pacijentProvider.getById(widget.ordinacijaId);
+    return ordinacija;
+  }
+
+  Future<Pacijent> fetchPacijent(BuildContext context) async {
+    var pacijentProvider =
+        Provider.of<PacijentProvider>(context, listen: false);
+    var fetchedPacijent =
+        await pacijentProvider.getByKorisnikId(Authorization.korisnikId);
+    pacijent = fetchedPacijent;
+    return pacijent;
+  }
+
+  _fetchOrdinacijaData() async {
+    var fetchedOrdinacija = await fetchOrdinacija(context);
+    setState(() {
+      ordinacija = fetchedOrdinacija;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    _fetchOrdinacijaData();
+    fetchPacijent(context);
     slikaIndex = widget.index + 1;
     valueSlike = slikaIndex.toString();
     giftCardPrice = int.parse(bonovi[widget.index].cijena);
@@ -181,7 +222,254 @@ class _PoklonBonInfoScreenState extends State<PoklonBonInfoScreen> {
                                   ),
                                 ),
                                 GestureDetector(
-                                  onTap: () {},
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return StatefulBuilder(
+                                          builder: (BuildContext context,
+                                              StateSetter setState) {
+                                            return Padding(
+                                              padding:
+                                                  const EdgeInsets.all(16.0),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'Ime i prezime osobe koja će iskorititi bon:',
+                                                    style: TextStyle(
+                                                      color: Colors.blue,
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 22),
+                                                  Container(
+                                                    width: 300,
+                                                    child: TextField(
+                                                      decoration:
+                                                          InputDecoration(
+                                                        labelText:
+                                                            'Ime i prezime',
+                                                        prefixIcon:
+                                                            Icon(Icons.email),
+                                                        border:
+                                                            OutlineInputBorder(),
+                                                      ),
+                                                      controller: _nazivOsobe,
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 22),
+                                                  RichText(
+                                                    text: TextSpan(
+                                                      children: <TextSpan>[
+                                                        TextSpan(
+                                                          text: 'Iznos: ',
+                                                          style: TextStyle(
+                                                            color: Colors.blue,
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        TextSpan(
+                                                          text:
+                                                              '${bonovi[widget.index].cijena} KM',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 22),
+                                                  RichText(
+                                                    text: TextSpan(
+                                                      children: <TextSpan>[
+                                                        TextSpan(
+                                                          text: 'Ordinacija: ',
+                                                          style: TextStyle(
+                                                            color: Colors.blue,
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        TextSpan(
+                                                          text:
+                                                              '${ordinacija!.naziv}',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 22),
+                                                  RichText(
+                                                    text: TextSpan(
+                                                      children: <TextSpan>[
+                                                        TextSpan(
+                                                          text:
+                                                              'Vaše korisničko ime: ',
+                                                          style: TextStyle(
+                                                            color: Colors.blue,
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        TextSpan(
+                                                          text:
+                                                              '${(Authorization.korisnickoIme)}',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 22),
+                                                  RichText(
+                                                    text: TextSpan(
+                                                      children: <TextSpan>[
+                                                        TextSpan(
+                                                          text:
+                                                              'Način plaćanja: ',
+                                                          style: TextStyle(
+                                                            color: Colors.blue,
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        TextSpan(
+                                                          text: 'Lično (keš)',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 22),
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.bottomRight,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              22.0),
+                                                      child: ElevatedButton(
+                                                        onPressed: () async {
+                                                          int? iznos =
+                                                              int.tryParse(
+                                                                  bonovi[widget
+                                                                          .index]
+                                                                      .cijena);
+                                                          _poklonBonProvider =
+                                                              Provider.of<
+                                                                      PoklonBonProvider>(
+                                                                  context,
+                                                                  listen:
+                                                                      false);
+                                                          PoklonBonInsert
+                                                              poklonBon =
+                                                              PoklonBonInsert(
+                                                                  "GENERISATI",
+                                                                  iznos,
+                                                                  pacijent.id,
+                                                                  ordinacija!
+                                                                      .ordinacijaId,
+                                                                  _nazivOsobe
+                                                                      .text,
+                                                                  false,
+                                                                  "",
+                                                                  DateTime
+                                                                      .now(),
+                                                                  " ",
+                                                                  false);
+
+                                                          try {
+                                                            _poklonBonProvider
+                                                                .insert(
+                                                                    poklonBon);
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                            // ignore: use_build_context_synchronously
+                                                            showDialog(
+                                                              context: context,
+                                                              builder:
+                                                                  (BuildContext
+                                                                      context) {
+                                                                return AlertDialog(
+                                                                  title: Row(
+                                                                    children: [
+                                                                      Icon(
+                                                                        Icons
+                                                                            .check_circle,
+                                                                        color: Colors
+                                                                            .green,
+                                                                      ),
+                                                                      SizedBox(
+                                                                          width:
+                                                                              10),
+                                                                      Text(
+                                                                          'Potvrda narudžbe'),
+                                                                    ],
+                                                                  ),
+                                                                  content: Text(
+                                                                      'Narudžba je uspešno potvrđena!'),
+                                                                  actions: [
+                                                                    TextButton(
+                                                                      onPressed:
+                                                                          () {
+                                                                        Navigator.of(context)
+                                                                            .pop();
+                                                                      },
+                                                                      child: Text(
+                                                                          'OK'),
+                                                                    ),
+                                                                  ],
+                                                                );
+                                                              },
+                                                            );
+                                                          } catch (e) {
+                                                            print(
+                                                                "Greška prilikom dodavanja: $e");
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          }
+                                                        },
+                                                        child: Text(
+                                                            'Naruči poklon bon'),
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                    );
+                                  },
                                   child: Container(
                                     width: 120,
                                     height: 120,
