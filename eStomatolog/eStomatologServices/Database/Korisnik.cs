@@ -24,7 +24,8 @@ namespace eStomatologServices.Models
         public string LozinkaSalt { get; set; } = null!;
         public bool? Status { get; set; }
 
-        public virtual ICollection<KorisniciUloge> KorisniciUloges { get; set; }    
+        public virtual ICollection<KorisniciUloge> KorisniciUloges { get; set; }
+        public virtual ICollection<KorisnikKartica> KorisnikKartice { get; set; }
 
     }
 }

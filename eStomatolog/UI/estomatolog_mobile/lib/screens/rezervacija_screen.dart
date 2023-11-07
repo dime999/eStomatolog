@@ -1,6 +1,5 @@
 import 'package:estomatolog_mobile/models/Doktor/doktor_ordinacija.dart';
 import 'package:estomatolog_mobile/models/Pacijent/pacijent.dart';
-import 'package:estomatolog_mobile/models/Rezervacija/rezervacija.dart';
 import 'package:estomatolog_mobile/models/Rezervacija/rezervacija_insert.dart';
 import 'package:estomatolog_mobile/models/Termin/termin.dart';
 import 'package:estomatolog_mobile/models/Termin/termin_zauzeti.dart';

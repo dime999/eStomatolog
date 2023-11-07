@@ -7,8 +7,8 @@ part 'korisnik.g.dart';
 
 @JsonSerializable()
 class Korisnik {
-  String? ime;
-  String? prezime;
+  String ime;
+  String prezime;
   String? email;
   String? password;
   String? passwordPotvrda;

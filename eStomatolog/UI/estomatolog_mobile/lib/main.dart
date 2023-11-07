@@ -3,6 +3,7 @@ import 'package:estomatolog_mobile/providers/doktor_provider.dart';
 import 'package:estomatolog_mobile/providers/doktor_specijalizacije_provider.dart';
 import 'package:estomatolog_mobile/providers/grad_provider.dart';
 import 'package:estomatolog_mobile/providers/korisnici_provider.dart';
+import 'package:estomatolog_mobile/providers/korisnik_kartica_provider.dart';
 import 'package:estomatolog_mobile/providers/login_provider.dart';
 import 'package:estomatolog_mobile/providers/nalaz_provider.dart';
 import 'package:estomatolog_mobile/providers/ocjene_provider.dart';
@@ -39,6 +40,7 @@ void main() {
       ChangeNotifierProvider(create: (_) => LoginProvider()),
       ChangeNotifierProvider(create: (_) => DoktorSpecijalizacijaProvider()),
       ChangeNotifierProvider(create: (_) => TerminProvider()),
+      ChangeNotifierProvider(create: (_) => KorisnikKarticaProvider()),
     ],
     child: const MyApp(),
   ));

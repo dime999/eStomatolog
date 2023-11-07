@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eStomatologServices;
 
@@ -11,9 +12,11 @@ using eStomatologServices;
 namespace eStomatologServices.Migrations
 {
     [DbContext(typeof(eStomatologContext))]
-    partial class eStomatologContextModelSnapshot : ModelSnapshot
+    [Migration("20231106143230_kartice-update")]
+    partial class karticeupdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,14 +164,6 @@ namespace eStomatologServices.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("BrojKartice")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Cvv")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DatumIsteka")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

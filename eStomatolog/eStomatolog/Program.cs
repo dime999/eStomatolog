@@ -57,6 +57,7 @@ builder.Services.AddScoped<IMessageProducer, MessageProducer>();
 builder.Services.AddTransient<IPoklonBonService, PoklonBonService>();
 builder.Services.AddTransient<IOcjenaService, OcjeneService>();
 builder.Services.AddTransient<IDoktorSpecijalizacijeService, DoktorSpecijalizacijeService>();
+builder.Services.AddTransient<IKorisnikKartica, KorisnikKarticaService>();
 
 
 

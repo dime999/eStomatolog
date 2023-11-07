@@ -6,6 +6,7 @@ import 'package:estomatolog_mobile/models/PoklonBon/poklon_bonovi_lista.dart';
 import 'package:estomatolog_mobile/providers/ordinacija_provider.dart';
 import 'package:estomatolog_mobile/providers/pacijent_provider.dart';
 import 'package:estomatolog_mobile/providers/poklon_bon_provider.dart';
+import 'package:estomatolog_mobile/screens/kreditna_kartica_lista.dart';
 import 'package:estomatolog_mobile/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -39,7 +40,7 @@ class _PoklonBonInfoScreenState extends State<PoklonBonInfoScreen> {
   late Pacijent pacijent;
   final TextEditingController _nazivOsobe = TextEditingController();
 
-  Ordinacija? ordinacija;
+  late Ordinacija ordinacija;
 
   Future<Ordinacija> fetchOrdinacija(BuildContext context) async {
     var pacijentProvider =
@@ -204,7 +205,17 @@ class _PoklonBonInfoScreenState extends State<PoklonBonInfoScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 GestureDetector(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => KarticePlacanjeScreen(
+                                          cijena: giftCardPrice,
+                                          ordinacija: ordinacija,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                   child: Container(
                                     width: 120,
                                     height: 120,

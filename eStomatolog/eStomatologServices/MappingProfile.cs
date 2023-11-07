@@ -38,6 +38,8 @@ namespace eStomatologServices
             CreateMap<Database.Rezervacija, eStomatologModel.Rezervacija>();
             CreateMap<Database.PoklonBon, eStomatologModel.PoklonBon>();
             CreateMap<Database.Ocjene, eStomatologModel.Ocjene>();
+            CreateMap<Database.KorisnikKartica, eStomatologModel.KorisnikKartica>();
+
 
 
 
@@ -54,6 +56,7 @@ namespace eStomatologServices
             CreateMap<eStomatologModel.Requests.PacijentUpdateRequest,eStomatologServices.Database.Pacijent>();
             CreateMap<eStomatologModel.Requests.PoklonBonUpsertRequest, eStomatologServices.Database.PoklonBon>();
             CreateMap<eStomatologModel.Requests.OcjenaUpsertRequest, eStomatologServices.Database.Ocjene>();
+            CreateMap<eStomatologModel.Requests.KorisnikKarticaUpsertRequest, eStomatologServices.Database.KorisnikKartica>();
 
             CreateMap<Database.KorisniciUloge, eStomatologModel.KorisniciUloge>();
             CreateMap<Database.Uloge, eStomatologModel.Uloge>();

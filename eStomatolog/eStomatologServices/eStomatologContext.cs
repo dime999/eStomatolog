@@ -66,6 +66,7 @@ public partial class eStomatologContext : DbContext
     public virtual DbSet<DoktorSlika> DoktorSlike { get; set; }
 
     public virtual DbSet<PoklonBon> PoklonBonovi { get; set; }
+    public virtual DbSet<KorisnikKartica> KorisnikKartice { get; set; }
 
 
 
@@ -114,6 +115,15 @@ public partial class eStomatologContext : DbContext
                .WithMany(p => p.PoklonBonovi)
                .HasForeignKey(d => d.OrdinacijaId);
             entity.ToTable("PoklonBoni");
+        });
+
+        modelBuilder.Entity<KorisnikKartica>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_KorisnikKartica");
+            entity.HasOne(d => d.Korisnik)
+                .WithMany(p => p.KorisnikKartice)
+                .HasForeignKey(d => d.KorisnikId);
+            entity.ToTable("KorisnikKartice");
         });
 
 

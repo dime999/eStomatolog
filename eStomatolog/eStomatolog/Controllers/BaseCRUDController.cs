@@ -26,7 +26,6 @@ namespace eStomatolog.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "Administrator")]
         public  virtual T Delete(int id)
         {
             var result = ((ICRUDService<T, TSearch, TInsert, TUpdate>)this.Service).Delete(id);

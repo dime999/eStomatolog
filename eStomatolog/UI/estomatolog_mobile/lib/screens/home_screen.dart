@@ -30,9 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
       BuildContext context, String searchQuery) async {
     var ordinacijaProvider =
         Provider.of<PacijentOrdinacijaProvider>(context, listen: false);
-    print("Fetch Ordinacije 1");
     var pacijent = await fetchPacijent(context);
-    print(pacijent);
     var fetchedOrdinacije =
         await ordinacijaProvider.getByPacijentId(pacijent.id);
     var filteredOrdinacije = fetchedOrdinacije.result.where((ordinacija) {
