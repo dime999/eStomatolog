@@ -1,6 +1,8 @@
 import 'package:estomatolog_mobile/models/Pacijent/pacijent.dart';
 import 'package:estomatolog_mobile/models/custome_profile_list_tile_model.dart';
 import 'package:estomatolog_mobile/providers/pacijent_provider.dart';
+import 'package:estomatolog_mobile/screens/korisnik_kartice.dart';
+import 'package:estomatolog_mobile/screens/kreditna_kartica_lista.dart';
 import 'package:estomatolog_mobile/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -123,6 +125,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             fontWeight: FontWeight.bold),
                                       ),
                                       trailing: const Icon(Icons.chevron_right),
+                                      onTap: () {
+                                        switch (index) {
+                                          case 3:
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (_) => KarticeScreen(),
+                                              ),
+                                            );
+
+                                            break;
+                                          default:
+                                        }
+                                      },
                                     ),
                                   ));
                             }),
