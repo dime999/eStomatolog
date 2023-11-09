@@ -3,38 +3,37 @@ import 'package:json_annotation/json_annotation.dart';
 /// This allows the `User` class to access private members in
 /// the generated file. The value for this is *.g.dart, where
 /// the star denotes the source file name.
-part 'pacijent_update.g.dart';
+part 'user_update.g.dart';
 
 @JsonSerializable()
-class PacijentUpdateModel {
-  int? korisnikId;
+class UserUpdateModel {
   String? ime;
   String? prezime;
   String? email;
   String? telefon;
   String? korisnickoIme;
   bool? status;
-  List<int>? ordinacijeIdList;
   List<int>? ulogeIdList;
+  List<int>? ordinacijeIdList;
   int? gradId;
 
-  PacijentUpdateModel(
-      this.korisnikId,
-      this.ime,
-      this.prezime,
-      this.email,
-      this.telefon,
-      this.korisnickoIme,
-      this.status,
-      this.gradId,
-      this.ulogeIdList,
-      this.ordinacijeIdList);
+  UserUpdateModel(
+    this.ime,
+    this.prezime,
+    this.email,
+    this.telefon,
+    this.korisnickoIme,
+    this.status,
+    this.gradId,
+    this.ordinacijeIdList,
+    this.ulogeIdList,
+  );
 
-  factory PacijentUpdateModel.fromJson(Map<String, dynamic> json) =>
-      _$PacijentUpdateModelFromJson(json);
+  factory UserUpdateModel.fromJson(Map<String, dynamic> json) =>
+      _$UserUpdateModelFromJson(json);
 
   /// `toJson` is the convention for a class to declare support for serialization
   /// to JSON. The implementation simply calls the private, generated
   /// helper method `_$UserToJson`.
-  Map<String, dynamic> toJson() => _$PacijentUpdateModelToJson(this);
+  Map<String, dynamic> toJson() => _$UserUpdateModelToJson(this);
 }

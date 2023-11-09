@@ -213,6 +213,7 @@ class CreditCardView extends State<CreditCard> {
                                 );
                               },
                             );
+                            Navigator.of(context).pop();
                           }
 
                           print('valid!');

@@ -1,9 +1,8 @@
 import 'dart:convert';
-import 'package:estomatolog_mobile/models/Korisnik/doktor_update.dart';
+import 'package:estomatolog_mobile/models/Korisnik/user_update.dart';
 import 'package:estomatolog_mobile/models/Korisnik/korisnik.dart';
 import 'package:estomatolog_mobile/models/Korisnik/korisnik_basic.dart';
 import 'package:estomatolog_mobile/models/Korisnik/pacijent_insert.dart';
-import 'package:estomatolog_mobile/models/Korisnik/pacijent_update.dart';
 import 'package:estomatolog_mobile/providers/base_provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -57,34 +56,17 @@ class KorisniciProvider extends BaseProvider<Korisnik> {
     }
   }
 
-  Future<DoktorUpdateModel> updateDoktor(int id,
-      [DoktorUpdateModel? request]) async {
+  Future<UserUpdateModel> updateUser(int id, [UserUpdateModel? request]) async {
     var url = "$_baseUrl$_endpoint/$id";
     var uri = Uri.parse(url);
+    print(uri);
     var headers = createHeaders();
     var jsonRequest = jsonEncode(request);
     var response = await http.put(uri, headers: headers, body: jsonRequest);
 
     if (isValidResponse(response)) {
       var data = jsonDecode(response.body);
-      return DoktorUpdateModel.fromJson(data);
-    } else {
-      throw Exception("Unknown error");
-    }
-  }
-
-  Future<PacijentUpdateModel> updatePacijent(int id,
-      [PacijentUpdateModel? request]) async {
-    var url = "$_baseUrl$_endpoint/$id";
-    var uri = Uri.parse(url);
-    var headers = createHeaders();
-
-    var jsonRequest = jsonEncode(request);
-    var response = await http.put(uri, headers: headers, body: jsonRequest);
-
-    if (isValidResponse(response)) {
-      var data = jsonDecode(response.body);
-      return PacijentUpdateModel.fromJson(data);
+      return UserUpdateModel.fromJson(data);
     } else {
       throw Exception("Unknown error");
     }

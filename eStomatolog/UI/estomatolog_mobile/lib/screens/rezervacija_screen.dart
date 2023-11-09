@@ -288,7 +288,6 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
                                               print(rezervacijaInsert);
 
                                               try {
-                                                print("uslo");
                                                 await _rezervacijaProvider
                                                     .insert(rezervacijaInsert);
                                                 Navigator.of(context).pop();

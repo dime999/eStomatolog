@@ -1,14 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'doktor_update.dart';
+part of 'user_update.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-DoktorUpdateModel _$DoktorUpdateModelFromJson(Map<String, dynamic> json) =>
-    DoktorUpdateModel(
-      json['korisnikId'] as int?,
+UserUpdateModel _$UserUpdateModelFromJson(Map<String, dynamic> json) =>
+    UserUpdateModel(
       json['ime'] as String?,
       json['prezime'] as String?,
       json['email'] as String?,
@@ -16,26 +15,21 @@ DoktorUpdateModel _$DoktorUpdateModelFromJson(Map<String, dynamic> json) =>
       json['korisnickoIme'] as String?,
       json['status'] as bool?,
       json['gradId'] as int?,
-      (json['specijalizacijeId'] as List<dynamic>?)
-          ?.map((e) => e as int)
-          .toList(),
-      (json['ulogeIdList'] as List<dynamic>?)?.map((e) => e as int).toList(),
       (json['ordinacijeIdList'] as List<dynamic>?)
           ?.map((e) => e as int)
           .toList(),
+      (json['ulogeIdList'] as List<dynamic>?)?.map((e) => e as int).toList(),
     );
 
-Map<String, dynamic> _$DoktorUpdateModelToJson(DoktorUpdateModel instance) =>
+Map<String, dynamic> _$UserUpdateModelToJson(UserUpdateModel instance) =>
     <String, dynamic>{
-      'korisnikId': instance.korisnikId,
       'ime': instance.ime,
       'prezime': instance.prezime,
       'email': instance.email,
       'telefon': instance.telefon,
       'korisnickoIme': instance.korisnickoIme,
       'status': instance.status,
-      'specijalizacijeId': instance.specijalizacijeId,
-      'ordinacijeIdList': instance.ordinacijeIdList,
       'ulogeIdList': instance.ulogeIdList,
+      'ordinacijeIdList': instance.ordinacijeIdList,
       'gradId': instance.gradId,
     };

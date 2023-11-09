@@ -1,6 +1,7 @@
 import 'package:estomatolog_mobile/models/Pacijent/pacijent.dart';
 import 'package:estomatolog_mobile/models/custome_profile_list_tile_model.dart';
 import 'package:estomatolog_mobile/providers/pacijent_provider.dart';
+import 'package:estomatolog_mobile/screens/edit_profile.dart';
 import 'package:estomatolog_mobile/screens/korisnik_kartice.dart';
 import 'package:estomatolog_mobile/screens/kreditna_kartica_lista.dart';
 import 'package:estomatolog_mobile/utils/util.dart';
@@ -134,8 +135,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 builder: (_) => KarticeScreen(),
                                               ),
                                             );
-
                                             break;
+                                          case 0:
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (_) => EditUserScreen(
+                                                  korisnikId:
+                                                      Authorization.korisnikId,
+                                                ),
+                                              ),
+                                            );
                                           default:
                                         }
                                       },
