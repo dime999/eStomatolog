@@ -98,7 +98,8 @@ class _EditUserScreenState extends State<EditUserScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Uredi doktora'),
+        title: const Text('Uredi profil'),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
