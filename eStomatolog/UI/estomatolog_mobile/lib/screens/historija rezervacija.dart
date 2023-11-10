@@ -18,8 +18,6 @@ class RezervacijeHistorijaScreen extends StatefulWidget {
 
 class _RezervacijeHistorijaScreenState
     extends State<RezervacijeHistorijaScreen> {
-  List<DoktorOrdinacija> doktori = [];
-
   Future<List<Rezervacija>> fetchRezervacije(
       BuildContext context, String searchQuery) async {
     var rezervacijaProvider =

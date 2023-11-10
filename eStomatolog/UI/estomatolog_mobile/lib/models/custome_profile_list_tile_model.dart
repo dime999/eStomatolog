@@ -14,7 +14,7 @@ class CustomListTile {
 
 List<CustomListTile> customListTiles = [
   CustomListTile(
-    icon: Icons.history,
+    icon: Icons.person_2,
     title: "Informacije profila",
     isLogOut: false,
   ),
@@ -31,6 +31,11 @@ List<CustomListTile> customListTiles = [
   CustomListTile(
     icon: Icons.credit_card,
     title: "Nacin placanja",
+    isLogOut: false,
+  ),
+  CustomListTile(
+    icon: Icons.card_giftcard,
+    title: "Poklon bonovi",
     isLogOut: false,
   ),
   CustomListTile(

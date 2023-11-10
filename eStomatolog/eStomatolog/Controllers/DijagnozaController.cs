@@ -19,7 +19,6 @@ namespace eStomatolog.Controllers
         }
 
 
-        [Authorize(Roles = "Administrator")]
         [HttpGet("/GetByPacijent/{id}")]
         public async Task<IEnumerable<DijagnozaInfoModel>> GetByPacijent(int id)
         {

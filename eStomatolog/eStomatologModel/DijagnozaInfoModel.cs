@@ -11,6 +11,8 @@ namespace eStomatologModel
 
         public string DoktorIme => Doktor?.Ime;
 
+        public string DoktorPrezime => Doktor?.Prezime;
+
         public string Opis { get; set; }
 
         public DateTime Datum { get; set; }

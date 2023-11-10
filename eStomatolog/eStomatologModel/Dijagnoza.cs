@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace eStomatologModel
@@ -14,6 +15,7 @@ namespace eStomatologModel
 
         public DateTime Datum { get; set; }
 
+        [MaxLength]
         public string Opis { get; set; }
 
     }

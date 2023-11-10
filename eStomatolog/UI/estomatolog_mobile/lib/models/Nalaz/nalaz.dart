@@ -7,11 +7,12 @@ part 'nalaz.g.dart';
 
 @JsonSerializable()
 class Nalaz {
-  String? doktorIme;
-  String? opis;
+  String doktorIme;
+  String doktorPrezime;
+  String opis;
   DateTime? datum;
 
-  Nalaz(this.doktorIme, this.opis, this.datum);
+  Nalaz(this.doktorIme, this.doktorPrezime, this.opis, this.datum);
 
   factory Nalaz.fromJson(Map<String, dynamic> json) => _$NalazFromJson(json);
 
