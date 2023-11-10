@@ -20,7 +20,7 @@ List<CustomListTile> customListTiles = [
   ),
   CustomListTile(
     icon: Icons.history,
-    title: "Historija rezervacija",
+    title: "Rezervaacije",
     isLogOut: false,
   ),
   CustomListTile(

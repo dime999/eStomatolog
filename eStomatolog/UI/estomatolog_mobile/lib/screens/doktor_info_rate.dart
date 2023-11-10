@@ -62,8 +62,8 @@ class _DoktorInfoScreenState extends State<DoktorInfoScreen> {
     setState(() {
       korisnik = fetchedUser;
       pacijent = fetchedPacijent;
-      imeController.text = korisnik.ime ?? '';
-      prezimeController.text = korisnik.prezime ?? '';
+      imeController.text = korisnik.ime;
+      prezimeController.text = korisnik.prezime;
       emailController.text = korisnik.email ?? '';
       telefonController.text = korisnik.telefon ?? '';
       status = korisnik.status ?? true;

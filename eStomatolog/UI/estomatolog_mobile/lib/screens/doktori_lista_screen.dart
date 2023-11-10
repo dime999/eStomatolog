@@ -1,6 +1,5 @@
 import 'package:estomatolog_mobile/models/Doktor/doktor_ordinacija.dart';
 import 'package:estomatolog_mobile/providers/doktor_ordinacija_provider.dart';
-import 'package:estomatolog_mobile/providers/korisnici_provider.dart';
 import 'package:estomatolog_mobile/screens/doktor_info_rate.dart';
 import 'package:estomatolog_mobile/widgets/lista_pregled.dart';
 import 'package:flutter/material.dart';
@@ -38,8 +37,6 @@ class _DoctorsOrdinacijaScreenState extends State<DoctorsOrdinacijaScreen> {
 
   ValueNotifier<String> searchQueryNotifier = ValueNotifier<String>('');
 
-  late KorisniciProvider _korisniciProvider;
-
   @override
   void initState() {
     super.initState();
@@ -50,7 +47,6 @@ class _DoctorsOrdinacijaScreenState extends State<DoctorsOrdinacijaScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _korisniciProvider = Provider.of<KorisniciProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Doktori'),

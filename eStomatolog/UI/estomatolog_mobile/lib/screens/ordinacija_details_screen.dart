@@ -161,7 +161,7 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
               ),
               Text(
                 ordinacija != null
-                    ? 'Naša ordinacija se zove ${ordinacija!.naziv ?? 'N/A'} i nalazimo se na adresi ${ordinacija!.adresa ?? 'N/A'}. Naše ljubazno osoblje će vas primiti i riješiti bilo koji problem koji imate sa oralnim zdravljem. '
+                    ? 'Naša ordinacija se zove ${ordinacija!.naziv} i nalazimo se na adresi ${ordinacija!.adresa}. Naše ljubazno osoblje će vas primiti i riješiti bilo koji problem koji imate sa oralnim zdravljem. '
                     : 'Podaci o ordinaciji nisu dostupni',
                 style: Theme.of(context)
                     .textTheme

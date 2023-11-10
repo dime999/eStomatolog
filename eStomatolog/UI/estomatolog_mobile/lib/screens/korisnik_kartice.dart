@@ -30,7 +30,7 @@ class _KarticeScreenState extends State<KarticeScreen> {
         await karticeProvider.getByKorisnikId(Authorization.korisnikId);
     kartice = fetchedKartice.result;
     var filteredKartice = fetchedKartice.result.where((kartica) {
-      var naziv = kartica.vrstaKartica?.toLowerCase() ?? '';
+      var naziv = kartica.vrstaKartica.toLowerCase();
       return naziv.contains(searchQuery.toLowerCase());
     }).toList();
     return filteredKartice;
@@ -46,7 +46,7 @@ class _KarticeScreenState extends State<KarticeScreen> {
   }
 
   String _getImagePath(KorisnikKartica kartica) {
-    var vrstaKartice = kartica.vrstaKartica!.toLowerCase();
+    var vrstaKartice = kartica.vrstaKartica.toLowerCase();
     if (vrstaKartice.contains('visa')) {
       return 'assets/images/visa.png';
     } else if (vrstaKartice.contains('mastercard')) {
@@ -82,8 +82,8 @@ class _KarticeScreenState extends State<KarticeScreen> {
         builder: (context, searchQuery, child) {
           return CustomListPregledKarticaScreen<KorisnikKartica>(
             fetchData: (context) => fetchKartice(context, searchQuery),
-            getTitle: (kartica) => kartica.vrstaKartica ?? 'N/A',
-            getSubtitle: (kartica) => kartica.brojKartice ?? 'N/A',
+            getTitle: (kartica) => kartica.vrstaKartica,
+            getSubtitle: (kartica) => kartica.brojKartice,
             getImagePath: (kartica) => _getImagePath(kartica),
             onCardSelected: (kartica) => {},
             onAddPressed: () {

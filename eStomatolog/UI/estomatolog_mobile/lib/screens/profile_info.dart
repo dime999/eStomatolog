@@ -4,7 +4,7 @@ import 'package:estomatolog_mobile/providers/pacijent_provider.dart';
 import 'package:estomatolog_mobile/screens/edit_profile.dart';
 import 'package:estomatolog_mobile/screens/historija%20rezervacija.dart';
 import 'package:estomatolog_mobile/screens/korisnik_kartice.dart';
-import 'package:estomatolog_mobile/screens/kreditna_kartica_lista.dart';
+import 'package:estomatolog_mobile/screens/korisnik_poklon_bonovi.dart';
 import 'package:estomatolog_mobile/screens/nalazi_lista.dart';
 import 'package:estomatolog_mobile/utils/util.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             height: 10,
                           ),
                           Text(
-                            "${pacijent!.ime}" + " " + "${pacijent!.prezime}",
+                            "${pacijent.ime}" + " " + "${pacijent.prezime}",
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -163,6 +163,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (_) => NalaziScreen(
+                                                  pacijentId: pacijent.id,
+                                                ),
+                                              ),
+                                            );
+                                          case 4:
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (_) =>
+                                                    KorinsikPoklonBon(
                                                   pacijentId: pacijent.id,
                                                 ),
                                               ),

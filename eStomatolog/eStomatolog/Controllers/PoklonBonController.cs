@@ -21,9 +21,19 @@ namespace eStomatolog.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpGet("/GetPoklonBonByOrdinacija/{id}")]
-        public IEnumerable<eStomatologModel.PoklonBon> GetRezervacijeByOrdinacija(int id)
+        public IEnumerable<eStomatologModel.PoklonBon> GetBonByOrdinacija(int id)
         {
             var bonovi = _service.GetByOrdinacijaId(id);
+
+            return bonovi;
+        }
+
+
+       
+        [HttpGet("/GetPoklonBonByPacijent/{id}")]
+        public IEnumerable<eStomatologModel.PoklonBon> GetBonByPacijentId(int id)
+        {
+            var bonovi = _service.GetByPacijentId(id);
 
             return bonovi;
         }

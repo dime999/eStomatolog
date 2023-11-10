@@ -7,36 +7,14 @@ part 'poklon_bon.g.dart';
 
 @JsonSerializable()
 class PoklonBon {
-  int poklonBonId;
-  int pacijentId;
-  int ordinacijaId;
-  String? opis;
+  String kod;
   double iznosPlacanja;
   String imePrezimeKorisnikaKojiKoristi;
   bool placeno;
-  DateTime datumIstekaKartice;
-  String brojKartice;
-  String? cvcCvvKod;
-  String ordinacijaNaziv;
-  String pacijentIme;
-  String pacijentPrezime;
   bool iskoristeno;
 
-  PoklonBon(
-      this.poklonBonId,
-      this.pacijentId,
-      this.ordinacijaId,
-      this.opis,
-      this.iznosPlacanja,
-      this.imePrezimeKorisnikaKojiKoristi,
-      this.placeno,
-      this.datumIstekaKartice,
-      this.brojKartice,
-      this.cvcCvvKod,
-      this.ordinacijaNaziv,
-      this.pacijentIme,
-      this.pacijentPrezime,
-      this.iskoristeno);
+  PoklonBon(this.kod, this.iznosPlacanja, this.imePrezimeKorisnikaKojiKoristi,
+      this.placeno, this.iskoristeno);
 
   factory PoklonBon.fromJson(Map<String, dynamic> json) =>
       _$PoklonBonFromJson(json);

@@ -54,5 +54,14 @@ namespace eStomatologServices.Servisi
             return Mapper.Map<IList<PoklonBon>>(list);
         }
 
+
+        public IEnumerable<PoklonBon> GetByPacijentId(int id)
+        {
+            var PoklonBoniovi = Context.Set<Database.PoklonBon>().Where(d => d.PacijentId == id).Include(r => r.Pacijent).Include(o => o.Ordinacija).AsQueryable();
+            var list = PoklonBoniovi.ToList();
+
+            return Mapper.Map<IList<PoklonBon>>(list);
+        }
+
     }
 }

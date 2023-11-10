@@ -313,7 +313,7 @@ class _PoklonBonInfoScreenState extends State<PoklonBonInfoScreen> {
                                                         ),
                                                         TextSpan(
                                                           text:
-                                                              '${ordinacija!.naziv}',
+                                                              '${ordinacija.naziv}',
                                                           style: TextStyle(
                                                             color: Colors.black,
                                                             fontSize: 18,
@@ -404,7 +404,7 @@ class _PoklonBonInfoScreenState extends State<PoklonBonInfoScreen> {
                                                                   "GENERISATI",
                                                                   iznos,
                                                                   pacijent.id,
-                                                                  ordinacija!
+                                                                  ordinacija
                                                                       .ordinacijaId,
                                                                   _nazivOsobe
                                                                       .text,

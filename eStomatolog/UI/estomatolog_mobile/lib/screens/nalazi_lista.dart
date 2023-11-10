@@ -27,7 +27,7 @@ class _NalaziScreenState extends State<NalaziScreen> {
     var fetchedNalzi = await nalazProvider.getByPacijentId(widget.pacijentId);
 
     var filteredNalzi = fetchedNalzi.result.where((nalaz) {
-      var ime = nalaz.doktorIme?.toLowerCase() ?? '';
+      var ime = nalaz.doktorIme.toLowerCase();
 
       return ime.contains(searchQuery.toLowerCase());
     }).toList();
@@ -36,7 +36,6 @@ class _NalaziScreenState extends State<NalaziScreen> {
 
   ValueNotifier<String> searchQueryNotifier = ValueNotifier<String>('');
   TextEditingController searchController = TextEditingController();
-  late NalazProvider _nalazProvider;
 
   bool isPast(String datum) {
     var dateTime = DateTime.parse(datum);
@@ -45,7 +44,6 @@ class _NalaziScreenState extends State<NalaziScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _nalazProvider = Provider.of<NalazProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Moji nalazi'),
@@ -58,16 +56,14 @@ class _NalaziScreenState extends State<NalaziScreen> {
             fetchData: (context) => fetchNalazi(context, searchQuery),
             getFormattedDate: (nalaz) =>
                 nalaz.datum!.day.toString() +
-                    "." +
-                    nalaz.datum!.month.toString() +
-                    "." +
-                    nalaz.datum!.year.toString() ??
-                'N/A',
+                "." +
+                nalaz.datum!.month.toString() +
+                "." +
+                nalaz.datum!.year.toString(),
             getDoctorName: (nalaz) =>
                 nalaz.doktorIme.toString() +
-                    " " +
-                    nalaz.doktorPrezime.toString() ??
-                'N/A',
+                " " +
+                nalaz.doktorPrezime.toString(),
             getOpis: (nalaz) => nalaz.opis,
             searchController: searchController,
           );

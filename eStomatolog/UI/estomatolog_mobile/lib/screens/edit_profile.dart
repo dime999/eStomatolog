@@ -1,9 +1,7 @@
-import 'package:estomatolog_mobile/models/Grad/grad.dart';
 import 'package:estomatolog_mobile/models/Korisnik/korisnik.dart';
 import 'package:estomatolog_mobile/models/Korisnik/user_update.dart';
 import 'package:estomatolog_mobile/models/Ordinacija/ordinacija_pacijent.dart';
 import 'package:estomatolog_mobile/models/Pacijent/pacijent.dart';
-import 'package:estomatolog_mobile/providers/grad_provider.dart';
 import 'package:estomatolog_mobile/providers/korisnici_provider.dart';
 import 'package:estomatolog_mobile/providers/pacijent_ordinacija_provider.dart';
 import 'package:estomatolog_mobile/providers/pacijent_provider.dart';
@@ -50,8 +48,8 @@ class _EditUserScreenState extends State<EditUserScreen> {
     var fetchedUser = await korisnikProvider.getById(korisnikId);
     setState(() {
       korisnik = fetchedUser;
-      imeController.text = korisnik.ime ?? '';
-      prezimeController.text = korisnik.prezime ?? '';
+      imeController.text = korisnik.ime;
+      prezimeController.text = korisnik.prezime;
       emailController.text = korisnik.email ?? '';
       telefonController.text = korisnik.telefon ?? '';
       korisnickoImeController.text = korisnik.korisnickoIme ?? '';
@@ -77,7 +75,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
     var fetchedOrdinacije =
         await ordinacijaProvider.getByPacijentId(pacijent.id);
     idOrdinacija = fetchedOrdinacije.result
-        .map((ordinacija) => ordinacija.ordinacijaId ?? 0)
+        .map((ordinacija) => ordinacija.ordinacijaId)
         .toList();
     var filteredOrdinacije = fetchedOrdinacije.result;
     return filteredOrdinacije;

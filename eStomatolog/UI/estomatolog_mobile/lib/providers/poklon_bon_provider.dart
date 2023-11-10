@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:estomatolog_mobile/models/Poklon%20bon/poklon_bon.dart';
+import 'package:estomatolog_mobile/models/PoklonBon/poklon_bon.dart';
 import 'package:estomatolog_mobile/models/PoklonBon/poklon_bon_insert.dart';
 import 'package:estomatolog_mobile/models/search_result.dart';
 import 'package:estomatolog_mobile/utils/util.dart';
@@ -9,8 +9,7 @@ import 'package:http/http.dart';
 
 class PoklonBonProvider with ChangeNotifier {
   static String? _baseUrl;
-  final String _endpoint = "GetPoklonBonByOrdinacija/";
-  final String _delete = "PoklonBon?id=";
+  final String _endpoint = "GetPoklonBonByPacijent/";
   final String _default = "PoklonBon";
 
   PoklonBonProvider() {
@@ -18,7 +17,7 @@ class PoklonBonProvider with ChangeNotifier {
         defaultValue: "https://10.0.2.2:7265/");
   }
 
-  Future<SearchResult<PoklonBon>> get(int id) async {
+  Future<SearchResult<PoklonBon>> getByPacijentId(int id) async {
     var url = "$_baseUrl$_endpoint$id";
 
     var uri = Uri.parse(url);
@@ -51,19 +50,6 @@ class PoklonBonProvider with ChangeNotifier {
       return PoklonBonInsert.fromJson(data);
     } else {
       throw Exception("Unknown error");
-    }
-  }
-
-  Future<void> delete(int id) async {
-    var url = "$_baseUrl$_delete$id";
-    var uri = Uri.parse(url);
-    var headers = createHeaders();
-
-    var response = await http.delete(uri, headers: headers);
-    if (response.statusCode == 200) {
-      notifyListeners();
-    } else {
-      throw Exception("Brisanje nije uspelo");
     }
   }
 

@@ -1,6 +1,4 @@
-import 'package:estomatolog_mobile/models/Doktor/doktor_ordinacija.dart';
 import 'package:estomatolog_mobile/models/Rezervacija/rezervacija.dart';
-import 'package:estomatolog_mobile/providers/korisnici_provider.dart';
 import 'package:estomatolog_mobile/providers/rezervacija_provider.dart';
 import 'package:estomatolog_mobile/widgets/list_rezervacije.dart';
 import 'package:flutter/material.dart';
@@ -66,13 +64,11 @@ class _RezervacijeHistorijaScreenState
             fetchData: (context) => fetchRezervacije(context, searchQuery),
             getFormattedDate: (rezervacija) =>
                 rezervacija.datum.day.toString() +
-                    "." +
-                    rezervacija.datum.month.toString() +
-                    "." +
-                    rezervacija.datum.year.toString() ??
-                'N/A',
-            getDoctorName: (rezervacija) =>
-                rezervacija.doktorIme.toString() ?? 'N/A',
+                "." +
+                rezervacija.datum.month.toString() +
+                "." +
+                rezervacija.datum.year.toString(),
+            getDoctorName: (rezervacija) => rezervacija.doktorIme.toString(),
             isPastReservation: (rezervacija) =>
                 isPast(rezervacija.datum.toString()),
             onDeletePressed: (rezervacija) async {

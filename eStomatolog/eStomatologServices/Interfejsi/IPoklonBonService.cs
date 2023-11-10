@@ -13,5 +13,6 @@ namespace eStomatologServices.Interfejsi
     public interface IPoklonBonService : ICRUDService<eStomatologModel.PoklonBon, BaseSearchObject, PoklonBonUpsertRequest, PoklonBonUpsertRequest>
     {
         public IEnumerable<PoklonBon> GetByOrdinacijaId(int id);
+        public IEnumerable<PoklonBon> GetByPacijentId(int id);
     }
 }

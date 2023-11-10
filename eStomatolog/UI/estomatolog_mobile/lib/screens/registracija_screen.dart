@@ -39,12 +39,11 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
   Future<List<Ordinacija>> fetchOrdinacije(BuildContext context) async {
     var provider = Provider.of<OrdinacijaProvider>(context, listen: false);
     var fetchedOrdinacije = await provider.get();
-    naziviOrdinacija = fetchedOrdinacije.result
-        .map((ordinacija) => ordinacija.naziv ?? '')
-        .toList();
+    naziviOrdinacija =
+        fetchedOrdinacije.result.map((ordinacija) => ordinacija.naziv).toList();
 
     idOrdinacija = fetchedOrdinacije.result
-        .map((ordinacija) => ordinacija.ordinacijaId ?? 0)
+        .map((ordinacija) => ordinacija.ordinacijaId)
         .toList();
     setState(() {
       ordinacije = fetchedOrdinacije.result;
