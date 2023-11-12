@@ -63,22 +63,67 @@ class GenericListRezervacijeScreen<T> extends StatelessWidget {
                     var pastReservation = isPastReservation(item);
                     return Container(
                       child: ListTile(
-                        subtitle: Text('Datum: $date'),
-                        title: Text('Doktor: ${getDoctorName(item)}'),
+                        leading: Image(
+                          image: AssetImage('assets/images/reservation.png'),
+                          width: 40,
+                          height: 40,
+                        ),
+                        subtitle: RichText(
+                          text: TextSpan(
+                            style: DefaultTextStyle.of(context).style,
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Datum: ',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '$date',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        title: RichText(
+                          text: TextSpan(
+                            style: DefaultTextStyle.of(context).style,
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Doktor: ',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '${getDoctorName(item)}',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             if (pastReservation)
                               Text(
-                                "Neaktivno",
+                                "NEAKTIVNO",
                                 style:
-                                    TextStyle(color: Colors.red, fontSize: 16),
+                                    TextStyle(color: Colors.red, fontSize: 14),
                               ),
                             if (!pastReservation)
                               Text(
-                                "Aktivno",
+                                "AKTIVNO",
                                 style: TextStyle(
-                                    color: Colors.green, fontSize: 16),
+                                    color: Colors.green, fontSize: 14),
                               ),
                             IconButton(
                               icon: const Icon(Icons.delete),
