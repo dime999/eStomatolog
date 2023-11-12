@@ -56,20 +56,20 @@ class GenericListBonoviScreen extends StatelessWidget {
                             leading: bon.iznosPlacanja == 30
                                 ? Image.asset(
                                     'assets/images/bon1.png',
-                                    width: 130,
-                                    height: 130,
+                                    width: 110,
+                                    height: 110,
                                   )
                                 : bon.iznosPlacanja == 50
                                     ? Image.asset(
                                         'assets/images/bon2.png',
-                                        width: 130,
-                                        height: 130,
+                                        width: 110,
+                                        height: 110,
                                       )
                                     : bon.iznosPlacanja == 100
                                         ? Image.asset(
                                             'assets/images/bon3.png',
-                                            width: 130,
-                                            height: 130,
+                                            width: 110,
+                                            height: 110,
                                           )
                                         : null,
                             subtitle: RichText(
@@ -77,7 +77,7 @@ class GenericListBonoviScreen extends StatelessWidget {
                                 style: DefaultTextStyle.of(context).style,
                                 children: <TextSpan>[
                                   TextSpan(
-                                    text: 'Ime korisnika: ',
+                                    text: 'Pokon za osobu: ',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.blue,
@@ -139,6 +139,32 @@ class GenericListBonoviScreen extends StatelessWidget {
                                       : 'Nije iskorišteno',
                                   style: TextStyle(
                                     color: bon.iskoristeno
+                                        ? Colors.red
+                                        : Colors.green,
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 8.0),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Kod za aktivaciju:  ',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue,
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: bon.kod == 'GENERISATI'
+                                      ? 'Kod ćete dobiti nakon uplate'
+                                      : bon.kod,
+                                  style: TextStyle(
+                                    color: bon.kod == 'GENERISATI'
                                         ? Colors.red
                                         : Colors.green,
                                     fontSize: 16.0,

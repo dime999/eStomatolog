@@ -47,10 +47,14 @@ class _KorisnikPoklonBonScreenState extends State<KorinsikPoklonBon> {
         title: const Text('Moji poklon bonovi'),
         centerTitle: true,
       ),
-      body: GenericListBonoviScreen(
-        fetchData: (context) =>
-            fetchPoklonBonovi(context, searchQueryNotifier.value),
-        searchController: searchController,
+      body: ValueListenableBuilder<String>(
+        valueListenable: searchQueryNotifier,
+        builder: (context, searchQuery, child) {
+          return GenericListBonoviScreen(
+            fetchData: (context) => fetchPoklonBonovi(context, searchQuery),
+            searchController: searchController,
+          );
+        },
       ),
     );
   }
