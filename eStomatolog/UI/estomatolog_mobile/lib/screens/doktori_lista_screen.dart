@@ -30,10 +30,9 @@ class _DoctorsOrdinacijaScreenState extends State<DoctorsOrdinacijaScreen> {
     for (var doktor in fetchedDoctors.result) {
       var providerOcjene = Provider.of<OcjeneProvider>(context, listen: false);
       var fetchedOcjene = await providerOcjene.get(doktor.doktorId);
-      for (var i in fetchedOcjene.result) {
-        doktor.ocjene.addAll(
-            fetchedOcjene.result.map((ocjena) => ocjena.ocjena).toList());
-      }
+
+      doktor.ocjene
+          .addAll(fetchedOcjene.result.map((ocjena) => ocjena.ocjena).toList());
     }
 
     var filteredDoktori = fetchedDoctors.result.where((doktor) {
@@ -78,7 +77,7 @@ class _DoctorsOrdinacijaScreenState extends State<DoctorsOrdinacijaScreen> {
           return GenericListPregledScreen<DoktorOrdinacija>(
             fetchData: (context) => fetchDoctors(context, searchQuery),
             getDoctorName: (doktor) =>
-                doktor.doktorIme! + " " + doktor.doktorPrezime! ?? 'N/A',
+                doktor.doktorIme! + " " + doktor.doktorPrezime!,
             getRating: (doktor) => izracunajProsjecnuOcjenu(doktor.ocjene),
             onView: (doktor) {
               int korisnikId = doktor.korisnikId;

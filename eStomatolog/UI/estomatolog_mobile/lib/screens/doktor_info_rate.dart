@@ -12,7 +12,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:estomatolog_mobile/providers/doktor_specijalizacije_provider.dart';
 import 'package:estomatolog_mobile/providers/ocjene_provider.dart';
-import 'package:estomatolog_mobile/models/Ocjene/ocjene_datum.dart';
 import 'package:estomatolog_mobile/models/Doktor/doktor_specijalizacija.dart';
 
 class DoktorInfoScreen extends StatefulWidget {

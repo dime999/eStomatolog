@@ -102,6 +102,12 @@ flutter:
     - assets/images/nalaz.jpg
     - assets/images/reservation.png
     - assets/images/doctor_avatar.jpg
+    - assets/images/galerija.png
+    - assets/images/lista_doktor.png
+    - assets/images/poklon.png
+    - assets/images/placanja.png
+    - assets/images/logout.png
+    - assets/images/profile_info.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

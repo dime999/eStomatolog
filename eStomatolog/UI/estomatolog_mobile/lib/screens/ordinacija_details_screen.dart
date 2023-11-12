@@ -100,7 +100,7 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
 
   Widget scroll(bool isSelected) {
     return Padding(
-      padding: const EdgeInsets.only(top: 200),
+      padding: const EdgeInsets.only(top: 170),
       child: Container(
         height: 600,
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -128,20 +128,67 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
                   ],
                 ),
               ),
-              Text(
-                ordinacija?.naziv ?? '',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+              RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Naziv: ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue,
+                        fontSize: 18.0,
+                      ),
+                    ),
+                    TextSpan(
+                      text: ordinacija?.naziv ?? '',
+                      style: TextStyle(fontSize: 18.0, color: Colors.black),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(
                 height: 5,
               ),
-              Text(
-                ordinacija?.adresa ?? '',
-                style: TextStyle(color: Colors.black, fontSize: 15),
+              RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Adresa: ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    TextSpan(
+                      text: ordinacija?.adresa ?? '',
+                      style: TextStyle(fontSize: 16.0, color: Colors.black),
+                    ),
+                  ],
+                ),
+                textScaleFactor: 1.0,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Broj: ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    TextSpan(
+                      text: ordinacija?.telefon ?? '',
+                      style: TextStyle(fontSize: 16.0, color: Colors.black),
+                    ),
+                  ],
+                ),
+                textScaleFactor: 1.0,
               ),
               const SizedBox(
                 height: 10,
@@ -154,7 +201,10 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
               ),
               const Text(
                 "Opis",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue),
               ),
               const SizedBox(
                 height: 10,
@@ -168,57 +218,55 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
                     .bodyText2!
                     .copyWith(color: Colors.black),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 15),
-                child: Divider(
-                  height: 4,
-                ),
-              ),
               GridView.count(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 crossAxisCount: 2,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 0,
                 children: [
-                  _buildItem('Rezervacija', Icons.event, () {
+                  _buildItem('Rezervacija', 'assets/images/reservation.png',
+                      () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => RezervacijaScreen(
-                                korisnikId: Authorization.korisnikId,
-                                ordinacijaId: widget.ordinacijaId,
-                              )),
+                        builder: (context) => RezervacijaScreen(
+                          korisnikId: Authorization.korisnikId,
+                          ordinacijaId: widget.ordinacijaId,
+                        ),
+                      ),
                     );
                   }),
-                  _buildItem('Lista doktora', Icons.people, () {
+                  _buildItem('Galerija', 'assets/images/galerija.png', () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => DoctorsOrdinacijaScreen(
-                                ordinacijaId: widget.ordinacijaId,
-                              )),
+                        builder: (context) => GalerijaScreen(
+                          ordinacijaId: widget.ordinacijaId,
+                        ),
+                      ),
                     );
                   }),
-                  _buildItem('Poklon bonovi', Icons.card_giftcard, () {
+                  _buildItem('Lista doktora', 'assets/images/lista_doktor.png',
+                      () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => PoklonBonScreen(
-                                ordinacijaId: widget.ordinacijaId,
-                              )),
+                        builder: (context) => DoctorsOrdinacijaScreen(
+                          ordinacijaId: widget.ordinacijaId,
+                        ),
+                      ),
                     );
                   }),
-                  _buildItem('Galerija', Icons.image, () {
+                  _buildItem('Poklon bonovi', 'assets/images/poklon.png', () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => GalerijaScreen(
-                                ordinacijaId: widget.ordinacijaId,
-                              )),
+                        builder: (context) => RezervacijaScreen(
+                          korisnikId: Authorization.korisnikId,
+                          ordinacijaId: widget.ordinacijaId,
+                        ),
+                      ),
                     );
                   }),
                 ],
@@ -230,31 +278,31 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
     );
   }
 
-  Widget _buildItem(String label, IconData icon, VoidCallback onTap) {
+  Widget _buildItem(String label, String imagePath, VoidCallback onTap) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(12.0),
       child: GestureDetector(
         onTap: onTap,
-        child: Card(
-          elevation: 4,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  icon,
-                  size: 36,
-                  color: Colors.blue,
-                ),
-                SizedBox(height: 4),
-                Text(
-                  label,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
+        child: Container(
+          width: 100,
+          height: 100,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.white,
+              boxShadow: null),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                imagePath,
+                width: 70,
+                height: 70,
+              ),
+              Text(
+                label,
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
         ),
       ),

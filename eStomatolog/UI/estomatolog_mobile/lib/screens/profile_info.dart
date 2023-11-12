@@ -108,9 +108,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     shadowColor: Colors.black12,
                                     child: ListTile(
                                       leading: Container(
-                                        child: Icon(
-                                          tile.icon,
-                                          color: Colors.white,
+                                        child: Image.asset(
+                                          tile.imagePath,
+                                          width: 36,
+                                          height: 36,
                                         ),
                                         height: 45,
                                         width: 45,

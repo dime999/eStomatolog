@@ -17,6 +17,7 @@ namespace eStomatologModel
 
         public int KorisnikId => Doktor.KorisnikId;
 
+
         public List<int> Ocjene { get; set; } = new List<int>();
     }
 }

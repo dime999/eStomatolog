@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomListTile {
-  final IconData icon;
+  final String imagePath;
   final String title;
   final bool isLogOut;
   CustomListTile({
-    required this.icon,
+    required this.imagePath,
     required this.title,
     required this.isLogOut,
   });
@@ -14,33 +14,33 @@ class CustomListTile {
 
 List<CustomListTile> customListTiles = [
   CustomListTile(
-    icon: Icons.person_2,
+    imagePath: 'assets/images/profile_info.png',
     title: "Informacije profila",
     isLogOut: false,
   ),
   CustomListTile(
-    icon: Icons.history,
-    title: "Rezervaacije",
+    imagePath: 'assets/images/reservation.png',
+    title: "Rezervacije",
     isLogOut: false,
   ),
   CustomListTile(
-    icon: Icons.book_outlined,
+    imagePath: 'assets/images/nalaz.jpg',
     title: "Karton",
     isLogOut: false,
   ),
   CustomListTile(
-    icon: Icons.credit_card,
+    imagePath: 'assets/images/placanja.png',
     title: "Nacin placanja",
     isLogOut: false,
   ),
   CustomListTile(
-    icon: Icons.card_giftcard,
+    imagePath: 'assets/images/poklon.png',
     title: "Poklon bonovi",
     isLogOut: false,
   ),
   CustomListTile(
     title: "Odjavi se",
-    icon: CupertinoIcons.arrow_right_arrow_left,
+    imagePath: 'assets/images/logout.png',
     isLogOut: true,
   ),
 ];
