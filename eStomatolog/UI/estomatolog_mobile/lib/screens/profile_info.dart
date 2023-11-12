@@ -115,13 +115,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ),
                                         height: 45,
                                         width: 45,
-                                        decoration: BoxDecoration(
-                                          color: tile.isLogOut
-                                              ? Colors.red.withOpacity(0.8)
-                                              : Colors.blue.withOpacity(0.8),
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                        ),
                                       ),
                                       title: Text(
                                         tile.title,
