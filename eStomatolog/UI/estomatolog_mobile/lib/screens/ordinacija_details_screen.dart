@@ -262,11 +262,9 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => RezervacijaScreen(
-                          korisnikId: Authorization.korisnikId,
-                          ordinacijaId: widget.ordinacijaId,
-                        ),
-                      ),
+                          builder: (context) => PoklonBonScreen(
+                                ordinacijaId: widget.ordinacijaId,
+                              )),
                     );
                   }),
                 ],
