@@ -5,6 +5,7 @@ import 'package:estomatolog_mobile/screens/edit_profile.dart';
 import 'package:estomatolog_mobile/screens/historija%20rezervacija.dart';
 import 'package:estomatolog_mobile/screens/korisnik_kartice.dart';
 import 'package:estomatolog_mobile/screens/korisnik_poklon_bonovi.dart';
+import 'package:estomatolog_mobile/screens/login_screen.dart';
 import 'package:estomatolog_mobile/screens/nalazi_lista.dart';
 import 'package:estomatolog_mobile/utils/util.dart';
 import 'package:flutter/material.dart';
@@ -177,6 +178,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               ),
                                             );
+                                          case 5:
+                                            Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (_) => LoginPage(),
+                                              ),
+                                              (route) => false,
+                                            );
+                                            break;
 
                                           default:
                                         }

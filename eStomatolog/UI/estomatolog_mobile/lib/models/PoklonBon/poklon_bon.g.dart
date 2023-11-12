@@ -15,7 +15,7 @@ PoklonBon _$PoklonBonFromJson(Map<String, dynamic> json) => PoklonBon(
     );
 
 Map<String, dynamic> _$PoklonBonToJson(PoklonBon instance) => <String, dynamic>{
-      'opis': instance.kod,
+      'kod': instance.kod,
       'iznosPlacanja': instance.iznosPlacanja,
       'imePrezimeKorisnikaKojiKoristi': instance.imePrezimeKorisnikaKojiKoristi,
       'placeno': instance.placeno,

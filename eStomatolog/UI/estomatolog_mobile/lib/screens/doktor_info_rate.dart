@@ -18,9 +18,13 @@ import 'package:estomatolog_mobile/models/Doktor/doktor_specijalizacija.dart';
 class DoktorInfoScreen extends StatefulWidget {
   final int korisnikId;
   final int doktorId;
+  final double ocjena;
 
   const DoktorInfoScreen(
-      {required this.korisnikId, required this.doktorId, Key? key})
+      {required this.korisnikId,
+      required this.doktorId,
+      required this.ocjena,
+      Key? key})
       : super(key: key);
 
   @override
@@ -32,8 +36,6 @@ class _DoktorInfoScreenState extends State<DoktorInfoScreen> {
   late Korisnik korisnik;
   List<DoktorSpecijalizacija> specijalizacijeDoktora = [];
   List<String> naziviSpecijalizacija = [];
-  List<OcjenaDatum> ocjeneDoktora = [];
-  List<Ocjene> ocjene = [];
   late Pacijent pacijent;
   List<int> slikeIds = [];
 
@@ -76,14 +78,6 @@ class _DoktorInfoScreenState extends State<DoktorInfoScreen> {
         .map((specijalizacija) => specijalizacija.specijalizacijaNaziv ?? '')
         .toList();
 
-    var providerOcjene = Provider.of<OcjeneProvider>(context, listen: false);
-    var fetchedOcjene = await providerOcjene.get(widget.doktorId);
-    ocjene = fetchedOcjene.result;
-
-    ocjeneDoktora = ocjene.map((ocjena) {
-      return OcjenaDatum(ocjena: ocjena.ocjena, datum: ocjena.datum);
-    }).toList();
-
     setState(() {
       specijalizacijeDoktora = fetchedSpec.result;
     });
@@ -101,17 +95,6 @@ class _DoktorInfoScreenState extends State<DoktorInfoScreen> {
     var slikeProvider = Provider.of<SlikaProvider>(context, listen: false);
     var fetchedSlike = await slikeProvider.getDoktorSlika(widget.doktorId);
     return fetchedSlike;
-  }
-
-  double izracunajProsjecnuOcjenu(List<OcjenaDatum> ocjene) {
-    if (ocjene.isEmpty) {
-      return 0.0;
-    }
-    double sumaOcjena = ocjene
-        .map((ocjena) => ocjena.ocjena.toDouble())
-        .reduce((a, b) => a + b);
-    double prosjek = sumaOcjena / ocjene.length;
-    return prosjek;
   }
 
   TextEditingController imeController = TextEditingController();
@@ -142,355 +125,187 @@ class _DoktorInfoScreenState extends State<DoktorInfoScreen> {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else {
               List<int> slikeIds = snapshot.data!;
-              if (slikeIds.isNotEmpty) {
-                return ListView(
-                  children: [
-                    Container(
-                      height: 150,
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                        image: AssetImage("assets/images/doctor_wallpaper.jpg"),
-                        fit: BoxFit.cover,
-                      )),
-                      child: Center(
+              return ListView(
+                children: [
+                  Container(
+                    height: 150,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                      image: AssetImage("assets/images/doctor_wallpaper.jpg"),
+                      fit: BoxFit.cover,
+                    )),
+                    child: Center(
                         child: CircleAvatar(
-                          radius: 60.0,
-                          backgroundImage: NetworkImage(
-                              "https://10.0.2.2:7265/SlikaStream?slikaId=${slikeIds[0]}"),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    _buildFormField('Ime', imeController.text),
-                                    const SizedBox(height: 16.0),
-                                    _buildFormField(
-                                        'Prezime', prezimeController.text),
-                                    const SizedBox(height: 16.0),
-                                    _buildFormField(
-                                        'Email', emailController.text),
-                                    const SizedBox(height: 16.0),
-                                    _buildFormField(
-                                        'Telefon', telefonController.text),
-                                    const SizedBox(height: 32.0),
-                                    Text(
-                                      'Specijalizacije:',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    const SizedBox(height: 8.0),
-                                    Container(
-                                      width: double.infinity,
-                                      padding: EdgeInsets.all(8.0),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: const Color.fromARGB(
-                                                255, 220, 219, 219)),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      child: Column(
-                                        children: List.generate(
-                                          naziviSpecijalizacija.length,
-                                          (index) {
-                                            Color color =
-                                                Color.fromRGBO(8, 175, 19, 1);
-
-                                            return Container(
-                                              width: double.infinity,
-                                              margin: EdgeInsets.symmetric(
-                                                  vertical: 4.0),
-                                              padding: EdgeInsets.all(8.0),
-                                              decoration: BoxDecoration(
-                                                color: color.withOpacity(0.2),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              child: Text(
-                                                naziviSpecijalizacija[index],
-                                                style: TextStyle(color: color),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 32.0),
-                                    Text(
-                                      'Prosječna ocjena doktora: ',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            prikaziZvjezdice(
-                                                izracunajProsjecnuOcjenu(
-                                                    ocjeneDoktora)),
-                                          ],
-                                        ),
-                                        Text(
-                                          izracunajProsjecnuOcjenu(
-                                                  ocjeneDoktora)
-                                              .toStringAsFixed(1),
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 32.0),
-                                    Text(
-                                      'Ocjeni ovog doktora:',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    SizedBox(height: 8.0),
-                                    RatingBar.builder(
-                                      initialRating: ocjenaKorisnika,
-                                      minRating: 1,
-                                      direction: Axis.horizontal,
-                                      allowHalfRating: true,
-                                      itemCount: 5,
-                                      itemSize: 40.0,
-                                      itemBuilder: (context, _) => Icon(
-                                        Icons.star,
-                                        color: Colors.amber,
-                                      ),
-                                      onRatingUpdate: (rating) {
-                                        ocjenaKorisnika =
-                                            rating.roundToDouble();
-                                      },
-                                    ),
-                                    const SizedBox(height: 16.0),
-                                    TextFormField(
-                                      controller: opisController,
-                                      decoration: InputDecoration(
-                                        labelText: 'Dodajte opis (opcionalno)',
-                                        border: OutlineInputBorder(),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 16.0),
-                                    ElevatedButton(
-                                      onPressed: () async {
-                                        try {
-                                          int pretvorenaOcjena =
-                                              ocjenaKorisnika.round();
-                                          Ocjene ocjena = new Ocjene(
-                                              widget.doktorId,
-                                              pacijent.id,
-                                              DateTime.now(),
-                                              pretvorenaOcjena,
-                                              opisController.text);
-                                          await _ocjeneProvider.insert(ocjena);
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                                content: Text(
-                                                    'Uspješno ste ocijenili doktora sa ocjenom $pretvorenaOcjena')),
-                                          );
-                                          await fetchUsers(context);
-                                        } catch (e) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                                content: Text(
-                                                    "Moguće je ocijenti doktora samo jednom.")),
-                                          );
-                                        }
-                                      },
-                                      child: Text('Potvrdi'),
-                                    ),
-                                    const SizedBox(height: 32.0),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                );
-              } else {
-                return SingleChildScrollView(
-                    child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                _buildFormField('Ime', imeController.text),
-                                const SizedBox(height: 16.0),
-                                _buildFormField(
-                                    'Prezime', prezimeController.text),
-                                const SizedBox(height: 16.0),
-                                _buildFormField('Email', emailController.text),
-                                const SizedBox(height: 16.0),
-                                _buildFormField(
-                                    'Telefon', telefonController.text),
-                                const SizedBox(height: 32.0),
-                                Text(
-                                  'Specijalizacije:',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(height: 8.0),
-                                Container(
-                                  width: double.infinity,
-                                  padding: EdgeInsets.all(8.0),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  child: Column(
-                                    children: List.generate(
-                                      naziviSpecijalizacija.length,
-                                      (index) {
-                                        Color color =
-                                            Color.fromRGBO(8, 175, 19, 1);
-
-                                        return Container(
-                                          width: double.infinity,
-                                          margin: EdgeInsets.symmetric(
-                                              vertical: 4.0),
-                                          padding: EdgeInsets.all(8.0),
-                                          decoration: BoxDecoration(
-                                            color: color.withOpacity(0.2),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                          child: Text(
-                                            naziviSpecijalizacija[index],
-                                            style: TextStyle(color: color),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 32.0),
-                                Text(
-                                  'Prosječna ocjena doktora: ',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        prikaziZvjezdice(
-                                            izracunajProsjecnuOcjenu(
-                                                ocjeneDoktora)),
-                                      ],
-                                    ),
-                                    Text(
-                                      izracunajProsjecnuOcjenu(ocjeneDoktora)
-                                          .toStringAsFixed(1),
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 32.0),
-                                Text(
-                                  'Ocjeni ovog doktora:',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(height: 8.0),
-                                RatingBar.builder(
-                                  initialRating: ocjenaKorisnika,
-                                  minRating: 1,
-                                  direction: Axis.horizontal,
-                                  allowHalfRating: true,
-                                  itemCount: 5,
-                                  itemSize: 40.0,
-                                  itemBuilder: (context, _) => Icon(
-                                    Icons.star,
-                                    color: Colors.amber,
-                                  ),
-                                  onRatingUpdate: (rating) {
-                                    ocjenaKorisnika = rating.roundToDouble();
-                                  },
-                                ),
-                                const SizedBox(height: 16.0),
-                                TextFormField(
-                                  controller: opisController,
-                                  decoration: InputDecoration(
-                                    labelText: 'Dodajte opis (opcionalno)',
-                                    border: OutlineInputBorder(),
-                                  ),
-                                ),
-                                const SizedBox(height: 16.0),
-                                ElevatedButton(
-                                  onPressed: () async {
-                                    try {
-                                      int pretvorenaOcjena =
-                                          ocjenaKorisnika.round();
-                                      Ocjene ocjena = new Ocjene(
-                                          widget.doktorId,
-                                          pacijent.id,
-                                          DateTime.now(),
-                                          pretvorenaOcjena,
-                                          opisController.text);
-                                      await _ocjeneProvider.insert(ocjena);
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                            content: Text(
-                                                'Uspješno ste ocijenili doktora sa ocjenom $pretvorenaOcjena')),
-                                      );
-                                      await fetchUsers(context);
-                                    } catch (e) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                            content: Text(
-                                                "Moguće je ocijenti doktora samo jednom.")),
-                                      );
-                                    }
-                                  },
-                                  child: Text('Potvrdi'),
-                                ),
-                                const SizedBox(height: 32.0),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                      radius: 60.0,
+                      backgroundImage: slikeIds.isNotEmpty
+                          ? NetworkImage(
+                              "https://10.0.2.2:7265/SlikaStream?slikaId=${slikeIds[0]}")
+                          : AssetImage('assets/images/doctor_avatar.jpg')
+                              as ImageProvider<Object>,
+                    )),
                   ),
-                ));
-              }
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  _buildFormField('Ime', imeController.text),
+                                  const SizedBox(height: 16.0),
+                                  _buildFormField(
+                                      'Prezime', prezimeController.text),
+                                  const SizedBox(height: 16.0),
+                                  _buildFormField(
+                                      'Email', emailController.text),
+                                  const SizedBox(height: 16.0),
+                                  _buildFormField(
+                                      'Telefon', telefonController.text),
+                                  const SizedBox(height: 32.0),
+                                  Text(
+                                    'Specijalizacije:',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(height: 8.0),
+                                  Container(
+                                    width: double.infinity,
+                                    padding: EdgeInsets.all(8.0),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: const Color.fromARGB(
+                                              255, 220, 219, 219)),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    child: Column(
+                                      children: List.generate(
+                                        naziviSpecijalizacija.length,
+                                        (index) {
+                                          Color color =
+                                              Color.fromRGBO(8, 175, 19, 1);
+
+                                          return Container(
+                                            width: double.infinity,
+                                            margin: EdgeInsets.symmetric(
+                                                vertical: 4.0),
+                                            padding: EdgeInsets.all(8.0),
+                                            decoration: BoxDecoration(
+                                              color: color.withOpacity(0.2),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            child: Text(
+                                              naziviSpecijalizacija[index],
+                                              style: TextStyle(color: color),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 32.0),
+                                  Text(
+                                    'Prosječna ocjena doktora: ',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          prikaziZvjezdice((widget.ocjena)),
+                                        ],
+                                      ),
+                                      Text(
+                                        widget.ocjena.toStringAsFixed(1),
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 32.0),
+                                  Text(
+                                    'Ocjeni ovog doktora:',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(height: 8.0),
+                                  RatingBar.builder(
+                                    initialRating: ocjenaKorisnika,
+                                    minRating: 1,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemCount: 5,
+                                    itemSize: 40.0,
+                                    itemBuilder: (context, _) => Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    onRatingUpdate: (rating) {
+                                      ocjenaKorisnika = rating.roundToDouble();
+                                    },
+                                  ),
+                                  const SizedBox(height: 16.0),
+                                  TextFormField(
+                                    controller: opisController,
+                                    decoration: InputDecoration(
+                                      labelText: 'Dodajte opis (opcionalno)',
+                                      border: OutlineInputBorder(),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 16.0),
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      try {
+                                        int pretvorenaOcjena =
+                                            ocjenaKorisnika.round();
+                                        Ocjene ocjena = new Ocjene(
+                                            widget.doktorId,
+                                            pacijent.id,
+                                            DateTime.now(),
+                                            pretvorenaOcjena,
+                                            opisController.text);
+                                        await _ocjeneProvider.insert(ocjena);
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                              content: Text(
+                                                  'Uspješno ste ocijenili doktora sa ocjenom $pretvorenaOcjena')),
+                                        );
+                                        await fetchUsers(context);
+                                      } catch (e) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                              content: Text(
+                                                  "Moguće je ocijenti doktora samo jednom.")),
+                                        );
+                                      }
+                                    },
+                                    child: Text('Potvrdi'),
+                                  ),
+                                  const SizedBox(height: 32.0),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
             }
           },
         ));

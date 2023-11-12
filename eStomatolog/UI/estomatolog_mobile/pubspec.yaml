@@ -101,6 +101,7 @@ flutter:
     - assets/images/avatar.png
     - assets/images/nalaz.jpg
     - assets/images/reservation.png
+    - assets/images/doctor_avatar.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
