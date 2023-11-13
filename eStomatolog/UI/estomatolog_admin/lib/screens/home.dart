@@ -53,41 +53,44 @@ class CardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(20.0),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.blue, width: 2.0),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Card(
-        elevation: 0,
-        child: InkWell(
-          onTap: () async {
-            if (title == 'Doktori') {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => DoctorsScreen()),
-              );
-            } else if (title == 'Pacijenti') {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const PacijentScreen()),
-              );
-            } else if (title == 'Ordinacije') {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const OrdinacijaScreen()),
-              );
-            }
-          },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(imagePath, width: 80.0, height: 80.0),
-              const SizedBox(height: 10.0),
-              Text(title, style: const TextStyle(fontSize: 18.0)),
-            ],
+    return Padding(
+      padding: const EdgeInsets.all(40.0),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.blue, width: 2.0),
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: Card(
+          elevation: 0,
+          child: InkWell(
+            onTap: () async {
+              if (title == 'Doktori') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DoctorsScreen()),
+                );
+              } else if (title == 'Pacijenti') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PacijentScreen()),
+                );
+              } else if (title == 'Ordinacije') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const OrdinacijaScreen()),
+                );
+              }
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(imagePath, width: 80.0, height: 80.0),
+                const SizedBox(height: 10.0),
+                Text(title, style: const TextStyle(fontSize: 18.0)),
+              ],
+            ),
           ),
         ),
       ),

@@ -22,71 +22,85 @@ class OrdinacijaHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: FutureBuilder<Ordinacija>(
-          future: fetchOrdinacija(context),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Text('Lista nalaza - Učitavanje...');
-            } else if (snapshot.hasError) {
-              return const Text('Greška pri dohvatu podataka o ordinaciji.');
-            } else if (!snapshot.hasData) {
-              return const Text('Nema dostupnih podataka o pacijentu.');
-            } else {
-              Ordinacija ordinacija = snapshot.data!;
-              return Text(
-                  'Izbornik ordinacije: - ${ordinacija.naziv} ${ordinacija.adresa} ');
-            }
-          },
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 22.0),
-                child: Text(
-                    'Prijavljeni korisnik: ${Authorization.korisnickoIme}',
-                    style: const TextStyle(fontSize: 16)),
+        appBar: AppBar(
+          title: FutureBuilder<Ordinacija>(
+            future: fetchOrdinacija(context),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Text('Lista nalaza - Učitavanje...');
+              } else if (snapshot.hasError) {
+                return const Text('Greška pri dohvatu podataka o ordinaciji.');
+              } else if (!snapshot.hasData) {
+                return const Text('Nema dostupnih podataka o pacijentu.');
+              } else {
+                Ordinacija ordinacija = snapshot.data!;
+                return Text(
+                    'Izbornik ordinacije: - ${ordinacija.naziv} ${ordinacija.adresa} ');
+              }
+            },
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 22.0),
+                  child: Text(
+                      'Prijavljeni korisnik: ${Authorization.korisnickoIme}',
+                      style: const TextStyle(fontSize: 16)),
+                ),
               ),
             ),
+          ],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                GridView.count(
+                  crossAxisCount: 3,
+                  childAspectRatio: 1.2,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    CardItem(
+                      imagePath: 'assets/images/pacijenti.png',
+                      title: 'Pacijenti',
+                      ordinacijaId: ordinacijaId,
+                    ),
+                    CardItem(
+                      imagePath: 'assets/images/lista_doktor.png',
+                      title: 'Doktori',
+                      ordinacijaId: ordinacijaId,
+                    ),
+                    CardItem(
+                      imagePath: 'assets/images/reservation.png',
+                      title: 'Rezervacije',
+                      ordinacijaId: ordinacijaId,
+                    ),
+                    CardItem(
+                      imagePath: 'assets/images/ordinacija.png',
+                      title: 'Ordinacija info',
+                      ordinacijaId: ordinacijaId,
+                    ),
+                    CardItem(
+                      imagePath: 'assets/images/poklon.png',
+                      title: 'Poklon bonovi',
+                      ordinacijaId: ordinacijaId,
+                    ),
+                    CardItem(
+                      imagePath: 'assets/images/nalaz.jpg',
+                      title: 'Izvještaji',
+                      ordinacijaId: ordinacijaId,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ],
-      ),
-      body: GridView.count(
-        crossAxisCount: 3,
-        childAspectRatio: 1.2,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        children: [
-          CardItem(
-              imagePath: 'assets/images/pacijenti.png',
-              title: 'Pacijenti',
-              ordinacijaId: ordinacijaId),
-          CardItem(
-              imagePath: 'assets/images/lista_doktor.png',
-              title: 'Doktori',
-              ordinacijaId: ordinacijaId),
-          CardItem(
-              imagePath: 'assets/images/reservation.png',
-              title: 'Rezervacije',
-              ordinacijaId: ordinacijaId),
-          CardItem(
-              imagePath: 'assets/images/ordinacija.png',
-              title: 'Ordinacija info',
-              ordinacijaId: ordinacijaId),
-          CardItem(
-              imagePath: 'assets/images/poklon.png',
-              title: 'Poklon bonovi',
-              ordinacijaId: ordinacijaId),
-          CardItem(
-              imagePath: 'assets/images/nalaz.jpg',
-              title: 'Izvještaji',
-              ordinacijaId: ordinacijaId),
-        ],
-      ),
-    );
+        ));
   }
 }
 

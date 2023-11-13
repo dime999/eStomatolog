@@ -36,6 +36,7 @@ class _RezervacijeHistorijaScreenState
 
       return ime.contains(searchQuery.toLowerCase());
     }).toList();
+    filteredRezervacije.sort((a, b) => b.datum.compareTo(a.datum));
     return filteredRezervacije;
   }
 

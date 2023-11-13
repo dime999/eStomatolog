@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'poklon_bon.dart';
+part of 'poklon_bon_update.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PoklonBon _$PoklonBonFromJson(Map<String, dynamic> json) => PoklonBon(
-      json['poklonBonId'] as int,
+PoklonBonUpdate _$PoklonBonUpdateFromJson(Map<String, dynamic> json) =>
+    PoklonBonUpdate(
       json['pacijentId'] as int,
       json['ordinacijaId'] as int,
       json['kod'] as String?,
@@ -17,14 +17,11 @@ PoklonBon _$PoklonBonFromJson(Map<String, dynamic> json) => PoklonBon(
       DateTime.parse(json['datumIstekaKartice'] as String),
       json['brojKartice'] as String,
       json['cvcCvvKod'] as String?,
-      json['ordinacijaNaziv'] as String,
-      json['pacijentIme'] as String,
-      json['pacijentPrezime'] as String,
       json['iskoristeno'] as bool,
     );
 
-Map<String, dynamic> _$PoklonBonToJson(PoklonBon instance) => <String, dynamic>{
-      'poklonBonId': instance.poklonBonId,
+Map<String, dynamic> _$PoklonBonUpdateToJson(PoklonBonUpdate instance) =>
+    <String, dynamic>{
       'pacijentId': instance.pacijentId,
       'ordinacijaId': instance.ordinacijaId,
       'kod': instance.kod,
@@ -34,8 +31,5 @@ Map<String, dynamic> _$PoklonBonToJson(PoklonBon instance) => <String, dynamic>{
       'datumIstekaKartice': instance.datumIstekaKartice.toIso8601String(),
       'brojKartice': instance.brojKartice,
       'cvcCvvKod': instance.cvcCvvKod,
-      'ordinacijaNaziv': instance.ordinacijaNaziv,
-      'pacijentIme': instance.pacijentIme,
-      'pacijentPrezime': instance.pacijentPrezime,
       'iskoristeno': instance.iskoristeno,
     };

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+enum SortingOption { oldestFirst, newestFirst }
+
 class GenericListRezervacijeScreen<T> extends StatelessWidget {
   final Future<List<T>> Function(BuildContext) fetchData;
   final String Function(T) getFormattedDate;

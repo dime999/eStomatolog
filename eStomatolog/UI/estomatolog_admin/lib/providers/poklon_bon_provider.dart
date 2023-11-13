@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:estomatolog_admin/models/Poklon%20bon/poklon_bon.dart';
+import 'package:estomatolog_admin/models/Poklon%20bon/poklon_bon_update.dart';
 import 'package:estomatolog_admin/models/search_result.dart';
 import 'package:estomatolog_admin/utils/util.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ class PoklonBonProvider with ChangeNotifier {
   static String? _baseUrl;
   final String _endpoint = "GetPoklonBonByOrdinacija/";
   final String _delete = "PoklonBon?id=";
+  final String _update = "PoklonBon/";
 
   PoklonBonProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
@@ -46,6 +48,21 @@ class PoklonBonProvider with ChangeNotifier {
       notifyListeners();
     } else {
       throw Exception("Brisanje nije uspelo");
+    }
+  }
+
+  Future<PoklonBonUpdate> update(int id, [PoklonBonUpdate? request]) async {
+    var url = "$_baseUrl$_update$id";
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+    var jsonRequest = jsonEncode(request);
+    var response = await http.put(uri, headers: headers, body: jsonRequest);
+
+    if (isValidResponse(response)) {
+      var data = jsonDecode(response.body);
+      return PoklonBonUpdate.fromJson(data);
+    } else {
+      throw Exception("Unknown error");
     }
   }
 
