@@ -117,7 +117,7 @@ class CardItem extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => RezervacijaPacijentScreen(
+                    builder: (context) => RezervacijeHistorijaScreen(
                           ordinacijaId: ordinacijaId,
                           pacijentId: pacijentId,
                         )),

@@ -3,13 +3,26 @@ import 'package:estomatolog_admin/models/Pacijent/pacijent.dart';
 import 'package:estomatolog_admin/providers/nalaz_provider.dart';
 import 'package:estomatolog_admin/providers/pacijent_provider.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Nalazi/nalazi_insert.dart';
+import 'package:estomatolog_admin/widgets/lista_nalaza.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class NalaziScreen extends StatelessWidget {
+class NalaziScreen extends StatefulWidget {
   final int pacijentId;
 
   const NalaziScreen({super.key, required this.pacijentId});
+  @override
+  _NalaziScreenState createState() => _NalaziScreenState();
+}
+
+class _NalaziScreenState extends State<NalaziScreen> {
+  @override
+  void initState() {
+    super.initState();
+    searchController.addListener(() {
+      searchQueryNotifier.value = searchController.text;
+    });
+  }
 
   Future<Pacijent> fetchPacijent(BuildContext context, int id) async {
     var pacijentProvider =
@@ -18,71 +31,67 @@ class NalaziScreen extends StatelessWidget {
     return pacijent;
   }
 
-  Future<List<Nalaz>> fetchNalazi(BuildContext context) async {
-    Pacijent pacijent = await fetchPacijent(context, pacijentId);
-    var nalaziProvider = Provider.of<NalazProvider>(context, listen: false);
-    var fetchedNalazi = await nalaziProvider.getByPacijentId(pacijent.id);
-    return fetchedNalazi.result;
+  Future<List<Nalaz>> fetchNalazi(
+      BuildContext context, String searchQuery) async {
+    Pacijent pacijent = await fetchPacijent(context, widget.pacijentId);
+    var nalazProvider = Provider.of<NalazProvider>(context, listen: false);
+    var fetchedNalzi = await nalazProvider.getByPacijentId(pacijent.id);
+
+    var filteredNalzi = fetchedNalzi.result.where((nalaz) {
+      var ime = nalaz.doktorIme.toLowerCase();
+
+      return ime.contains(searchQuery.toLowerCase());
+    }).toList();
+    return filteredNalzi;
+  }
+
+  ValueNotifier<String> searchQueryNotifier = ValueNotifier<String>('');
+  TextEditingController searchController = TextEditingController();
+
+  bool isPast(String datum) {
+    var dateTime = DateTime.parse(datum);
+    return dateTime.isBefore(DateTime.now());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: FutureBuilder<Pacijent>(
-          future: fetchPacijent(context, pacijentId),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Text('Lista nalaza - Učitavanje...');
-            } else if (snapshot.hasError) {
-              return const Text('Greška pri dohvatu pacijenta.');
-            } else if (!snapshot.hasData) {
-              return const Text('Nema dostupnih podataka o pacijentu.');
-            } else {
-              Pacijent pacijent = snapshot.data!;
-              return Text('Lista nalaza - ${pacijent.ime} ${pacijent.prezime}');
-            }
-          },
-        ),
+        title: const Text('Nalazi pacijenta'),
+        centerTitle: true,
       ),
-      body: FutureBuilder<List<Nalaz>>(
-        future: fetchNalazi(context),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return const Center(child: Text('Greška pri dohvatu nalaza.'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('Nema dostupnih nalaza.'));
-          } else {
-            List<Nalaz> nalazi = snapshot.data!;
-            return ListView.builder(
-              itemCount: nalazi.length,
-              itemBuilder: (context, index) {
-                Nalaz nalaz = nalazi[index];
-                return ListTile(
-                  title: Text('Doktor: ${nalaz.doktorIme}'),
-                  subtitle: Text('Opis: ${nalaz.opis}'),
-                  trailing: Text('Datum: ${nalaz.datum.toString()}'),
-                );
-              },
-            );
-          }
+      body: ValueListenableBuilder<String>(
+        valueListenable: searchQueryNotifier,
+        builder: (context, searchQuery, child) {
+          return GenericListNalazScreen<Nalaz>(
+            fetchData: (context) => fetchNalazi(context, searchQuery),
+            getFormattedDate: (nalaz) =>
+                nalaz.datum!.day.toString() +
+                "." +
+                nalaz.datum!.month.toString() +
+                "." +
+                nalaz.datum!.year.toString(),
+            getDoctorName: (nalaz) =>
+                nalaz.doktorIme.toString() +
+                " " +
+                nalaz.doktorPrezime.toString(),
+            getOpis: (nalaz) => nalaz.opis,
+            searchController: searchController,
+          );
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          // Dodajte logiku za navigaciju na stranicu za dodavanje nalaza
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DodajNalazScreen(
-                pacijentId: pacijentId,
-              ),
-            ),
+                builder: (context) => DodajNalazScreen(
+                      pacijentId: widget.pacijentId,
+                    )), // Zamijenite DodajNalazScreen sa stvarnom klasom za dodavanje nalaza
           );
         },
-        tooltip: 'Dodaj novi nalaz',
-        child: const Icon(Icons.add),
+        child: Icon(Icons.add),
       ),
     );
   }

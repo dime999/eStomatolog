@@ -36,9 +36,9 @@ class HomeScreen extends StatelessWidget {
           CardItem(
               imagePath: 'assets/images/pacijenti.png', title: 'Pacijenti'),
           CardItem(
-              imagePath: 'assets/images/lista_doktor.png', title: 'Doktori'),
-          CardItem(
               imagePath: 'assets/images/ordinacija.png', title: 'Ordinacije'),
+          CardItem(
+              imagePath: 'assets/images/lista_doktor.png', title: 'Doktori'),
         ],
       ),
     );

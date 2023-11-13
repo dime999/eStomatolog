@@ -2,34 +2,41 @@ import 'package:estomatolog_admin/models/Pacijent/pacijent.dart';
 import 'package:estomatolog_admin/models/Rezervacija/rezervacija.dart';
 import 'package:estomatolog_admin/providers/pacijent_provider.dart';
 import 'package:estomatolog_admin/providers/rezervacija_provider.dart';
+import 'package:estomatolog_admin/widgets/list_rezervacije.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class RezervacijaPacijentScreen extends StatefulWidget {
-  final int ordinacijaId;
+// ignore: use_key_in_widget_constructors
+class RezervacijeHistorijaScreen extends StatefulWidget {
   final int pacijentId;
-  const RezervacijaPacijentScreen(
-      {super.key, required this.ordinacijaId, required this.pacijentId});
+  final int ordinacijaId;
+  const RezervacijeHistorijaScreen(
+      {super.key, required this.pacijentId, required this.ordinacijaId});
   @override
-  _RezervacijaScreenState createState() => _RezervacijaScreenState();
+  // ignore: library_private_types_in_public_api
+  _RezervacijeHistorijaScreenState createState() =>
+      _RezervacijeHistorijaScreenState();
 }
 
-class _RezervacijaScreenState extends State<RezervacijaPacijentScreen> {
-  List<Rezervacija> rezervacije = [];
-  late Pacijent pacijentInfo;
-
-  Future<List<Rezervacija>> fetchRezervacije(BuildContext context) async {
+class _RezervacijeHistorijaScreenState
+    extends State<RezervacijeHistorijaScreen> {
+  Future<List<Rezervacija>> fetchRezervacije(
+      BuildContext context, String searchQuery) async {
     var pacijentProvider =
         Provider.of<PacijentProvider>(context, listen: false);
     Pacijent pacijent =
         await pacijentProvider.getByKorisnikId(widget.pacijentId);
-    print(pacijent.id);
     var rezervacijaProvider =
         Provider.of<RezervacijaProvider>(context, listen: false);
     var fetchedRezervacije = await rezervacijaProvider.getByPacijent(
         widget.ordinacijaId, pacijent.id);
-    return fetchedRezervacije.result;
+
+    var filteredRezervacije = fetchedRezervacije.result.where((rezervacija) {
+      var ime = rezervacija.doktorIme?.toLowerCase() ?? '';
+
+      return ime.contains(searchQuery.toLowerCase());
+    }).toList();
+    return filteredRezervacije;
   }
 
   Future<Pacijent> fetchPacijent(BuildContext context) async {
@@ -38,180 +45,83 @@ class _RezervacijaScreenState extends State<RezervacijaPacijentScreen> {
     return await pacijentProvider.getByKorisnikId(widget.pacijentId);
   }
 
+  ValueNotifier<String> searchQueryNotifier = ValueNotifier<String>('');
+  TextEditingController searchController = TextEditingController();
   late RezervacijaProvider _rezervacijaProvider;
 
   @override
+  void initState() {
+    super.initState();
+    searchController.addListener(() {
+      searchQueryNotifier.value = searchController.text;
+    });
+  }
+
+  bool isPast(String datum) {
+    var dateTime = DateTime.parse(datum);
+    return dateTime.isBefore(DateTime.now());
+  }
+
+  @override
   Widget build(BuildContext context) {
+    _rezervacijaProvider =
+        Provider.of<RezervacijaProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: FutureBuilder<Pacijent>(
-          future: fetchPacijent(context),
-          builder: (BuildContext context, AsyncSnapshot<Pacijent> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Text('Učitavanje...');
-            } else if (snapshot.hasError) {
-              return const Text('Greška pri učitavanju pacijenta');
-            } else if (snapshot.hasData) {
-              var pacijent = snapshot.data;
-              return Text(
-                  'Rezervacije za ${pacijent!.ime} ${pacijent.prezime}');
-            } else {
-              return const Text('Nema podataka o pacijentu');
-            }
-          },
-        ),
+        title: const Text('Historija rezervacija'),
+        centerTitle: true,
       ),
-      body: Center(
-        child: FutureBuilder<List<Rezervacija>>(
-          future: fetchRezervacije(context),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
-            } else if (snapshot.hasError) {
-              return Text('Greška: ${snapshot.error}');
-            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Center(child: Text('Nema dostupnih rezervacija.'));
-            } else {
-              return Expanded(
-                child: ListView(scrollDirection: Axis.vertical, children: [
-                  DataTable(
-                    columns: const <DataColumn>[
-                      DataColumn(
-                        label: SizedBox(
-                          width: 100,
-                          child: Text('Pacijent'),
-                        ),
-                      ),
-                      DataColumn(
-                        label: SizedBox(
-                          width: 100,
-                          child: Text('Doktor'),
-                        ),
-                      ),
-                      DataColumn(
-                        label: SizedBox(
-                          width: 100,
-                          child: Text('Ordinacija'),
-                        ),
-                      ),
-                      DataColumn(
-                        label: SizedBox(
-                          width: 100,
-                          child: Text('Email potvrde rezervacije'),
-                        ),
-                      ),
-                      DataColumn(
-                        label: SizedBox(
-                          width: 250,
-                          child: Text('Termin vrijeme i datum'),
-                        ),
-                      ),
-                      DataColumn(
-                        label: SizedBox(
-                          width: 50,
-                          child: Text('Akcije'),
-                        ),
-                      ),
-                    ],
-                    rows: snapshot.data!.map((rezervacija) {
-                      DateTime trenutnoVreme = DateTime.now();
-                      String formattedDate = DateFormat('dd.MM.yyyy')
-                          .format(rezervacija.terminVrijeme);
-                      String formattedTime =
-                          DateFormat('HH:mm').format(rezervacija.terminVrijeme);
-                      bool jeAktivna =
-                          rezervacija.terminVrijeme.isAfter(trenutnoVreme);
-                      String status = jeAktivna ? 'AKTIVNO' : 'NEAKTIVNO';
-                      return DataRow(
-                        cells: <DataCell>[
-                          DataCell(Text(
-                              '${rezervacija.pacijentIme!} ${rezervacija.pacijentPrezime}' ??
-                                  'N/A')),
-                          DataCell(Text(
-                              '${rezervacija.doktorIme!} ${rezervacija.doktorPrezime}' ??
-                                  'N/A')),
-                          DataCell(Text(rezervacija.ordinacijaNaziv ?? 'N/A')),
-                          DataCell(Text(rezervacija.email ?? 'N/A')),
-                          DataCell(
-                            Text(
-                              '$status: $formattedDate / $formattedTime' ??
-                                  'N/A',
-                              style: TextStyle(
-                                  color: jeAktivna ? Colors.green : Colors.red),
-                            ),
-                          ),
-                          DataCell(
-                            GestureDetector(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: const Text("Potvrda"),
-                                      content: const Text(
-                                          "Da li ste sigurni da želite izbrisati rezervaciju?"),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () async {
-                                            try {
-                                              _rezervacijaProvider.delete(
-                                                  rezervacija.rezervacijaId);
-                                              var updatedRezervacije =
-                                                  await fetchRezervacije(
-                                                      context);
-                                              setState(() {
-                                                rezervacije =
-                                                    updatedRezervacije;
-                                              });
+      body: ValueListenableBuilder<String>(
+        valueListenable: searchQueryNotifier,
+        builder: (context, searchQuery, child) {
+          return GenericListRezervacijeScreen<Rezervacija>(
+            fetchData: (context) => fetchRezervacije(context, searchQuery),
+            getFormattedDate: (rezervacija) =>
+                rezervacija.datum.day.toString() +
+                "." +
+                rezervacija.datum.month.toString() +
+                "." +
+                rezervacija.datum.year.toString(),
+            getDoctorName: (rezervacija) =>
+                rezervacija.doktorIme.toString() +
+                " " +
+                rezervacija.doktorPrezime.toString(),
+            isPastReservation: (rezervacija) =>
+                isPast(rezervacija.datum.toString()),
+            onDeletePressed: (rezervacija) async {
+              try {
+                await _rezervacijaProvider.delete(rezervacija.rezervacijaId);
 
-                                              Navigator.pop(context);
-                                            } on Exception {
-                                              String errorMessage =
-                                                  "Nije moguće izbrisati odabranu rezervaciju!";
-                                              showDialog(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return AlertDialog(
-                                                    title: const Text("Greška"),
-                                                    content: Text(errorMessage),
-                                                    actions: [
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                context),
-                                                        child: const Text("OK"),
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
-                                              );
-                                            }
-                                          },
-                                          child: const Text("Da"),
-                                        ),
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                          child: const Text("Ne"),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              },
-                              child: const Icon(Icons.delete),
-                            ),
-                          ),
-                        ],
-                      );
-                    }).toList(),
-                  ),
-                ]),
-              );
-            }
-          },
-        ),
+                // ignore: use_build_context_synchronously
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Brisanje rezervacije'),
+                      content: Text(
+                          'Rezervacija je uspešno izbrisana iz historije!'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            setState(() {
+                              fetchRezervacije(context, searchQuery);
+                            });
+                          },
+                          child: Text('OK'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              } catch (e) {
+                print("Greška prilikom dodavanja: $e");
+                Navigator.of(context).pop();
+              }
+            },
+            searchController: searchController,
+          );
+        },
       ),
     );
   }

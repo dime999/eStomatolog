@@ -40,7 +40,6 @@ class RezervacijaProvider with ChangeNotifier {
   Future<SearchResult<Rezervacija>> getByPacijent(
       int ordinacijaId, int pacijentId) async {
     var url = "$_baseUrl$_endpointPacijent/$ordinacijaId/$pacijentId";
-    print(url);
 
     var uri = Uri.parse(url);
     var headers = createHeaders();
