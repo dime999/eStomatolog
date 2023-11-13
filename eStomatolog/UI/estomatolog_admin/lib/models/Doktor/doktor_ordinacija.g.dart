@@ -11,6 +11,8 @@ DoktorOrdinacija _$DoktorOrdinacijaFromJson(Map<String, dynamic> json) =>
       json['doktorIme'] as String?,
       json['doktorPrezime'] as String?,
       json['korisnikId'] as int,
+      json['doktorId'] as int,
+      (json['ocjene'] as List<dynamic>).map((e) => e as int).toList(),
     );
 
 Map<String, dynamic> _$DoktorOrdinacijaToJson(DoktorOrdinacija instance) =>
@@ -18,4 +20,6 @@ Map<String, dynamic> _$DoktorOrdinacijaToJson(DoktorOrdinacija instance) =>
       'doktorIme': instance.doktorIme,
       'doktorPrezime': instance.doktorPrezime,
       'korisnikId': instance.korisnikId,
+      'doktorId': instance.doktorId,
+      'ocjene': instance.ocjene,
     };

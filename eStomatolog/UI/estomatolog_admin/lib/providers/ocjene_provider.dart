@@ -28,7 +28,6 @@ class OcjeneProvider with ChangeNotifier {
       for (var item in data) {
         result.result.add(Ocjene.fromJson(item));
       }
-
       return result;
     } else {
       throw Exception("Nepoznata greška!");

@@ -1,11 +1,10 @@
 import 'package:estomatolog_admin/models/Doktor/doktor_ordinacija.dart';
 import 'package:estomatolog_admin/providers/doktor_ordinacija_provider.dart';
-import 'package:estomatolog_admin/screens/doktor/add_doktor_screen.dart';
+import 'package:estomatolog_admin/providers/ocjene_provider.dart';
 import 'package:estomatolog_admin/screens/doktor/edit_doktor_screen.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Ocjene/ocjene_screen.dart';
-import 'package:estomatolog_admin/widgets/lista_edit.dart';
+import 'package:estomatolog_admin/widgets/lista_doktori.dart';
 import 'package:flutter/material.dart';
-import 'package:estomatolog_admin/providers/korisnici_provider.dart';
 import 'package:provider/provider.dart';
 
 // ignore: use_key_in_widget_constructors
@@ -28,6 +27,15 @@ class _DoctorsOrdinacijaScreenState extends State<DoctorsOrdinacijaScreen> {
         Provider.of<DoktorOrdinacijaProvider>(context, listen: false);
     var fetchedDoctors =
         await doktorProvider.getByOrdinacijaId(widget.ordinacijaId);
+
+    for (var doktor in fetchedDoctors.result) {
+      var providerOcjene = Provider.of<OcjeneProvider>(context, listen: false);
+      var fetchedOcjene = await providerOcjene.get(doktor.doktorId);
+
+      doktor.ocjene
+          .addAll(fetchedOcjene.result.map((ocjena) => ocjena.ocjena).toList());
+    }
+
     var filteredDoktori = fetchedDoctors.result.where((doktor) {
       var ime = doktor.doktorIme?.toLowerCase() ?? '';
       var prezime = doktor.doktorPrezime?.toLowerCase() ?? '';
@@ -35,6 +43,16 @@ class _DoctorsOrdinacijaScreenState extends State<DoctorsOrdinacijaScreen> {
           prezime.contains(searchQuery.toLowerCase());
     }).toList();
     return filteredDoktori;
+  }
+
+  double izracunajProsjecnuOcjenu(List<int> ocjene) {
+    if (ocjene.isEmpty) {
+      return 0.0;
+    }
+    double sumaOcjena =
+        ocjene.map((ocjena) => ocjena.toDouble()).reduce((a, b) => a + b);
+    double prosjek = sumaOcjena / ocjene.length;
+    return prosjek;
   }
 
   ValueNotifier<String> searchQueryNotifier = ValueNotifier<String>('');
@@ -52,51 +70,41 @@ class _DoctorsOrdinacijaScreenState extends State<DoctorsOrdinacijaScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Doktori'),
+        centerTitle: true,
       ),
       body: ValueListenableBuilder<String>(
         valueListenable: searchQueryNotifier,
         builder: (context, searchQuery, child) {
-          return GenericListScreenEdit<DoktorOrdinacija>(
+          return GenericListPregledScreen<DoktorOrdinacija>(
             fetchData: (context) => fetchDoctors(context, searchQuery),
-            getTitle: (doktor) => doktor.doktorIme ?? 'N/A',
-            getSubtitle: (doktor) => doktor.doktorPrezime ?? 'N/A',
-            imagePath: 'assets/images/lista_doktor.png',
-            onEditPressed: (pacijent) {
-              int korisnikId = pacijent.korisnikId;
+            getDoctorName: (doktor) =>
+                doktor.doktorIme! + " " + doktor.doktorPrezime!,
+            getRating: (doktor) => izracunajProsjecnuOcjenu(doktor.ocjene),
+            onView: (doktor) {
+              int korisnikId = doktor.korisnikId;
+
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      EditDoctorScreen(korisnikId: korisnikId),
-                ),
-              );
-            },
-            onDeletePressed: (doktor) async {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => OcjeneScreen(
-                    doktorId: doktor.korisnikId,
+                  builder: (context) => EditDoctorScreen(
+                    korisnikId: korisnikId,
                   ),
                 ),
               );
             },
+            onRatingView: (doktor) => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OcjeneScreen(
+                    doktorId: doktor.doktorId,
+                  ),
+                ),
+              )
+            },
             searchController: searchController,
           );
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const AddDoctorScreen(),
-            ),
-          );
-        },
-        backgroundColor: Colors.blue,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-        child: const Icon(Icons.add),
       ),
     );
   }

@@ -9,9 +9,12 @@ part 'doktor_ordinacija.g.dart';
 class DoktorOrdinacija {
   String? doktorIme;
   String? doktorPrezime;
-  late int korisnikId;
+  int korisnikId;
+  int doktorId;
+  List<int> ocjene;
 
-  DoktorOrdinacija(this.doktorIme, this.doktorPrezime, this.korisnikId);
+  DoktorOrdinacija(this.doktorIme, this.doktorPrezime, this.korisnikId,
+      this.doktorId, this.ocjene);
 
   factory DoktorOrdinacija.fromJson(Map<String, dynamic> json) =>
       _$DoktorOrdinacijaFromJson(json);

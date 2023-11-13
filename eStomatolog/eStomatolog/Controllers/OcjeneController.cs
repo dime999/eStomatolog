@@ -21,9 +21,9 @@ namespace eStomatolog.Controllers
         [HttpGet("/GetOcjeneByDoktorId/{id}")]
         public IEnumerable<eStomatologModel.Ocjene> GetOcjeneByDoktorId(int id)
         {
-            var bonovi = _service.GetByDoktorId(id);
+            var ocjene = _service.GetByDoktorId(id);
 
-            return bonovi;
+            return ocjene;
         }
 
 

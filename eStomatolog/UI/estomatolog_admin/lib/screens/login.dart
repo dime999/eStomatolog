@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
-  final TextEditingController _korisnickoImeController = TextEditingController();
+  final TextEditingController _korisnickoImeController =
+      TextEditingController();
   final TextEditingController _lozinkaController = TextEditingController();
 
   late LoginProvider _loginProvider;
@@ -34,9 +35,9 @@ class LoginPage extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Image.asset(
-                "assets/images/logo.avif",
-                width: 300,
-                height: 300,
+                "assets/images/logo.png",
+                width: 250,
+                height: 250,
               ),
               const SizedBox(height: 20),
               SizedBox(
@@ -74,7 +75,8 @@ class LoginPage extends StatelessWidget {
                     await _loginProvider.login();
                     Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (context) => const HomeScreen()),
+                      MaterialPageRoute(
+                          builder: (context) => const HomeScreen()),
                       (route) => false,
                     );
                   } on Exception {
