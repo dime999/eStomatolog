@@ -93,6 +93,19 @@ namespace eStomatologServices.Servisi
 
         public async Task<eStomatologModel.Slika> InsertDoktorSlika(DoktorSlikaInsertRequest request)
         {
+           
+            var existingDoktorSlike = _context.DoktorSlike
+                .Where(ds => ds.DoktorId == request.DoktorId)
+                .ToList();
+
+            if (existingDoktorSlike.Any())
+            {
+             
+                _context.DoktorSlike.RemoveRange(existingDoktorSlike);
+                _context.SaveChanges();
+            }
+
+         
             var imagePath = await UploadFile(request.SlikaFile);
 
             var entry = _context.Slike.Add(new Database.Slika()
@@ -113,6 +126,7 @@ namespace eStomatologServices.Servisi
 
             return Mapper.Map<eStomatologModel.Slika>(entry.Entity);
         }
+
 
         public async Task<string> UploadFile(IFormFile file)
         {
