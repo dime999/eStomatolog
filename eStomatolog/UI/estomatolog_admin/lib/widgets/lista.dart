@@ -4,16 +4,17 @@ class GenericListScreen<T> extends StatelessWidget {
   final Future<List<T>> Function(BuildContext) fetchData;
   final String Function(T) getTitle;
   final String Function(T) getSubtitle;
-  final IconData icon;
+  final String imagePath;
   final void Function(T) onEditPressed;
   final void Function(T) onDeletePressed;
   final TextEditingController searchController;
 
-  const GenericListScreen({super.key, 
+  const GenericListScreen({
+    super.key,
     required this.fetchData,
     required this.getTitle,
     required this.getSubtitle,
-    required this.icon,
+    required this.imagePath,
     required this.onEditPressed,
     required this.onDeletePressed,
     required this.searchController,
@@ -43,7 +44,8 @@ class GenericListScreen<T> extends StatelessWidget {
                 return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 print(snapshot.error);
-                return const Center(child: Text('Greška pri dohvatanju podataka'));
+                return const Center(
+                    child: Text('Greška pri dohvatanju podataka'));
               } else {
                 var items = snapshot.data!;
                 var filteredList = items.where((item) {
@@ -63,7 +65,8 @@ class GenericListScreen<T> extends StatelessWidget {
                         border: Border.all(color: Colors.grey),
                       ),
                       child: ListTile(
-                        leading: Icon(icon),
+                        leading:
+                            Image.asset(imagePath, width: 40.0, height: 40.0),
                         title: Text(getTitle(item)),
                         subtitle: Text(getSubtitle(item)),
                         trailing: Row(

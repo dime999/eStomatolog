@@ -52,7 +52,7 @@ class _OrdinacijaScreenState extends State<OrdinacijaScreen> {
             fetchData: (context) => fetchOrdinacije(context, searchQuery),
             getTitle: (ordinacija) => ordinacija.naziv ?? 'N/A',
             getSubtitle: (ordinacija) => ordinacija.adresa ?? 'N/A',
-            icon: Icons.person,
+            imagePath: 'assets/images/ordinacija.png',
             onEditPressed: (ordinacija) {
               int ordinacijaId = ordinacija.ordinacijaId;
               Navigator.push(

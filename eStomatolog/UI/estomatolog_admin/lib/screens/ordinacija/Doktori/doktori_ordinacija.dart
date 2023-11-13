@@ -39,8 +39,6 @@ class _DoctorsOrdinacijaScreenState extends State<DoctorsOrdinacijaScreen> {
 
   ValueNotifier<String> searchQueryNotifier = ValueNotifier<String>('');
 
-  late KorisniciProvider _korisniciProvider;
-
   @override
   void initState() {
     super.initState();
@@ -51,7 +49,6 @@ class _DoctorsOrdinacijaScreenState extends State<DoctorsOrdinacijaScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _korisniciProvider = Provider.of<KorisniciProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Doktori'),
@@ -63,7 +60,7 @@ class _DoctorsOrdinacijaScreenState extends State<DoctorsOrdinacijaScreen> {
             fetchData: (context) => fetchDoctors(context, searchQuery),
             getTitle: (doktor) => doktor.doktorIme ?? 'N/A',
             getSubtitle: (doktor) => doktor.doktorPrezime ?? 'N/A',
-            icon: Icons.person,
+            imagePath: 'assets/images/lista_doktor.png',
             onEditPressed: (pacijent) {
               int korisnikId = pacijent.korisnikId;
               Navigator.push(

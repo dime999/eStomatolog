@@ -10,7 +10,7 @@ class PoklonBon {
   int poklonBonId;
   int pacijentId;
   int ordinacijaId;
-  String? opis;
+  String? kod;
   double iznosPlacanja;
   String imePrezimeKorisnikaKojiKoristi;
   bool placeno;
@@ -26,7 +26,7 @@ class PoklonBon {
       this.poklonBonId,
       this.pacijentId,
       this.ordinacijaId,
-      this.opis,
+      this.kod,
       this.iznosPlacanja,
       this.imePrezimeKorisnikaKojiKoristi,
       this.placeno,

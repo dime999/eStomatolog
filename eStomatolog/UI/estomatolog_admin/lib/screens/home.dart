@@ -33,9 +33,12 @@ class HomeScreen extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         children: const [
-          CardItem(icon: Icons.people, title: 'Pacijenti'),
-          CardItem(icon: Icons.medical_services, title: 'Doktori'),
-          CardItem(icon: Icons.local_hospital, title: 'Ordinacije'),
+          CardItem(
+              imagePath: 'assets/images/pacijenti.png', title: 'Pacijenti'),
+          CardItem(
+              imagePath: 'assets/images/lista_doktor.png', title: 'Doktori'),
+          CardItem(
+              imagePath: 'assets/images/ordinacija.png', title: 'Ordinacije'),
         ],
       ),
     );
@@ -43,10 +46,10 @@ class HomeScreen extends StatelessWidget {
 }
 
 class CardItem extends StatelessWidget {
-  final IconData icon;
+  final String imagePath;
   final String title;
 
-  const CardItem({super.key, required this.icon, required this.title});
+  const CardItem({super.key, required this.imagePath, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -60,27 +63,28 @@ class CardItem extends StatelessWidget {
         elevation: 0,
         child: InkWell(
           onTap: () async {
-            if (icon == Icons.medical_services && title == 'Doktori') {
+            if (title == 'Doktori') {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => DoctorsScreen()),
               );
-            } else if (icon == Icons.people && title == 'Pacijenti') {
+            } else if (title == 'Pacijenti') {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const PacijentScreen()),
               );
-            } else if (icon == Icons.local_hospital && title == 'Ordinacije') {
+            } else if (title == 'Ordinacije') {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const OrdinacijaScreen()),
+                MaterialPageRoute(
+                    builder: (context) => const OrdinacijaScreen()),
               );
             }
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, size: 60.0, color: Colors.blue),
+              Image.asset(imagePath, width: 80.0, height: 80.0),
               const SizedBox(height: 10.0),
               Text(title, style: const TextStyle(fontSize: 18.0)),
             ],

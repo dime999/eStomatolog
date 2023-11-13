@@ -64,7 +64,7 @@ class _PoklonBonScreenScreenState extends State<PoklonBonScreen> {
                       DataColumn(
                         label: SizedBox(
                           width: 100,
-                          child: Text('Opis'),
+                          child: Text('KOD'),
                         ),
                       ),
                       DataColumn(
@@ -105,7 +105,7 @@ class _PoklonBonScreenScreenState extends State<PoklonBonScreen> {
                           DataCell(Text(bon.ordinacijaNaziv ?? 'N/A')),
                           DataCell(Text(
                               bon.imePrezimeKorisnikaKojiKoristi ?? 'N/A')),
-                          DataCell(Text(bon.opis ?? 'N/A')),
+                          DataCell(Text(bon.kod ?? 'N/A')),
                           DataCell(Text(bon.iznosPlacanja.toString())),
                           DataCell(
                             Text(

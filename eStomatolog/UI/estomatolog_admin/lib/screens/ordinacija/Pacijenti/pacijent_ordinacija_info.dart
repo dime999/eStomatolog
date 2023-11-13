@@ -62,17 +62,17 @@ class PacijentOrdinacijaInfoScreen extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         children: [
           CardItem(
-              icon: Icons.medical_information,
+              imagePath: 'assets/images/nalaz.jpg',
               title: 'Nalazi',
               ordinacijaId: ordinacijaId,
               pacijentId: pacijentId),
           CardItem(
-              icon: Icons.note,
+              imagePath: 'assets/images/reservation.png',
               title: 'Rezervacije',
               ordinacijaId: ordinacijaId,
               pacijentId: pacijentId),
           CardItem(
-              icon: Icons.people,
+              imagePath: 'assets/images/pacijenti.png',
               title: 'Informacije o pacijentu',
               ordinacijaId: ordinacijaId,
               pacijentId: pacijentId),
@@ -83,13 +83,14 @@ class PacijentOrdinacijaInfoScreen extends StatelessWidget {
 }
 
 class CardItem extends StatelessWidget {
-  final IconData icon;
+  final String imagePath;
   final String title;
   final int ordinacijaId;
   final int pacijentId;
 
   const CardItem(
-      {super.key, required this.icon,
+      {super.key,
+      required this.imagePath,
       required this.title,
       required this.ordinacijaId,
       required this.pacijentId});
@@ -106,13 +107,13 @@ class CardItem extends StatelessWidget {
         elevation: 0,
         child: InkWell(
           onTap: () async {
-            if (icon == Icons.medical_information && title == 'Nalazi') {
+            if (title == 'Nalazi') {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => NalaziScreen(pacijentId: pacijentId)),
               );
-            } else if (icon == Icons.note && title == 'Rezervacije') {
+            } else if (title == 'Rezervacije') {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -121,8 +122,7 @@ class CardItem extends StatelessWidget {
                           pacijentId: pacijentId,
                         )),
               );
-            } else if (icon == Icons.people &&
-                title == 'Informacije o pacijentu') {
+            } else if (title == 'Informacije o pacijentu') {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -135,7 +135,7 @@ class CardItem extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, size: 60.0, color: Colors.blue),
+              Image.asset(imagePath, width: 80.0, height: 80.0),
               const SizedBox(height: 10.0),
               Text(title, style: const TextStyle(fontSize: 18.0)),
             ],

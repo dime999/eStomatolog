@@ -62,7 +62,39 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/images/
+    - assets/images/doctor.svg
+    - assets/images/document.svg
+    - assets/images/tooth.svg
+    - assets/images/tooth_logo.png
+    - assets/images/klinika1.jpg
+    - assets/images/klinika2.jpg
+    - assets/images/klinika3.jpg
+    - assets/images/Spline.png
+    - assets/images/doctor_wallpaper.jpg
+    - assets/images/google.png
+    - assets/images/apple-logo.png
+    - assets/images/logo.avif
+    - assets/images/bon1.png
+    - assets/images/bon2.png
+    - assets/images/bon3.png
+    - assets/images/naslov.png
+    - assets/images/bon_banner1.png
+    - assets/images/bon_banner2.png
+    - assets/images/bon_banner3.png
+    - assets/images/visa.png
+    - assets/images/mastercard_logo.png
+    - assets/images/avatar.png
+    - assets/images/nalaz.jpg
+    - assets/images/reservation.png
+    - assets/images/doctor_avatar.jpg
+    - assets/images/galerija.png
+    - assets/images/lista_doktor.png
+    - assets/images/poklon.png
+    - assets/images/placanja.png
+    - assets/images/logout.png
+    - assets/images/profile_info.png
+    - assets/images/pacijenti.png
+    - assets/images/ordinacija.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -61,27 +61,27 @@ class OrdinacijaHomeScreen extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         children: [
           CardItem(
-              icon: Icons.people,
+              imagePath: 'assets/images/pacijenti.png',
               title: 'Pacijenti',
               ordinacijaId: ordinacijaId),
           CardItem(
-              icon: Icons.medical_services,
+              imagePath: 'assets/images/lista_doktor.png',
               title: 'Doktori',
               ordinacijaId: ordinacijaId),
           CardItem(
-              icon: Icons.note_add,
+              imagePath: 'assets/images/reservation.png',
               title: 'Rezervacije',
               ordinacijaId: ordinacijaId),
           CardItem(
-              icon: Icons.rate_review,
+              imagePath: 'assets/images/ordinacija.png',
               title: 'Ordinacija info',
               ordinacijaId: ordinacijaId),
           CardItem(
-              icon: Icons.wallet_giftcard,
+              imagePath: 'assets/images/poklon.png',
               title: 'Poklon bonovi',
               ordinacijaId: ordinacijaId),
           CardItem(
-              icon: Icons.report,
+              imagePath: 'assets/images/nalaz.jpg',
               title: 'Izvještaji',
               ordinacijaId: ordinacijaId),
         ],
@@ -91,12 +91,15 @@ class OrdinacijaHomeScreen extends StatelessWidget {
 }
 
 class CardItem extends StatelessWidget {
-  final IconData icon;
+  final String imagePath;
   final String title;
   final int ordinacijaId;
 
   const CardItem(
-      {super.key, required this.icon, required this.title, required this.ordinacijaId});
+      {super.key,
+      required this.imagePath,
+      required this.title,
+      required this.ordinacijaId});
 
   @override
   Widget build(BuildContext context) {
@@ -110,22 +113,21 @@ class CardItem extends StatelessWidget {
         elevation: 0,
         child: InkWell(
           onTap: () async {
-            if (icon == Icons.medical_services && title == 'Doktori') {
+            if (title == 'Doktori') {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
                         DoctorsOrdinacijaScreen(ordinacijaId: ordinacijaId)),
               );
-            } else if (icon == Icons.people && title == 'Pacijenti') {
+            } else if (title == 'Pacijenti') {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
                         PacijentOrdinacijaScreen(ordinacijaId: ordinacijaId)),
               );
-            } else if (icon == Icons.rate_review &&
-                title == 'Ordinacija info') {
+            } else if (title == 'Ordinacija info') {
               print(ordinacijaId);
               Navigator.push(
                 context,
@@ -134,15 +136,14 @@ class CardItem extends StatelessWidget {
                           ordinacijaId: ordinacijaId,
                         )),
               );
-            } else if (icon == Icons.note_add && title == 'Rezervacije') {
+            } else if (title == 'Rezervacije') {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
                         RezervacijaScreen(ordinacijaId: ordinacijaId)),
               );
-            } else if (icon == Icons.wallet_giftcard &&
-                title == 'Poklon bonovi') {
+            } else if (title == 'Poklon bonovi') {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -154,7 +155,7 @@ class CardItem extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, size: 60.0, color: Colors.blue),
+              Image.asset(imagePath, width: 80.0, height: 80.0),
               const SizedBox(height: 10.0),
               Text(title, style: const TextStyle(fontSize: 18.0)),
             ],

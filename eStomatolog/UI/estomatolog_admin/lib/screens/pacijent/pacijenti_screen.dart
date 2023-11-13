@@ -57,7 +57,7 @@ class _PacijentScreenState extends State<PacijentScreen> {
             fetchData: (context) => fetchPacijenti(context, searchQuery),
             getTitle: (pacijent) => pacijent.ime ?? 'N/A',
             getSubtitle: (pacijent) => pacijent.prezime ?? 'N/A',
-            icon: Icons.person,
+            imagePath: 'assets/images/pacijenti.png',
             onEditPressed: (pacijent) {
               int korisnikId = pacijent.korisnikId;
               Navigator.push(
