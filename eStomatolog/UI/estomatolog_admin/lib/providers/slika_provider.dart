@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:estomatolog_admin/models/Doktor/doktor_slika_insert.dart';
 import 'package:estomatolog_admin/models/Slika/slika_insert.dart';
 import 'package:estomatolog_admin/utils/util.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ class SlikaProvider with ChangeNotifier {
   static String? _baseUrl;
   final String _getSlikeEndpoint = "OrdinacijaSlikeIds?ordinacijaId=";
   final String _slikaDelete = "Slika?id=";
+  final String _getDoktorSlika = "DoktorSlikaIds?doktorId=";
   SlikaProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
         defaultValue: "https://localhost:7265/");
@@ -34,8 +36,43 @@ class SlikaProvider with ChangeNotifier {
     }
   }
 
+  Future<int> insertSlikaDoktor(DoktorSlikaInsert requestModel) async {
+    var uri = Uri.parse("https://localhost:7265/InsertDoktorSlika");
+
+    var request = http.MultipartRequest('POST', uri)
+      ..fields['DoktorId'] = requestModel.DoktorId.toString()
+      ..files.add(await http.MultipartFile.fromPath(
+          'SlikaFile', requestModel.SlikaFile));
+
+    var streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+
+    if (isValidResponse(response)) {
+      var data = jsonDecode(response.body);
+      SlikaInsert value = SlikaInsert.fromJson(data);
+      return value.OrdinacijaId;
+    } else {
+      throw Exception("Unknown error");
+    }
+  }
+
   Future<List<int>> getSlikeIds(int ordinacijaId) async {
     var url = "$_baseUrl$_getSlikeEndpoint$ordinacijaId";
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+
+    var response = await http.get(uri, headers: headers);
+    if (isValidResponse(response)) {
+      Map<String, dynamic> responseData = jsonDecode(response.body);
+      List<int> slikeIds = List<int>.from(responseData["slikeIds"]);
+      return slikeIds;
+    } else {
+      throw Exception("Nepoznata greška!");
+    }
+  }
+
+  Future<List<int>> getDoktorSlika(int doktorId) async {
+    var url = "$_baseUrl$_getDoktorSlika$doktorId";
     var uri = Uri.parse(url);
     var headers = createHeaders();
 

@@ -88,6 +88,7 @@ class _DoctorsOrdinacijaScreenState extends State<DoctorsOrdinacijaScreen> {
                 MaterialPageRoute(
                   builder: (context) => EditDoctorScreen(
                     korisnikId: korisnikId,
+                    doktorId: doktor.doktorId,
                   ),
                 ),
               );
