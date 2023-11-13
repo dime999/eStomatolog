@@ -71,7 +71,7 @@ class _PacijentOrdinacijaScreenState extends State<PacijentOrdinacijaScreen> {
             } else {
               Ordinacija ordinacija = snapshot.data!;
               return Text(
-                  'Lista pacijenata iz ordinacije: - ${ordinacija.naziv} ${ordinacija.adresa} ');
+                  'Lista pacijenata iz ordinacije:  ${ordinacija.naziv} (${ordinacija.adresa}) ');
             }
           },
         ),
