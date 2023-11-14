@@ -42,6 +42,8 @@ dependencies:
   image_picker: ^1.0.4
   intl: ^0.18.1
   flutter_rating_bar: ^4.0.1
+  pdf: ^3.10.4
+  open_file: ^3.2.2
 
 dev_dependencies:
   build_runner: ^2.4.4
@@ -96,6 +98,12 @@ flutter:
     - assets/images/profile_info.png
     - assets/images/pacijenti.png
     - assets/images/ordinacija.png
+    - assets/images/pdf.png
+
+
+
+
+    
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

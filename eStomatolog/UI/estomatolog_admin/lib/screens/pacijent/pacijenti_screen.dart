@@ -49,6 +49,7 @@ class _PacijentScreenState extends State<PacijentScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pacijenti'),
+        centerTitle: true,
       ),
       body: ValueListenableBuilder<String>(
         valueListenable: searchQueryNotifier,
@@ -136,7 +137,11 @@ class _PacijentScreenState extends State<PacijentScreen> {
             MaterialPageRoute(
               builder: (context) => const AddPacijentScreen(),
             ),
-          );
+          ).then((value) {
+            setState(() {
+              fetchPacijenti(context, "");
+            });
+          });
         },
         backgroundColor: Colors.blue,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),

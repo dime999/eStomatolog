@@ -44,9 +44,9 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
     await fetchGrad(context, ordinacija.gradId);
     setState(() {
       nazivController.text = ordinacija.naziv;
-      telefonController.text = ordinacija.telefon ?? '';
-      adresaController.text = ordinacija.adresa ?? '';
-      gradController.text = defaultniGrad.naziv ?? '';
+      telefonController.text = ordinacija.telefon;
+      adresaController.text = ordinacija.adresa;
+      gradController.text = defaultniGrad.naziv!;
     });
     return ordinacija;
   }
@@ -112,7 +112,10 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
   Widget build(BuildContext context) {
     _slikaProvider = Provider.of<SlikaProvider>(context, listen: false);
     return Scaffold(
-        appBar: AppBar(title: const Text("Ordinacija info")),
+        appBar: AppBar(
+          title: const Text("Ordinacija info"),
+          centerTitle: true,
+        ),
         body: Center(
             child: Padding(
                 padding: const EdgeInsets.all(16.0),

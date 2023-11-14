@@ -6,7 +6,6 @@ import 'package:estomatolog_admin/screens/ordinacija/Pacijenti/pacijent_ordinaci
 import 'package:estomatolog_admin/screens/pacijent/add_pacijent_screen.dart';
 import 'package:estomatolog_admin/widgets/lista_pregled.dart';
 import 'package:flutter/material.dart';
-import 'package:estomatolog_admin/providers/korisnici_provider.dart';
 import 'package:provider/provider.dart';
 
 class PacijentOrdinacijaScreen extends StatefulWidget {
@@ -52,11 +51,8 @@ class _PacijentOrdinacijaScreenState extends State<PacijentOrdinacijaScreen> {
     return ordinacija;
   }
 
-  late KorisniciProvider _korisniciProvider;
-
   @override
   Widget build(BuildContext context) {
-    _korisniciProvider = Provider.of<KorisniciProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: FutureBuilder<Ordinacija>(
@@ -107,7 +103,12 @@ class _PacijentOrdinacijaScreenState extends State<PacijentOrdinacijaScreen> {
             MaterialPageRoute(
               builder: (context) => const AddPacijentScreen(),
             ),
-          );
+          ).then((value) {
+            setState(() {
+              fetchPacijenti(context, "");
+            });
+          });
+          ;
         },
         backgroundColor: Colors.blue,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),

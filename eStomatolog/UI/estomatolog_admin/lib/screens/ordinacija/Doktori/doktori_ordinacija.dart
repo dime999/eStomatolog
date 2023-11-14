@@ -91,7 +91,11 @@ class _DoctorsOrdinacijaScreenState extends State<DoctorsOrdinacijaScreen> {
                     doktorId: doktor.doktorId,
                   ),
                 ),
-              );
+              ).then((value) {
+                setState(() {
+                  fetchDoctors(context, "");
+                });
+              });
             },
             onRatingView: (doktor) => {
               Navigator.push(

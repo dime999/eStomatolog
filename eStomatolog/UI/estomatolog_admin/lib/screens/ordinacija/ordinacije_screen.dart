@@ -22,7 +22,7 @@ class _OrdinacijaScreenState extends State<OrdinacijaScreen> {
         Provider.of<OrdinacijaProvider>(context, listen: false);
     var fetchedOrdinacije = await ordinacijaProvider.get();
     var filteredOrdinacije = fetchedOrdinacije.result.where((ordinacija) {
-      var naziv = ordinacija.naziv.toLowerCase() ?? '';
+      var naziv = ordinacija.naziv.toLowerCase();
 
       return naziv.contains(searchQuery.toLowerCase());
     }).toList();
@@ -44,14 +44,15 @@ class _OrdinacijaScreenState extends State<OrdinacijaScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Lista ordinacija'),
+        centerTitle: true,
       ),
       body: ValueListenableBuilder<String>(
         valueListenable: searchQueryNotifier,
         builder: (context, searchQuery, child) {
           return GenericListPregledScreen<Ordinacija>(
             fetchData: (context) => fetchOrdinacije(context, searchQuery),
-            getTitle: (ordinacija) => ordinacija.naziv ?? 'N/A',
-            getSubtitle: (ordinacija) => ordinacija.adresa ?? 'N/A',
+            getTitle: (ordinacija) => ordinacija.naziv,
+            getSubtitle: (ordinacija) => ordinacija.adresa,
             imagePath: 'assets/images/ordinacija.png',
             onEditPressed: (ordinacija) {
               int ordinacijaId = ordinacija.ordinacijaId;

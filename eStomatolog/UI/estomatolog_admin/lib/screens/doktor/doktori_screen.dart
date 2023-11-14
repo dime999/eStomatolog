@@ -49,6 +49,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Doktori'),
+        centerTitle: true,
       ),
       body: ValueListenableBuilder<String>(
         valueListenable: searchQueryNotifier,
@@ -135,7 +136,11 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
             MaterialPageRoute(
               builder: (context) => const AddDoctorScreen(),
             ),
-          );
+          ).then((value) {
+            setState(() {
+              fetchDoctors(context, "");
+            });
+          });
         },
         backgroundColor: Colors.blue,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),

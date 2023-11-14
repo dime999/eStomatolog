@@ -1,6 +1,7 @@
 import 'package:estomatolog_admin/models/Ordinacija/ordinacija.dart';
 import 'package:estomatolog_admin/providers/ordinacija_provider.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Doktori/doktori_ordinacija.dart';
+import 'package:estomatolog_admin/screens/ordinacija/Izvjestaj/izvjestaj.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Pacijenti/pacijenti_ordinacija_lista.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Pokon%20bon/poklon_bon.dart';
 import 'package:estomatolog_admin/screens/ordinacija/ordinacija_info.dart';
@@ -92,7 +93,7 @@ class OrdinacijaHomeScreen extends StatelessWidget {
                     ),
                     CardItem(
                       imagePath: 'assets/images/nalaz.jpg',
-                      title: 'Izvještaji',
+                      title: 'Izvještaj',
                       ordinacijaId: ordinacijaId,
                     ),
                   ],
@@ -163,6 +164,13 @@ class CardItem extends StatelessWidget {
                 MaterialPageRoute(
                     builder: (context) =>
                         PoklonBonScreen(ordinacijaId: ordinacijaId)),
+              );
+            } else if (title == 'Izvještaj') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        IzvjestajScreen(ordinacijaId: ordinacijaId)),
               );
             }
           },

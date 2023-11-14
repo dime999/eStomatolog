@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using eStomatologModel;
 using eStomatologModel.Requests;
 using eStomatologModel.SearchObjects;
 using eStomatologServices.Interfejsi;
@@ -16,33 +17,23 @@ namespace eStomatologServices.Servisi
         {
         }
 
-        //public override eStomatologModel.Ordinacija Insert(OrdinacijaUpsertRequest insert)
-        //{
-        //    insert.Slika = GetDefaultImageBytes();
-        //    var entity = base.Insert(insert);
-        //    Context.SaveChanges();
-        //    return entity;
-        //}
-        //private bool IsImagePathValid(string imagePath)
-        //{
-        //    return File.Exists(imagePath);
-        //}
-        //private byte[] GetDefaultImageBytes(string imagePath = "C:\\Code\\FIT-RS2-2023\\eStomatolog\\eStomatologServices\\Slike\\ordinacijaa.jpg")
-        //{
-        //    // Učitavanje slike iz fajla na osnovu putanje
-        //    byte[] imageBytes;
-        //    bool isPathValid = IsImagePathValid(imagePath);
-        //    using (FileStream fileStream = new FileStream(imagePath, FileMode.Open, FileAccess.Read))
-        //    {
-        //        using (MemoryStream memoryStream = new MemoryStream())
-        //        {
-        //            fileStream.CopyTo(memoryStream);
-        //            imageBytes = memoryStream.ToArray();
-        //        }
-        //    }
-        //    return imageBytes;
-        //}
 
-        
+        public eStomatologModel.Izvjestaj GetIzvjestaj(int ordinacijaId)
+        {
+            Izvjestaj izvjestaj = new Izvjestaj();
+
+            izvjestaj.BrojDoktora = Context.DoktoriOrdinacije.Where(x => x.OrdinacijaId == ordinacijaId).Count();
+            izvjestaj.BrojPacijenta = Context.PacijentiOrdinacije.Where(x => x.OrdinacijaId == ordinacijaId).Count();
+            izvjestaj.UkopnoKorisnika = Context.DoktoriOrdinacije.Where(x => x.OrdinacijaId == ordinacijaId).Count() + Context.PacijentiOrdinacije.Where(x => x.OrdinacijaId == ordinacijaId).Count();
+            izvjestaj.BrojRezervacija = Context.Rezervacije.Where(x => x.OrdinacijaId == ordinacijaId).Count();
+            izvjestaj.BrojAktinihRezervacija = Context.Rezervacije.Where(x => x.OrdinacijaId == ordinacijaId && x.Datum > DateTime.Now).Count();
+            izvjestaj.BrojNeaktivnihRezervacija = Context.Rezervacije.Where(x => x.OrdinacijaId == ordinacijaId && x.Datum < DateTime.Now).Count();
+            izvjestaj.BrojNalaza = Context.Dijagnoze.Count();
+            izvjestaj.BrojPoklonBonova = Context.PoklonBonovi.Where(x => x.OrdinacijaId == ordinacijaId).Count();
+
+            return izvjestaj;
+        }
+
+
     }
 }

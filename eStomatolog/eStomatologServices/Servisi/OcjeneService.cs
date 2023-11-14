@@ -50,6 +50,8 @@ namespace eStomatologServices.Servisi
             return Mapper.Map<IList<eStomatologModel.Ocjene>>(list);
         }
 
+      
+
 
 
     }

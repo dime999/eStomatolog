@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:estomatolog_admin/models/Poklon%20bon/poklon_bon.dart';
 import 'package:estomatolog_admin/models/Poklon%20bon/poklon_bon_update.dart';
-import 'package:estomatolog_admin/models/search_result.dart';
 import 'package:estomatolog_admin/providers/poklon_bon_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -51,6 +50,7 @@ class _PoklonBonScreenScreenState extends State<PoklonBonScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Poklon Bonovi'),
+          centerTitle: true,
         ),
         body: Column(
           children: [
