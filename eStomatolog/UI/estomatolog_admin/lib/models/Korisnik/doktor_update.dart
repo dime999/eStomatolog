@@ -7,20 +7,18 @@ part 'doktor_update.g.dart';
 
 @JsonSerializable()
 class DoktorUpdateModel {
-  int? korisnikId;
   String? ime;
   String? prezime;
   String? email;
   String? telefon;
   String? korisnickoIme;
   bool? status;
-  List<int>? specijalizacijeId;
+  List<int>? specijalizacijeIdList;
   List<int>? ordinacijeIdList;
   List<int>? ulogeIdList;
   int? gradId;
 
   DoktorUpdateModel(
-      this.korisnikId,
       this.ime,
       this.prezime,
       this.email,
@@ -28,7 +26,7 @@ class DoktorUpdateModel {
       this.korisnickoIme,
       this.status,
       this.gradId,
-      this.specijalizacijeId,
+      this.specijalizacijeIdList,
       this.ulogeIdList,
       this.ordinacijeIdList);
 

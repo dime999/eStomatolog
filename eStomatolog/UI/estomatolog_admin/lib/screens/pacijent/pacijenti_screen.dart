@@ -60,13 +60,18 @@ class _PacijentScreenState extends State<PacijentScreen> {
             imagePath: 'assets/images/pacijenti.png',
             onEditPressed: (pacijent) {
               int korisnikId = pacijent.korisnikId;
+
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
                       EditPacijentScreen(korisnikId: korisnikId),
                 ),
-              );
+              ).then((value) {
+                setState(() {
+                  fetchPacijenti(context, "");
+                });
+              });
             },
             onDeletePressed: (pacijent) async {
               showDialog(

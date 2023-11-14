@@ -68,7 +68,11 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                     doktorId: doktor.id,
                   ),
                 ),
-              );
+              ).then((value) {
+                setState(() {
+                  fetchDoctors(context, "");
+                });
+              });
             },
             onDeletePressed: (doktor) async {
               showDialog(

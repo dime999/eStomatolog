@@ -191,11 +191,12 @@ class _PoklonBonScreenScreenState extends State<PoklonBonScreen> {
                                                           ? 'ISKORIŠTENO'
                                                           : 'Nije iskorišteno',
                                                       style: TextStyle(
-                                                        color: bon.iskoristeno
-                                                            ? Colors.red
-                                                            : Colors.green,
-                                                        fontSize: 13.0,
-                                                      ),
+                                                          color: bon.iskoristeno
+                                                              ? Colors.red
+                                                              : Colors.green,
+                                                          fontSize: 13.0,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
                                                   ],
                                                 ),
@@ -264,8 +265,7 @@ class _PoklonBonScreenScreenState extends State<PoklonBonScreen> {
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        color: Color.fromARGB(
-                                                            255, 202, 213, 222),
+                                                        color: Colors.blue,
                                                         fontSize: 13.0,
                                                       ),
                                                     ),
@@ -299,12 +299,13 @@ class _PoklonBonScreenScreenState extends State<PoklonBonScreen> {
                                                           ? 'Kod će se generisati nakon uplate'
                                                           : bon.kod,
                                                       style: TextStyle(
-                                                        color: bon.kod ==
-                                                                'GENERISATI'
-                                                            ? Colors.red
-                                                            : Colors.green,
-                                                        fontSize: 13.0,
-                                                      ),
+                                                          color: bon.kod ==
+                                                                  'GENERISATI'
+                                                              ? Colors.red
+                                                              : Colors.green,
+                                                          fontSize: 13.0,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
                                                   ],
                                                 ),
@@ -327,11 +328,12 @@ class _PoklonBonScreenScreenState extends State<PoklonBonScreen> {
                                                           ? 'Plaćeno'
                                                           : 'NIJE PLAĆENO',
                                                       style: TextStyle(
-                                                        color: bon.placeno
-                                                            ? Colors.green
-                                                            : Colors.red,
-                                                        fontSize: 13.0,
-                                                      ),
+                                                          color: bon.placeno
+                                                              ? Colors.green
+                                                              : Colors.red,
+                                                          fontSize: 13.0,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     )
                                                   ],
                                                 ),

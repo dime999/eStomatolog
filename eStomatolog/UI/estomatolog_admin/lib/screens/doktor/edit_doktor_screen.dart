@@ -291,13 +291,11 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
           padding: const EdgeInsets.all(20.0),
           child: DropDownMultiSelect(
             onChanged: (List<String> values) {
-              setState(() {
-                selectedValuesSpecijalizacije = values;
-                odabraneSpecijalizacije = values
-                    .map((value) =>
-                        idSpecijalizacija[naziviSpecijalizacija.indexOf(value)])
-                    .toList();
-              });
+              selectedValuesSpecijalizacije = values;
+              odabraneSpecijalizacije = values
+                  .map((value) =>
+                      idSpecijalizacija[naziviSpecijalizacija.indexOf(value)])
+                  .toList();
             },
             options: naziviSpecijalizacija,
             selectedValues: selectedValuesSpecijalizacije,
@@ -318,13 +316,11 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
           padding: const EdgeInsets.all(20.0),
           child: DropDownMultiSelect(
             onChanged: (List<String> values) {
-              setState(() {
-                selectedValuesOrdinacije = values;
-                odabraneOrdinacije = values
-                    .map((value) =>
-                        idOrdinacija[naziviOrdinacija.indexOf(value)])
-                    .toList();
-              });
+              selectedValuesOrdinacije = values;
+
+              odabraneOrdinacije = values
+                  .map((value) => idOrdinacija[naziviOrdinacija.indexOf(value)])
+                  .toList();
             },
             options: naziviOrdinacija,
             selectedValues: selectedValuesOrdinacije,
@@ -354,6 +350,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: DropdownButton<String>(
+                hint: Text("Odaberite grad"),
                 value: selectedValueGrad,
                 onChanged: (String? newValue) {
                   setState(() {
@@ -421,18 +418,8 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
 
   Widget _buildSaveButton() {
     _korisniciProvider = Provider.of<KorisniciProvider>(context, listen: false);
-    DoktorUpdateModel updatedKorisnik = DoktorUpdateModel(
-        korisnikId,
-        imeController.text,
-        prezimeController.text,
-        emailController.text,
-        telefonController.text,
-        korisnickoImeController.text,
-        status,
-        odabraniGrad,
-        odabraneSpecijalizacije,
-        uloga,
-        odabraneOrdinacije);
+    print(odabraneSpecijalizacije);
+
     return SizedBox(
       width: 200.0,
       child: ElevatedButton(
@@ -453,6 +440,18 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                   ),
                   TextButton(
                     onPressed: () async {
+                      DoktorUpdateModel updatedKorisnik = DoktorUpdateModel(
+                          imeController.text,
+                          prezimeController.text,
+                          emailController.text,
+                          telefonController.text,
+                          korisnickoImeController.text,
+                          status,
+                          odabraniGrad,
+                          odabraneSpecijalizacije,
+                          uloga,
+                          odabraneOrdinacije);
+
                       try {
                         await _korisniciProvider.updateDoktor(
                             korisnikId, updatedKorisnik);
