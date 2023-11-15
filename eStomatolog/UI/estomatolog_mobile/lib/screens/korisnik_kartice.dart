@@ -94,7 +94,12 @@ class _KarticeScreenState extends State<KarticeScreen> {
                     korinik: korisnik,
                   ),
                 ),
-              );
+              ).then((value) {
+                setState(() {
+                  fetchKartice(context, "");
+                });
+              });
+              ;
             },
             onDeletePressed: (kartica) {
               try {

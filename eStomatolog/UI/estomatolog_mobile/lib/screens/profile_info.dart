@@ -142,7 +142,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       Authorization.korisnikId,
                                                 ),
                                               ),
-                                            );
+                                            ).then((value) {
+                                              setState(() {
+                                                fetchPacijent(context);
+                                              });
+                                            });
                                           case 1:
                                             Navigator.push(
                                               context,

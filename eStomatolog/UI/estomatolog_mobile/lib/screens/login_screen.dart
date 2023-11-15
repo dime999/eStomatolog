@@ -43,9 +43,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 10),
                   Image.asset(
-                    "assets/images/logo.avif",
-                    width: 150,
-                    height: 150,
+                    "assets/images/logo.png",
+                    width: 190,
+                    height: 190,
                   ),
                   const SizedBox(height: 20),
                   SizedBox(
