@@ -59,54 +59,78 @@ class _RezervacijeScreenState extends State<RezervacijaScreen> {
       body: ValueListenableBuilder<String>(
         valueListenable: searchQueryNotifier,
         builder: (context, searchQuery, child) {
-          return GenericListRezervacijeScreen<Rezervacija>(
-            fetchData: (context) => fetchRezervacije(context, searchQuery),
-            getFormattedDate: (rezervacija) =>
-                rezervacija.datum.day.toString() +
-                "." +
-                rezervacija.datum.month.toString() +
-                "." +
-                rezervacija.datum.year.toString(),
-            getDoctorName: (rezervacija) =>
-                rezervacija.doktorIme.toString() +
-                " " +
-                rezervacija.doktorPrezime.toString(),
-            isPastReservation: (rezervacija) =>
-                isPast(rezervacija.datum.toString()),
-            onDeletePressed: (rezervacija) async {
-              try {
-                await _rezervacijaProvider.delete(rezervacija.rezervacijaId);
+          return Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: GenericListRezervacijeScreen<Rezervacija>(
+                fetchData: (context) => fetchRezervacije(context, searchQuery),
+                getFormattedDate: (rezervacija) =>
+                    rezervacija.datum.day.toString() +
+                    "." +
+                    rezervacija.datum.month.toString() +
+                    "." +
+                    rezervacija.datum.year.toString(),
+                getDoctorName: (rezervacija) =>
+                    rezervacija.doktorIme.toString() +
+                    " " +
+                    rezervacija.doktorPrezime.toString(),
+                getPacijentIme: (rezervacija) =>
+                    rezervacija.pacijentIme.toString() +
+                    " " +
+                    rezervacija.pacijentPrezime.toString(),
+                isPastReservation: (rezervacija) =>
+                    isPast(rezervacija.datum.toString()),
+                onDeletePressed: (rezervacija) async {
+                  try {
+                    await _rezervacijaProvider
+                        .delete(rezervacija.rezervacijaId);
 
-                // ignore: use_build_context_synchronously
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('Brisanje rezervacije'),
-                      content: Text(
-                          'Rezervacija je uspešno izbrisana iz historije!'),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            setState(() {
-                              fetchRezervacije(context, searchQuery);
-                            });
-                          },
-                          child: Text('OK'),
-                        ),
-                      ],
+                    // ignore: use_build_context_synchronously
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Brisanje rezervacije'),
+                          content: Text(
+                              'Rezervacija je uspešno izbrisana iz historije!'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                setState(() {
+                                  fetchRezervacije(context, searchQuery);
+                                });
+                              },
+                              child: Text('OK'),
+                            ),
+                          ],
+                        );
+                      },
                     );
-                  },
-                );
-              } catch (e) {
-                print("Greška prilikom dodavanja: $e");
-                Navigator.of(context).pop();
-              }
-            },
-            searchController: searchController,
-          );
+                  } catch (e) {
+                    print("Greška prilikom dodavanja: $e");
+                    Navigator.of(context).pop();
+                  }
+                },
+                searchController: searchController,
+              ));
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          /*  Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AddDoctorScreen(),
+            ),
+          ).then((value) {
+            setState(() {
+              fetchDoctors(context, "");
+            });
+          }); */
+        },
+        backgroundColor: Colors.blue,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        child: const Icon(Icons.add),
       ),
     );
   }

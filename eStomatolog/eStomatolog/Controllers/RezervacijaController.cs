@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using eStomatologModel;
 using eStomatologModel.Requests;
 using eStomatologModel.SearchObjects;
 using eStomatologServices.Interfejsi;
@@ -18,6 +19,19 @@ namespace eStomatolog.Controllers
             this.service = service;
 
         }
+
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPost("/OznaciZauzetim")]
+        public eStomatologModel.Rezervacija OznaciZauzetim(RezervacijaInsertRequest request)
+        {
+            var rezervacije = service.OznaciZauzet(request);
+
+
+            return rezervacije;
+        }
+
+
 
         [Authorize(Roles = "Administrator")]
         [HttpGet("/GetRezervacijeByOrdinacija/{id}")]

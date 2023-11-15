@@ -87,6 +87,10 @@ class _RezervacijeHistorijaScreenState
                 rezervacija.doktorIme.toString() +
                 " " +
                 rezervacija.doktorPrezime.toString(),
+            getPacijentIme: (rezervacija) =>
+                rezervacija.pacijentIme.toString() +
+                " " +
+                rezervacija.pacijentPrezime.toString(),
             isPastReservation: (rezervacija) =>
                 isPast(rezervacija.datum.toString()),
             onDeletePressed: (rezervacija) async {

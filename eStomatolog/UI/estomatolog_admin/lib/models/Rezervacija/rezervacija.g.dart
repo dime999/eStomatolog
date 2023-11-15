@@ -11,7 +11,7 @@ Rezervacija _$RezervacijaFromJson(Map<String, dynamic> json) => Rezervacija(
       DateTime.parse(json['datum'] as String),
       json['doktorIme'] as String?,
       json['doktorPrezime'] as String,
-      json['pacijentIme'] as String?,
+      json['pacijentIme'] as String,
       json['pacijentPrezime'] as String,
       json['ordinacijaNaziv'] as String?,
       json['email'] as String?,

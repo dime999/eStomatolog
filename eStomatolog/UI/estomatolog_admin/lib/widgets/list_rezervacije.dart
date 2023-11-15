@@ -6,6 +6,7 @@ class GenericListRezervacijeScreen<T> extends StatelessWidget {
   final Future<List<T>> Function(BuildContext) fetchData;
   final String Function(T) getFormattedDate;
   final String Function(T) getDoctorName;
+  final String Function(T) getPacijentIme;
   final bool Function(T) isPastReservation;
   final void Function(T) onDeletePressed;
   final TextEditingController searchController;
@@ -15,6 +16,7 @@ class GenericListRezervacijeScreen<T> extends StatelessWidget {
     required this.fetchData,
     required this.getFormattedDate,
     required this.getDoctorName,
+    required this.getPacijentIme,
     required this.isPastReservation,
     required this.onDeletePressed,
     required this.searchController,
@@ -63,54 +65,80 @@ class GenericListRezervacijeScreen<T> extends StatelessWidget {
                     var item = filteredList[index];
                     var date = getFormattedDate(item);
                     var pastReservation = isPastReservation(item);
-                    return Container(
-                      child: ListTile(
+                    return Column(children: [
+                      ListTile(
                         leading: Image(
                           image: AssetImage('assets/images/reservation.png'),
                           width: 40,
                           height: 40,
                         ),
-                        subtitle: RichText(
-                          text: TextSpan(
-                            style: DefaultTextStyle.of(context).style,
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: 'Datum: ',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue,
-                                  fontSize: 16.0,
-                                ),
+                        title: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                style: DefaultTextStyle.of(context).style,
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: 'Datum: ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blue,
+                                      fontSize: 16.0,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: '$date',
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              TextSpan(
-                                text: '$date',
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                ),
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                style: DefaultTextStyle.of(context).style,
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: 'Doktor: ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blue,
+                                      fontSize: 16.0,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: '${getDoctorName(item)}',
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                        title: RichText(
-                          text: TextSpan(
-                            style: DefaultTextStyle.of(context).style,
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: 'Doktor: ',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue,
-                                  fontSize: 16.0,
-                                ),
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                style: DefaultTextStyle.of(context).style,
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: 'Pacijent: ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blue,
+                                      fontSize: 16.0,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: '${getPacijentIme(item)}',
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              TextSpan(
-                                text: '${getDoctorName(item)}',
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
@@ -134,7 +162,11 @@ class GenericListRezervacijeScreen<T> extends StatelessWidget {
                           ],
                         ),
                       ),
-                    );
+                      Divider(
+                        color: Colors.grey,
+                        thickness: 1.0,
+                      ),
+                    ]);
                   },
                 );
               }

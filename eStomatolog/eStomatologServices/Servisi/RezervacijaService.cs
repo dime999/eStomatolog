@@ -74,6 +74,7 @@ namespace eStomatologServices.Servisi
         }
 
 
+
         public override eStomatologModel.Rezervacija Insert(RezervacijaInsertRequest insert)
         {
             var entity = base.Insert(insert);
@@ -118,6 +119,40 @@ namespace eStomatologServices.Servisi
             using var bus = RabbitHutch.CreateBus("host=localhost");
 
             bus.PubSub.Publish(entity);
+
+            return entity;
+        }
+
+        public eStomatologModel.Rezervacija OznaciZauzet(RezervacijaInsertRequest insert)
+        {
+            var entity = base.Insert(insert);
+            string doktorIme = "";
+            var pacijent = _pacijentService.GetById(entity.PacijentId);
+            var doktor = _doktorService.GetById(entity.DoktorId);
+            var termin = _terminService.GetById(entity.TerminId);
+            var ordinacija = _ordinacijaService.GetById(entity.OrdinacijaId);
+            if (doktor != null)
+            {
+                doktorIme = doktor.Ime;
+                entity.Doktor = doktor;
+            }
+
+            if (pacijent != null)
+            {
+                entity.Pacijent = pacijent;
+            }
+
+            if (termin != null)
+            {
+                entity.Termin = termin;
+            }
+            if (ordinacija != null)
+            {
+                entity.Ordinacija = ordinacija;
+            }
+            Context.SaveChanges();
+
+           
 
             return entity;
         }
