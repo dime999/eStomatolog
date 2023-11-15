@@ -13,7 +13,7 @@ class Rezervacija {
   String? doktorIme;
   String doktorPrezime;
   String pacijentPrezime;
-  String pacijentIme;
+  String? pacijentIme;
   String? ordinacijaNaziv;
   DateTime terminVrijeme;
 

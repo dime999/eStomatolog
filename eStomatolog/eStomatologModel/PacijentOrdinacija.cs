@@ -15,5 +15,7 @@ namespace eStomatologModel
         public string PacijentPrezime => Pacijnet?.Prezime;
 
         public int KorisnikId => Pacijnet.KorisnikId;
+
+        public int PacijentId => Pacijnet.Id;
     }
 }

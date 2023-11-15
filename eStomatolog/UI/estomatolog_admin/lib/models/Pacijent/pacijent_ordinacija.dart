@@ -10,8 +10,10 @@ class PacijentOrdinacija {
   String? pacijentIme;
   String? pacijentPrezime;
   late int korisnikId;
+  late int pacijentId;
 
-  PacijentOrdinacija(this.pacijentIme, this.pacijentPrezime, this.korisnikId);
+  PacijentOrdinacija(
+      this.pacijentIme, this.pacijentPrezime, this.korisnikId, this.pacijentId);
 
   factory PacijentOrdinacija.fromJson(Map<String, dynamic> json) =>
       _$PacijentOrdinacijaFromJson(json);

@@ -1,5 +1,6 @@
 import 'package:estomatolog_admin/models/Rezervacija/rezervacija.dart';
 import 'package:estomatolog_admin/providers/rezervacija_provider.dart';
+import 'package:estomatolog_admin/screens/ordinacija/Rezervacije/rezervacija_add.dart';
 import 'package:estomatolog_admin/widgets/list_rezervacije.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,8 +23,9 @@ class _RezervacijeScreenState extends State<RezervacijaScreen> {
 
     var filteredRezervacije = fetchedRezervacije.result.where((rezervacija) {
       var ime = rezervacija.doktorIme?.toLowerCase() ?? '';
-
-      return ime.contains(searchQuery.toLowerCase());
+      var pacijent = rezervacija.pacijentIme?.toLowerCase() ?? '';
+      return ime.contains(searchQuery.toLowerCase()) ||
+          pacijent.contains(searchQuery.toLowerCase());
     }).toList();
     filteredRezervacije.sort((a, b) => b.datum.compareTo(a.datum));
 
@@ -117,16 +119,18 @@ class _RezervacijeScreenState extends State<RezervacijaScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          /*  Navigator.push(
+          Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const AddDoctorScreen(),
+              builder: (context) => RezervacijaAddScreen(
+                ordinacijaId: widget.ordinacijaId,
+              ),
             ),
           ).then((value) {
             setState(() {
-              fetchDoctors(context, "");
+              fetchRezervacije(context, "");
             });
-          }); */
+          });
         },
         backgroundColor: Colors.blue,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),

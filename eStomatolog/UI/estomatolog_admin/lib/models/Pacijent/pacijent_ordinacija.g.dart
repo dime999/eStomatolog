@@ -11,6 +11,7 @@ PacijentOrdinacija _$PacijentOrdinacijaFromJson(Map<String, dynamic> json) =>
       json['pacijentIme'] as String?,
       json['pacijentPrezime'] as String?,
       json['korisnikId'] as int,
+      json['pacijentId'] as int,
     );
 
 Map<String, dynamic> _$PacijentOrdinacijaToJson(PacijentOrdinacija instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$PacijentOrdinacijaToJson(PacijentOrdinacija instance) =>
       'pacijentIme': instance.pacijentIme,
       'pacijentPrezime': instance.pacijentPrezime,
       'korisnikId': instance.korisnikId,
+      'pacijentId': instance.pacijentId,
     };
