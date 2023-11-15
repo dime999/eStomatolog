@@ -1,5 +1,6 @@
 import 'package:estomatolog_admin/models/Ordinacija/ordinacija.dart';
 import 'package:estomatolog_admin/providers/ordinacija_provider.dart';
+import 'package:estomatolog_admin/screens/login.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Doktori/doktori_ordinacija.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Izvjestaj/izvjestaj.dart';
 import 'package:estomatolog_admin/screens/ordinacija/Pacijenti/pacijenti_ordinacija_lista.dart';
@@ -46,10 +47,28 @@ class OrdinacijaHomeScreen extends StatelessWidget {
               child: Align(
                 alignment: Alignment.center,
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 22.0),
-                  child: Text(
-                      'Prijavljeni korisnik: ${Authorization.korisnickoIme}',
-                      style: const TextStyle(fontSize: 16)),
+                  padding: const EdgeInsets.only(right: 42.0),
+                  child: Row(children: [
+                    Text('Prijavljeni korisnik: ${Authorization.korisnickoIme}',
+                        style: const TextStyle(fontSize: 16)),
+                    SizedBox(width: 10),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => LoginPage(),
+                          ),
+                          (route) => false,
+                        );
+                      },
+                      child: Image.asset(
+                        'assets/images/logout.png',
+                        width: 24,
+                        height: 24,
+                      ),
+                    ),
+                  ]),
                 ),
               ),
             ),

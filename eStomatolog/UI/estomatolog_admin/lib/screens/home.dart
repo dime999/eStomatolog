@@ -1,4 +1,5 @@
 import 'package:estomatolog_admin/screens/doktor/doktori_screen.dart';
+import 'package:estomatolog_admin/screens/login.dart';
 import 'package:estomatolog_admin/screens/ordinacija/ordinacije_screen.dart';
 import 'package:estomatolog_admin/screens/pacijent/pacijenti_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,13 +19,31 @@ class HomeScreen extends StatelessWidget {
             child: Align(
               alignment: Alignment.center,
               child: Padding(
-                padding: const EdgeInsets.only(right: 22.0),
-                child: Text(
-                    'Prijavljeni korisnik: ${Authorization.korisnickoIme}',
-                    style: const TextStyle(fontSize: 16)),
+                padding: const EdgeInsets.only(right: 42.0),
+                child: Row(children: [
+                  Text('Prijavljeni korisnik: ${Authorization.korisnickoIme}',
+                      style: const TextStyle(fontSize: 16)),
+                  SizedBox(width: 10),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => LoginPage(),
+                        ),
+                        (route) => false,
+                      );
+                    },
+                    child: Image.asset(
+                      'assets/images/logout.png',
+                      width: 24,
+                      height: 24,
+                    ),
+                  ),
+                ]),
               ),
             ),
-          ),
+          )
         ],
       ),
       body: GridView.count(

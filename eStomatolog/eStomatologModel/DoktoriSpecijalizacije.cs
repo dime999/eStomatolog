@@ -17,5 +17,6 @@ namespace eStomatologModel
        
 
         public string SpecijalizacijaNaziv => Specijalizacija?.Naziv;
+      
     }
 }

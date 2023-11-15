@@ -13,5 +13,6 @@ namespace eStomatologServices.Interfejsi
     {
         public IEnumerable<DoktorOrdinacija> GetByDoktorId(int id);
         public IEnumerable<DoktorOrdinacijaDoktorInfo> GetByOrdinacijaId(int id);
+        public IEnumerable<DoktorOrdinacijaOrdinacijaInfo> GetOrdinacijaInfo(int id);
     }
 }

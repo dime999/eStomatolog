@@ -5,7 +5,11 @@ import 'package:estomatolog_admin/models/Grad/grad.dart';
 import 'package:estomatolog_admin/models/Korisnik/doktor_update.dart';
 import 'package:estomatolog_admin/models/Korisnik/korisnik.dart';
 import 'package:estomatolog_admin/models/Ordinacija/ordinacija.dart';
+import 'package:estomatolog_admin/models/Ordinacija/ordinacija_info.dart';
+import 'package:estomatolog_admin/models/Specijalizacija/doktorSpecijalizacija.dart';
 import 'package:estomatolog_admin/models/Specijalizacija/specijalizacija.dart';
+import 'package:estomatolog_admin/providers/doktor_ordinacija_provider.dart';
+import 'package:estomatolog_admin/providers/doktor_specijalizacija.dart';
 import 'package:estomatolog_admin/providers/grad_provider.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
 import 'package:estomatolog_admin/providers/ordinacija_provider.dart';
@@ -33,6 +37,14 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
   List<Specijalizacija> specijalizacije = [];
   List<int> odabraneSpecijalizacije = [];
 
+  List<DoktorSpecijalizacija> specijalizacijeDef = [];
+  List<int> idSpecijalizacijaDef = [];
+  List<String> naziviSpecijalizacijaDef = [];
+
+  List<OrdinacijaInfo> ordinacijeDef = [];
+  List<int> idOrdinacijaDef = [];
+  List<String> naziviOrdinacijaDef = [];
+
   List<int> idOrdinacija = [];
   List<String> naziviOrdinacija = [];
   List<Ordinacija> ordinacije = [];
@@ -53,6 +65,8 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
     super.initState();
     korisnikId = widget.korisnikId;
     fetchUsers(context);
+    fetchSpecijalizacijeDef(context);
+    fetchOrdinacijeDef(context);
     fetchSpecijalizacije(context);
     fetchOrdinacije(context);
     fetchGradovi(context);
@@ -91,6 +105,23 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
     return specijalizacije;
   }
 
+  Future<List<Ordinacija>> fetchOrdinacijeDef(BuildContext context) async {
+    var provider =
+        Provider.of<DoktorOrdinacijaProvider>(context, listen: false);
+    var fetchedOrdinacije = await provider.getByDoktorIdInfo(widget.doktorId);
+    naziviOrdinacijaDef = fetchedOrdinacije.result
+        .map((ordinacija) => ordinacija.ordinacijaNaziv)
+        .toList();
+
+    idOrdinacijaDef = fetchedOrdinacije.result
+        .map((ordinacija) => ordinacija.ordinacijaId)
+        .toList();
+    setState(() {
+      ordinacijeDef = fetchedOrdinacije.result;
+    });
+    return ordinacije;
+  }
+
   Future<List<Ordinacija>> fetchOrdinacije(BuildContext context) async {
     var provider = Provider.of<OrdinacijaProvider>(context, listen: false);
     var fetchedOrdinacije = await provider.get();
@@ -104,6 +135,24 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
       ordinacije = fetchedOrdinacije.result;
     });
     return ordinacije;
+  }
+
+  Future<List<DoktorSpecijalizacija>> fetchSpecijalizacijeDef(
+      BuildContext context) async {
+    var provider =
+        Provider.of<DoktorSpecijalizacijaProvider>(context, listen: false);
+    var fetchedspecijalizacije = await provider.getByDoktorId(widget.doktorId);
+    naziviSpecijalizacijaDef = fetchedspecijalizacije.result
+        .map((specijalizacija) => specijalizacija.specijalizacijaNaziv ?? '')
+        .toList();
+
+    idSpecijalizacijaDef = fetchedspecijalizacije.result
+        .map((specijalizacija) => specijalizacija.specijalizacijaId ?? 0)
+        .toList();
+    setState(() {
+      specijalizacijeDef = fetchedspecijalizacije.result;
+    });
+    return specijalizacijeDef;
   }
 
   Future<List<Grad>> fetchGradovi(BuildContext context) async {
@@ -298,7 +347,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                   .toList();
             },
             options: naziviSpecijalizacija,
-            selectedValues: selectedValuesSpecijalizacije,
+            selectedValues: naziviSpecijalizacijaDef,
             whenEmpty: 'Odaberite specijalizacije',
           ),
         ),
@@ -323,7 +372,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                   .toList();
             },
             options: naziviOrdinacija,
-            selectedValues: selectedValuesOrdinacije,
+            selectedValues: naziviOrdinacijaDef,
             whenEmpty: 'Odaberite ordinacije',
           ),
         ),
