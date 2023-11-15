@@ -82,13 +82,14 @@ class _PacijentOrdinacijaScreenState extends State<PacijentOrdinacijaScreen> {
             imagePath: 'assets/images/pacijenti.png',
             onEditPressed: (pacijent) {
               int korisnikId = pacijent.korisnikId;
+              int pacijentId = pacijent.pacijentId;
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => PacijentOrdinacijaInfoScreen(
-                    pacijentId: korisnikId,
-                    ordinacijaId: widget.ordinacijaId,
-                  ),
+                      pacijentId: korisnikId,
+                      ordinacijaId: widget.ordinacijaId,
+                      id: pacijentId),
                 ),
               );
             },

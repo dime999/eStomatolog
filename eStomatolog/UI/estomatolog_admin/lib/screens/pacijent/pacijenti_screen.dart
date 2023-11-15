@@ -61,12 +61,15 @@ class _PacijentScreenState extends State<PacijentScreen> {
             imagePath: 'assets/images/pacijenti.png',
             onEditPressed: (pacijent) {
               int korisnikId = pacijent.korisnikId;
+              int pacijentId = pacijent.id;
 
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      EditPacijentScreen(korisnikId: korisnikId),
+                  builder: (context) => EditPacijentScreen(
+                    korisnikId: korisnikId,
+                    pacijentId: pacijentId,
+                  ),
                 ),
               ).then((value) {
                 setState(() {

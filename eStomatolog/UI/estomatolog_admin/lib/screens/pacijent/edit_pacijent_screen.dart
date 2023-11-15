@@ -2,17 +2,21 @@ import 'package:estomatolog_admin/models/Grad/grad.dart';
 import 'package:estomatolog_admin/models/Korisnik/korisnik.dart';
 import 'package:estomatolog_admin/models/Korisnik/pacijent_update.dart';
 import 'package:estomatolog_admin/models/Ordinacija/ordinacija.dart';
+import 'package:estomatolog_admin/models/Ordinacija/ordinacija_info.dart';
 import 'package:estomatolog_admin/providers/grad_provider.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
 import 'package:estomatolog_admin/providers/ordinacija_provider.dart';
+import 'package:estomatolog_admin/providers/pacijent_ordinacija_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:multiselect/multiselect.dart';
 
 class EditPacijentScreen extends StatefulWidget {
   final int korisnikId;
+  final int pacijentId;
 
-  const EditPacijentScreen({super.key, required this.korisnikId});
+  const EditPacijentScreen(
+      {super.key, required this.korisnikId, required this.pacijentId});
 
   @override
   _EditPacijentScreenState createState() => _EditPacijentScreenState();
@@ -23,6 +27,10 @@ class _EditPacijentScreenState extends State<EditPacijentScreen> {
   List<String> naziviOrdinacija = [];
   List<Ordinacija> ordinacije = [];
   List<int> odabraneOrdinacije = [];
+
+  List<int> idOrdinacijaDef = [];
+  List<String> naziviOrdinacijaDef = [];
+  List<OrdinacijaInfo> ordinacijeDef = [];
 
   List<int> idGradova = [];
   List<String> naziviGradova = [];
@@ -38,6 +46,7 @@ class _EditPacijentScreenState extends State<EditPacijentScreen> {
     super.initState();
     korisnikId = widget.korisnikId;
     fetchUsers(context);
+    fetchOrdinacijeDef(context);
     fetchOrdinacije(context);
     fetchGradovi(context);
   }
@@ -56,6 +65,23 @@ class _EditPacijentScreenState extends State<EditPacijentScreen> {
       status = korisnik.status ?? true;
     });
     return korisnik;
+  }
+
+  Future<List<OrdinacijaInfo>> fetchOrdinacijeDef(BuildContext context) async {
+    var provider =
+        Provider.of<PacijentOrdinacijaProvider>(context, listen: false);
+    var fetchedOrdinacije = await provider.getByPacijentId(widget.pacijentId);
+    naziviOrdinacijaDef = fetchedOrdinacije.result
+        .map((ordinacija) => ordinacija.ordinacijaNaziv)
+        .toList();
+
+    idOrdinacijaDef = fetchedOrdinacije.result
+        .map((ordinacija) => ordinacija.ordinacijaId)
+        .toList();
+    setState(() {
+      ordinacijeDef = fetchedOrdinacije.result;
+    });
+    return ordinacijeDef;
   }
 
   Future<List<Ordinacija>> fetchOrdinacije(BuildContext context) async {
@@ -179,7 +205,7 @@ class _EditPacijentScreenState extends State<EditPacijentScreen> {
               });
             },
             options: naziviOrdinacija,
-            selectedValues: selectedValuesOrdinacije,
+            selectedValues: naziviOrdinacijaDef,
             whenEmpty: 'Odaberite ordinacije',
           ),
         ),

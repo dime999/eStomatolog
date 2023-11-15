@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:estomatolog_admin/models/Ordinacija/ordinacija_info.dart';
 import 'package:http/http.dart' as http;
 import 'package:estomatolog_admin/models/Pacijent/pacijent_ordinacija.dart';
 import 'package:estomatolog_admin/models/search_result.dart';
@@ -16,6 +17,26 @@ class PacijentOrdinacijaProvider extends BaseProvider<PacijentOrdinacija> {
   @override
   PacijentOrdinacija fromJson(data) {
     return PacijentOrdinacija.fromJson(data);
+  }
+
+  Future<SearchResult<OrdinacijaInfo>> getByPacijentId(int id) async {
+    String endpointPacijentOrdinacija = "GetOrdinacijeByPacijentId";
+    var url = "$_baseUrl$endpointPacijentOrdinacija/$id";
+    var uri = Uri.parse(url);
+    var headers = createHeaders();
+    var response = await http.get(uri, headers: headers);
+    if (isValidResponse(response)) {
+      var data = jsonDecode(response.body);
+      var result = SearchResult<OrdinacijaInfo>();
+
+      for (var item in data) {
+        result.result.add(OrdinacijaInfo.fromJson(item));
+      }
+
+      return result;
+    } else {
+      throw Exception("Nepoznata greška!");
+    }
   }
 
   Future<SearchResult<PacijentOrdinacija>> getByOrdinacijaId(int id) async {

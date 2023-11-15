@@ -10,14 +10,18 @@ import 'package:provider/provider.dart';
 class PacijentOrdinacijaInfoScreen extends StatelessWidget {
   final int ordinacijaId;
   final int pacijentId;
+  final int id;
   const PacijentOrdinacijaInfoScreen(
-      {super.key, required this.ordinacijaId, required this.pacijentId});
+      {super.key,
+      required this.ordinacijaId,
+      required this.pacijentId,
+      required this.id});
 
   Future<Korisnik> fetchPacijent(BuildContext context) async {
     var pacijentProvider =
         Provider.of<KorisniciProvider>(context, listen: false);
-    var ordinacija = await pacijentProvider.getById(pacijentId);
-    return ordinacija;
+    var pacijent = await pacijentProvider.getById(pacijentId);
+    return pacijent;
   }
 
   @override
@@ -62,20 +66,26 @@ class PacijentOrdinacijaInfoScreen extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         children: [
           CardItem(
-              imagePath: 'assets/images/nalaz.jpg',
-              title: 'Nalazi',
-              ordinacijaId: ordinacijaId,
-              pacijentId: pacijentId),
+            imagePath: 'assets/images/nalaz.jpg',
+            title: 'Nalazi',
+            ordinacijaId: ordinacijaId,
+            pacijentId: pacijentId,
+            id: id,
+          ),
           CardItem(
-              imagePath: 'assets/images/reservation.png',
-              title: 'Rezervacije',
-              ordinacijaId: ordinacijaId,
-              pacijentId: pacijentId),
+            imagePath: 'assets/images/reservation.png',
+            title: 'Rezervacije',
+            ordinacijaId: ordinacijaId,
+            pacijentId: pacijentId,
+            id: id,
+          ),
           CardItem(
-              imagePath: 'assets/images/pacijenti.png',
-              title: 'Informacije o pacijentu',
-              ordinacijaId: ordinacijaId,
-              pacijentId: pacijentId),
+            imagePath: 'assets/images/pacijenti.png',
+            title: 'Informacije o pacijentu',
+            ordinacijaId: ordinacijaId,
+            pacijentId: pacijentId,
+            id: id,
+          ),
         ],
       ),
     );
@@ -87,13 +97,15 @@ class CardItem extends StatelessWidget {
   final String title;
   final int ordinacijaId;
   final int pacijentId;
+  final int id;
 
   const CardItem(
       {super.key,
       required this.imagePath,
       required this.title,
       required this.ordinacijaId,
-      required this.pacijentId});
+      required this.pacijentId,
+      required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -128,6 +140,7 @@ class CardItem extends StatelessWidget {
                 MaterialPageRoute(
                     builder: (context) => EditPacijentScreen(
                           korisnikId: pacijentId,
+                          pacijentId: id,
                         )),
               );
             }
