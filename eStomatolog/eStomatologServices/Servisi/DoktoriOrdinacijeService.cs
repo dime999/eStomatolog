@@ -5,6 +5,7 @@ using eStomatologModel.SearchObjects;
 using eStomatologServices.Interfejsi;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.ML;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,10 +53,6 @@ namespace eStomatologServices.Servisi
             return Mapper.Map<IList<DoktorOrdinacija>>(list);
         }
 
-
       
-
-
-
     }
 }

@@ -16,14 +16,17 @@ using Doktor = eStomatologServices.Models.Doktor;
 using eStomatologModel.Requests;
 using eStomatologServices.Database;
 using Microsoft.VisualStudio.Services.Identity;
+using Microsoft.ML;
+using Microsoft.ML.Data;
+using Microsoft.ML.Trainers;
 
 namespace eStomatologServices.Servisi
 {
-   
-    
+
+
     public class DoktorService : BaseCRUDService<eStomatologModel.Doktor, Models.Doktor, BaseSearchObject, DoktorUpsertRequest, DoktorUpsertRequest>, IDoktorService
     {
-       
+
 
         public DoktorService(eStomatologContext context, IMapper mapper) : base(context, mapper)
         {
@@ -57,7 +60,7 @@ namespace eStomatologServices.Servisi
 
             doktor.Ime = update.Ime;
             doktor.Prezime = update.Prezime;
-           
+
 
             foreach (var specijalizacijaId in update.SpecijalizacijeIdList)
             {
@@ -86,10 +89,16 @@ namespace eStomatologServices.Servisi
 
             }
 
-            Context.SaveChanges(); 
+            Context.SaveChanges();
 
-            return existingDoktor; 
+            return existingDoktor;
         }
 
+
+      
     }
+
+
 }
+
+

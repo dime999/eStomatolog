@@ -10,8 +10,10 @@ using System.Threading.Tasks;
 
 namespace eStomatologServices.Interfejsi
 {
-    public interface IDoktorService : ICRUDService<eStomatologModel.Doktor, BaseSearchObject,DoktorUpsertRequest,DoktorUpsertRequest>
+    public interface IDoktorService : ICRUDService<eStomatologModel.Doktor, BaseSearchObject, DoktorUpsertRequest, DoktorUpsertRequest>
     {
         public eStomatologModel.Doktor GetByKorisnikId(int id);
+
+       
     }
 }

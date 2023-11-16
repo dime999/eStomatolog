@@ -23,5 +23,13 @@ namespace eStomatolog.Controllers
 
             return pacijent;
         }
+
+        [HttpGet("/GetSlicni")]
+        public async Task<eStomatologModel.Pacijent> GetSlicni(int id)
+        {
+            var pacijent = service.PronadiNajblizegPacijenta(id);
+
+            return pacijent;
+        }
     }
 }
