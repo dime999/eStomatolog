@@ -27,10 +27,10 @@ namespace eStomatologServices.Servisi
     public class DoktorService : BaseCRUDService<eStomatologModel.Doktor, Models.Doktor, BaseSearchObject, DoktorUpsertRequest, DoktorUpsertRequest>, IDoktorService
     {
 
-
-        public DoktorService(eStomatologContext context, IMapper mapper) : base(context, mapper)
+        private IPacijentService _pacijentService;
+        public DoktorService(eStomatologContext context, IMapper mapper, IPacijentService pacijentService) : base(context, mapper)
         {
-
+            _pacijentService = pacijentService;
         }
 
 
@@ -94,8 +94,36 @@ namespace eStomatologServices.Servisi
             return existingDoktor;
         }
 
+        public IEnumerable<eStomatologModel.Doktor> Recommended(int id)
+        {
+            var pearsonCorellation = _pacijentService.PronadiNajblizegPacijenta(id);
 
-      
+
+            var ocjene = Context.Ocjene
+           .Where(o => o.PacijentId == pearsonCorellation.Id)
+           .OrderByDescending(o => o.Ocjena)
+           .Take(3)
+           .ToList();
+
+            List<int> doktoriIds = new List<int>();
+            foreach (var ocjena in ocjene)
+            {
+                doktoriIds.Add(ocjena.DoktorId);
+            }
+
+
+            List<eStomatologModel.Doktor> doktori = new List<eStomatologModel.Doktor> ();
+            foreach (var idDoktora in doktoriIds) {
+                var entity = Context.Set<eStomatologServices.Models.Doktor>().FirstOrDefault(x => x.Id == idDoktora);
+                doktori.Add(Mapper.Map<eStomatologModel.Doktor>(entity));
+               
+            }
+          
+            return Mapper.Map<IList<eStomatologModel.Doktor>>(doktori);
+        }
+
+
+       
     }
 
 

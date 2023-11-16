@@ -1,4 +1,5 @@
-﻿using eStomatologModel.Requests;
+﻿using eStomatologModel;
+using eStomatologModel.Requests;
 using eStomatologModel.SearchObjects;
 using eStomatologServices.Interfejsi;
 using Microsoft.AspNetCore.Authorization;
@@ -25,7 +26,18 @@ namespace eStomatolog.Controllers
         }
 
 
-        
+
+        [HttpGet("/GetRecommended/{id}")]
+        public async Task<IEnumerable<Doktor>> GetDoktori(int id)
+        {
+            var list = service.Recommended(id);
+
+            return list.ToList();
+        }
+
+
+      
+
     }
 
 
