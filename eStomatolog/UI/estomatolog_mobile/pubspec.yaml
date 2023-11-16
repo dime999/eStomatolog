@@ -110,6 +110,8 @@ flutter:
     - assets/images/profile_info.png
     - assets/images/pacijenti.png
     - assets/images/ordinacija.png
+    - assets/images/recommended.png
+    - assets/images/recommended1.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

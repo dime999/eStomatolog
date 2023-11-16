@@ -100,6 +100,7 @@ namespace eStomatologServices.Servisi
                     Prezime = entity.Prezime,
                     GradId = insert.GradId,
                     Telefon = insert.Telefon,
+                    DatumRodjenja= insert.DatumRodjenja,
                 };
                 Context.Pacijenti.Add(pacijent);
                 Context.SaveChanges();

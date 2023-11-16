@@ -7,6 +7,7 @@ import 'package:estomatolog_mobile/screens/korisnik_kartice.dart';
 import 'package:estomatolog_mobile/screens/korisnik_poklon_bonovi.dart';
 import 'package:estomatolog_mobile/screens/login_screen.dart';
 import 'package:estomatolog_mobile/screens/nalazi_lista.dart';
+import 'package:estomatolog_mobile/screens/preporuceni_doktori_screen.dart';
 import 'package:estomatolog_mobile/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -177,6 +178,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               ),
                                             );
                                           case 5:
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (_) =>
+                                                    PreporuceniDoktoriScreen(
+                                                  pacijentId: pacijent.id,
+                                                ),
+                                              ),
+                                            );
+                                          case 6:
                                             Navigator.pushAndRemoveUntil(
                                               context,
                                               MaterialPageRoute(

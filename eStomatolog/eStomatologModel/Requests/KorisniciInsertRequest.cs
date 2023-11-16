@@ -26,6 +26,7 @@ namespace eStomatologModel.Requests
 
         public bool? Status { get; set; }
 
+        public DateTime DatumRodjenja { get; set; }
 
         public List<int> UlogeIdList { get; set; } = new List<int> { };
 

@@ -18,6 +18,7 @@ class PacijentInsertModel {
   int? gradId;
   String? password;
   String? passwordPotvrda;
+  DateTime? datumRodjenja;
 
   PacijentInsertModel(
       this.ime,
@@ -30,7 +31,8 @@ class PacijentInsertModel {
       this.ulogeIdList,
       this.ordinacijeIdList,
       this.password,
-      this.passwordPotvrda);
+      this.passwordPotvrda,
+      this.datumRodjenja);
 
   factory PacijentInsertModel.fromJson(Map<String, dynamic> json) =>
       _$PacijentInsertModelFromJson(json);

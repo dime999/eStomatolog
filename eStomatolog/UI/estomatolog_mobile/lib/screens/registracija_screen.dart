@@ -6,6 +6,7 @@ import 'package:estomatolog_mobile/providers/grad_provider.dart';
 import 'package:estomatolog_mobile/providers/korisnici_provider.dart';
 import 'package:estomatolog_mobile/providers/ordinacija_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:multiselect/multiselect.dart';
 
@@ -28,12 +29,30 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
   int odabraniGrad = 1;
   List<int> uloga = [2];
   late Korisnik korisnik;
+  DateTime odabraniDatum = DateTime.now();
 
   @override
   void initState() {
     super.initState();
     fetchOrdinacije(context);
     fetchGradovi(context);
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime pickedDate = (await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    ))!;
+
+    if (pickedDate != null && pickedDate != DateTime.now()) {
+      setState(() {
+        odabraniDatum = pickedDate;
+        datumRodjenjaController.text =
+            DateFormat('dd.MM.yyyy').format(pickedDate);
+      });
+    }
   }
 
   Future<List<Ordinacija>> fetchOrdinacije(BuildContext context) async {
@@ -72,6 +91,7 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
   TextEditingController datumRodjenjaController = TextEditingController();
   TextEditingController lozinkaController = TextEditingController();
   TextEditingController lozinkaPotvrdaController = TextEditingController();
+
   bool status = true;
 
   List<String> selectedValuesOrdinacije = [];
@@ -110,6 +130,8 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
                         const SizedBox(height: 16.0),
                         _buildFormField('Telefon', telefonController),
                         const SizedBox(height: 16.0),
+                        _buildDateField(),
+                        const SizedBox(height: 16.0),
                         _buildFormField(
                             'Korisničko ime', korisnickoImeController),
                         const SizedBox(height: 16.0),
@@ -130,6 +152,22 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
                 ],
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDateField() {
+    return InkWell(
+      onTap: () => _selectDate(context),
+      child: IgnorePointer(
+        child: TextFormField(
+          controller: datumRodjenjaController,
+          decoration: InputDecoration(
+            labelText: 'Datum rođenja',
+            prefixIcon: Icon(Icons.calendar_today),
+            border: OutlineInputBorder(),
           ),
         ),
       ),
@@ -278,7 +316,8 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
         uloga,
         odabraneOrdinacije,
         lozinkaController.text,
-        lozinkaPotvrdaController.text);
+        lozinkaPotvrdaController.text,
+        odabraniDatum);
     return SizedBox(
       width: 200.0,
       child: ElevatedButton(

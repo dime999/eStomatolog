@@ -39,6 +39,11 @@ List<CustomListTile> customListTiles = [
     isLogOut: false,
   ),
   CustomListTile(
+    imagePath: 'assets/images/recommended.png',
+    title: "Preporučeni doktori",
+    isLogOut: false,
+  ),
+  CustomListTile(
     title: "Odjavi se",
     imagePath: 'assets/images/logout.png',
     isLogOut: true,

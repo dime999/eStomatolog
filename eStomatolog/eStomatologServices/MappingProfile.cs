@@ -40,6 +40,9 @@ namespace eStomatologServices
             CreateMap<Database.PoklonBon, eStomatologModel.PoklonBon>();
             CreateMap<Database.Ocjene, eStomatologModel.Ocjene>();
             CreateMap<Database.KorisnikKartica, eStomatologModel.KorisnikKartica>();
+            CreateMap<Models.Doktor, eStomatologModel.DoktorOrdinacijaDoktorInfo>();
+            CreateMap<Models.Doktor, eStomatologModel.DoktorRecommended>();
+
 
 
 

@@ -105,6 +105,32 @@ namespace eStomatologServices.Servisi
            .Take(3)
            .ToList();
 
+            if (ocjene.Count == 0 || ocjene==null)
+            {
+                var ocjeneDef = Context.Ocjene
+          .OrderByDescending(o => o.Ocjena)
+          .Take(3)
+          .ToList();
+
+
+                List<int> doktoriIdsDef = new List<int>();
+                foreach (var ocjena in ocjeneDef)
+                {
+                    doktoriIdsDef.Add(ocjena.DoktorId);
+                }
+
+
+                List<eStomatologModel.Doktor> doktoriDef = new List<eStomatologModel.Doktor>();
+                foreach (var idDoktora in doktoriIdsDef)
+                {
+                    var entity = Context.Set<eStomatologServices.Models.Doktor>().FirstOrDefault(x => x.Id == idDoktora);
+                    doktoriDef.Add(Mapper.Map<eStomatologModel.Doktor>(entity));
+
+                }
+
+                return Mapper.Map<IList<eStomatologModel.Doktor>>(doktoriDef);
+            }
+
             List<int> doktoriIds = new List<int>();
             foreach (var ocjena in ocjene)
             {
