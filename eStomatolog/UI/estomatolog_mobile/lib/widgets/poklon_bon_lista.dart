@@ -38,6 +38,10 @@ class GenericListBonoviScreen extends StatelessWidget {
                 return const Center(
                   child: Text('Greška pri dohvatanju podataka'),
                 );
+              } else if (snapshot.data?.length == 0) {
+                return const Center(
+                  child: Text('Nemate kupljenih poklon bonova'),
+                );
               } else {
                 var bonovi = snapshot.data!;
 

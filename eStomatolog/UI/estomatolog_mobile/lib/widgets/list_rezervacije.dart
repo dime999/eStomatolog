@@ -45,6 +45,10 @@ class GenericListRezervacijeScreen<T> extends StatelessWidget {
                 return const Center(
                   child: Text('Greška pri dohvatanju podataka'),
                 );
+              } else if (snapshot.data?.length == 0) {
+                return const Center(
+                  child: Text('Nemate historije rezervacija'),
+                );
               } else {
                 var items = snapshot.data!;
                 var filteredList = items.where((item) {
