@@ -6,6 +6,7 @@ import 'package:estomatolog_mobile/providers/doktor_provider.dart';
 import 'package:estomatolog_mobile/providers/korisnici_provider.dart';
 import 'package:estomatolog_mobile/providers/pacijent_provider.dart';
 import 'package:estomatolog_mobile/providers/slika_provider.dart';
+import 'package:estomatolog_mobile/screens/ocjene_screen.dart';
 import 'package:estomatolog_mobile/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -165,7 +166,7 @@ class _DoktorInfoScreenState extends State<DoktorInfoScreen> {
                                   const SizedBox(height: 16.0),
                                   _buildFormField(
                                       'Telefon', telefonController.text),
-                                  const SizedBox(height: 32.0),
+                                  const SizedBox(height: 16.0),
                                   Text(
                                     'Specijalizacije:',
                                     style: TextStyle(
@@ -208,7 +209,7 @@ class _DoktorInfoScreenState extends State<DoktorInfoScreen> {
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(height: 32.0),
+                                  const SizedBox(height: 16.0),
                                   Text(
                                     'Prosječna ocjena doktora: ',
                                     style: TextStyle(
@@ -232,7 +233,34 @@ class _DoktorInfoScreenState extends State<DoktorInfoScreen> {
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 32.0),
+                                  const SizedBox(height: 24.0),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          'Pogledaj sve ocjene doktora: ',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (_) => OcjeneScreen(
+                                                doktorId: widget.doktorId,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Text('Ocjene'),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 24.0),
                                   Text(
                                     'Ocjeni ovog doktora:',
                                     style: TextStyle(
@@ -263,7 +291,7 @@ class _DoktorInfoScreenState extends State<DoktorInfoScreen> {
                                       border: OutlineInputBorder(),
                                     ),
                                   ),
-                                  const SizedBox(height: 16.0),
+                                  const SizedBox(height: 24.0),
                                   ElevatedButton(
                                     onPressed: () async {
                                       try {
@@ -282,7 +310,8 @@ class _DoktorInfoScreenState extends State<DoktorInfoScreen> {
                                               content: Text(
                                                   'Uspješno ste ocijenili doktora sa ocjenom $pretvorenaOcjena')),
                                         );
-                                        await fetchUsers(context);
+
+                                        Navigator.of(context).pop();
                                       } catch (e) {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
@@ -292,7 +321,7 @@ class _DoktorInfoScreenState extends State<DoktorInfoScreen> {
                                         );
                                       }
                                     },
-                                    child: Text('Potvrdi'),
+                                    child: Text('Dodaj ocjenu'),
                                   ),
                                   const SizedBox(height: 32.0),
                                 ],

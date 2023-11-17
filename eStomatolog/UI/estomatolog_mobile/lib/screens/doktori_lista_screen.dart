@@ -92,7 +92,12 @@ class _DoctorsOrdinacijaScreenState extends State<DoctorsOrdinacijaScreen> {
                     ocjena: ocjenaProsjek,
                   ),
                 ),
-              );
+              ).then((value) {
+                setState(() {
+                  fetchDoctors(context, "");
+                });
+              });
+              ;
             },
             searchController: searchController,
           );
