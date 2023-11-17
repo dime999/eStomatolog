@@ -247,12 +247,18 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
                             border: OutlineInputBorder(),
                             errorText: _isLozinkaPotvrdaValid
                                 ? null
-                                : 'Lozinka mora biti minimalno 4 znaka',
+                                : 'Lozinka i potvrda se ne podudaraju',
                           ),
                           onChanged: (value) {
                             bool isValid = Validators.validirajLozinku(value);
                             setState(() {
                               _isLozinkaPotvrdaValid = isValid;
+                              if (lozinkaController.text.isNotEmpty &&
+                                  lozinkaController.text != value) {
+                                _isLozinkaPotvrdaValid = false;
+                              } else {
+                                _isLozinkaPotvrdaValid = true;
+                              }
                             });
                           },
                         ),
