@@ -16,18 +16,21 @@ class UserUpdateModel {
   List<int>? ulogeIdList;
   List<int>? ordinacijeIdList;
   int? gradId;
+  String? password;
+  String? passwordPotvrda;
 
   UserUpdateModel(
-    this.ime,
-    this.prezime,
-    this.email,
-    this.telefon,
-    this.korisnickoIme,
-    this.status,
-    this.gradId,
-    this.ordinacijeIdList,
-    this.ulogeIdList,
-  );
+      this.ime,
+      this.prezime,
+      this.email,
+      this.telefon,
+      this.korisnickoIme,
+      this.status,
+      this.gradId,
+      this.ordinacijeIdList,
+      this.ulogeIdList,
+      this.password,
+      this.passwordPotvrda);
 
   factory UserUpdateModel.fromJson(Map<String, dynamic> json) =>
       _$UserUpdateModelFromJson(json);

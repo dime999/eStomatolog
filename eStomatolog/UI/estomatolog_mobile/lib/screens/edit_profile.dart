@@ -2,10 +2,12 @@ import 'package:estomatolog_mobile/models/Korisnik/korisnik.dart';
 import 'package:estomatolog_mobile/models/Korisnik/user_update.dart';
 import 'package:estomatolog_mobile/models/Ordinacija/ordinacija_pacijent.dart';
 import 'package:estomatolog_mobile/models/Pacijent/pacijent.dart';
+import 'package:estomatolog_mobile/models/validator.dart';
 import 'package:estomatolog_mobile/providers/korisnici_provider.dart';
 import 'package:estomatolog_mobile/providers/pacijent_ordinacija_provider.dart';
 import 'package:estomatolog_mobile/providers/pacijent_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class EditUserScreen extends StatefulWidget {
@@ -24,6 +26,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
   late Korisnik korisnik;
   List<OrdinacijaPacijent> ordinacije = [];
   late Pacijent pacijentData;
+  DateTime odabraniDatum = DateTime.now();
 
   List<int> idOrdinacija = [];
 
@@ -87,8 +90,16 @@ class _EditUserScreenState extends State<EditUserScreen> {
   TextEditingController telefonController = TextEditingController();
   TextEditingController korisnickoImeController = TextEditingController();
   TextEditingController datumRodjenjaController = TextEditingController();
+  TextEditingController lozinkaController = TextEditingController();
+  TextEditingController lozinkaPotvrdaController = TextEditingController();
   bool status = true;
-
+  bool _isImeValid = true;
+  bool _isPrezimeValid = true;
+  bool _isTelefonValid = true;
+  bool _isEmailValid = true;
+  bool _isKorisnickoImeValid = true;
+  bool _isLozinkaValid = true;
+  bool _isLozinkaPotvrdaValid = true;
   String? selectedValueGrad;
   late KorisniciProvider _korisniciProvider;
 
@@ -117,16 +128,132 @@ class _EditUserScreenState extends State<EditUserScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildFormField('Ime', imeController),
+                        TextField(
+                          controller: imeController,
+                          decoration: InputDecoration(
+                            labelText: "Ime",
+                            border: OutlineInputBorder(),
+                            errorText: _isImeValid
+                                ? null
+                                : 'Unesite ispravne podatke za ime',
+                          ),
+                          onChanged: (value) {
+                            bool isValid = Validators.validirajIme(value);
+                            setState(() {
+                              _isImeValid = isValid;
+                            });
+                          },
+                        ),
                         const SizedBox(height: 16.0),
-                        _buildFormField('Prezime', prezimeController),
+                        TextField(
+                          controller: prezimeController,
+                          decoration: InputDecoration(
+                            labelText: "Prezime",
+                            border: OutlineInputBorder(),
+                            errorText: _isPrezimeValid
+                                ? null
+                                : 'Unesite ispravne podatke za prezime',
+                          ),
+                          onChanged: (value) {
+                            bool isValid = Validators.validirajPrezime(value);
+                            setState(() {
+                              _isPrezimeValid = isValid;
+                            });
+                          },
+                        ),
                         const SizedBox(height: 16.0),
-                        _buildFormField('Email', emailController),
+                        TextField(
+                          controller: emailController,
+                          decoration: InputDecoration(
+                            labelText: "Email",
+                            border: OutlineInputBorder(),
+                            errorText: _isEmailValid
+                                ? null
+                                : 'Unesite ispravne podatke za e-mail',
+                          ),
+                          onChanged: (value) {
+                            bool isValid = Validators.validirajEmail(value);
+                            setState(() {
+                              _isEmailValid = isValid;
+                            });
+                          },
+                        ),
                         const SizedBox(height: 16.0),
-                        _buildFormField('Telefon', telefonController),
+                        TextField(
+                          controller: telefonController,
+                          decoration: InputDecoration(
+                            labelText: "Telefon",
+                            border: OutlineInputBorder(),
+                            errorText: _isTelefonValid
+                                ? null
+                                : 'Unesite ispravne podatke za telefon',
+                          ),
+                          onChanged: (value) {
+                            bool isValid =
+                                Validators.validirajBrojTelefona(value);
+                            setState(() {
+                              _isTelefonValid = isValid;
+                            });
+                          },
+                        ),
                         const SizedBox(height: 16.0),
-                        _buildFormField(
-                            'Korisničko ime', korisnickoImeController),
+                        TextField(
+                          controller: korisnickoImeController,
+                          decoration: InputDecoration(
+                            labelText: "Korisničko ime",
+                            border: OutlineInputBorder(),
+                            errorText: _isKorisnickoImeValid
+                                ? null
+                                : 'Unesite ispravne podatke za korisničko ime',
+                          ),
+                          onChanged: (value) {
+                            bool isValid =
+                                Validators.validirajKorisnickoIme(value);
+                            setState(() {
+                              _isKorisnickoImeValid = isValid;
+                            });
+                          },
+                        ),
+                        const SizedBox(height: 42.0),
+                        Text("Promjena lozinke je opcionalna"),
+                        const SizedBox(height: 12.0),
+                        TextField(
+                          controller: lozinkaController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            labelText: "Lozinka",
+                            border: OutlineInputBorder(),
+                            errorText: _isLozinkaValid
+                                ? null
+                                : 'Lozinka mora biti minimalno 4 znaka',
+                          ),
+                          onChanged: (value) {
+                            bool isValid =
+                                Validators.validirajLozinkuUpdate(value);
+                            setState(() {
+                              _isLozinkaValid = isValid;
+                            });
+                          },
+                        ),
+                        const SizedBox(height: 16.0),
+                        TextField(
+                          controller: lozinkaPotvrdaController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            labelText: "Lozinka potvrda",
+                            border: OutlineInputBorder(),
+                            errorText: _isLozinkaPotvrdaValid
+                                ? null
+                                : 'Lozinka mora biti minimalno 4 znaka',
+                          ),
+                          onChanged: (value) {
+                            bool isValid =
+                                Validators.validirajLozinkuUpdate(value);
+                            setState(() {
+                              _isLozinkaPotvrdaValid = isValid;
+                            });
+                          },
+                        ),
                         const SizedBox(height: 32.0),
                         _buildSaveButton(),
                       ],
@@ -194,7 +321,9 @@ class _EditUserScreenState extends State<EditUserScreen> {
                             true,
                             1,
                             idOrdinacija,
-                            uloga);
+                            uloga,
+                            lozinkaController.text,
+                            lozinkaPotvrdaController.text);
 
                         await _korisniciProvider.updateUser(
                             korisnikId, updatedKorisnik);

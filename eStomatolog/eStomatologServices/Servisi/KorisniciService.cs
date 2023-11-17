@@ -126,8 +126,11 @@ namespace eStomatologServices.Servisi
 
         public override eStomatologModel.Korisnik Update(int id,KorisniciUpdateRequest insert)
         {
-           
 
+            if (insert.Password != insert.PasswordPotvrda && insert.Password!="" && insert.PasswordPotvrda != "")
+            {
+                throw new UserException("Password and confirmation must be the same");
+            }
             var set = Context.Set<eStomatologServices.Models.Korisnik>();
             var entity = set.Find(id);
 
@@ -139,6 +142,13 @@ namespace eStomatologServices.Servisi
             entity.Email=insert.Email;  
             entity.Ime=insert.Ime;
             entity.Status=insert.Status;
+
+            if(insert.Password != "")
+            {
+                var salt = GenerateSalt();
+                entity.LozinkaSalt = salt;
+                entity.LozinkaHash = GenerateHash(salt, insert.Password);
+            }
 
 
             if (entity != null)

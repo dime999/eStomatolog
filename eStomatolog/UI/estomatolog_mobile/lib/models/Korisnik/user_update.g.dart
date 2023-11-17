@@ -19,6 +19,8 @@ UserUpdateModel _$UserUpdateModelFromJson(Map<String, dynamic> json) =>
           ?.map((e) => e as int)
           .toList(),
       (json['ulogeIdList'] as List<dynamic>?)?.map((e) => e as int).toList(),
+      json['password'] as String?,
+      json['passwordPotvrda'] as String?,
     );
 
 Map<String, dynamic> _$UserUpdateModelToJson(UserUpdateModel instance) =>
@@ -32,4 +34,6 @@ Map<String, dynamic> _$UserUpdateModelToJson(UserUpdateModel instance) =>
       'ulogeIdList': instance.ulogeIdList,
       'ordinacijeIdList': instance.ordinacijeIdList,
       'gradId': instance.gradId,
+      'password': instance.password,
+      'passwordPotvrda': instance.passwordPotvrda,
     };

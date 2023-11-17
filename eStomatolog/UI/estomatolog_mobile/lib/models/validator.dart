@@ -28,4 +28,8 @@ class Validators {
   static bool validirajLozinku(String value) {
     return value.length >= 4;
   }
+
+  static bool validirajLozinkuUpdate(String value) {
+    return value.length >= 4 || value.isEmpty;
+  }
 }
