@@ -2,6 +2,7 @@ import 'package:estomatolog_mobile/models/Grad/grad.dart';
 import 'package:estomatolog_mobile/models/Korisnik/korisnik.dart';
 import 'package:estomatolog_mobile/models/Korisnik/pacijent_insert.dart';
 import 'package:estomatolog_mobile/models/Ordinacija/ordinacija.dart';
+import 'package:estomatolog_mobile/models/validator.dart';
 import 'package:estomatolog_mobile/providers/grad_provider.dart';
 import 'package:estomatolog_mobile/providers/korisnici_provider.dart';
 import 'package:estomatolog_mobile/providers/ordinacija_provider.dart';
@@ -46,7 +47,7 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
       lastDate: DateTime.now(),
     ))!;
 
-    if (pickedDate != null && pickedDate != DateTime.now()) {
+    if (pickedDate != DateTime.now()) {
       setState(() {
         odabraniDatum = pickedDate;
         datumRodjenjaController.text =
@@ -97,12 +98,20 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
   List<String> selectedValuesOrdinacije = [];
   String? selectedValueGrad;
   late KorisniciProvider _korisniciProvider;
+  bool _isImeValid = true;
+  bool _isPrezimeValid = true;
+  bool _isTelefonValid = true;
+  bool _isEmailValid = true;
+  bool _isKorisnickoImeValid = true;
+  bool _isLozinkaValid = true;
+  bool _isLozinkaPotvrdaValid = true;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContecon2text) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Registracija pacijenta'),
+        title: const Text('Registracija korisnika'),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -122,23 +131,131 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildFormField('Ime', imeController),
+                        const SizedBox(height: 8.0),
+                        TextField(
+                          controller: imeController,
+                          decoration: InputDecoration(
+                            labelText: "Ime",
+                            border: OutlineInputBorder(),
+                            errorText: _isImeValid
+                                ? null
+                                : 'Unesite ispravne podatke za ime',
+                          ),
+                          onChanged: (value) {
+                            bool isValid = Validators.validirajIme(value);
+                            setState(() {
+                              _isImeValid = isValid;
+                            });
+                          },
+                        ),
                         const SizedBox(height: 16.0),
-                        _buildFormField('Prezime', prezimeController),
+                        TextField(
+                          controller: prezimeController,
+                          decoration: InputDecoration(
+                            labelText: "Prezime",
+                            border: OutlineInputBorder(),
+                            errorText: _isPrezimeValid
+                                ? null
+                                : 'Unesite ispravne podatke za prezime',
+                          ),
+                          onChanged: (value) {
+                            bool isValid = Validators.validirajPrezime(value);
+                            setState(() {
+                              _isPrezimeValid = isValid;
+                            });
+                          },
+                        ),
                         const SizedBox(height: 16.0),
-                        _buildFormField('Email', emailController),
+                        TextField(
+                          controller: emailController,
+                          decoration: InputDecoration(
+                            labelText: "Email",
+                            border: OutlineInputBorder(),
+                            errorText: _isEmailValid
+                                ? null
+                                : 'Unesite ispravne podatke za e-mail',
+                          ),
+                          onChanged: (value) {
+                            bool isValid = Validators.validirajEmail(value);
+                            setState(() {
+                              _isEmailValid = isValid;
+                            });
+                          },
+                        ),
                         const SizedBox(height: 16.0),
-                        _buildFormField('Telefon', telefonController),
+                        TextField(
+                          controller: telefonController,
+                          decoration: InputDecoration(
+                            labelText: "Telefon",
+                            border: OutlineInputBorder(),
+                            errorText: _isTelefonValid
+                                ? null
+                                : 'Unesite ispravne podatke za telefon',
+                          ),
+                          onChanged: (value) {
+                            bool isValid =
+                                Validators.validirajBrojTelefona(value);
+                            setState(() {
+                              _isTelefonValid = isValid;
+                            });
+                          },
+                        ),
                         const SizedBox(height: 16.0),
                         _buildDateField(),
                         const SizedBox(height: 16.0),
-                        _buildFormField(
-                            'Korisničko ime', korisnickoImeController),
+                        TextField(
+                          controller: korisnickoImeController,
+                          decoration: InputDecoration(
+                            labelText: "Korisničko ime",
+                            border: OutlineInputBorder(),
+                            errorText: _isKorisnickoImeValid
+                                ? null
+                                : 'Unesite ispravne podatke za korisničko ime',
+                          ),
+                          onChanged: (value) {
+                            bool isValid =
+                                Validators.validirajKorisnickoIme(value);
+                            setState(() {
+                              _isKorisnickoImeValid = isValid;
+                            });
+                          },
+                        ),
                         const SizedBox(height: 16.0),
-                        _buildPasswordField('Lozinka', lozinkaController),
+                        TextField(
+                          controller: lozinkaController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            labelText: "Lozinka",
+                            border: OutlineInputBorder(),
+                            errorText: _isLozinkaValid
+                                ? null
+                                : 'Lozinka mora biti minimalno 4 znaka',
+                          ),
+                          onChanged: (value) {
+                            bool isValid = Validators.validirajLozinku(value);
+                            setState(() {
+                              _isLozinkaValid = isValid;
+                            });
+                          },
+                        ),
                         const SizedBox(height: 16.0),
-                        _buildPasswordField(
-                            'Lozinka potvrda', lozinkaPotvrdaController),
+                        TextField(
+                          controller: lozinkaPotvrdaController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            labelText: "Lozinka potvrda",
+                            border: OutlineInputBorder(),
+                            errorText: _isLozinkaPotvrdaValid
+                                ? null
+                                : 'Lozinka mora biti minimalno 4 znaka',
+                          ),
+                          onChanged: (value) {
+                            bool isValid = Validators.validirajLozinku(value);
+                            setState(() {
+                              _isLozinkaPotvrdaValid = isValid;
+                            });
+                          },
+                        ),
                         const SizedBox(height: 32.0),
                         _buildStatusField(),
                         _buildMultiselectOrdinacije('Ordinacije', context),
@@ -245,25 +362,6 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
     );
   }
 
-  Widget _buildFormField(String label, TextEditingController controller,
-      {bool isObscure = false}) {
-    return SizedBox(
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(label),
-          const SizedBox(height: 8.0),
-          TextField(
-            controller: controller,
-            obscureText: isObscure,
-            decoration: const InputDecoration(border: OutlineInputBorder()),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildPasswordField(String label, TextEditingController controller) {
     return SizedBox(
       width: double.infinity,
@@ -321,39 +419,49 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
     return SizedBox(
       width: 200.0,
       child: ElevatedButton(
-        onPressed: () async {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text("Potvrda ažuriranja"),
-                content: const Text(
-                    "Da li ste sigurni da želite dodati korisnika sa unesenim informacijama?"),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text("Otkaži"),
-                  ),
-                  TextButton(
-                    onPressed: () async {
-                      try {
-                        await _korisniciProvider.insertPacijent(korisnik);
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pop();
-                      } catch (e) {
-                        print("Greška prilikom dodavanja: $e");
-                        Navigator.of(context).pop();
-                      }
-                    },
-                    child: const Text("Potvrdi"),
-                  ),
-                ],
-              );
-            },
-          );
-        },
+        onPressed: selectedValuesOrdinacije.isNotEmpty &&
+                selectedValueGrad != null &&
+                _isImeValid &&
+                _isPrezimeValid &&
+                _isEmailValid &&
+                _isKorisnickoImeValid &&
+                _isTelefonValid &&
+                _isLozinkaValid &&
+                _isLozinkaPotvrdaValid
+            ? () async {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text("Potvrda ažuriranja"),
+                      content: const Text(
+                          "Da li ste sigurni da želite dodati korisnika sa unesenim informacijama?"),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text("Otkaži"),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            try {
+                              await _korisniciProvider.insertPacijent(korisnik);
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
+                            } catch (e) {
+                              print("Greška prilikom dodavanja: $e");
+                              Navigator.of(context).pop();
+                            }
+                          },
+                          child: const Text("Potvrdi"),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }
+            : null,
         child: const Text('Spremi'),
       ),
     );
