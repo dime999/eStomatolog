@@ -17,6 +17,8 @@ class DoktorUpdateModel {
   List<int>? ordinacijeIdList;
   List<int>? ulogeIdList;
   int? gradId;
+  String? password;
+  String? passwordPotvrda;
 
   DoktorUpdateModel(
       this.ime,
@@ -28,7 +30,9 @@ class DoktorUpdateModel {
       this.gradId,
       this.specijalizacijeIdList,
       this.ulogeIdList,
-      this.ordinacijeIdList);
+      this.ordinacijeIdList,
+      this.password,
+      this.passwordPotvrda);
 
   factory DoktorUpdateModel.fromJson(Map<String, dynamic> json) =>
       _$DoktorUpdateModelFromJson(json);

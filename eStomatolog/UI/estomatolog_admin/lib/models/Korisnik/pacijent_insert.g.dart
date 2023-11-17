@@ -21,6 +21,9 @@ PacijentInsertModel _$PacijentInsertModelFromJson(Map<String, dynamic> json) =>
           .toList(),
       json['password'] as String?,
       json['passwordPotvrda'] as String?,
+      json['datumRodjenja'] == null
+          ? null
+          : DateTime.parse(json['datumRodjenja'] as String),
     );
 
 Map<String, dynamic> _$PacijentInsertModelToJson(
@@ -37,4 +40,5 @@ Map<String, dynamic> _$PacijentInsertModelToJson(
       'gradId': instance.gradId,
       'password': instance.password,
       'passwordPotvrda': instance.passwordPotvrda,
+      'datumRodjenja': instance.datumRodjenja?.toIso8601String(),
     };

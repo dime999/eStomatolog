@@ -206,6 +206,8 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
   TextEditingController telefonController = TextEditingController();
   TextEditingController korisnickoImeController = TextEditingController();
   TextEditingController datumRodjenjaController = TextEditingController();
+  TextEditingController lozinkaController = TextEditingController();
+  TextEditingController lozinkaPotvrdaController = TextEditingController();
   bool status = true;
 
   List<String> selectedValuesOrdinacije = [];
@@ -298,6 +300,26 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                                   'Korisničko ime', korisnickoImeController),
                               const SizedBox(height: 32.0),
                               _buildStatusField(),
+                              const SizedBox(height: 42.0),
+                              Text("Promjena lozinke je opcionalna"),
+                              const SizedBox(height: 12.0),
+                              TextField(
+                                controller: lozinkaController,
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                  labelText: "Lozinka",
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
+                              const SizedBox(height: 16.0),
+                              TextField(
+                                controller: lozinkaPotvrdaController,
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                  labelText: "Lozinka potvrda",
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -467,8 +489,6 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
 
   Widget _buildSaveButton() {
     _korisniciProvider = Provider.of<KorisniciProvider>(context, listen: false);
-    print(odabraneSpecijalizacije);
-
     return SizedBox(
       width: 200.0,
       child: ElevatedButton(
@@ -499,7 +519,9 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                           odabraniGrad,
                           odabraneSpecijalizacije,
                           uloga,
-                          odabraneOrdinacije);
+                          odabraneOrdinacije,
+                          lozinkaController.text,
+                          lozinkaPotvrdaController.text);
 
                       try {
                         await _korisniciProvider.updateDoktor(
