@@ -156,6 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ClinicListItem(
                         title: ordinacija.ordinacijaNaziv,
                         address: ordinacija.ordinacijaAdresa,
+                        image: 'assets/images/klinika${index + 1}.jpg',
                       ),
                     );
                   },
