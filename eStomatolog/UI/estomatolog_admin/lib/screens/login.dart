@@ -1,5 +1,6 @@
 import 'package:estomatolog_admin/providers/login_provider.dart';
 import 'package:estomatolog_admin/screens/home.dart';
+import 'package:estomatolog_admin/screens/ordinacija/ordinacije_screen.dart';
 import 'package:estomatolog_admin/screens/registracija.dart';
 import 'package:estomatolog_admin/utils/util.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +78,7 @@ class LoginPage extends StatelessWidget {
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const HomeScreen()),
+                          builder: (context) => const OrdinacijaScreen()),
                       (route) => false,
                     );
                   } on Exception {
