@@ -94,6 +94,57 @@ namespace eStomatologServices.Servisi
             return existingDoktor;
         }
 
+        public override eStomatologModel.Doktor Delete(int id)
+        {
+
+
+            var ocjene = Context.Ocjene.Where(o => o.DoktorId == id).ToList();
+
+            if (ocjene != null && ocjene.Count() > 0)
+            {
+                foreach (var ocjena in ocjene)
+                {
+
+                    Context.Ocjene.Remove(ocjena);
+                }
+            }
+
+            var rezervacije = Context.Rezervacije.Where(o => o.DoktorId == id).ToList();
+
+            if (rezervacije != null && rezervacije.Count() > 0)
+            {
+                foreach (var rez in rezervacije)
+                {
+
+                    Context.Rezervacije.Remove(rez);
+                }
+            }
+
+            var nalazi = Context.Dijagnoze.Where(o => o.DoktorId == id).ToList();
+
+            if (nalazi != null && nalazi.Count() > 0)
+            {
+                foreach (var nalaz in nalazi)
+                {
+
+                    Context.Dijagnoze.Remove(nalaz);
+                }
+            }
+
+
+
+            var set = Context.Set<Models.Doktor>();
+
+
+            var entity = set.Find(id);
+
+            set.Remove(entity);
+
+            Context.SaveChanges();
+
+            return Mapper.Map<eStomatologModel.Doktor>(entity);
+        }
+
         public IEnumerable<eStomatologModel.Doktor> Recommended(int id)
         {
             var pearsonCorellation = _pacijentService.PronadiNajblizegPacijenta(id);

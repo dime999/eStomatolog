@@ -11,6 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using eStomatologServices.Migrations;
+using Microsoft.ML;
 
 
 namespace eStomatologServices.Servisi
@@ -50,7 +52,14 @@ namespace eStomatologServices.Servisi
             return Mapper.Map<IList<eStomatologModel.Ocjene>>(list);
         }
 
-      
+        public IEnumerable<eStomatologModel.Ocjene> GetAllByPacijentId(int pacijentId)
+        {
+            var ocjene = Context.Ocjene.Where(o => o.PacijentId == pacijentId).ToList();
+            var list = ocjene.ToList();
+            return Mapper.Map<IList<eStomatologModel.Ocjene>>(list);
+        }
+
+
 
 
 

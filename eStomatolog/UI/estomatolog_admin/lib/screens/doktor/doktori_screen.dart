@@ -1,5 +1,7 @@
+import 'package:estomatolog_admin/models/Korisnik/korisnik_basic.dart';
 import 'package:estomatolog_admin/screens/doktor/add_doktor_screen.dart';
 import 'package:estomatolog_admin/screens/doktor/edit_doktor_screen.dart';
+import 'package:estomatolog_admin/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:estomatolog_admin/models/Doktor/doktor.dart';
 import 'package:estomatolog_admin/providers/doktor_provider.dart';
@@ -31,6 +33,15 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
     return filteredDoktori;
   }
 
+  Future<KorisnikBasic> fetchUser(BuildContext context) async {
+    var korisickiProvider =
+        Provider.of<KorisniciProvider>(context, listen: false);
+    KorisnikBasic doktor =
+        await korisickiProvider.getByKorisickoIme(Authorization.korisnickoIme);
+    Authorization.korisnikId = doktor.korisnikId;
+    return doktor;
+  }
+
   ValueNotifier<String> searchQueryNotifier = ValueNotifier<String>('');
 
   late KorisniciProvider _korisniciProvider;
@@ -38,6 +49,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
   @override
   void initState() {
     super.initState();
+    fetchUser(context);
     searchController.addListener(() {
       searchQueryNotifier.value = searchController.text;
     });
@@ -60,6 +72,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
             getSubtitle: (doktor) => doktor.prezime ?? 'N/A',
             imagePath: 'assets/images/lista_doktor.png',
             onEditPressed: (doktor) {
+              print(Authorization.korisnikId);
               int korisnikId = doktor.korisnikId;
               Navigator.push(
                 context,
@@ -87,16 +100,40 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                       TextButton(
                         onPressed: () async {
                           try {
-                            await _korisniciProvider.delete(doktor.korisnikId);
-                            var updatedDoktori =
-                                await fetchDoctors(context, searchQuery);
-                            setState(() {
-                              doktori = updatedDoktori;
-                            });
-                            Navigator.pop(context);
+                            if (doktor.korisnikId != Authorization.korisnikId) {
+                              await _korisniciProvider
+                                  .delete(doktor.korisnikId);
+                              var updatedDoktori =
+                                  await fetchDoctors(context, searchQuery);
+                              setState(() {
+                                doktori = updatedDoktori;
+                              });
+                              Navigator.pop(context);
+                            } else {
+                              String errorMessage =
+                                  "Nije moguće izbrisati vlastiti račun!";
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text("Greška"),
+                                    content: Text(errorMessage),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => {
+                                          Navigator.pop(context),
+                                          Navigator.pop(context)
+                                        },
+                                        child: const Text("OK"),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
                           } on Exception {
                             String errorMessage =
-                                "Nije moguće izbrisati odabranog pacijenta!";
+                                "Nije moguće izbrisati odabranog doktora!";
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {

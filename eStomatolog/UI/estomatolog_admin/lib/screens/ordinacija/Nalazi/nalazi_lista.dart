@@ -57,7 +57,7 @@ class _NalaziScreenState extends State<NalaziScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Nalazi pacijenta'),
+        title: const Text('Nalazi i preporuke za pacijenta'),
         centerTitle: true,
       ),
       body: ValueListenableBuilder<String>(
@@ -82,14 +82,17 @@ class _NalaziScreenState extends State<NalaziScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Dodajte logiku za navigaciju na stranicu za dodavanje nalaza
           Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => DodajNalazScreen(
                       pacijentId: widget.pacijentId,
-                    )), // Zamijenite DodajNalazScreen sa stvarnom klasom za dodavanje nalaza
-          );
+                    )),
+          ).then((value) {
+            setState(() {
+              fetchNalazi(context, "");
+            });
+          });
         },
         child: Icon(Icons.add),
       ),

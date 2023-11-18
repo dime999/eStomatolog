@@ -78,7 +78,7 @@ class LoginPage extends StatelessWidget {
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const OrdinacijaScreen()),
+                          builder: (context) => const HomeScreen()),
                       (route) => false,
                     );
                   } on Exception {

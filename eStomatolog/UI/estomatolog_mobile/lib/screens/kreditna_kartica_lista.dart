@@ -110,7 +110,11 @@ class _KarticePlacanjeScreenState extends State<KarticePlacanjeScreen> {
                     korinik: korisnik,
                   ),
                 ),
-              );
+              ).then((value) {
+                setState(() {
+                  fetchKartice(context, "");
+                });
+              });
             },
             onDeletePressed: (kartica) {
               try {

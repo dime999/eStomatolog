@@ -23,10 +23,13 @@ namespace eStomatologServices.Servisi
     public class KorisniciService : BaseCRUDService<eStomatologModel.Korisnik, Models.Korisnik, KorisnikSearchObject,KorisniciInsertRequest,KorisniciUpdateRequest>, IKorisniciService
     {
 
-        
-        public KorisniciService(eStomatologContext context, IMapper mapper) : base(context, mapper)
+        private IPacijentService _pacijentService;
+        private IDoktorService _doktorService;
+
+        public KorisniciService(eStomatologContext context, IMapper mapper, IPacijentService pacijentService, IDoktorService doktorService) : base(context, mapper)
         {
-           
+            _pacijentService = pacijentService;
+            _doktorService = doktorService;
         }
         public override eStomatologModel.Korisnik Insert(KorisniciInsertRequest insert)
         {
@@ -292,6 +295,8 @@ namespace eStomatologServices.Servisi
             return Convert.ToBase64String(inArray);
         }
 
+       
+
 
 
 
@@ -331,6 +336,25 @@ namespace eStomatologServices.Servisi
 
             foreach (var korisnikUloga in korisniciUloge)
             {
+                if(korisnikUloga.UlogaId == 2)
+                {
+                    var pacijent = _pacijentService.GetByKorisnikId(id);
+                    if (pacijent != null)
+                    {
+                        _pacijentService.Delete(pacijent.Id);
+                    }
+
+                }
+
+                if (korisnikUloga.UlogaId == 1)
+                {
+                    var doktor = _doktorService.GetByKorisnikId(id);
+                    if (doktor != null)
+                    {
+                        _doktorService.Delete(doktor.Id);
+                    }
+
+                }
                 Context.KorisnikUloge.Remove(korisnikUloga);
             }
 

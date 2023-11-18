@@ -12,5 +12,6 @@ namespace eStomatologServices.Interfejsi
     public interface IOcjenaService : ICRUDService<eStomatologModel.Ocjene, BaseSearchObject, OcjenaUpsertRequest, OcjenaUpsertRequest>
     {
         public IEnumerable<eStomatologModel.Ocjene> GetByDoktorId(int id);
+        public IEnumerable<eStomatologModel.Ocjene> GetAllByPacijentId(int pacijentId);
     }
 }

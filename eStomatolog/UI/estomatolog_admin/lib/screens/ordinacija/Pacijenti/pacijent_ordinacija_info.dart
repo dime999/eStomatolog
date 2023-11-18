@@ -67,7 +67,7 @@ class PacijentOrdinacijaInfoScreen extends StatelessWidget {
         children: [
           CardItem(
             imagePath: 'assets/images/nalaz.jpg',
-            title: 'Nalazi',
+            title: 'Nalazi i preporuke',
             ordinacijaId: ordinacijaId,
             pacijentId: pacijentId,
             id: id,
@@ -119,7 +119,7 @@ class CardItem extends StatelessWidget {
         elevation: 0,
         child: InkWell(
           onTap: () async {
-            if (title == 'Nalazi') {
+            if (title == 'Nalazi i preporuke') {
               Navigator.push(
                 context,
                 MaterialPageRoute(
