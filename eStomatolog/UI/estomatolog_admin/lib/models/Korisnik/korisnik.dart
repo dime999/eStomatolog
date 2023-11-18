@@ -15,7 +15,7 @@ class Korisnik {
   String? telefon;
   String? korisnickoIme;
   bool? status;
-  List<int>? specijalizacijeId;
+  List<int>? specijalizacijeIdList;
   List<int>? ordinacijeIdList;
   List<int>? ulogeIdList;
   int? gradId;
@@ -28,7 +28,7 @@ class Korisnik {
       this.korisnickoIme,
       this.status,
       this.gradId,
-      this.specijalizacijeId,
+      this.specijalizacijeIdList,
       this.ulogeIdList,
       this.ordinacijeIdList,
       this.password,

@@ -509,6 +509,16 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                   ),
                   TextButton(
                     onPressed: () async {
+                      if (odabraneOrdinacije.isEmpty) {
+                        for (var id in idOrdinacijaDef) {
+                          odabraneOrdinacije.add(id);
+                        }
+                      }
+                      if (odabraneSpecijalizacije.isEmpty) {
+                        for (var id in idSpecijalizacijaDef) {
+                          odabraneSpecijalizacije.add(id);
+                        }
+                      }
                       DoktorUpdateModel updatedKorisnik = DoktorUpdateModel(
                           imeController.text,
                           prezimeController.text,

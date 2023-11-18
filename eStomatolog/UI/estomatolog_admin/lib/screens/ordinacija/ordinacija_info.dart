@@ -177,8 +177,42 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                                           'Greška prilikom dohvata ID-ova slika.');
                                     } else if (!snapshot.hasData ||
                                         snapshot.data!.isEmpty) {
-                                      return const Text(
-                                          'Nema dostupnih ID-ova slika.');
+                                      return Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(16.0),
+                                            child: ElevatedButton(
+                                              onPressed: () async {
+                                                try {
+                                                  await _uploadImage();
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        OrdinacijaDetaljiScreen(
+                                                      ordinacijaId: ordinacija
+                                                          .ordinacijaId,
+                                                    ),
+                                                  );
+                                                } catch (e) {
+                                                  print(e);
+                                                }
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                  horizontal: 32.0,
+                                                  vertical: 16.0,
+                                                ),
+                                              ),
+                                              child: const Text(
+                                                'Dodaj novu sliku',
+                                                style: TextStyle(
+                                                  fontSize: 18.0,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      );
                                     } else {
                                       List<int> slikeIds = snapshot.data!;
 
