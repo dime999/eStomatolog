@@ -9,8 +9,8 @@ namespace eStomatologServices.Servisi
     public class MessageProducer : IMessageProducer
     {
         private readonly string _host = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "localhost";
-        private readonly string _username = Environment.GetEnvironmentVariable("RABBITMQ_USERNAME") ?? "guest";
-        private readonly string _password = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? "guest";
+        private readonly string _username = Environment.GetEnvironmentVariable("RABBITMQ_USERNAME") ?? "user";
+        private readonly string _password = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? "mypass";
         private readonly string _virtualhost = Environment.GetEnvironmentVariable("RABBITMQ_VIRTUALHOST") ?? "/";
 
         public void SendingMessage(string message)
@@ -28,7 +28,7 @@ namespace eStomatologServices.Servisi
                 using var connection = factory.CreateConnection();
                 using var channel = connection.CreateModel();
 
-                channel.QueueDeclare(queue: "trip_notifications",
+                channel.QueueDeclare(queue: "reservation_notifications",
                                      durable: true,
                                      exclusive: true
                                   );
@@ -37,7 +37,7 @@ namespace eStomatologServices.Servisi
                 var body = Encoding.UTF8.GetBytes(message);
 
                 channel.BasicPublish(exchange: string.Empty,
-                                     routingKey: "trip_added",
+                                     routingKey: "reservation_added",
                                      basicProperties: null,
                                      body: body);
             }
@@ -58,6 +58,7 @@ namespace eStomatologServices.Servisi
 
             bus.PubSub.Publish(obj);
         }
+
     }
 }
 

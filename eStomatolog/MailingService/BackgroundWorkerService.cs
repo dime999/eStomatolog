@@ -11,9 +11,9 @@ public class ConsumeRabbitMQHostedService : BackgroundService
     private IModel _channel;
     private readonly IEmailSender _emailSender;
 
-    private readonly string _host = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "localhost";
-    private readonly string _username = Environment.GetEnvironmentVariable("RABBITMQ_USERNAME") ?? "guest";
-    private readonly string _password = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? "guest";
+    private readonly string _host = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "rabbitmq";
+    private readonly string _username = Environment.GetEnvironmentVariable("RABBITMQ_USERNAME") ?? "user";
+    private readonly string _password = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? "mypass";
     private readonly string _virtualhost = Environment.GetEnvironmentVariable("RABBITMQ_VIRTUALHOST") ?? "/";
 
     public ConsumeRabbitMQHostedService(ILoggerFactory loggerFactory, IEmailSender emailSender)
@@ -57,7 +57,7 @@ public class ConsumeRabbitMQHostedService : BackgroundService
                 {
                     bus.PubSub.Subscribe<ReservationNotifier>("New_Reservations", HandleMessage);
                     Console.WriteLine("Listening for reservations.");
-                    await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+                    await Task.Delay(TimeSpan.FromSeconds(7), stoppingToken);
                 }
 
            

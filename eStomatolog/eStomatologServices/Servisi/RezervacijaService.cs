@@ -5,6 +5,7 @@ using eStomatologModel.Requests;
 using eStomatologModel.SearchObjects;
 using eStomatologServices.Interfejsi;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.VisualStudio.Services.Account;
 using Microsoft.VisualStudio.Services.Users;
 using RabbitMQ.Client;
@@ -118,9 +119,7 @@ namespace eStomatologServices.Servisi
                 _messageProducer.SendingObject(reservation);
             }
 
-            using var bus = RabbitHutch.CreateBus("host=localhost");
-
-            bus.PubSub.Publish(entity);
+          
 
             return entity;
         }

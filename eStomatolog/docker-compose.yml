@@ -6,8 +6,8 @@ services:
     container_name: rabbitmq
     restart: unless-stopped
     environment:
-      - RABBITMQ_DEFAULT_USER=guest
-      - RABBITMQ_DEFAULT_PASS=guest
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=mypass
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -37,15 +37,15 @@ services:
       dockerfile: Dockerfile.mailservice
     environment:
       - RABBITMQ_HOST=rabbitmq
-      - RABBITMQ_USERNAME=guest
-      - RABBITMQ_PASSWORD=guest
+      - RABBITMQ_USERNAME=user
+      - RABBITMQ_PASSWORD=mypass
       - RABBITMQ_VIRTUALHOST=/
       - OUTLOOK_MAIL=estomatolog@outlook.com
       - OUTLOOK_PASS=RazvojSoftvera2!
     depends_on:
       - rabbitmq
       - estomatolog-sql
-      -  estomatolog-api
+      - estomatolog-api
     networks:
       - estomatolognet2022
     ports:
@@ -58,6 +58,11 @@ services:
     environment:
       - ConnectionStrings:DefaultConnection=Server=estomatolog-sql,1433;Database=IB180012;User=sa;Password=QWElkj132!;TrustServerCertificate=True
       - ASPNETCORE_ENVIRONMENT=Development
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=user
+      - RABBITMQ_PASSWORD=mypass
+      - RABBITMQ_VIRTUALHOST=/
     ports:
       - 7265:7265
     networks:
