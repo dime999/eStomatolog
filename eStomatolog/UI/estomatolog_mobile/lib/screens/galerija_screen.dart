@@ -104,6 +104,28 @@ class _GalerijaScreenState extends State<GalerijaScreen> {
                                                     setState(() {
                                                       currentIndex++;
                                                     });
+                                                  } else {
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return AlertDialog(
+                                                          title:
+                                                              Text('Obavijest'),
+                                                          content: Text(
+                                                              'Nema više dostupnih slika za odabranu ordinaciju.'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                              child: Text('OK'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
                                                   }
                                                 },
                                                 child: const Text(
