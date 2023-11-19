@@ -139,7 +139,7 @@ class _DoktorInfoScreenState extends State<DoktorInfoScreen> {
                       radius: 60.0,
                       backgroundImage: slikeIds.isNotEmpty
                           ? NetworkImage(
-                              "https://10.0.2.2:7265/SlikaStream?slikaId=${slikeIds[0]}")
+                              "http://10.0.2.2:7265/SlikaStream?slikaId=${slikeIds[0]}")
                           : AssetImage('assets/images/doctor_avatar.jpg')
                               as ImageProvider<Object>,
                     )),

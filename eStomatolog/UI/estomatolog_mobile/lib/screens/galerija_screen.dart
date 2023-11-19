@@ -75,7 +75,7 @@ class _GalerijaScreenState extends State<GalerijaScreen> {
                                           Padding(
                                             padding: const EdgeInsets.all(20.0),
                                             child: Image.network(
-                                              "https://10.0.2.2:7265/SlikaStream?slikaId=${slikeIds[currentIndex]}",
+                                              "http://10.0.2.2:7265/SlikaStream?slikaId=${slikeIds[currentIndex]}",
                                               width: 400,
                                               height: 400,
                                               fit: BoxFit.cover,
