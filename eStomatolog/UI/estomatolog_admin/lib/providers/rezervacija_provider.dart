@@ -20,7 +20,7 @@ class RezervacijaProvider with ChangeNotifier {
   final String _zauzeti = "OznaciZauzetim";
   RezervacijaProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "https://localhost:7265/");
+        defaultValue: "http://localhost:7265/");
   }
 
   Future<SearchResult<Rezervacija>> get(int id) async {

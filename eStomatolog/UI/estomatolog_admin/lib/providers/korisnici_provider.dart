@@ -14,7 +14,7 @@ class KorisniciProvider extends BaseProvider<Korisnik> {
   KorisniciProvider() : super("Korisnik") {
     _baseUrl = const String.fromEnvironment(
       "ApiUrl",
-      defaultValue: "https://localhost:7265/",
+      defaultValue: "http://localhost:7265/",
     );
   }
 

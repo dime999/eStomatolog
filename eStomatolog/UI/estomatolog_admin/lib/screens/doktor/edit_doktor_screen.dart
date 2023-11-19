@@ -247,7 +247,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                           radius: 80.0,
                           backgroundImage: slikeIds.isNotEmpty
                               ? NetworkImage(
-                                  "https://localhost:7265/SlikaStream?slikaId=${slikeIds[0]}")
+                                  "http://localhost:7265/SlikaStream?slikaId=${slikeIds[0]}")
                               : AssetImage('assets/images/doctor_avatar.jpg')
                                   as ImageProvider<Object>,
                         ),
