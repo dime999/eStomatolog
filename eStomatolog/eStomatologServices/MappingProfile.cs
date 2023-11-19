@@ -18,10 +18,8 @@ namespace eStomatologServices
             CreateMap<Database.Pacijent, eStomatologModel.Pacijent>();
             CreateMap<Models.Doktor, eStomatologModel.Doktor>();
             CreateMap<Models.Dijagnoza, eStomatologModel.Dijagnoza>();
-            CreateMap<Models.Placanja, eStomatologModel.Placanja>();
             CreateMap<Models.Termin, eStomatologModel.Termin>();
             CreateMap<Models.Usluga, eStomatologModel.Usluga>();
-            CreateMap<Models.Recept, eStomatologModel.Recept>();
             CreateMap<Database.VrstaUsluge, eStomatologModel.VrstaUsluge>();
             CreateMap<Database.Ordinacije, eStomatologModel.Ordinacije>();
             CreateMap<Database.Uloge, eStomatologModel.Uloge>();

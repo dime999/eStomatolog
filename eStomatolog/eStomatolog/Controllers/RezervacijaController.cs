@@ -3,7 +3,6 @@ using eStomatologModel;
 using eStomatologModel.Requests;
 using eStomatologModel.SearchObjects;
 using eStomatologServices.Interfejsi;
-using eStomatologServices.Migrations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static Microsoft.VisualStudio.Services.Notifications.VssNotificationEvent;

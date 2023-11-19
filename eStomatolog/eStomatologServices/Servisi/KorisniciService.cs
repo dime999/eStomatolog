@@ -4,7 +4,6 @@ using eStomatologModel.Requests;
 using eStomatologModel.SearchObjects;
 using eStomatologServices.Database;
 using eStomatologServices.Interfejsi;
-using eStomatologServices.Migrations;
 using eStomatologServices.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Services.Users;

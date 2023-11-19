@@ -12,8 +12,8 @@ using eStomatologServices;
 namespace eStomatologServices.Migrations
 {
     [DbContext(typeof(eStomatologContext))]
-    [Migration("20231106141048_korisnik-kartice")]
-    partial class korisnikkartice
+    [Migration("20231119001244_initial_seed")]
+    partial class initial_seed
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,6 +65,53 @@ namespace eStomatologServices.Migrations
                     b.HasIndex("OrdinacijaId");
 
                     b.ToTable("DoktoriOrdinacije");
+
+                    b.HasData(
+                        new
+                        {
+                            DoktorId = 1,
+                            OrdinacijaId = 1
+                        },
+                        new
+                        {
+                            DoktorId = 1,
+                            OrdinacijaId = 2
+                        },
+                        new
+                        {
+                            DoktorId = 1,
+                            OrdinacijaId = 3
+                        },
+                        new
+                        {
+                            DoktorId = 2,
+                            OrdinacijaId = 1
+                        },
+                        new
+                        {
+                            DoktorId = 2,
+                            OrdinacijaId = 2
+                        },
+                        new
+                        {
+                            DoktorId = 2,
+                            OrdinacijaId = 3
+                        },
+                        new
+                        {
+                            DoktorId = 3,
+                            OrdinacijaId = 1
+                        },
+                        new
+                        {
+                            DoktorId = 3,
+                            OrdinacijaId = 2
+                        },
+                        new
+                        {
+                            DoktorId = 3,
+                            OrdinacijaId = 3
+                        });
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.DoktorSlika", b =>
@@ -107,6 +154,32 @@ namespace eStomatologServices.Migrations
                     b.HasIndex("SpecijalizacijaId");
 
                     b.ToTable("DoktoriSpecijalizacije", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            DoktorSpecijalizacijaId = 1,
+                            DoktorId = 1,
+                            SpecijalizacijaId = 1
+                        },
+                        new
+                        {
+                            DoktorSpecijalizacijaId = 4,
+                            DoktorId = 1,
+                            SpecijalizacijaId = 2
+                        },
+                        new
+                        {
+                            DoktorSpecijalizacijaId = 2,
+                            DoktorId = 2,
+                            SpecijalizacijaId = 2
+                        },
+                        new
+                        {
+                            DoktorSpecijalizacijaId = 3,
+                            DoktorId = 3,
+                            SpecijalizacijaId = 3
+                        });
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.Grad", b =>
@@ -124,6 +197,23 @@ namespace eStomatologServices.Migrations
                     b.HasKey("GradId");
 
                     b.ToTable("Gradovi", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            GradId = 1,
+                            Naziv = "Zenica"
+                        },
+                        new
+                        {
+                            GradId = 2,
+                            Naziv = "Sarajevo"
+                        },
+                        new
+                        {
+                            GradId = 3,
+                            Naziv = "Mostar"
+                        });
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.KorisniciUloge", b =>
@@ -153,6 +243,50 @@ namespace eStomatologServices.Migrations
                     b.HasIndex("UlogaId");
 
                     b.ToTable("KorisnikUloge", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            KorisnikUlogaId = 1,
+                            DatumIzmjene = new DateTime(2023, 11, 19, 1, 12, 44, 429, DateTimeKind.Local).AddTicks(9419),
+                            KorisnikId = 1,
+                            UlogaId = 1
+                        },
+                        new
+                        {
+                            KorisnikUlogaId = 2,
+                            DatumIzmjene = new DateTime(2023, 11, 19, 1, 12, 44, 429, DateTimeKind.Local).AddTicks(9458),
+                            KorisnikId = 2,
+                            UlogaId = 1
+                        },
+                        new
+                        {
+                            KorisnikUlogaId = 3,
+                            DatumIzmjene = new DateTime(2023, 11, 19, 1, 12, 44, 429, DateTimeKind.Local).AddTicks(9465),
+                            KorisnikId = 3,
+                            UlogaId = 1
+                        },
+                        new
+                        {
+                            KorisnikUlogaId = 4,
+                            DatumIzmjene = new DateTime(2023, 11, 19, 1, 12, 44, 429, DateTimeKind.Local).AddTicks(9473),
+                            KorisnikId = 4,
+                            UlogaId = 2
+                        },
+                        new
+                        {
+                            KorisnikUlogaId = 5,
+                            DatumIzmjene = new DateTime(2023, 11, 19, 1, 12, 44, 429, DateTimeKind.Local).AddTicks(9480),
+                            KorisnikId = 5,
+                            UlogaId = 2
+                        },
+                        new
+                        {
+                            KorisnikUlogaId = 6,
+                            DatumIzmjene = new DateTime(2023, 11, 19, 1, 12, 44, 429, DateTimeKind.Local).AddTicks(9489),
+                            KorisnikId = 6,
+                            UlogaId = 2
+                        });
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.KorisnikKartica", b =>
@@ -167,8 +301,20 @@ namespace eStomatologServices.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Cvv")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DatumIsteka")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("KorisnikId")
                         .HasColumnType("int");
+
+                    b.Property<string>("VrstaKartica")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id")
                         .HasName("PK_KorisnikKartica");
@@ -209,6 +355,89 @@ namespace eStomatologServices.Migrations
                     b.HasIndex("PacijentId");
 
                     b.ToTable("Ocjene", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Datum = new DateTime(2023, 11, 19, 1, 12, 44, 430, DateTimeKind.Local).AddTicks(57),
+                            DoktorId = 1,
+                            Ocjena = 5,
+                            Opis = "Jako komunikativan doktor.",
+                            PacijentId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Datum = new DateTime(2023, 11, 19, 1, 12, 44, 430, DateTimeKind.Local).AddTicks(66),
+                            DoktorId = 2,
+                            Ocjena = 5,
+                            Opis = "Najbolji doktor.",
+                            PacijentId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Datum = new DateTime(2023, 11, 19, 1, 12, 44, 430, DateTimeKind.Local).AddTicks(74),
+                            DoktorId = 3,
+                            Ocjena = 5,
+                            Opis = "Jako komunikativan doktor.",
+                            PacijentId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Datum = new DateTime(2023, 11, 19, 1, 12, 44, 430, DateTimeKind.Local).AddTicks(82),
+                            DoktorId = 1,
+                            Ocjena = 3,
+                            Opis = "Dobar doktor.",
+                            PacijentId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Datum = new DateTime(2023, 11, 19, 1, 12, 44, 430, DateTimeKind.Local).AddTicks(89),
+                            DoktorId = 2,
+                            Ocjena = 4,
+                            Opis = "Najbolji doktor.",
+                            PacijentId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Datum = new DateTime(2023, 11, 19, 1, 12, 44, 430, DateTimeKind.Local).AddTicks(98),
+                            DoktorId = 3,
+                            Ocjena = 5,
+                            Opis = "Jako komunikativan doktor.",
+                            PacijentId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Datum = new DateTime(2023, 11, 19, 1, 12, 44, 430, DateTimeKind.Local).AddTicks(105),
+                            DoktorId = 1,
+                            Ocjena = 3,
+                            Opis = "Jako komunikativan doktor.",
+                            PacijentId = 3
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Datum = new DateTime(2023, 11, 19, 1, 12, 44, 430, DateTimeKind.Local).AddTicks(112),
+                            DoktorId = 2,
+                            Ocjena = 4,
+                            Opis = "Najbolji doktor.",
+                            PacijentId = 3
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Datum = new DateTime(2023, 11, 19, 1, 12, 44, 430, DateTimeKind.Local).AddTicks(120),
+                            DoktorId = 3,
+                            Ocjena = 5,
+                            Opis = "Jako komunikativan doktor.",
+                            PacijentId = 3
+                        });
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.OrdinacijaSlika", b =>
@@ -225,6 +454,23 @@ namespace eStomatologServices.Migrations
                     b.HasIndex("SlikaId");
 
                     b.ToTable("OrdinacijaSlike");
+
+                    b.HasData(
+                        new
+                        {
+                            OrdinacijaId = 1,
+                            SlikaId = 1
+                        },
+                        new
+                        {
+                            OrdinacijaId = 2,
+                            SlikaId = 2
+                        },
+                        new
+                        {
+                            OrdinacijaId = 3,
+                            SlikaId = 3
+                        });
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.Ordinacije", b =>
@@ -255,6 +501,32 @@ namespace eStomatologServices.Migrations
                     b.HasIndex("GradId");
 
                     b.ToTable("Ordinacije");
+
+                    b.HasData(
+                        new
+                        {
+                            OrdinacijaId = 1,
+                            Adresa = "Crkvice 40",
+                            GradId = 1,
+                            Naziv = "Ordinacija1",
+                            Telefon = "0603422323"
+                        },
+                        new
+                        {
+                            OrdinacijaId = 2,
+                            Adresa = "Crkvice 41",
+                            GradId = 2,
+                            Naziv = "Ordinacija2",
+                            Telefon = "0603422324"
+                        },
+                        new
+                        {
+                            OrdinacijaId = 3,
+                            Adresa = "Crkvice 442",
+                            GradId = 3,
+                            Naziv = "Ordinacija3",
+                            Telefon = "0603422325"
+                        });
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.Pacijent", b =>
@@ -295,6 +567,38 @@ namespace eStomatologServices.Migrations
                         .IsUnique();
 
                     b.ToTable("Pacijenti", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DatumRodjenja = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GradId = 1,
+                            Ime = "Mobile",
+                            KorisnikId = 4,
+                            Prezime = "Mobile",
+                            Telefon = "062222732"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DatumRodjenja = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GradId = 2,
+                            Ime = "Enes",
+                            KorisnikId = 5,
+                            Prezime = "Talic",
+                            Telefon = "062222732"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DatumRodjenja = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GradId = 3,
+                            Ime = "Salih",
+                            KorisnikId = 6,
+                            Prezime = "Buro",
+                            Telefon = "063422732"
+                        });
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.PacijentOrdinacija", b =>
@@ -310,6 +614,53 @@ namespace eStomatologServices.Migrations
                     b.HasIndex("OrdinacijaId");
 
                     b.ToTable("PacijentiOrdinacije");
+
+                    b.HasData(
+                        new
+                        {
+                            PacijentId = 1,
+                            OrdinacijaId = 1
+                        },
+                        new
+                        {
+                            PacijentId = 1,
+                            OrdinacijaId = 2
+                        },
+                        new
+                        {
+                            PacijentId = 1,
+                            OrdinacijaId = 3
+                        },
+                        new
+                        {
+                            PacijentId = 2,
+                            OrdinacijaId = 1
+                        },
+                        new
+                        {
+                            PacijentId = 2,
+                            OrdinacijaId = 2
+                        },
+                        new
+                        {
+                            PacijentId = 2,
+                            OrdinacijaId = 3
+                        },
+                        new
+                        {
+                            PacijentId = 3,
+                            OrdinacijaId = 1
+                        },
+                        new
+                        {
+                            PacijentId = 3,
+                            OrdinacijaId = 2
+                        },
+                        new
+                        {
+                            PacijentId = 3,
+                            OrdinacijaId = 3
+                        });
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.PoklonBon", b =>
@@ -362,6 +713,50 @@ namespace eStomatologServices.Migrations
                     b.HasIndex("PacijentId");
 
                     b.ToTable("PoklonBoni", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            PoklonBonId = 1,
+                            BrojKartice = "",
+                            CvcCvvKod = "",
+                            DatumIstekaKartice = new DateTime(2023, 11, 19, 1, 12, 44, 430, DateTimeKind.Local).AddTicks(26),
+                            ImePrezimeKorisnikaKojiKoristi = "Adem Halilovic",
+                            Iskoristeno = false,
+                            IznosPlacanja = 50m,
+                            Kod = "123456",
+                            OrdinacijaId = 1,
+                            PacijentId = 1,
+                            Placeno = true
+                        },
+                        new
+                        {
+                            PoklonBonId = 2,
+                            BrojKartice = "",
+                            CvcCvvKod = "",
+                            DatumIstekaKartice = new DateTime(2023, 11, 19, 1, 12, 44, 430, DateTimeKind.Local).AddTicks(38),
+                            ImePrezimeKorisnikaKojiKoristi = "Adem Halilovic",
+                            Iskoristeno = true,
+                            IznosPlacanja = 100m,
+                            Kod = "123456",
+                            OrdinacijaId = 2,
+                            PacijentId = 2,
+                            Placeno = true
+                        },
+                        new
+                        {
+                            PoklonBonId = 3,
+                            BrojKartice = "",
+                            CvcCvvKod = "",
+                            DatumIstekaKartice = new DateTime(2023, 11, 19, 1, 12, 44, 430, DateTimeKind.Local).AddTicks(46),
+                            ImePrezimeKorisnikaKojiKoristi = "Adem Halilovic",
+                            Iskoristeno = false,
+                            IznosPlacanja = 50m,
+                            Kod = "123456",
+                            OrdinacijaId = 3,
+                            PacijentId = 3,
+                            Placeno = true
+                        });
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.Rezervacija", b =>
@@ -403,6 +798,68 @@ namespace eStomatologServices.Migrations
                     b.HasIndex("TerminId");
 
                     b.ToTable("Rezervacije");
+
+                    b.HasData(
+                        new
+                        {
+                            RezervacijaId = 1,
+                            Datum = new DateTime(2023, 11, 19, 1, 12, 44, 430, DateTimeKind.Local).AddTicks(170),
+                            DoktorId = 1,
+                            Email = "",
+                            OrdinacijaId = 1,
+                            PacijentId = 1,
+                            TerminId = 2
+                        },
+                        new
+                        {
+                            RezervacijaId = 2,
+                            Datum = new DateTime(2023, 11, 19, 1, 12, 44, 430, DateTimeKind.Local).AddTicks(181),
+                            DoktorId = 1,
+                            Email = "",
+                            OrdinacijaId = 1,
+                            PacijentId = 1,
+                            TerminId = 3
+                        },
+                        new
+                        {
+                            RezervacijaId = 3,
+                            Datum = new DateTime(2023, 11, 19, 1, 12, 44, 430, DateTimeKind.Local).AddTicks(189),
+                            DoktorId = 1,
+                            Email = "",
+                            OrdinacijaId = 1,
+                            PacijentId = 1,
+                            TerminId = 4
+                        },
+                        new
+                        {
+                            RezervacijaId = 4,
+                            Datum = new DateTime(2023, 11, 19, 1, 12, 44, 430, DateTimeKind.Local).AddTicks(197),
+                            DoktorId = 2,
+                            Email = "",
+                            OrdinacijaId = 2,
+                            PacijentId = 2,
+                            TerminId = 3
+                        },
+                        new
+                        {
+                            RezervacijaId = 5,
+                            Datum = new DateTime(2023, 11, 19, 1, 12, 44, 430, DateTimeKind.Local).AddTicks(205),
+                            DoktorId = 2,
+                            Email = "",
+                            OrdinacijaId = 2,
+                            PacijentId = 2,
+                            TerminId = 4
+                        },
+                        new
+                        {
+                            RezervacijaId = 6,
+                            Datum = new DateTime(2023, 11, 19, 1, 12, 44, 430, DateTimeKind.Local).AddTicks(213),
+                            DoktorId = 2,
+                            Email = "",
+                            OrdinacijaId = 1,
+                            PacijentId = 2,
+                            TerminId = 5
+                        });
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.Slika", b =>
@@ -420,6 +877,23 @@ namespace eStomatologServices.Migrations
                     b.HasKey("SlikaId");
 
                     b.ToTable("Slike");
+
+                    b.HasData(
+                        new
+                        {
+                            SlikaId = 1,
+                            Path = "C:\\Code\\FIT-RS2-2023\\eStomatolog\\eStomatolog\\images/klinika1232424109.jpg"
+                        },
+                        new
+                        {
+                            SlikaId = 2,
+                            Path = "C:\\Code\\FIT-RS2-2023\\eStomatolog\\eStomatolog\\images/klinika2232404361.jpg"
+                        },
+                        new
+                        {
+                            SlikaId = 3,
+                            Path = "C:\\Code\\FIT-RS2-2023\\eStomatolog\\eStomatolog\\images/klinika2232321330.jpg"
+                        });
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.Specijalizacija", b =>
@@ -437,6 +911,33 @@ namespace eStomatologServices.Migrations
                     b.HasKey("SpecijalizacijaId");
 
                     b.ToTable("Specijalizacije");
+
+                    b.HasData(
+                        new
+                        {
+                            SpecijalizacijaId = 1,
+                            Naziv = "Oralna hirurgija"
+                        },
+                        new
+                        {
+                            SpecijalizacijaId = 2,
+                            Naziv = "Ortodoncija"
+                        },
+                        new
+                        {
+                            SpecijalizacijaId = 3,
+                            Naziv = "Endodoncija"
+                        },
+                        new
+                        {
+                            SpecijalizacijaId = 4,
+                            Naziv = "Parodontologija"
+                        },
+                        new
+                        {
+                            SpecijalizacijaId = 5,
+                            Naziv = "Oralna patologija"
+                        });
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.Uloge", b =>
@@ -460,6 +961,20 @@ namespace eStomatologServices.Migrations
                     b.HasKey("UlogaId");
 
                     b.ToTable("Uloge");
+
+                    b.HasData(
+                        new
+                        {
+                            UlogaId = 1,
+                            Naziv = "Administrator",
+                            Opis = "Administrator"
+                        },
+                        new
+                        {
+                            UlogaId = 2,
+                            Naziv = "Korisnik",
+                            Opis = "Korisnik"
+                        });
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.VrstaUsluge", b =>
@@ -497,21 +1012,48 @@ namespace eStomatologServices.Migrations
                         .HasColumnName("DoktorID");
 
                     b.Property<string>("Opis")
+                        .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(MAX)");
 
                     b.Property<int>("PacijentId")
                         .HasColumnType("int")
                         .HasColumnName("PacijentID");
 
                     b.HasKey("Id")
-                        .HasName("PK__Dijagnoz__3214EC07B6723559");
+                        .HasName("PK_Dijagnoza");
 
                     b.HasIndex("DoktorId");
 
                     b.HasIndex("PacijentId");
 
                     b.ToTable("Dijagnoze", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Datum = new DateTime(2023, 11, 19, 1, 12, 44, 429, DateTimeKind.Local).AddTicks(9994),
+                            DoktorId = 1,
+                            Opis = "Pacijent je podvrgnut rutinskom stomatološkom pregledu koji obuhvatao vizuelni pregled oralne šupljine i rendgenske snimke zuba. Uočena je prisutnost karijesa na donjim kutnjacima, s preporukom za plombiranje zahvaćenih površina.",
+                            PacijentId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Datum = new DateTime(2023, 11, 19, 1, 12, 44, 430, DateTimeKind.Local).AddTicks(7),
+                            DoktorId = 2,
+                            Opis = "Pacijent je podvrgnut rutinskom stomatološkom pregledu koji obuhvatao vizuelni pregled oralne šupljine i rendgenske snimke zuba. Uočena je prisutnost karijesa na donjim kutnjacima, s preporukom za plombiranje zahvaćenih površina.",
+                            PacijentId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Datum = new DateTime(2023, 11, 19, 1, 12, 44, 430, DateTimeKind.Local).AddTicks(15),
+                            DoktorId = 3,
+                            Opis = "Pacijent je podvrgnut rutinskom stomatološkom pregledu koji obuhvatao vizuelni pregled oralne šupljine i rendgenske snimke zuba. Uočena je prisutnost karijesa na donjim kutnjacima, s preporukom za plombiranje zahvaćenih površina.",
+                            PacijentId = 3
+                        });
                 });
 
             modelBuilder.Entity("eStomatologServices.Models.Doktor", b =>
@@ -545,6 +1087,32 @@ namespace eStomatologServices.Migrations
                         .IsUnique();
 
                     b.ToTable("Doktori", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            GradId = 1,
+                            Ime = "Desktop",
+                            KorisnikId = 1,
+                            Prezime = "Desktop"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            GradId = 2,
+                            Ime = "Adem",
+                            KorisnikId = 2,
+                            Prezime = "Halilovic"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            GradId = 3,
+                            Ime = "Kenan",
+                            KorisnikId = 3,
+                            Prezime = "Cosic"
+                        });
                 });
 
             modelBuilder.Entity("eStomatologServices.Models.Korisnik", b =>
@@ -605,61 +1173,80 @@ namespace eStomatologServices.Migrations
                         .IsUnique();
 
                     b.ToTable("Korisnik", (string)null);
-                });
 
-            modelBuilder.Entity("eStomatologServices.Models.Placanja", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("PacijentID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Datum")
-                        .HasColumnType("datetime");
-
-                    b.Property<decimal>("Iznos")
-                        .HasColumnType("decimal(10, 2)");
-
-                    b.Property<int>("PacijentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id")
-                        .HasName("PK__Placanja__3214EC0781ED2050");
-
-                    b.ToTable("Placanja", (string)null);
-                });
-
-            modelBuilder.Entity("eStomatologServices.Models.Recept", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("PacijentID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Datum")
-                        .HasColumnType("datetime");
-
-                    b.Property<int>("DoktorId")
-                        .HasColumnType("int")
-                        .HasColumnName("DoktorID");
-
-                    b.Property<string>("Opis")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<int>("PacijentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id")
-                        .HasName("PK__Recepti__3214EC07612C3916");
-
-                    b.HasIndex("DoktorId");
-
-                    b.ToTable("Recepti", (string)null);
+                    b.HasData(
+                        new
+                        {
+                            KorisnikId = 1,
+                            Email = "desktop.desktop@example.com",
+                            Ime = "Desktop",
+                            KorisnickoIme = "desktop",
+                            LozinkaHash = "PQ570hFK9Bu43Qw4qZ2wLAisk4c=",
+                            LozinkaSalt = "RDcOKBdT86HOJAuigS+J0A==",
+                            Prezime = "Desktop",
+                            Status = true,
+                            Telefon = "0622227892"
+                        },
+                        new
+                        {
+                            KorisnikId = 2,
+                            Email = "adem.halilovic@gmail.com",
+                            Ime = "Adem",
+                            KorisnickoIme = "adem",
+                            LozinkaHash = "PQ570hFK9Bu43Qw4qZ2wLAisk4c=",
+                            LozinkaSalt = "RDcOKBdT86HOJAuigS+J0A==",
+                            Prezime = "Halilovic",
+                            Status = true,
+                            Telefon = "0622227892"
+                        },
+                        new
+                        {
+                            KorisnikId = 3,
+                            Email = "kenan.cosic@gmail.com",
+                            Ime = "Kenan",
+                            KorisnickoIme = "kenan",
+                            LozinkaHash = "PQ570hFK9Bu43Qw4qZ2wLAisk4c=",
+                            LozinkaSalt = "RDcOKBdT86HOJAuigS+J0A==",
+                            Prezime = "Cosic",
+                            Status = true,
+                            Telefon = "0622527892"
+                        },
+                        new
+                        {
+                            KorisnikId = 4,
+                            Email = "mobile.mobile@example.com",
+                            Ime = "Mobile",
+                            KorisnickoIme = "mobile",
+                            LozinkaHash = "PQ570hFK9Bu43Qw4qZ2wLAisk4c=",
+                            LozinkaSalt = "RDcOKBdT86HOJAuigS+J0A==",
+                            Prezime = "Mobile",
+                            Status = true,
+                            Telefon = "0622227822"
+                        },
+                        new
+                        {
+                            KorisnikId = 5,
+                            Email = "enes.talic@gmail.com",
+                            Ime = "Enes",
+                            KorisnickoIme = "enes",
+                            LozinkaHash = "PQ570hFK9Bu43Qw4qZ2wLAisk4c=",
+                            LozinkaSalt = "RDcOKBdT86HOJAuigS+J0A==",
+                            Prezime = "Talic",
+                            Status = true,
+                            Telefon = "0627877822"
+                        },
+                        new
+                        {
+                            KorisnikId = 6,
+                            Email = "salih.buro@gmail.com",
+                            Ime = "Salih",
+                            KorisnickoIme = "salih",
+                            LozinkaHash = "PQ570hFK9Bu43Qw4qZ2wLAisk4c=",
+                            LozinkaSalt = "RDcOKBdT86HOJAuigS+J0A==",
+                            Prezime = "Buro",
+                            Status = true,
+                            Telefon = "062765822"
+                        });
                 });
 
             modelBuilder.Entity("eStomatologServices.Models.Termin", b =>
@@ -679,6 +1266,93 @@ namespace eStomatologServices.Migrations
                         .HasName("PK_Termini");
 
                     b.ToTable("Termini", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            TerminId = 1,
+                            Vrijeme = new DateTime(1900, 1, 1, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            TerminId = 2,
+                            Vrijeme = new DateTime(1900, 1, 1, 8, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            TerminId = 3,
+                            Vrijeme = new DateTime(1900, 1, 1, 9, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            TerminId = 4,
+                            Vrijeme = new DateTime(1900, 1, 1, 9, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            TerminId = 5,
+                            Vrijeme = new DateTime(1900, 1, 1, 10, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            TerminId = 6,
+                            Vrijeme = new DateTime(1900, 1, 1, 10, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            TerminId = 7,
+                            Vrijeme = new DateTime(1900, 1, 1, 11, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            TerminId = 8,
+                            Vrijeme = new DateTime(1900, 1, 1, 11, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            TerminId = 9,
+                            Vrijeme = new DateTime(1900, 1, 1, 12, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            TerminId = 10,
+                            Vrijeme = new DateTime(1900, 1, 1, 12, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            TerminId = 11,
+                            Vrijeme = new DateTime(1900, 1, 1, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            TerminId = 12,
+                            Vrijeme = new DateTime(1900, 1, 1, 13, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            TerminId = 13,
+                            Vrijeme = new DateTime(1900, 1, 1, 14, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            TerminId = 14,
+                            Vrijeme = new DateTime(1900, 1, 1, 14, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            TerminId = 15,
+                            Vrijeme = new DateTime(1900, 1, 1, 15, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            TerminId = 16,
+                            Vrijeme = new DateTime(1900, 1, 1, 15, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            TerminId = 17,
+                            Vrijeme = new DateTime(1900, 1, 1, 16, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("eStomatologServices.Models.Usluga", b =>
@@ -979,17 +1653,6 @@ namespace eStomatologServices.Migrations
                     b.Navigation("Grad");
 
                     b.Navigation("Korisnik");
-                });
-
-            modelBuilder.Entity("eStomatologServices.Models.Recept", b =>
-                {
-                    b.HasOne("eStomatologServices.Models.Doktor", "Doktor")
-                        .WithMany()
-                        .HasForeignKey("DoktorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Doktor");
                 });
 
             modelBuilder.Entity("eStomatologServices.Database.Grad", b =>

@@ -25,10 +25,6 @@ public partial class eStomatologContext : DbContext
 
     public virtual DbSet<Pacijent> Pacijenti { get; set; }
 
-    public virtual DbSet<Placanja> Placanja { get; set; }
-
-    public virtual DbSet<Recept> Recepti { get; set; }
-
     public virtual DbSet<Usluga> Usluge { get; set; }
 
     public virtual DbSet<Termin> Termini { get; set; }
@@ -76,10 +72,14 @@ public partial class eStomatologContext : DbContext
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-G59MHAT\\SQLEXPRESS;Database=eStomatolog;Trusted_Connection=True;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-G59MHAT\\SQLEXPRESS;Database=testna_baza1;Trusted_Connection=True;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+
+     
+
+
         modelBuilder.Entity<Dijagnoza>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Dijagnoz__3214EC07B6723559");
@@ -165,6 +165,28 @@ public partial class eStomatologContext : DbContext
 
         });
 
+        modelBuilder.Entity<Dijagnoza>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_Dijagnoza");
+            entity.Property(e => e.Datum).HasColumnType("datetime");
+
+
+            entity.HasOne(e => e.Doktor)
+                .WithMany()
+                .HasForeignKey(e => e.DoktorId);
+
+            entity.HasOne(e => e.Pacijent)
+                .WithMany()
+                .HasForeignKey(e => e.PacijentId);
+            entity.Property(e => e.Datum).HasColumnType("datetime");
+            entity.Property(e => e.Opis).IsRequired();
+
+
+
+        });
+
+
+
 
 
         modelBuilder.Entity<Termin>(entity =>
@@ -221,35 +243,6 @@ public partial class eStomatologContext : DbContext
             entity.HasKey(e => e.GradId);
 
             entity.ToTable("Gradovi");
-        });
-
-
-
-
-
-        modelBuilder.Entity<Placanja>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Placanja__3214EC0781ED2050");
-
-            entity.ToTable("Placanja");
-
-            entity.Property(e => e.Datum).HasColumnType("datetime");
-            entity.Property(e => e.Iznos).HasColumnType("decimal(10, 2)");
-            entity.Property(e => e.Id).HasColumnName("PacijentID");
-
-        });
-
-        modelBuilder.Entity<Recept>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Recepti__3214EC07612C3916");
-
-            entity.ToTable("Recepti");
-
-            entity.Property(e => e.Datum).HasColumnType("datetime");
-            entity.Property(e => e.DoktorId).HasColumnName("DoktorID");
-            entity.Property(e => e.Opis).HasMaxLength(200);
-            entity.Property(e => e.Id).HasColumnName("PacijentID");
-
         });
 
 
@@ -407,7 +400,7 @@ public partial class eStomatologContext : DbContext
             entity.HasKey(k => new { k.DoktorId, k.SlikaId })
                 .HasName("PK_doktor_slika");
         });
-
+        OnModelCreatingPartial(modelBuilder);
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

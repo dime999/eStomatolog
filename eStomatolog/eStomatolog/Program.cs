@@ -36,14 +36,13 @@ builder.Services.AddSwaggerGen(c=>
     }});
 });
 
+
 builder.Services.AddTransient<IPacijentService, PacijentService>();
 builder.Services.AddTransient<IKorisniciService, KorisniciService>();
 builder.Services.AddTransient<IDijagnozaService, DijagnozaService>();
 builder.Services.AddTransient<IDoktorService, DoktorService>();
-builder.Services.AddTransient<IPlacanjaService, PlacanjaService>();
 builder.Services.AddTransient<ITerminService, TerminService>();
 builder.Services.AddTransient<IUslugaService, UslugaService>();
-builder.Services.AddTransient<IReceptService, ReceptService>();
 builder.Services.AddTransient<IVrstaUslugeService, VrstaUslugeService>();
 builder.Services.AddTransient<IOrdinacijaService, OrdinacijaService>();
 builder.Services.AddTransient<ISpecijalizacijaService, SpecijalizacijaService>();
@@ -75,6 +74,10 @@ builder.Services.AddDbContext<eStomatologContext>(options => options.UseSqlServe
 
 var app = builder.Build();
 
+
+
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -88,5 +91,13 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+using (var scope = app.Services.CreateAsyncScope())
+{
+    var dataContext = scope.ServiceProvider.GetRequiredService<eStomatologContext>();
+    //dataContext.Database.EnsureCreated();
+    dataContext.Database.Migrate();
+
+}
+
 
 app.Run();
