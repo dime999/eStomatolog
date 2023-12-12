@@ -21,7 +21,7 @@ class RezervacijaProvider with ChangeNotifier {
   final String _default = "Rezervacija";
   RezervacijaProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "http://10.0.2.2:7265/");
+        defaultValue: "https://10.0.2.2:7265/");
   }
 
   Future<SearchResult<Rezervacija>> get(int id) async {

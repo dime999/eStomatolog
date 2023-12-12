@@ -12,11 +12,11 @@ class SlikaProvider with ChangeNotifier {
   final String _getDoktorSlika = "DoktorSlikaIds?doktorId=";
   SlikaProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "http://10.0.2.2:7265/");
+        defaultValue: "https://10.0.2.2:7265/");
   }
 
   Future<int> insertSlikaOrdinacija(SlikaInsert requestModel) async {
-    var uri = Uri.parse("http://10.0.2.2:7265/InsertOrdinacijaSlika");
+    var uri = Uri.parse("https://10.0.2.2:7265/InsertOrdinacijaSlika");
 
     var request = http.MultipartRequest('POST', uri)
       ..fields['OrdinacijaId'] = requestModel.OrdinacijaId.toString()

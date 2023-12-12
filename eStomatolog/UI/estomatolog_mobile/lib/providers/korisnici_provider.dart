@@ -12,7 +12,7 @@ class KorisniciProvider extends BaseProvider<Korisnik> {
   KorisniciProvider() : super("Korisnik") {
     _baseUrl = const String.fromEnvironment(
       "ApiUrl",
-      defaultValue: "http://10.0.2.2:7265/",
+      defaultValue: "https://10.0.2.2:7265/",
     );
   }
 

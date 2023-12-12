@@ -239,16 +239,35 @@ namespace eStomatologServices.Servisi
 
                 Context.PacijentiOrdinacije.RemoveRange(existingPacijentOrdinacije);
                 Context.SaveChanges();
-                foreach (var ordinacijaId in insert.OrdinacijeIdList)
+                if (insert.OrdinacijeIdList.Count > 0)
                 {
-                    Database.PacijentOrdinacija pacijentOrdinacija = new Database.PacijentOrdinacija();
-                    pacijentOrdinacija.OrdinacijaId = ordinacijaId;
-                    pacijentOrdinacija.PacijentId = pacijent.Id;
-                    pacijentOrdinacija.Pacijnet= pacijent;
-                    pacijentOrdinacija.Ordinacija = Context.Ordinacija.FirstOrDefault(x => x.OrdinacijaId == ordinacijaId);
-                    Context.PacijentiOrdinacije.Add(pacijentOrdinacija);
-                    pacijent.PacijentOrdinacije.Add(pacijentOrdinacija);
-                    Context.SaveChanges();
+                    foreach (var ordinacijaId in insert.OrdinacijeIdList)
+                    {
+                        Database.PacijentOrdinacija pacijentOrdinacija = new Database.PacijentOrdinacija();
+                        pacijentOrdinacija.OrdinacijaId = ordinacijaId;
+                        pacijentOrdinacija.PacijentId = pacijent.Id;
+                        pacijentOrdinacija.Pacijnet = pacijent;
+                        pacijentOrdinacija.Ordinacija = Context.Ordinacija.FirstOrDefault(x => x.OrdinacijaId == ordinacijaId);
+                        Context.PacijentiOrdinacije.Add(pacijentOrdinacija);
+                        pacijent.PacijentOrdinacije.Add(pacijentOrdinacija);
+                        Context.SaveChanges();
+
+                    }
+                }
+                else
+                {
+                    foreach (var ordinacija in existingPacijentOrdinacije)
+                    {
+                        Database.PacijentOrdinacija pacijentOrdinacija = new Database.PacijentOrdinacija();
+                        pacijentOrdinacija.OrdinacijaId = ordinacija.OrdinacijaId;
+                        pacijentOrdinacija.PacijentId = pacijent.Id;
+                        pacijentOrdinacija.Pacijnet = pacijent;
+                        pacijentOrdinacija.Ordinacija = Context.Ordinacija.FirstOrDefault(x => x.OrdinacijaId == ordinacija.OrdinacijaId);
+                        Context.PacijentiOrdinacije.Add(pacijentOrdinacija);
+                        pacijent.PacijentOrdinacije.Add(pacijentOrdinacija);
+                        Context.SaveChanges();
+
+                    }
 
                 }
 

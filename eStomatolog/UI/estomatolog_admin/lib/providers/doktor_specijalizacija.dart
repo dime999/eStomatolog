@@ -10,7 +10,7 @@ class DoktorSpecijalizacijaProvider
   DoktorSpecijalizacijaProvider() : super("DoktorSpecijalizacija") {
     _baseUrl = const String.fromEnvironment(
       "ApiUrl",
-      defaultValue: "http://localhost:7265/",
+      defaultValue: "https://localhost:7265/",
     );
   }
 

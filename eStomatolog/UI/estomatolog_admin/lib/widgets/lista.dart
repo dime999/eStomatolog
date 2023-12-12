@@ -7,6 +7,7 @@ class GenericListScreen<T> extends StatelessWidget {
   final String imagePath;
   final void Function(T) onEditPressed;
   final void Function(T) onDeletePressed;
+  final void Function(T) onEditGradOrdinacijaPressed;
   final TextEditingController searchController;
 
   const GenericListScreen({
@@ -17,6 +18,7 @@ class GenericListScreen<T> extends StatelessWidget {
     required this.imagePath,
     required this.onEditPressed,
     required this.onDeletePressed,
+    required this.onEditGradOrdinacijaPressed,
     required this.searchController,
   });
 
@@ -75,6 +77,11 @@ class GenericListScreen<T> extends StatelessWidget {
                             IconButton(
                               icon: const Icon(Icons.edit),
                               onPressed: () => onEditPressed(item),
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.settings),
+                              onPressed: () =>
+                                  onEditGradOrdinacijaPressed(item),
                             ),
                             IconButton(
                               icon: const Icon(Icons.delete),

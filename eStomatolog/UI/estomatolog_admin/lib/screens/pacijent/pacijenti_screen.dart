@@ -1,6 +1,7 @@
 import 'package:estomatolog_admin/models/Pacijent/pacijent.dart';
 import 'package:estomatolog_admin/providers/pacijent_provider.dart';
 import 'package:estomatolog_admin/screens/pacijent/add_pacijent_screen.dart';
+import 'package:estomatolog_admin/screens/pacijent/edit_grad_ordinacija.dart';
 import 'package:estomatolog_admin/screens/pacijent/edit_pacijent_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
@@ -67,6 +68,24 @@ class _PacijentScreenState extends State<PacijentScreen> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => EditPacijentScreen(
+                    korisnikId: korisnikId,
+                    pacijentId: pacijentId,
+                  ),
+                ),
+              ).then((value) {
+                setState(() {
+                  fetchPacijenti(context, "");
+                });
+              });
+            },
+            onEditGradOrdinacijaPressed: (pacijent) {
+              int korisnikId = pacijent.korisnikId;
+              int pacijentId = pacijent.id;
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditGradOrdinacijaScreen(
                     korisnikId: korisnikId,
                     pacijentId: pacijentId,
                   ),

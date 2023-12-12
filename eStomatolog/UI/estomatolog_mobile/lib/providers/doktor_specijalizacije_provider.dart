@@ -10,7 +10,7 @@ class DoktorSpecijalizacijaProvider
   DoktorSpecijalizacijaProvider() : super("DoktorSpecijalizacija") {
     _baseUrl = const String.fromEnvironment(
       "ApiUrl",
-      defaultValue: "http://10.0.2.2:7265/",
+      defaultValue: "https://10.0.2.2:7265/",
     );
   }
 

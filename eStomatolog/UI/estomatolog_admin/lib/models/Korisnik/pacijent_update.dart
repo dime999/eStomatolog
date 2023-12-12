@@ -17,6 +17,8 @@ class PacijentUpdateModel {
   List<int>? ordinacijeIdList;
   List<int>? ulogeIdList;
   int? gradId;
+  String? password;
+  String? passwordPotvrda;
 
   PacijentUpdateModel(
       this.korisnikId,
@@ -28,7 +30,9 @@ class PacijentUpdateModel {
       this.status,
       this.gradId,
       this.ulogeIdList,
-      this.ordinacijeIdList);
+      this.ordinacijeIdList,
+      this.password,
+      this.passwordPotvrda);
 
   factory PacijentUpdateModel.fromJson(Map<String, dynamic> json) =>
       _$PacijentUpdateModelFromJson(json);

@@ -88,6 +88,23 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                 });
               });
             },
+            onEditGradOrdinacijaPressed: (doktor) {
+              print(Authorization.korisnikId);
+              int korisnikId = doktor.korisnikId;
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditDoctorScreen(
+                    korisnikId: korisnikId,
+                    doktorId: doktor.id,
+                  ),
+                ),
+              ).then((value) {
+                setState(() {
+                  fetchDoctors(context, "");
+                });
+              });
+            },
             onDeletePressed: (doktor) async {
               showDialog(
                 context: context,

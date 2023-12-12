@@ -10,7 +10,7 @@ class PacijentOrdinacijaProvider extends BaseProvider<PacijentOrdinacija> {
   PacijentOrdinacijaProvider() : super("GetPacijentiByOrdinacijaId") {
     _baseUrl = const String.fromEnvironment(
       "ApiUrl",
-      defaultValue: "http://localhost:7265/",
+      defaultValue: "https://localhost:7265/",
     );
   }
 

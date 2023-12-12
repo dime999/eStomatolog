@@ -13,7 +13,7 @@ class OcjeneProvider with ChangeNotifier {
 
   OcjeneProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "http://localhost:7265/");
+        defaultValue: "https://localhost:7265/");
   }
 
   Future<SearchResult<Ocjene>> get(int id) async {

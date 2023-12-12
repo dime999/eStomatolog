@@ -20,6 +20,8 @@ PacijentUpdateModel _$PacijentUpdateModelFromJson(Map<String, dynamic> json) =>
       (json['ordinacijeIdList'] as List<dynamic>?)
           ?.map((e) => e as int)
           .toList(),
+      json['password'] as String?,
+      json['passwordPotvrda'] as String?,
     );
 
 Map<String, dynamic> _$PacijentUpdateModelToJson(
@@ -35,4 +37,6 @@ Map<String, dynamic> _$PacijentUpdateModelToJson(
       'ordinacijeIdList': instance.ordinacijeIdList,
       'ulogeIdList': instance.ulogeIdList,
       'gradId': instance.gradId,
+      'password': instance.password,
+      'passwordPotvrda': instance.passwordPotvrda,
     };
