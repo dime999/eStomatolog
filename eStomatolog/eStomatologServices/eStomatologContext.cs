@@ -71,7 +71,7 @@ public partial class eStomatologContext : DbContext
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-         => optionsBuilder.UseSqlServer("Server=DESKTOP-G59MHAT\\SQLEXPRESS;Database=testna_baza1;Trusted_Connection=True;TrustServerCertificate=True");
+         => optionsBuilder.UseSqlServer("Server=DESKTOP-G59MHAT\\SQLEXPRESS;Database=eSt_test;Trusted_Connection=True;TrustServerCertificate=True");
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

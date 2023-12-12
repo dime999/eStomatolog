@@ -1,6 +1,7 @@
 import 'package:estomatolog_admin/models/Korisnik/korisnik_basic.dart';
 import 'package:estomatolog_admin/screens/doktor/add_doktor_screen.dart';
 import 'package:estomatolog_admin/screens/doktor/edit_doktor_screen.dart';
+import 'package:estomatolog_admin/screens/doktor/edit_ordinacija_specijalizacija_grad.dart';
 import 'package:estomatolog_admin/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:estomatolog_admin/models/Doktor/doktor.dart';
@@ -94,7 +95,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => EditDoctorScreen(
+                  builder: (context) => EditDoctorSettingsScreen(
                     korisnikId: korisnikId,
                     doktorId: doktor.id,
                   ),

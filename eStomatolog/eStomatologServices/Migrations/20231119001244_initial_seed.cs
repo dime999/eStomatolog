@@ -696,38 +696,20 @@ namespace eStomatologServices.Migrations
                     { 6, "salih.buro@gmail.com", "Salih", "salih", "PQ570hFK9Bu43Qw4qZ2wLAisk4c=", "RDcOKBdT86HOJAuigS+J0A==", "Buro", true, "062765822" }
                 });
 
-            migrationBuilder.UpdateData(
-                table: "Specijalizacije",
-                keyColumn: "SpecijalizacijaId",
-                keyValue: 2,
-                column: "Naziv",
-                value: "Ortodoncija");
-
-            migrationBuilder.UpdateData(
-                table: "Specijalizacije",
-                keyColumn: "SpecijalizacijaId",
-                keyValue: 3,
-                column: "Naziv",
-                value: "Endodoncija");
-
-            migrationBuilder.UpdateData(
-                table: "Specijalizacije",
-                keyColumn: "SpecijalizacijaId",
-                keyValue: 4,
-                column: "Naziv",
-                value: "Parodontologija");
-
-            migrationBuilder.UpdateData(
-                table: "Specijalizacije",
-                keyColumn: "SpecijalizacijaId",
-                keyValue: 5,
-                column: "Naziv",
-                value: "Oralna patologija");
-
             migrationBuilder.InsertData(
                 table: "Specijalizacije",
                 columns: new[] { "SpecijalizacijaId", "Naziv" },
                 values: new object[] { 1, "Oralna hirurgija" });
+
+            migrationBuilder.InsertData(
+                table: "Specijalizacije",
+                columns: new[] { "SpecijalizacijaId", "Naziv" },
+                values: new object[] { 2, "Endodoncija" });
+
+            migrationBuilder.InsertData(
+                table: "Specijalizacije",
+                columns: new[] { "SpecijalizacijaId", "Naziv" },
+                values: new object[] { 3, "Parodontologija" });
 
             migrationBuilder.InsertData(
                 table: "Termini",
@@ -826,9 +808,9 @@ namespace eStomatologServices.Migrations
                 columns: new[] { "DoktorSpecijalizacijaId", "DoktorId", "SpecijalizacijaId" },
                 values: new object[,]
                 {
-
-                    { 2, 2, 1 },
-                    { 3, 3, 1 },
+                    { 1, 1, 1 },
+                    { 2, 2, 2 },
+                    { 3, 3, 3 },
 
                 });
 

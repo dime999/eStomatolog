@@ -1,24 +1,13 @@
 import 'dart:io';
-
 import 'package:estomatolog_admin/models/Doktor/doktor_slika_insert.dart';
-import 'package:estomatolog_admin/models/Grad/grad.dart';
 import 'package:estomatolog_admin/models/Korisnik/doktor_update.dart';
 import 'package:estomatolog_admin/models/Korisnik/korisnik.dart';
-import 'package:estomatolog_admin/models/Ordinacija/ordinacija.dart';
-import 'package:estomatolog_admin/models/Ordinacija/ordinacija_info.dart';
-import 'package:estomatolog_admin/models/Specijalizacija/doktorSpecijalizacija.dart';
-import 'package:estomatolog_admin/models/Specijalizacija/specijalizacija.dart';
-import 'package:estomatolog_admin/providers/doktor_ordinacija_provider.dart';
-import 'package:estomatolog_admin/providers/doktor_specijalizacija.dart';
-import 'package:estomatolog_admin/providers/grad_provider.dart';
+import 'package:estomatolog_admin/models/validator.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
-import 'package:estomatolog_admin/providers/ordinacija_provider.dart';
 import 'package:estomatolog_admin/providers/slika_provider.dart';
-import 'package:estomatolog_admin/providers/specijalizacija_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:multiselect/multiselect.dart';
 
 class EditDoctorScreen extends StatefulWidget {
   final int korisnikId;
@@ -32,44 +21,24 @@ class EditDoctorScreen extends StatefulWidget {
 }
 
 class _EditDoctorScreenState extends State<EditDoctorScreen> {
-  List<int> idSpecijalizacija = [];
-  List<String> naziviSpecijalizacija = [];
-  List<Specijalizacija> specijalizacije = [];
-  List<int> odabraneSpecijalizacije = [];
-
-  List<DoktorSpecijalizacija> specijalizacijeDef = [];
-  List<int> idSpecijalizacijaDef = [];
-  List<String> naziviSpecijalizacijaDef = [];
-
-  List<OrdinacijaInfo> ordinacijeDef = [];
-  List<int> idOrdinacijaDef = [];
-  List<String> naziviOrdinacijaDef = [];
-
-  List<int> idOrdinacija = [];
-  List<String> naziviOrdinacija = [];
-  List<Ordinacija> ordinacije = [];
-  List<int> odabraneOrdinacije = [];
-
-  List<int> idGradova = [];
-  List<String> naziviGradova = [];
-  List<Grad> gradovi = [];
-  int odabraniGrad = 1;
   List<int> uloga = [1];
 
   late int korisnikId;
   late Korisnik korisnik;
   List<int> slikeIds = [];
+  bool _isImeValid = true;
+  bool _isPrezimeValid = true;
+  bool _isTelefonValid = true;
+  bool _isEmailValid = true;
+  bool _isKorisnickoImeValid = true;
+  bool _isLozinkaValid = true;
+  bool _isLozinkaPotvrdaValid = true;
 
   @override
   void initState() {
     super.initState();
     korisnikId = widget.korisnikId;
     fetchUsers(context);
-    fetchSpecijalizacijeDef(context);
-    fetchOrdinacijeDef(context);
-    fetchSpecijalizacije(context);
-    fetchOrdinacije(context);
-    fetchGradovi(context);
   }
 
   Future<Korisnik> fetchUsers(BuildContext context) async {
@@ -86,86 +55,6 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
       status = korisnik.status ?? true;
     });
     return korisnik;
-  }
-
-  Future<List<Specijalizacija>> fetchSpecijalizacije(
-      BuildContext context) async {
-    var provider = Provider.of<SpecijalizacijaProvider>(context, listen: false);
-    var fetchedspecijalizacije = await provider.get();
-    naziviSpecijalizacija = fetchedspecijalizacije.result
-        .map((specijalizacija) => specijalizacija.naziv ?? '')
-        .toList();
-
-    idSpecijalizacija = fetchedspecijalizacije.result
-        .map((specijalizacija) => specijalizacija.specijalizacijaId ?? 0)
-        .toList();
-    setState(() {
-      specijalizacije = fetchedspecijalizacije.result;
-    });
-    return specijalizacije;
-  }
-
-  Future<List<Ordinacija>> fetchOrdinacijeDef(BuildContext context) async {
-    var provider =
-        Provider.of<DoktorOrdinacijaProvider>(context, listen: false);
-    var fetchedOrdinacije = await provider.getByDoktorIdInfo(widget.doktorId);
-    naziviOrdinacijaDef = fetchedOrdinacije.result
-        .map((ordinacija) => ordinacija.ordinacijaNaziv)
-        .toList();
-
-    idOrdinacijaDef = fetchedOrdinacije.result
-        .map((ordinacija) => ordinacija.ordinacijaId)
-        .toList();
-    setState(() {
-      ordinacijeDef = fetchedOrdinacije.result;
-    });
-    return ordinacije;
-  }
-
-  Future<List<Ordinacija>> fetchOrdinacije(BuildContext context) async {
-    var provider = Provider.of<OrdinacijaProvider>(context, listen: false);
-    var fetchedOrdinacije = await provider.get();
-    naziviOrdinacija =
-        fetchedOrdinacije.result.map((ordinacija) => ordinacija.naziv).toList();
-
-    idOrdinacija = fetchedOrdinacije.result
-        .map((ordinacija) => ordinacija.ordinacijaId)
-        .toList();
-    setState(() {
-      ordinacije = fetchedOrdinacije.result;
-    });
-    return ordinacije;
-  }
-
-  Future<List<DoktorSpecijalizacija>> fetchSpecijalizacijeDef(
-      BuildContext context) async {
-    var provider =
-        Provider.of<DoktorSpecijalizacijaProvider>(context, listen: false);
-    var fetchedspecijalizacije = await provider.getByDoktorId(widget.doktorId);
-    naziviSpecijalizacijaDef = fetchedspecijalizacije.result
-        .map((specijalizacija) => specijalizacija.specijalizacijaNaziv ?? '')
-        .toList();
-
-    idSpecijalizacijaDef = fetchedspecijalizacije.result
-        .map((specijalizacija) => specijalizacija.specijalizacijaId ?? 0)
-        .toList();
-    setState(() {
-      specijalizacijeDef = fetchedspecijalizacije.result;
-    });
-    return specijalizacijeDef;
-  }
-
-  Future<List<Grad>> fetchGradovi(BuildContext context) async {
-    var provider = Provider.of<GradProvider>(context, listen: false);
-    var fetchedGradovi = await provider.get();
-    naziviGradova =
-        fetchedGradovi.result.map((grad) => grad.naziv ?? '').toList();
-
-    idGradova = fetchedGradovi.result.map((grad) => grad.gradId ?? 0).toList();
-    setState(() {
-      gradovi = fetchedGradovi.result;
-    });
-    return gradovi;
   }
 
   Future<List<int>> fetchSlikeIds(BuildContext context) async {
@@ -209,261 +98,181 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
   TextEditingController lozinkaController = TextEditingController();
   TextEditingController lozinkaPotvrdaController = TextEditingController();
   bool status = true;
-
-  List<String> selectedValuesOrdinacije = [];
-  List<String> selectedValuesSpecijalizacije = [];
-  String? selectedValueGrad;
   late KorisniciProvider _korisniciProvider;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Uredi doktora'),
-        centerTitle: true,
-      ),
-      body: FutureBuilder<List<int>>(
-        future: fetchSlikeIds(context),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Greška pri dohvatu podataka'));
-          } else {
-            List<int> slikeIds = snapshot.data!;
-
-            return ListView(children: [
-              Container(
-                height: 150,
-                decoration: BoxDecoration(color: Colors.blue),
-                child: Center(
-                  child: CircleAvatar(
-                    radius: 65.0,
-                    backgroundColor: Colors.white,
-                    child: Stack(
-                      alignment: Alignment.bottomRight,
-                      children: [
-                        CircleAvatar(
-                          radius: 80.0,
-                          backgroundImage: slikeIds.isNotEmpty
-                              ? NetworkImage(
-                                  "http://localhost:7265/SlikaStream?slikaId=${slikeIds[0]}")
-                              : AssetImage('assets/images/doctor_avatar.jpg')
-                                  as ImageProvider<Object>,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            _uploadImage();
-                          },
-                          child: CircleAvatar(
-                            backgroundColor: Colors.white,
-                            radius: 20.0,
-                            child: Icon(
-                              Icons.camera_alt,
-                              size: 15.0,
-                              color: Color(0xFF404040),
+        appBar: AppBar(
+          title: const Text('Uredi doktora'),
+          centerTitle: true,
+        ),
+        body: Center(
+            child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.6,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Lični podaci doktora',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 16.0),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                TextField(
+                                  controller: imeController,
+                                  decoration: InputDecoration(
+                                    labelText: "Ime",
+                                    border: OutlineInputBorder(),
+                                    errorText: _isImeValid
+                                        ? null
+                                        : 'Unesite ispravne podatke za ime',
+                                  ),
+                                  onChanged: (value) {
+                                    bool isValid =
+                                        Validators.validirajIme(value);
+                                    setState(() {
+                                      _isImeValid = isValid;
+                                    });
+                                  },
+                                ),
+                                const SizedBox(height: 16.0),
+                                TextField(
+                                  controller: prezimeController,
+                                  decoration: InputDecoration(
+                                    labelText: "Prezime",
+                                    border: OutlineInputBorder(),
+                                    errorText: _isPrezimeValid
+                                        ? null
+                                        : 'Unesite ispravne podatke za prezime',
+                                  ),
+                                  onChanged: (value) {
+                                    bool isValid =
+                                        Validators.validirajPrezime(value);
+                                    setState(() {
+                                      _isPrezimeValid = isValid;
+                                    });
+                                  },
+                                ),
+                                const SizedBox(height: 16.0),
+                                TextField(
+                                  controller: emailController,
+                                  decoration: InputDecoration(
+                                    labelText: "Email",
+                                    border: OutlineInputBorder(),
+                                    errorText: _isEmailValid
+                                        ? null
+                                        : 'Unesite ispravne podatke za e-mail',
+                                  ),
+                                  onChanged: (value) {
+                                    bool isValid =
+                                        Validators.validirajEmail(value);
+                                    setState(() {
+                                      _isEmailValid = isValid;
+                                    });
+                                  },
+                                ),
+                                const SizedBox(height: 16.0),
+                                TextField(
+                                  controller: telefonController,
+                                  decoration: InputDecoration(
+                                    labelText: "Telefon",
+                                    border: OutlineInputBorder(),
+                                    errorText: _isTelefonValid
+                                        ? null
+                                        : 'Unesite ispravne podatke za telefon',
+                                  ),
+                                  onChanged: (value) {
+                                    bool isValid =
+                                        Validators.validirajBrojTelefona(value);
+                                    setState(() {
+                                      _isTelefonValid = isValid;
+                                    });
+                                  },
+                                ),
+                                const SizedBox(height: 16.0),
+                                const SizedBox(height: 16.0),
+                                TextField(
+                                  controller: korisnickoImeController,
+                                  decoration: InputDecoration(
+                                    labelText: "Korisničko ime",
+                                    border: OutlineInputBorder(),
+                                    errorText: _isKorisnickoImeValid
+                                        ? null
+                                        : 'Unesite ispravne podatke za korisničko ime',
+                                  ),
+                                  onChanged: (value) {
+                                    bool isValid =
+                                        Validators.validirajKorisnickoIme(
+                                            value);
+                                    setState(() {
+                                      _isKorisnickoImeValid = isValid;
+                                    });
+                                  },
+                                ),
+                                const SizedBox(height: 16.0),
+                                TextField(
+                                  controller: lozinkaController,
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                    labelText: "Lozinka",
+                                    border: OutlineInputBorder(),
+                                    errorText: _isLozinkaValid
+                                        ? null
+                                        : 'Lozinka mora biti minimalno 4 znaka',
+                                  ),
+                                  onChanged: (value) {
+                                    bool isValid =
+                                        Validators.validirajLozinku(value);
+                                    setState(() {
+                                      _isLozinkaValid = isValid;
+                                    });
+                                  },
+                                ),
+                                const SizedBox(height: 16.0),
+                                TextField(
+                                  controller: lozinkaPotvrdaController,
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                    labelText: "Lozinka potvrda",
+                                    border: OutlineInputBorder(),
+                                    errorText: _isLozinkaPotvrdaValid
+                                        ? null
+                                        : 'Lozinka i potvrda se ne podudaraju',
+                                  ),
+                                  onChanged: (value) {
+                                    bool isValid =
+                                        Validators.validirajLozinku(value);
+                                    setState(() {
+                                      _isLozinkaPotvrdaValid = isValid;
+                                      if (lozinkaController.text.isNotEmpty &&
+                                          lozinkaController.text != value) {
+                                        _isLozinkaPotvrdaValid = false;
+                                      } else {
+                                        _isLozinkaPotvrdaValid = true;
+                                      }
+                                    });
+                                  },
+                                ),
+                                const SizedBox(height: 32.0),
+                                _buildSaveButton(),
+                              ],
                             ),
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
+                    ],
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Lični podaci korisnika',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 16.0),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _buildFormField('Ime', imeController),
-                              const SizedBox(height: 16.0),
-                              _buildFormField('Prezime', prezimeController),
-                              const SizedBox(height: 16.0),
-                              _buildFormField('Email', emailController),
-                              const SizedBox(height: 16.0),
-                              _buildFormField('Telefon', telefonController),
-                              const SizedBox(height: 16.0),
-                              _buildFormField(
-                                  'Korisničko ime', korisnickoImeController),
-                              const SizedBox(height: 32.0),
-                              _buildStatusField(),
-                              const SizedBox(height: 42.0),
-                              Text("Promjena lozinke je opcionalna"),
-                              const SizedBox(height: 12.0),
-                              TextField(
-                                controller: lozinkaController,
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  labelText: "Lozinka",
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                              const SizedBox(height: 16.0),
-                              TextField(
-                                controller: lozinkaPotvrdaController,
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  labelText: "Lozinka potvrda",
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 32.0),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _buildMultiselectSpecijalizacije(
-                                  'Specijalizacije', context),
-                              const SizedBox(height: 32.0),
-                              _buildMultiselectOrdinacije(
-                                  'Ordinacije', context),
-                              const SizedBox(height: 32.0),
-                              _buildSingleSelectGrad('Gradovi', context),
-                              const SizedBox(height: 32.0),
-                              _buildSaveButton(),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              )
-            ]);
-          }
-        },
-      ),
-    );
-  }
-
-  Widget _buildMultiselectSpecijalizacije(String label, BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: DropDownMultiSelect(
-            onChanged: (List<String> values) {
-              selectedValuesSpecijalizacije = values;
-              odabraneSpecijalizacije = values
-                  .map((value) =>
-                      idSpecijalizacija[naziviSpecijalizacija.indexOf(value)])
-                  .toList();
-            },
-            options: naziviSpecijalizacija,
-            selectedValues: naziviSpecijalizacijaDef,
-            whenEmpty: 'Odaberite specijalizacije',
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildMultiselectOrdinacije(String label, BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: DropDownMultiSelect(
-            onChanged: (List<String> values) {
-              selectedValuesOrdinacije = values;
-
-              odabraneOrdinacije = values
-                  .map((value) => idOrdinacija[naziviOrdinacija.indexOf(value)])
-                  .toList();
-            },
-            options: naziviOrdinacija,
-            selectedValues: naziviOrdinacijaDef,
-            whenEmpty: 'Odaberite ordinacije',
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSingleSelectGrad(String label, BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-            color: const Color.fromARGB(255, 146, 140, 140), width: 1.0),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              label,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: DropdownButton<String>(
-                hint: Text("Odaberite grad"),
-                value: selectedValueGrad,
-                onChanged: (String? newValue) {
-                  setState(() {
-                    selectedValueGrad = newValue!;
-
-                    int indexOfSelectedGrad = naziviGradova.indexOf(newValue);
-                    if (indexOfSelectedGrad != -1) {
-                      odabraniGrad = idGradova[indexOfSelectedGrad];
-                    }
-                  });
-                },
-                items: naziviGradova.map((String grad) {
-                  return DropdownMenuItem<String>(
-                    value: grad,
-                    child: Text(grad),
-                  );
-                }).toList(),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFormField(String label, TextEditingController controller,
-      {bool isObscure = false}) {
-    return SizedBox(
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(label),
-          const SizedBox(height: 8.0),
-          TextField(
-            controller: controller,
-            obscureText: isObscure,
-            decoration: const InputDecoration(border: OutlineInputBorder()),
-          ),
-        ],
-      ),
-    );
+                ))));
   }
 
   Widget _buildStatusField() {
@@ -492,63 +301,62 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
     return SizedBox(
       width: 200.0,
       child: ElevatedButton(
-        onPressed: () async {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text("Potvrda ažuriranja"),
-                content: const Text(
-                    "Da li ste sigurni da želite ažurirati korisnika sa unesenim informacijama?"),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text("Otkaži"),
-                  ),
-                  TextButton(
-                    onPressed: () async {
-                      if (odabraneOrdinacije.isEmpty) {
-                        for (var id in idOrdinacijaDef) {
-                          odabraneOrdinacije.add(id);
-                        }
-                      }
-                      if (odabraneSpecijalizacije.isEmpty) {
-                        for (var id in idSpecijalizacijaDef) {
-                          odabraneSpecijalizacije.add(id);
-                        }
-                      }
-                      DoktorUpdateModel updatedKorisnik = DoktorUpdateModel(
-                          imeController.text,
-                          prezimeController.text,
-                          emailController.text,
-                          telefonController.text,
-                          korisnickoImeController.text,
-                          status,
-                          odabraniGrad,
-                          odabraneSpecijalizacije,
-                          uloga,
-                          odabraneOrdinacije,
-                          lozinkaController.text,
-                          lozinkaPotvrdaController.text);
+        onPressed: _isImeValid &&
+                _isPrezimeValid &&
+                _isEmailValid &&
+                _isKorisnickoImeValid &&
+                _isTelefonValid &&
+                _isLozinkaValid &&
+                _isLozinkaPotvrdaValid
+            ? () async {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text("Potvrda ažuriranja"),
+                      content: const Text(
+                          "Da li ste sigurni da želite ažurirati korisnika sa unesenim informacijama?"),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text("Otkaži"),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            DoktorUpdateModel updatedKorisnik =
+                                DoktorUpdateModel(
+                                    imeController.text,
+                                    prezimeController.text,
+                                    emailController.text,
+                                    telefonController.text,
+                                    korisnickoImeController.text,
+                                    status,
+                                    1,
+                                    [],
+                                    uloga,
+                                    [],
+                                    lozinkaController.text,
+                                    lozinkaPotvrdaController.text);
 
-                      try {
-                        await _korisniciProvider.updateDoktor(
-                            korisnikId, updatedKorisnik);
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pop();
-                      } catch (e) {
-                        Navigator.of(context).pop();
-                      }
-                    },
-                    child: const Text("Potvrdi"),
-                  ),
-                ],
-              );
-            },
-          );
-        },
+                            try {
+                              await _korisniciProvider.updateDoktor(
+                                  korisnikId, updatedKorisnik);
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
+                            } catch (e) {
+                              Navigator.of(context).pop();
+                            }
+                          },
+                          child: const Text("Potvrdi"),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }
+            : null,
         child: const Text('Spremi'),
       ),
     );

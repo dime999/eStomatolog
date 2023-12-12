@@ -189,36 +189,73 @@ namespace eStomatologServices.Servisi
 
                 Context.DoktoriSpecijalizacije.RemoveRange(existingDoktorSpecijalizacije);
                 Context.SaveChanges();
-
-                foreach (var specijalizacijaId in insert.SpecijalizacijeIdList)
+                if (insert.SpecijalizacijeIdList.Count > 0)
                 {
-                    Database.DoktoriSpecijalizacije doktoriSpecijalizacije = new Database.DoktoriSpecijalizacije();
-                    doktoriSpecijalizacije.SpecijalizacijaId = specijalizacijaId;
-                    doktoriSpecijalizacije.DoktorId = doktor.Id;
-                    doktoriSpecijalizacije.Doktor = doktor;
-                    doktoriSpecijalizacije.Specijalizacija = Context.Specijalizacije.FirstOrDefault(x => x.SpecijalizacijaId == specijalizacijaId);
-                    Context.DoktoriSpecijalizacije.Add(doktoriSpecijalizacije);
-                    doktor.DoktoriSpecijalizacije.Add(doktoriSpecijalizacije);
-                    Context.SaveChanges();
+                    foreach (var specijalizacijaId in insert.SpecijalizacijeIdList)
+                    {
+                        Database.DoktoriSpecijalizacije doktoriSpecijalizacije = new Database.DoktoriSpecijalizacije();
+                        doktoriSpecijalizacije.SpecijalizacijaId = specijalizacijaId;
+                        doktoriSpecijalizacije.DoktorId = doktor.Id;
+                        doktoriSpecijalizacije.Doktor = doktor;
+                        doktoriSpecijalizacije.Specijalizacija = Context.Specijalizacije.FirstOrDefault(x => x.SpecijalizacijaId == specijalizacijaId);
+                        Context.DoktoriSpecijalizacije.Add(doktoriSpecijalizacije);
+                        doktor.DoktoriSpecijalizacije.Add(doktoriSpecijalizacije);
+                        Context.SaveChanges();
 
 
+                    }
+                }
+                else
+                {
+                    foreach (var specijalizacija in existingDoktorSpecijalizacije)
+                    {
+                        Database.DoktoriSpecijalizacije doktoriSpecijalizacije = new Database.DoktoriSpecijalizacije();
+                        doktoriSpecijalizacije.SpecijalizacijaId = specijalizacija.SpecijalizacijaId;
+                        doktoriSpecijalizacije.DoktorId = doktor.Id;
+                        doktoriSpecijalizacije.Doktor = doktor;
+                        doktoriSpecijalizacije.Specijalizacija = Context.Specijalizacije.FirstOrDefault(x => x.SpecijalizacijaId == specijalizacija.SpecijalizacijaId);
+                        Context.DoktoriSpecijalizacije.Add(doktoriSpecijalizacije);
+                        doktor.DoktoriSpecijalizacije.Add(doktoriSpecijalizacije);
+                        Context.SaveChanges();
+
+
+                    }
                 }
                 var existingDoktorOrdinacije = Context.DoktoriOrdinacije.Where(x => x.DoktorId == doktor.Id).ToList();
 
                 
                 Context.DoktoriOrdinacije.RemoveRange(existingDoktorOrdinacije);
                 Context.SaveChanges();
-                foreach (var ordinacijaId in insert.OrdinacijeIdList)
-                {
-                    Database.DoktorOrdinacija doktoriOrdinacije = new Database.DoktorOrdinacija();
-                    doktoriOrdinacije.OrdinacijaId = ordinacijaId;
-                    doktoriOrdinacije.DoktorId = doktor.Id;
-                    doktoriOrdinacije.Doktor = doktor;
-                    doktoriOrdinacije.Ordinacija = Context.Ordinacija.FirstOrDefault(x => x.OrdinacijaId == ordinacijaId);
-                    Context.DoktoriOrdinacije.Add(doktoriOrdinacije);
-                    doktor.DoktorOrdinacije.Add(doktoriOrdinacije);
-                    Context.SaveChanges();
 
+                if (insert.OrdinacijeIdList.Count > 0)
+                {
+                    foreach (var ordinacijaId in insert.OrdinacijeIdList)
+                    {
+                        Database.DoktorOrdinacija doktoriOrdinacije = new Database.DoktorOrdinacija();
+                        doktoriOrdinacije.OrdinacijaId = ordinacijaId;
+                        doktoriOrdinacije.DoktorId = doktor.Id;
+                        doktoriOrdinacije.Doktor = doktor;
+                        doktoriOrdinacije.Ordinacija = Context.Ordinacija.FirstOrDefault(x => x.OrdinacijaId == ordinacijaId);
+                        Context.DoktoriOrdinacije.Add(doktoriOrdinacije);
+                        doktor.DoktorOrdinacije.Add(doktoriOrdinacije);
+                        Context.SaveChanges();
+
+                    }
+                }
+                else
+                {
+                    foreach (var ordinacija in existingDoktorOrdinacije)
+                    {
+                        Database.DoktorOrdinacija doktoriOrdinacije = new Database.DoktorOrdinacija();
+                        doktoriOrdinacije.OrdinacijaId = ordinacija.OrdinacijaId;
+                        doktoriOrdinacije.DoktorId = doktor.Id;
+                        doktoriOrdinacije.Doktor = doktor;
+                        doktoriOrdinacije.Ordinacija = Context.Ordinacija.FirstOrDefault(x => x.OrdinacijaId == ordinacija.OrdinacijaId);
+                        Context.DoktoriOrdinacije.Add(doktoriOrdinacije);
+                        doktor.DoktorOrdinacije.Add(doktoriOrdinacije);
+                        Context.SaveChanges();
+
+                    }
                 }
 
 
