@@ -5,6 +5,8 @@ import 'package:estomatolog_admin/models/Korisnik/korisnik.dart';
 import 'package:estomatolog_admin/models/validator.dart';
 import 'package:estomatolog_admin/providers/korisnici_provider.dart';
 import 'package:estomatolog_admin/providers/slika_provider.dart';
+import 'package:estomatolog_admin/screens/login.dart';
+import 'package:estomatolog_admin/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -219,6 +221,8 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                                     });
                                   },
                                 ),
+                                const SizedBox(height: 32.0),
+                                Text("Promjena lozinke nije obavezna"),
                                 const SizedBox(height: 16.0),
                                 TextField(
                                   controller: lozinkaController,
@@ -296,6 +300,32 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
     );
   }
 
+  void showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Obavijest'),
+          content: Text(
+              'Promijenili ste lozinku. Molimo vas da se ponovo prijavite.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Zatvori dijalog
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (_) => LoginPage()),
+                  (route) => false,
+                );
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Widget _buildSaveButton() {
     _korisniciProvider = Provider.of<KorisniciProvider>(context, listen: false);
     return SizedBox(
@@ -343,8 +373,13 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                             try {
                               await _korisniciProvider.updateDoktor(
                                   korisnikId, updatedKorisnik);
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pop();
+                              if (lozinkaController.text != "" &&
+                                  Authorization.korisnikId != korisnikId) {
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              } else {
+                                showLogoutDialog(context);
+                              }
                             } catch (e) {
                               Navigator.of(context).pop();
                             }

@@ -9,6 +9,7 @@ class GenericListScreen<T> extends StatelessWidget {
   final void Function(T) onDeletePressed;
   final void Function(T) onEditGradOrdinacijaPressed;
   final TextEditingController searchController;
+  final Widget Function(T)? customWidgetBuilder;
 
   const GenericListScreen({
     super.key,
@@ -20,6 +21,7 @@ class GenericListScreen<T> extends StatelessWidget {
     required this.onDeletePressed,
     required this.onEditGradOrdinacijaPressed,
     required this.searchController,
+    this.customWidgetBuilder,
   });
 
   @override
@@ -69,7 +71,9 @@ class GenericListScreen<T> extends StatelessWidget {
                       child: ListTile(
                         leading:
                             Image.asset(imagePath, width: 40.0, height: 40.0),
-                        title: Text(getTitle(item)),
+                        title: customWidgetBuilder != null
+                            ? customWidgetBuilder!(item)
+                            : Text(getTitle(item)),
                         subtitle: Text(getSubtitle(item)),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,

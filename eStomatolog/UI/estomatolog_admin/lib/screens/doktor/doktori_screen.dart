@@ -71,9 +71,26 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
             fetchData: (context) => fetchDoctors(context, searchQuery),
             getTitle: (doktor) => doktor.ime ?? 'N/A',
             getSubtitle: (doktor) => doktor.prezime ?? 'N/A',
+            customWidgetBuilder: (doktor) {
+              return Row(
+                children: [
+                  Text(
+                    Authorization.korisnikId == doktor.korisnikId
+                        ? '${doktor.ime} ${doktor.prezime}'
+                        : '${doktor.ime} ${doktor.prezime}',
+                  ),
+                  if (Authorization.korisnikId == doktor.korisnikId)
+                    Image.asset(
+                      'assets/images/my-profile-edit.png',
+                      width: 20,
+                      height: 20,
+                      // Podesite širinu i visinu prema vašim zahtjevima
+                    ),
+                ],
+              );
+            },
             imagePath: 'assets/images/lista_doktor.png',
             onEditPressed: (doktor) {
-              print(Authorization.korisnikId);
               int korisnikId = doktor.korisnikId;
               Navigator.push(
                 context,
