@@ -311,7 +311,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Zatvori dijalog
+                Navigator.pop(context);
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (_) => LoginPage()),

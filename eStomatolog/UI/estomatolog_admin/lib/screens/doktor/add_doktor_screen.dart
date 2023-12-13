@@ -487,6 +487,27 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
     );
   }
 
+  void showErrorDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Obavijest'),
+          content: Text('Korisničko ime ili e-mail se već koriste!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Widget _buildSaveButton() {
     _korisniciProvider = Provider.of<KorisniciProvider>(context, listen: false);
     Korisnik korisnik = Korisnik(
@@ -537,7 +558,7 @@ class _AddDoctorScreenState extends State<AddDoctorScreen> {
                               Navigator.of(context).pop();
                               Navigator.of(context).pop();
                             } catch (e) {
-                              Navigator.of(context).pop();
+                              showErrorDialog(context);
                             }
                           },
                           child: const Text("Potvrdi"),
