@@ -1,11 +1,9 @@
-import 'dart:io';
 import 'package:estomatolog_admin/models/Grad/grad.dart';
 import 'package:estomatolog_admin/models/Ordinacija/ordinacija.dart';
-import 'package:estomatolog_admin/models/Slika/slika_insert.dart';
+import 'package:estomatolog_admin/models/validator.dart';
 import 'package:estomatolog_admin/providers/grad_provider.dart';
-import 'package:estomatolog_admin/providers/slika_provider.dart';
+import 'package:estomatolog_admin/screens/ordinacija/ordinacija_galerija.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../providers/ordinacija_provider.dart';
 
@@ -51,38 +49,6 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
     return ordinacija;
   }
 
-  Future<void> _uploadImage() async {
-    final picker = ImagePicker();
-    XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      File imageFile = File(pickedFile.path);
-
-      try {
-        SlikaInsert insert = SlikaInsert(widget.ordinacijaId, imageFile.path);
-        var slikaProvider = Provider.of<SlikaProvider>(context, listen: false);
-
-        await slikaProvider.insertSlikaOrdinacija(insert);
-      } catch (e) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => OrdinacijaDetaljiScreen(
-              ordinacijaId: ordinacija.ordinacijaId,
-            ),
-          ),
-        );
-      }
-    }
-  }
-
-  Future<List<int>> fetchOrdinacijaSlike(BuildContext context) async {
-    var ordinacijaSlikeProvider =
-        Provider.of<SlikaProvider>(context, listen: false);
-    var fetchedOrdinacije =
-        await ordinacijaSlikeProvider.getSlikeIds(widget.ordinacijaId);
-    return fetchedOrdinacije;
-  }
-
   Future<List<Grad>> fetchGradovi(BuildContext context) async {
     var provider = Provider.of<GradProvider>(context, listen: false);
     var fetchedGradovi = await provider.get();
@@ -101,295 +67,110 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
     return defaultniGrad;
   }
 
+  bool _isNazivValid = true;
+  bool _isAdresaValid = true;
+  bool _isTelefonValid = true;
+
   TextEditingController nazivController = TextEditingController();
   TextEditingController adresaController = TextEditingController();
   TextEditingController telefonController = TextEditingController();
   TextEditingController gradController = TextEditingController();
   late OrdinacijaProvider _ordinacijaProvider;
-  late SlikaProvider _slikaProvider;
 
   @override
   Widget build(BuildContext context) {
-    _slikaProvider = Provider.of<SlikaProvider>(context, listen: false);
     return Scaffold(
         appBar: AppBar(
           title: const Text("Ordinacija info"),
           centerTitle: true,
         ),
         body: Center(
-            child: Padding(
-                padding: const EdgeInsets.all(16.0),
+            child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.6,
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Osnovne informacije o ordinaciji:',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 16.0),
-                      Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 16.0),
+                    Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.all(20.0),
-                              child: Container(
-                                padding: const EdgeInsets.all(16.0),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.blue, width: 2.0),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    _buildFormField('Naziv', nazivController),
-                                    const SizedBox(height: 16.0),
-                                    _buildFormField('Adresa', adresaController),
-                                    const SizedBox(height: 16.0),
-                                    _buildFormField(
-                                        'Telefon', telefonController),
-                                    _buildFormFieldGrad(
-                                        'Trenutni grad', gradController),
-                                    const SizedBox(height: 16.0),
-                                    _buildSingleSelectGrad(
-                                        'Odaberi drugi grad', context),
-                                    const SizedBox(height: 16.0),
-                                    const SizedBox(height: 32.0),
-                                    _buildSaveButton(),
-                                  ],
-                                ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextField(
+                                    controller: nazivController,
+                                    decoration: InputDecoration(
+                                      labelText: "Naziv ordinacije",
+                                      border: OutlineInputBorder(),
+                                      errorText: _isNazivValid
+                                          ? null
+                                          : 'Unesite ispravne podatke za naziv',
+                                    ),
+                                    onChanged: (value) {
+                                      bool isValid =
+                                          Validators.validirajKorisnickoIme(
+                                              value);
+                                      setState(() {
+                                        _isNazivValid = isValid;
+                                      });
+                                    },
+                                  ),
+                                  const SizedBox(height: 16.0),
+                                  TextField(
+                                    controller: adresaController,
+                                    decoration: InputDecoration(
+                                      labelText: "Adresa",
+                                      border: OutlineInputBorder(),
+                                      errorText: _isAdresaValid
+                                          ? null
+                                          : 'Unesite ispravne podatke za adresu',
+                                    ),
+                                    onChanged: (value) {
+                                      bool isValid =
+                                          Validators.validirajAdresu(value);
+                                      setState(() {
+                                        _isAdresaValid = isValid;
+                                      });
+                                    },
+                                  ),
+                                  const SizedBox(height: 16.0),
+                                  TextField(
+                                    controller: telefonController,
+                                    decoration: InputDecoration(
+                                      labelText: "Telefon",
+                                      border: OutlineInputBorder(),
+                                      errorText: _isTelefonValid
+                                          ? null
+                                          : 'Unesite ispravne podatke za telefon',
+                                    ),
+                                    onChanged: (value) {
+                                      bool isValid =
+                                          Validators.validirajBrojTelefona(
+                                              value);
+                                      setState(() {
+                                        _isTelefonValid = isValid;
+                                      });
+                                    },
+                                  ),
+                                  _buildFormFieldGrad(
+                                      'Trenutni grad', gradController),
+                                  const SizedBox(height: 32.0),
+                                  _buildSingleSelectGrad(
+                                      'Odaberi drugi grad', context),
+                                  const SizedBox(height: 16.0),
+                                  _buildGalleryButton(context),
+                                  const SizedBox(height: 16.0),
+                                  _buildSaveButton(),
+                                ],
                               ),
                             ),
                           ),
-                          Expanded(
-                            child: Column(
-                              children: [
-                                FutureBuilder<List<int>>(
-                                  future: fetchOrdinacijaSlike(context),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return const CircularProgressIndicator();
-                                    } else if (snapshot.hasError) {
-                                      return const Text(
-                                          'Greška prilikom dohvata ID-ova slika.');
-                                    } else if (!snapshot.hasData ||
-                                        snapshot.data!.isEmpty) {
-                                      return Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(16.0),
-                                            child: ElevatedButton(
-                                              onPressed: () async {
-                                                try {
-                                                  await _uploadImage();
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        OrdinacijaDetaljiScreen(
-                                                      ordinacijaId: ordinacija
-                                                          .ordinacijaId,
-                                                    ),
-                                                  );
-                                                } catch (e) {
-                                                  print(e);
-                                                }
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                  horizontal: 32.0,
-                                                  vertical: 16.0,
-                                                ),
-                                              ),
-                                              child: const Text(
-                                                'Dodaj novu sliku',
-                                                style: TextStyle(
-                                                  fontSize: 18.0,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    } else {
-                                      List<int> slikeIds = snapshot.data!;
-
-                                      return Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(20.0),
-                                            child: Image.network(
-                                              "http://localhost:7265/SlikaStream?slikaId=${slikeIds[currentIndex]}",
-                                              width: 400,
-                                              height: 400,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  if (currentIndex > 0) {
-                                                    setState(() {
-                                                      currentIndex--;
-                                                    });
-                                                  }
-                                                },
-                                                child: const Text(
-                                                    'Prethodna slika'),
-                                              ),
-                                              const SizedBox(width: 20),
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  if (currentIndex <
-                                                      slikeIds.length - 1) {
-                                                    setState(() {
-                                                      currentIndex++;
-                                                    });
-                                                  }
-                                                },
-                                                child: const Text(
-                                                    'Sljedeća slika'),
-                                              ),
-                                            ],
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(16.0),
-                                            child: ElevatedButton(
-                                              onPressed: () async {
-                                                try {
-                                                  await _uploadImage();
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        OrdinacijaDetaljiScreen(
-                                                      ordinacijaId: ordinacija
-                                                          .ordinacijaId,
-                                                    ),
-                                                  );
-                                                } catch (e) {
-                                                  print(e);
-                                                }
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                  horizontal: 32.0,
-                                                  vertical: 16.0,
-                                                ),
-                                              ),
-                                              child: const Text(
-                                                'Dodaj novu sliku',
-                                                style: TextStyle(
-                                                  fontSize: 18.0,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(16.0),
-                                            child: ElevatedButton(
-                                              onPressed: () async {
-                                                showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return AlertDialog(
-                                                      title:
-                                                          const Text("Potvrda"),
-                                                      content: const Text(
-                                                          "Da li ste sigurni da želite izbrisati sliku?"),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () async {
-                                                            try {
-                                                              await _slikaProvider
-                                                                  .delete(slikeIds[
-                                                                      currentIndex]);
-
-                                                              // ignore: use_build_context_synchronously
-                                                              Navigator.pop(
-                                                                  context);
-                                                              showDialog(
-                                                                context:
-                                                                    context,
-                                                                builder:
-                                                                    (BuildContext
-                                                                        context) {
-                                                                  return AlertDialog(
-                                                                    title: const Text(
-                                                                        "Potvrda"),
-                                                                    content:
-                                                                        const Text(
-                                                                            "Uspješno ste izbrisali sliku!"),
-                                                                    actions: [
-                                                                      TextButton(
-                                                                        onPressed:
-                                                                            () async {
-                                                                          try {
-                                                                            // ignore: use_build_context_synchronously
-
-                                                                            Navigator.pop(context);
-                                                                            Navigator.pop(context);
-                                                                          } on Exception catch (e) {
-                                                                            print(e);
-                                                                          }
-                                                                        },
-                                                                        child: const Text(
-                                                                            "OK"),
-                                                                      ),
-                                                                    ],
-                                                                  );
-                                                                },
-                                                              );
-                                                            } on Exception catch (e) {
-                                                              print(e);
-                                                            }
-                                                          },
-                                                          child:
-                                                              const Text("Da"),
-                                                        ),
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  context),
-                                                          child:
-                                                              const Text("Ne"),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                    horizontal: 32.0,
-                                                    vertical: 16.0,
-                                                  ),
-                                                  backgroundColor: Colors.red),
-                                              child: const Text(
-                                                'Izbriši sliku',
-                                                style: TextStyle(
-                                                  fontSize: 18.0,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    }
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      )
-                    ]))));
+                        ]),
+                  ],
+                ))));
   }
 
   Widget _buildFormField(String label, TextEditingController controller,
@@ -432,24 +213,30 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
   }
 
   Widget _buildSingleSelectGrad(String label, BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-            color: const Color.fromARGB(255, 146, 140, 140), width: 1.0),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              label,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(14.0),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: const Color.fromARGB(255, 146, 140, 140),
+                width: 1.0,
+              ),
+              borderRadius: BorderRadius.circular(4.0),
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14.0),
               child: DropdownButton<String>(
+                dropdownColor: Colors.white,
+                focusColor: Colors.white,
+                isExpanded: true,
+                hint: Text('Odaberite grad'),
                 value: selectedValueGrad,
                 onChanged: (String? newValue) {
                   setState(() {
@@ -469,9 +256,47 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
                 }).toList(),
               ),
             ),
-          ],
+          ),
         ),
-      ),
+      ],
+    );
+  }
+
+  Widget _buildGalleryButton(BuildContext context) {
+    return SizedBox(
+        width: 200.0,
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => OrdinacijaGalerijaScreen(
+                        ordinacijaId: widget.ordinacijaId,
+                      )), // Replace GalleryScreen with your actual screen widget
+            );
+          },
+          child: Text('Galerija ordinacije'),
+        ));
+  }
+
+  void showAlertDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Obavijest'),
+          content: Text('Uspješno ste uredili informacije ordinacije!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -488,40 +313,45 @@ class _OrdinacijaDetaljiScreenState extends State<OrdinacijaDetaljiScreen> {
     return SizedBox(
       width: 200.0,
       child: ElevatedButton(
-        onPressed: () async {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text("Potvrda ažuriranja"),
-                content: const Text(
-                    "Da li ste sigurni da želite ažurirati ordinaciju sa unesenim informacijama?"),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text("Otkaži"),
-                  ),
-                  TextButton(
-                    onPressed: () async {
-                      try {
-                        await _ordinacijaProvider.update(
-                            widget.ordinacijaId, updatedOrdinacija);
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pop();
-                      } catch (e) {
-                        print("Greška prilikom ažuriranja: $e");
-                        Navigator.of(context).pop();
-                      }
-                    },
-                    child: const Text("Potvrdi"),
-                  ),
-                ],
-              );
-            },
-          );
-        },
+        onPressed: _isNazivValid && _isAdresaValid && _isTelefonValid
+            ? () async {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text("Potvrda ažuriranja"),
+                      content: const Text(
+                          "Da li ste sigurni da želite ažurirati ordinaciju sa unesenim informacijama?"),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text("Otkaži"),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            try {
+                              await _ordinacijaProvider.update(
+                                  widget.ordinacijaId, updatedOrdinacija);
+                              Navigator.of(context).pop();
+                              showAlertDialog(context);
+                            } catch (e) {
+                              print("Greška prilikom ažuriranja: $e");
+                              Navigator.of(context).pop();
+                            }
+                          },
+                          child: const Text("Potvrdi"),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }
+            : null,
+        style: ElevatedButton.styleFrom(
+          primary: Colors.red, // Set the background color to red
+        ),
         child: const Text('Spremi'),
       ),
     );
