@@ -217,6 +217,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                                         Validators.validirajKorisnickoIme(
                                             value);
                                     setState(() {
+                                      print(lozinkaController.value);
                                       _isKorisnickoImeValid = isValid;
                                     });
                                   },
@@ -307,7 +308,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
         return AlertDialog(
           title: Text('Obavijest'),
           content: Text(
-              'Promijenili ste lozinku. Molimo vas da se ponovo prijavite.'),
+              'Promijenili ste lozinku ili korisničko ime. Molimo vas da se ponovo prijavite.'),
           actions: [
             TextButton(
               onPressed: () {
@@ -373,12 +374,13 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                             try {
                               await _korisniciProvider.updateDoktor(
                                   korisnikId, updatedKorisnik);
-                              if (lozinkaController.text != "" &&
-                                  Authorization.korisnikId != korisnikId) {
-                                Navigator.of(context).pop();
-                                Navigator.of(context).pop();
-                              } else {
+                              print(lozinkaController.text.length);
+                              if (lozinkaController.text.length > 3 &&
+                                  Authorization.korisnikId == korisnikId) {
                                 showLogoutDialog(context);
+                              } else {
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
                               }
                             } catch (e) {
                               Navigator.of(context).pop();
