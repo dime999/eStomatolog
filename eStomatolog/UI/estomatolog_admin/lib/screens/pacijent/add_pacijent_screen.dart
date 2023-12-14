@@ -331,24 +331,30 @@ class _AddPacijentScreenState extends State<AddPacijentScreen> {
   }
 
   Widget _buildSingleSelectGrad(String label, BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-            color: const Color.fromARGB(255, 146, 140, 140), width: 1.0),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              label,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(14.0),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: const Color.fromARGB(255, 146, 140, 140),
+                width: 1.0,
+              ),
+              borderRadius: BorderRadius.circular(4.0),
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: DropdownButton<String>(
+                dropdownColor: Colors.white,
+                focusColor: Colors.white,
+                isExpanded: true,
+                hint: Text('Odaberite grad'),
                 value: selectedValueGrad,
                 onChanged: (String? newValue) {
                   setState(() {
@@ -368,9 +374,9 @@ class _AddPacijentScreenState extends State<AddPacijentScreen> {
                 }).toList(),
               ),
             ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 
