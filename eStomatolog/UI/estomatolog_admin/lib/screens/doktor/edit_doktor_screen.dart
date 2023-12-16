@@ -24,7 +24,7 @@ class EditDoctorScreen extends StatefulWidget {
 
 class _EditDoctorScreenState extends State<EditDoctorScreen> {
   List<int> uloga = [1];
-
+  late String defKorisnickoime;
   late int korisnikId;
   late Korisnik korisnik;
   List<int> slikeIds = [];
@@ -54,6 +54,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
       emailController.text = korisnik.email ?? '';
       telefonController.text = korisnik.telefon ?? '';
       korisnickoImeController.text = korisnik.korisnickoIme ?? '';
+      defKorisnickoime = korisnik.korisnickoIme ?? '';
       status = korisnik.status ?? true;
     });
     return korisnik;
@@ -395,7 +396,9 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                             try {
                               await _korisniciProvider.updateDoktor(
                                   korisnikId, updatedKorisnik);
-                              if (lozinkaController.text.length > 3 &&
+                              if ((lozinkaController.text.length > 3 ||
+                                      defKorisnickoime !=
+                                          korisnickoImeController.text) &&
                                   Authorization.korisnikId == korisnikId) {
                                 showLogoutDialog(context);
                               } else {
