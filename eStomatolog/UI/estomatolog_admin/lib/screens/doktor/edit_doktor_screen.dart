@@ -327,6 +327,27 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
     );
   }
 
+  void showErrorDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Obavijest'),
+          content: Text('Korisničko ime ili e-mail se već koriste!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Widget _buildSaveButton() {
     _korisniciProvider = Provider.of<KorisniciProvider>(context, listen: false);
     return SizedBox(
@@ -384,6 +405,7 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                               }
                             } catch (e) {
                               Navigator.of(context).pop();
+                              showErrorDialog(context);
                             }
                           },
                           child: const Text("Potvrdi"),

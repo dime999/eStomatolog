@@ -303,6 +303,27 @@ class _AddPacijentScreenState extends State<AddPacijentScreen> {
     );
   }
 
+  void showErrorDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Obavijest'),
+          content: Text('Korisničko ime ili e-mail se već koriste!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Widget _buildMultiselectOrdinacije(String label, BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -435,27 +456,6 @@ class _AddPacijentScreenState extends State<AddPacijentScreen> {
           ),
         ],
       ),
-    );
-  }
-
-  void showErrorDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Obavijest'),
-          content: Text('Korisničko ime ili e-mail se već koriste!'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
-            ),
-          ],
-        );
-      },
     );
   }
 
