@@ -18,6 +18,7 @@ namespace eStomatolog.Controllers
             this._service = service;
         }
 
+        [Authorize(Roles = "Administrator, Korisnik")]
         [HttpGet("/GetOcjeneByDoktorId/{id}")]
         public IEnumerable<eStomatologModel.Ocjene> GetOcjeneByDoktorId(int id)
         {

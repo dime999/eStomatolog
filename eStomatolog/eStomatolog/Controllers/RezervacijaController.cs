@@ -42,6 +42,7 @@ namespace eStomatolog.Controllers
             return rezervacije;
         }
 
+        [Authorize(Roles = "Administrator, Korisnik")]
         [HttpGet("/GetRezervacijeByPacijent/{ordinacijaId}/{pacijentId}")]
         public IEnumerable<eStomatologModel.Rezervacija> GetRezervacijeByPacijent(int ordinacijaId,int pacijentId)
         {
@@ -49,6 +50,8 @@ namespace eStomatolog.Controllers
 
             return rezervacije;
         }
+
+        [Authorize(Roles = "Administrator, Korisnik")]
         [HttpGet("/Get/{pacijentId}")]
         public IEnumerable<eStomatologModel.Rezervacija> GetByPacijent(int pacijentId)
         {
@@ -57,7 +60,7 @@ namespace eStomatolog.Controllers
             return rezervacije;
         }
 
-
+        [Authorize(Roles = "Administrator, Korisnik")]
         [HttpGet]
         [Route("zauzeti-termini")]
         public IEnumerable<eStomatologModel.Rezervacija> GetZauzetiTermini(int ordinacijaId, DateTime datum)

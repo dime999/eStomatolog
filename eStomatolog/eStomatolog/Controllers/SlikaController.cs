@@ -26,7 +26,7 @@ namespace eStomatolog.Controllers
             return File(imageBytes, "image/jpeg");
         }
 
-        [AllowAnonymous]
+        [Authorize(Roles = "Administrator, Korisnik")]
         [HttpGet("/OrdinacijaSlikeIds")]
         public async Task<Galerija> GetOrdinacijaSlika([FromQuery] int ordinacijaId)
         {
@@ -34,6 +34,7 @@ namespace eStomatolog.Controllers
             return galerija;
         }
 
+        [Authorize(Roles = "Administrator, Korisnik")]
         [HttpPost("/InsertOrdinacijaSlika")]
         public async Task<eStomatologModel.Slika> InsertOrdinacijaSlika([FromForm] SlikaInsertRequest request)
         {
@@ -42,7 +43,7 @@ namespace eStomatolog.Controllers
             return await service.InsertOrdinacijaSlika(request);
         }
 
-        [AllowAnonymous]
+        [Authorize(Roles = "Administrator, Korisnik")]
         [HttpGet("/DoktorSlikaIds")]
         public async Task<Galerija> GetDoktorSlika([FromQuery] int doktorId)
         {
@@ -50,6 +51,7 @@ namespace eStomatolog.Controllers
             return galerija;
         }
 
+        [Authorize(Roles = "Administrator, Korisnik")]
         [HttpPost("/InsertDoktorSlika")]
         public async Task<eStomatologModel.Slika> InsertDoktorSlika([FromForm] DoktorSlikaInsertRequest request)
         {

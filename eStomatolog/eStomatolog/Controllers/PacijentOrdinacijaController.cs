@@ -28,6 +28,7 @@ namespace eStomatolog.Controllers
             return list.ToList();
         }
 
+        [Authorize(Roles = "Administrator, Korisnik")]
         [HttpGet("/GetOrdinacijeByPacijentId/{id}")]
         public async Task<IEnumerable<OrdinacijaPacijent>> GetOrdinacije(int id)
         {

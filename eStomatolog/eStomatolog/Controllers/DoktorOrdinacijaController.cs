@@ -33,7 +33,7 @@ namespace eStomatolog.Controllers
 
 
 
-      
+        [Authorize(Roles = "Administrator, Korisnik")]
         [HttpGet("/GetByOrdinacijaId/{id}")]
         public async Task<IEnumerable<DoktorOrdinacijaDoktorInfo>> GetDoktori(int id)
         {
@@ -42,7 +42,7 @@ namespace eStomatolog.Controllers
             return list.ToList();
         }
 
-
+        [Authorize(Roles = "Administrator, Korisnik")]
         [HttpGet("/GetByOrdinacijaInfo/{id}")]
         public async Task<IEnumerable<DoktorOrdinacijaOrdinacijaInfo>> GetOrdinacije(int id)
         {

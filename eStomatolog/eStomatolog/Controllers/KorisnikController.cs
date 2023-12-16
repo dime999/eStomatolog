@@ -25,7 +25,7 @@ namespace eStomatolog.Controllers
             return base.Insert(insert);
         }
 
-      
+        [Authorize(Roles = "Administrator, Korisnik")]
         public override eStomatologModel.Korisnik Update(int id,[FromBody] KorisniciUpdateRequest update)
         {
             return base.Update(id,update);

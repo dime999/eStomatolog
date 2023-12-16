@@ -17,6 +17,7 @@ namespace eStomatolog.Controllers
             this.service = service;
         }
 
+        [Authorize(Roles = "Administrator, Korisnik")]
         [HttpGet("/GetByKorisnikId/{id}")]
         public async Task<eStomatologModel.Doktor> GetByKorisnikId(int id)
         {
@@ -26,7 +27,7 @@ namespace eStomatolog.Controllers
         }
 
 
-
+        [Authorize(Roles = "Administrator, Korisnik")]
         [HttpGet("/GetRecommended/{id}")]
         public async Task<IEnumerable<Doktor>> GetDoktori(int id)
         {

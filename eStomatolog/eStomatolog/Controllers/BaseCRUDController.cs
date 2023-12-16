@@ -11,6 +11,7 @@ namespace eStomatolog.Controllers
 
         }
 
+        [Authorize(Roles = "Administrator, Korisnik")]
         [HttpPost]
         public virtual T Insert([FromBody]TInsert insert)
         {
@@ -18,6 +19,7 @@ namespace eStomatolog.Controllers
             return result;
         }
 
+        [Authorize(Roles = "Administrator, Korisnik")]
         [HttpPut("{id}")]
         public virtual T Update(int id,[FromBody]TUpdate update)
         {
@@ -25,6 +27,7 @@ namespace eStomatolog.Controllers
             return result;
         }
 
+        [Authorize(Roles = "Administrator, Korisnik")]
         [HttpDelete]
         public  virtual T Delete(int id)
         {

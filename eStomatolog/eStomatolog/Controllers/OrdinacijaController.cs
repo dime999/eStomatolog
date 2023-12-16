@@ -2,7 +2,9 @@
 using eStomatologModel.Requests;
 using eStomatologModel.SearchObjects;
 using eStomatologServices.Interfejsi;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static Microsoft.VisualStudio.Services.Notifications.VssNotificationEvent;
 
 namespace eStomatolog.Controllers
 {
@@ -15,6 +17,8 @@ namespace eStomatolog.Controllers
             this._service= service;
             }
 
+
+        [Authorize(Roles = "Administrator, Korisnik")]
         [HttpGet("/getIzvjestaj/{id}")]
         public Izvjestaj GetIzvjestaj(int id)
         {

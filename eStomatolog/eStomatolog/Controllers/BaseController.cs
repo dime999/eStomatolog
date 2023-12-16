@@ -15,12 +15,14 @@ namespace eStomatolog.Controllers
             Service = service;
         }
 
+        [Authorize(Roles = "Administrator, Korisnik")]
         [HttpGet]
         public virtual IEnumerable<T> Get([FromQuery] TSearch search = null)
         {
             return Service.Get(search);
         }
 
+        [Authorize(Roles = "Administrator, Korisnik")]
         [HttpGet("{id}")]
         public virtual T GetById(int id)
         {

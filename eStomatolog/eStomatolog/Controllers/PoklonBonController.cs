@@ -29,7 +29,7 @@ namespace eStomatolog.Controllers
         }
 
 
-       
+        [Authorize(Roles = "Administrator, Korisnik")]
         [HttpGet("/GetPoklonBonByPacijent/{id}")]
         public IEnumerable<eStomatologModel.PoklonBon> GetBonByPacijentId(int id)
         {

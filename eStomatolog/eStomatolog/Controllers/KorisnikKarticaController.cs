@@ -18,6 +18,7 @@ namespace eStomatolog.Controllers
             this._service = service;
         }
 
+        [Authorize(Roles = "Administrator, Korisnik")]
         [HttpGet("/GetKartice/{id}")]
         public async Task<IEnumerable<KorisnikKartica>> GetByKorinikId(int id)
         {
