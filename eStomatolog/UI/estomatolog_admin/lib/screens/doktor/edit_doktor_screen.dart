@@ -395,7 +395,6 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                             try {
                               await _korisniciProvider.updateDoktor(
                                   korisnikId, updatedKorisnik);
-                              print(lozinkaController.text.length);
                               if (lozinkaController.text.length > 3 &&
                                   Authorization.korisnikId == korisnikId) {
                                 showLogoutDialog(context);

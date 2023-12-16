@@ -4,6 +4,7 @@ import 'package:estomatolog_mobile/models/KorisnikKartica/korisnik_kartica.dart'
 import 'package:estomatolog_mobile/models/Ordinacija/ordinacija.dart';
 import 'package:estomatolog_mobile/models/Pacijent/pacijent.dart';
 import 'package:estomatolog_mobile/models/PoklonBon/poklon_bon_insert.dart';
+import 'package:estomatolog_mobile/models/validator.dart';
 import 'package:estomatolog_mobile/providers/pacijent_provider.dart';
 import 'package:estomatolog_mobile/providers/poklon_bon_provider.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,7 @@ class _NaruciPoklonBonScreenState extends State<NaruciPoklonBonScreen> {
   TextEditingController _nazivOsobe = TextEditingController();
   late PoklonBonProvider _poklonBonProvider;
   late Pacijent pacijent;
+  bool _isImeValid = true;
 
   String generateRandomCode() {
     Random random = Random();
@@ -73,12 +75,20 @@ class _NaruciPoklonBonScreenState extends State<NaruciPoklonBonScreen> {
                 Container(
                   width: 300,
                   child: TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Ime i prezime',
-                      prefixIcon: Icon(Icons.person),
-                      border: OutlineInputBorder(),
-                    ),
                     controller: _nazivOsobe,
+                    decoration: InputDecoration(
+                      labelText: "Ime i prezime osobe koja će koristiti bon:",
+                      border: OutlineInputBorder(),
+                      errorText: _isImeValid
+                          ? null
+                          : 'Unesite ispravne podatke za ime i prezime',
+                    ),
+                    onChanged: (value) {
+                      bool isValid = Validators.validirajImeiPrezime(value);
+                      setState(() {
+                        _isImeValid = isValid;
+                      });
+                    },
                   ),
                 ),
                 SizedBox(height: 25),
@@ -111,33 +121,35 @@ class _NaruciPoklonBonScreenState extends State<NaruciPoklonBonScreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: ElevatedButton.icon(
-                        onPressed: () {
-                          var imePrezime = _nazivOsobe.text;
-                          String randomCode = generateRandomCode();
+                        onPressed: _isImeValid
+                            ? () {
+                                var imePrezime = _nazivOsobe.text;
+                                String randomCode = generateRandomCode();
 
-                          try {
-                            _poklonBonProvider = Provider.of<PoklonBonProvider>(
-                                context,
-                                listen: false);
-                            PoklonBonInsert poklonBon = PoklonBonInsert(
-                                randomCode,
-                                widget.cijena,
-                                pacijent.id,
-                                widget.ordinacija.ordinacijaId,
-                                imePrezime,
-                                true,
-                                "",
-                                DateTime.now(),
-                                " ",
-                                false);
+                                try {
+                                  _poklonBonProvider =
+                                      Provider.of<PoklonBonProvider>(context,
+                                          listen: false);
+                                  PoklonBonInsert poklonBon = PoklonBonInsert(
+                                      randomCode,
+                                      widget.cijena,
+                                      pacijent.id,
+                                      widget.ordinacija.ordinacijaId,
+                                      imePrezime,
+                                      true,
+                                      "",
+                                      DateTime.now(),
+                                      " ",
+                                      false);
 
-                            _poklonBonProvider.insert(poklonBon);
-                            _showValidDialog(
-                              randomCode,
-                              context,
-                            );
-                          } catch (e) {}
-                        },
+                                  _poklonBonProvider.insert(poklonBon);
+                                  _showValidDialog(
+                                    randomCode,
+                                    context,
+                                  );
+                                } catch (e) {}
+                              }
+                            : null,
                         icon: Icon(Icons.shopping_cart, size: 22),
                         label: Text('Plati', style: TextStyle(fontSize: 24)),
                         style: ElevatedButton.styleFrom(

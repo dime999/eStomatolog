@@ -6,8 +6,8 @@ import 'package:estomatolog_mobile/models/validator.dart';
 import 'package:estomatolog_mobile/providers/korisnici_provider.dart';
 import 'package:estomatolog_mobile/providers/pacijent_ordinacija_provider.dart';
 import 'package:estomatolog_mobile/providers/pacijent_provider.dart';
+import 'package:estomatolog_mobile/screens/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class EditUserScreen extends StatefulWidget {
@@ -27,6 +27,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
   List<OrdinacijaPacijent> ordinacije = [];
   late Pacijent pacijentData;
   DateTime odabraniDatum = DateTime.now();
+  late String defKorisnickoIme;
 
   List<int> idOrdinacija = [];
 
@@ -56,6 +57,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
       emailController.text = korisnik.email ?? '';
       telefonController.text = korisnik.telefon ?? '';
       korisnickoImeController.text = korisnik.korisnickoIme ?? '';
+      defKorisnickoIme = korisnik.korisnickoIme ?? '';
       status = korisnik.status ?? true;
     });
     return korisnik;
@@ -293,6 +295,33 @@ class _EditUserScreenState extends State<EditUserScreen> {
     );
   }
 
+  void showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Obavijest'),
+          content: Text(
+              'Promijenili ste lozinku ili korisničko ime. Molimo vas da se ponovo prijavite.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                print("Uslo u funkciju");
+                Navigator.pop(context);
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (_) => LoginPage()),
+                  (route) => false,
+                );
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Widget _buildSaveButton() {
     return SizedBox(
       width: 200.0,
@@ -333,27 +362,34 @@ class _EditUserScreenState extends State<EditUserScreen> {
 
                         await _korisniciProvider.updateUser(
                             korisnikId, updatedKorisnik);
+                        print(defKorisnickoIme);
+                        print(korisnickoImeController.text);
 
-                        Navigator.of(context).pop();
-
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text('Potvrda izmjena'),
-                              content: Text('Izmjene uspješno spremljene!'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Text('OK'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
+                        if (lozinkaController.text.length > 3 ||
+                            defKorisnickoIme != korisnickoImeController.text) {
+                          Navigator.of(context).pop();
+                          showLogoutDialog(context);
+                        } else {
+                          Navigator.of(context).pop();
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Potvrda izmjena'),
+                                content: Text('Izmjene uspješno spremljene!'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
                       } catch (e) {
                         Navigator.of(context).pop();
                       }

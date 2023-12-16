@@ -3,6 +3,7 @@ import 'package:estomatolog_mobile/models/Pacijent/pacijent.dart';
 import 'package:estomatolog_mobile/models/PoklonBon/poklon_bon_insert.dart';
 import 'package:estomatolog_mobile/models/PoklonBon/poklon_bon_usluge.dart';
 import 'package:estomatolog_mobile/models/PoklonBon/poklon_bonovi_lista.dart';
+import 'package:estomatolog_mobile/models/validator.dart';
 import 'package:estomatolog_mobile/providers/ordinacija_provider.dart';
 import 'package:estomatolog_mobile/providers/pacijent_provider.dart';
 import 'package:estomatolog_mobile/providers/poklon_bon_provider.dart';
@@ -30,6 +31,7 @@ class _PoklonBonInfoScreenState extends State<PoklonBonInfoScreen> {
   TextEditingController telefonController = TextEditingController();
   TextEditingController datumRodjenjaController = TextEditingController();
   TextEditingController opisController = TextEditingController();
+  bool _isImeValid = true;
 
   double ocjenaKorisnika = 0;
   bool placeno = false;
@@ -260,16 +262,25 @@ class _PoklonBonInfoScreenState extends State<PoklonBonInfoScreen> {
                                                   Container(
                                                     width: 300,
                                                     child: TextField(
+                                                      controller: _nazivOsobe,
                                                       decoration:
                                                           InputDecoration(
                                                         labelText:
-                                                            'Ime i prezime',
-                                                        prefixIcon:
-                                                            Icon(Icons.email),
+                                                            "Ime i prezime osobe koja će koristiti bon:",
                                                         border:
                                                             OutlineInputBorder(),
+                                                        errorText: _isImeValid
+                                                            ? null
+                                                            : 'Unesite ispravne podatke za ime i prezime',
                                                       ),
-                                                      controller: _nazivOsobe,
+                                                      onChanged: (value) {
+                                                        bool isValid = Validators
+                                                            .validirajImeiPrezime(
+                                                                value);
+                                                        setState(() {
+                                                          _isImeValid = isValid;
+                                                        });
+                                                      },
                                                     ),
                                                   ),
                                                   SizedBox(height: 22),
@@ -386,88 +397,86 @@ class _PoklonBonInfoScreenState extends State<PoklonBonInfoScreen> {
                                                           const EdgeInsets.all(
                                                               22.0),
                                                       child: ElevatedButton(
-                                                        onPressed: () async {
-                                                          int? iznos =
-                                                              int.tryParse(
-                                                                  bonovi[widget
-                                                                          .index]
-                                                                      .cijena);
-                                                          _poklonBonProvider =
-                                                              Provider.of<
-                                                                      PoklonBonProvider>(
-                                                                  context,
-                                                                  listen:
-                                                                      false);
-                                                          PoklonBonInsert
-                                                              poklonBon =
-                                                              PoklonBonInsert(
-                                                                  "GENERISATI",
-                                                                  iznos,
-                                                                  pacijent.id,
-                                                                  ordinacija
-                                                                      .ordinacijaId,
-                                                                  _nazivOsobe
-                                                                      .text,
-                                                                  false,
-                                                                  "",
-                                                                  DateTime
-                                                                      .now(),
-                                                                  " ",
-                                                                  false);
+                                                        onPressed: _isImeValid
+                                                            ? () async {
+                                                                int? iznos = int.tryParse(
+                                                                    bonovi[widget
+                                                                            .index]
+                                                                        .cijena);
+                                                                _poklonBonProvider =
+                                                                    Provider.of<
+                                                                            PoklonBonProvider>(
+                                                                        context,
+                                                                        listen:
+                                                                            false);
+                                                                PoklonBonInsert
+                                                                    poklonBon =
+                                                                    PoklonBonInsert(
+                                                                        "GENERISATI",
+                                                                        iznos,
+                                                                        pacijent
+                                                                            .id,
+                                                                        ordinacija
+                                                                            .ordinacijaId,
+                                                                        _nazivOsobe
+                                                                            .text,
+                                                                        false,
+                                                                        "",
+                                                                        DateTime
+                                                                            .now(),
+                                                                        " ",
+                                                                        false);
 
-                                                          try {
-                                                            _poklonBonProvider
-                                                                .insert(
-                                                                    poklonBon);
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop();
-                                                            // ignore: use_build_context_synchronously
-                                                            showDialog(
-                                                              context: context,
-                                                              builder:
-                                                                  (BuildContext
-                                                                      context) {
-                                                                return AlertDialog(
-                                                                  title: Row(
-                                                                    children: [
-                                                                      Icon(
-                                                                        Icons
-                                                                            .check_circle,
-                                                                        color: Colors
-                                                                            .green,
-                                                                      ),
-                                                                      SizedBox(
-                                                                          width:
-                                                                              10),
-                                                                      Text(
-                                                                          'Potvrda narudžbe'),
-                                                                    ],
-                                                                  ),
-                                                                  content: Text(
-                                                                      'Narudžba je uspešno potvrđena!'),
-                                                                  actions: [
-                                                                    TextButton(
-                                                                      onPressed:
-                                                                          () {
-                                                                        Navigator.of(context)
-                                                                            .pop();
-                                                                      },
-                                                                      child: Text(
-                                                                          'OK'),
-                                                                    ),
-                                                                  ],
-                                                                );
-                                                              },
-                                                            );
-                                                          } catch (e) {
-                                                            print(
-                                                                "Greška prilikom dodavanja: $e");
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop();
-                                                          }
-                                                        },
+                                                                try {
+                                                                  _poklonBonProvider
+                                                                      .insert(
+                                                                          poklonBon);
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                  // ignore: use_build_context_synchronously
+                                                                  showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (BuildContext
+                                                                            context) {
+                                                                      return AlertDialog(
+                                                                        title:
+                                                                            Row(
+                                                                          children: [
+                                                                            Icon(
+                                                                              Icons.check_circle,
+                                                                              color: Colors.green,
+                                                                            ),
+                                                                            SizedBox(width: 10),
+                                                                            Text('Potvrda narudžbe'),
+                                                                          ],
+                                                                        ),
+                                                                        content:
+                                                                            Text('Narudžba je uspešno potvrđena!'),
+                                                                        actions: [
+                                                                          TextButton(
+                                                                            onPressed:
+                                                                                () {
+                                                                              Navigator.of(context).pop();
+                                                                            },
+                                                                            child:
+                                                                                Text('OK'),
+                                                                          ),
+                                                                        ],
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                } catch (e) {
+                                                                  print(
+                                                                      "Greška prilikom dodavanja: $e");
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                }
+                                                              }
+                                                            : null,
                                                         child: Text(
                                                             'Naruči poklon bon'),
                                                       ),

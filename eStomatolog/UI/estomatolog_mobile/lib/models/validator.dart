@@ -4,6 +4,7 @@ class Validators {
   static final RegExp validnaEmailAdresa =
       RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
   static final RegExp korisnickoIme = RegExp(r'^[a-zA-Z0-9]+$');
+  static final RegExp imePrezime = RegExp(r'^[a-zA-Z]+(\s[a-zA-Z]+)*$');
 
   static bool validirajIme(String value) {
     return samoSlova.hasMatch(value) && value.isNotEmpty;
@@ -31,5 +32,9 @@ class Validators {
 
   static bool validirajLozinkuUpdate(String value) {
     return value.length >= 4 || value.isEmpty;
+  }
+
+  static bool validirajImeiPrezime(String value) {
+    return imePrezime.hasMatch(value) && value.isNotEmpty;
   }
 }
