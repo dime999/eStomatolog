@@ -158,7 +158,7 @@ class _OrdinacijaGalerijaScreenState extends State<OrdinacijaGalerijaScreen> {
                                               padding:
                                                   const EdgeInsets.all(20.0),
                                               child: Image.network(
-                                                "https://localhost:7265/SlikaStream?slikaId=${slikeIds[currentIndex]}",
+                                                "http://localhost:7265/SlikaStream?slikaId=${slikeIds[currentIndex]}",
                                                 width: 400,
                                                 height: 400,
                                                 fit: BoxFit.cover,

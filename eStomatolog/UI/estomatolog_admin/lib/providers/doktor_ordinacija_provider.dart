@@ -11,7 +11,7 @@ class DoktorOrdinacijaProvider extends BaseProvider<DoktorOrdinacija> {
   DoktorOrdinacijaProvider() : super("GetByOrdinacijaId") {
     _baseUrl = const String.fromEnvironment(
       "ApiUrl",
-      defaultValue: "https://localhost:7265/",
+      defaultValue: "http://localhost:7265/",
     );
   }
 
