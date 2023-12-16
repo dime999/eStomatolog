@@ -34,7 +34,7 @@ namespace eStomatolog.Controllers
             return galerija;
         }
 
-        [Authorize(Roles = "Administrator, Korisnik")]
+        [AllowAnonymous]
         [HttpPost("/InsertOrdinacijaSlika")]
         public async Task<eStomatologModel.Slika> InsertOrdinacijaSlika([FromForm] SlikaInsertRequest request)
         {
@@ -51,7 +51,7 @@ namespace eStomatolog.Controllers
             return galerija;
         }
 
-        [Authorize(Roles = "Administrator, Korisnik")]
+        [AllowAnonymous]
         [HttpPost("/InsertDoktorSlika")]
         public async Task<eStomatologModel.Slika> InsertDoktorSlika([FromForm] DoktorSlikaInsertRequest request)
         {
