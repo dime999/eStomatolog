@@ -12,3 +12,7 @@ Seminarski rad RS2
 - Lozinka: test
 
 ###NOTE: Za "MailingService" potrebno napraviti rezervaciju u mobilnoj aplikaciji, nakon čega servis šalje mail potvrde rezervacije.
+
+### Email za provjeru rada mikroservisa i slanja e-maila korisniku 
+- Email: estomatolog@outlook.com
+- Lozinka: RazvojSoftvera2!
