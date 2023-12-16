@@ -14,7 +14,7 @@ class PoklonBonProvider with ChangeNotifier {
 
   PoklonBonProvider() {
     _baseUrl = const String.fromEnvironment("baseUrl",
-        defaultValue: "https://10.0.2.2:7265/");
+        defaultValue: "http://10.0.2.2:7265/");
   }
 
   Future<SearchResult<PoklonBon>> getByPacijentId(int id) async {

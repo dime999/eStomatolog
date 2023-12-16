@@ -8,7 +8,7 @@ class PacijentProvider extends BaseProvider<Pacijent> {
   PacijentProvider() : super("Pacijent") {
     _baseUrl = const String.fromEnvironment(
       "ApiUrl",
-      defaultValue: "https://10.0.2.2:7265/",
+      defaultValue: "http://10.0.2.2:7265/",
     );
   }
 

@@ -10,7 +10,7 @@ class PacijentOrdinacijaProvider extends BaseProvider<PacijentOrdinacija> {
   PacijentOrdinacijaProvider() : super("GetPacijentiByOrdinacijaId") {
     _baseUrl = const String.fromEnvironment(
       "ApiUrl",
-      defaultValue: "https://10.0.2.2:7265/",
+      defaultValue: "http://10.0.2.2:7265/",
     );
   }
 
