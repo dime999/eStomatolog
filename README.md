@@ -11,10 +11,11 @@ Seminarski rad RS2
 - Korisničko ime: mobile
 - Lozinka: test
 
-  ### Mobile Aplikacija (Kreditna kartica)
+### Mobile Aplikacija (Kreditna kartica)
 - Broj: 1234 1234 1234 1234
 - Datum: 03/27
 - CCV: 009
+- Type: VISA
 
 ###NOTE: Za "MailingService" potrebno napraviti rezervaciju u mobilnoj aplikaciji, nakon čega servis šalje mail potvrde rezervacije.
 
