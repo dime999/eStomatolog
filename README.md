@@ -15,7 +15,7 @@ Seminarski rad RS2
 - Broj: 1234 1234 1234 1234
 - Datum: 03/27
 - CCV: 009
-- Type: VISA
+- Type: VISA/MasterCard
 
 ###NOTE: Za "MailingService" potrebno napraviti rezervaciju u mobilnoj aplikaciji, nakon čega servis šalje mail potvrde rezervacije.
 
