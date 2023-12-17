@@ -732,7 +732,6 @@ namespace eStomatologServices.Migrations
                     { 14, new DateTime(1900, 1, 1, 14, 30, 0, 0, DateTimeKind.Unspecified) },
                     { 15, new DateTime(1900, 1, 1, 15, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 16, new DateTime(1900, 1, 1, 15, 30, 0, 0, DateTimeKind.Unspecified) },
-                    { 17, new DateTime(1900, 1, 1, 16, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
