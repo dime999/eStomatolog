@@ -1,5 +1,7 @@
 <template>
-  <Navbar />
+  <div id="app">
+    <Navbar />
+  </div>
 </template>
 
 <script>
@@ -22,5 +24,20 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+#app::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../public/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(2px); 
+  z-index: -1; 
 }
 </style>

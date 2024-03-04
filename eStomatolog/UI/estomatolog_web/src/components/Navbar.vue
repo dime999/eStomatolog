@@ -69,7 +69,7 @@ li {
 }
 
 .navbar {
-  background-color: #007bff; 
+  background-color: rgba(0, 123, 255, 0.571); 
   color: white;
   font-family: Arial, sans-serif;
   position: fixed;
@@ -78,6 +78,7 @@ li {
   width: 100%;
   z-index: 1000;
 }
+
 
 .navbar-container {
   display: flex;
