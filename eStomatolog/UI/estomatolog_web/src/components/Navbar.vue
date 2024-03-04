@@ -61,6 +61,7 @@ export default {
 
 * {
   font-family: 'Roboto', sans-serif;
+  text-shadow: 2px 2px 0px black; 
 }
 
 li {

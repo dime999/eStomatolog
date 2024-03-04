@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <Navbar />
+    <Bodysection />
   </div>
 </template>
 
 <script>
 import Navbar from './components/Navbar.vue'
+import Bodysection from './components/Bodysection.vue'
 
 export default {
   name: 'App',
   components: {
-    Navbar
+    Navbar,
+    Bodysection
   }
 }
 </script>
@@ -40,4 +43,4 @@ export default {
   filter: blur(2px); 
   z-index: -1; 
 }
-</style>
+</style>./components/Bodysection.vue
