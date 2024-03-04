@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar">
     <div class="navbar-container">
-      <router-link v-if="!isMobile" to="/" class="navbar-logo">eStomatolog</router-link>
+      <router-link v-if="!isMobile" to="/" class="navbar-logo"> <span class="logo-icon"></span> eStomatolog</router-link>
       <div v-if="isMobile" class="mobile-menu">
         <div class="navbar-toggle-container">
           <button class="navbar-toggle" @click="toggleMenu" :class="{ 'open': isMobileMenuOpen }">
@@ -57,6 +57,12 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
 li {
   color: #333; 
   font-weight: bold; 
@@ -202,5 +208,14 @@ li {
 
 li{
   color: white;
+}
+.logo-icon {
+  display: inline-block;
+  width: 40px; 
+  height: 40px; 
+  background-image: url('../../public/logo.png'); 
+  background-size: cover; 
+  background-repeat: no-repeat;
+  margin-left: 5px;
 }
 </style>
