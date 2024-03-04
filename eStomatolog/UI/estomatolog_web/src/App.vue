@@ -1,16 +1,21 @@
 <template>
   <div id="app">
     <Bodysection />
+    <div id="ordinacije-bar-container">
+  <OrdinacijeBar />
+</div>
   </div>
 </template>
 
 <script>
 import Bodysection from './components/Bodysection.vue'
+import OrdinacijeBar from './components/Ordinacije.vue'
 
 export default {
   name: 'App',
   components: {
-    Bodysection
+    Bodysection,
+    OrdinacijeBar
   }
 }
 </script>
