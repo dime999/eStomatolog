@@ -43,7 +43,6 @@
        }
      },
      handleScroll() {
-      
        this.topOffset = window.pageYOffset > 60 ? '0' : '60px'; 
      }
    }
@@ -76,8 +75,26 @@
    margin-bottom: 20px; 
  }
  
- h2 {
+ h2{
    font-size: 4rem;
+   font-weight: bold;
+   color: white;
+   text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
+   margin-bottom: 10px;
+   margin-top: 20px; 
+ }
+
+ h3 {
+   font-size: 3rem;
+   font-weight: bold;
+   color: white;
+   text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
+   margin-bottom: 10px;
+   margin-top: 20px; 
+ }
+
+ p {
+   font-size: 2rem;
    font-weight: bold;
    color: white;
    text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
@@ -120,9 +137,9 @@
  .ordinacija-card {
    width: calc(20% - 20px); 
    margin: 10px;
-   border: 1px solid #ccc;
    border-radius: 10px;
    overflow: hidden;
+   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Jači 3D efekat */
  }
  
  .ordinacija-info {
