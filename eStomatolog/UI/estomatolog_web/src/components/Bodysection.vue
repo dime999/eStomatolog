@@ -1,11 +1,12 @@
 <template>
   <div class="welcome-section">
+    <img src="../../public/logo.png" alt="Logo" class="logo">
     <h1 class="title">Dobrodošli u eStomatolog!</h1>
     <p class="description">Otkrijte najbolje stomatološke ordinacije i upoznajte naše doktore.</p>
     <div class="buttons">
       <button class="button" @click="viewOffices">Pogledaj ordinacije</button>
-      <span class="button-spacer"></span> <!-- Razmak između dugmadi -->
       <button class="button" @click="viewDoctors">Pogledaj doktore</button>
+      <button class="button" @click="viewDoctors">Mobilna aplikacija</button>
     </div>
   </div>
 </template>
@@ -28,36 +29,38 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 * {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
 }
 
 .welcome-section {
   text-align: center;
-  margin-top: 350px;
+  margin-top: 100px;
 }
 
 .title {
-  font-size: 4rem; 
+  font-size: 4rem;
   font-weight: bold;
   color: white;
-  text-shadow: 2px 2px 0px black; 
+  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8); /* Povećavamo vrednost x i y za 2px, a prozirnost na 80% */
+  margin-bottom: 10px;
 }
 
 .description {
-  font-size: 2rem; 
+  font-size: 1.8rem;
   font-weight: bold;
-  margin-bottom: 20px; 
   color: white;
-  text-shadow: 2px 2px 0px black; 
+  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8); /* Povećavamo vrednost x i y za 2px, a prozirnost na 80% */
+  margin-bottom: 30px;
 }
-
 .buttons {
-  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .button {
   padding: 15px 30px;
-  font-size: 1.2rem;
+  font-size: 1.2rem; /* Povećavamo veličinu teksta na dugmadima */
   font-weight: bold;
   background-color: #007bff;
   color: white;
@@ -65,15 +68,17 @@ export default {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  text-shadow: 2px 2px 0px black; 
+  margin: 0 10px;
 }
 
 .button:hover {
   background-color: #0056b3;
 }
 
-.button-spacer {
-  width: 20px; 
-  display: inline-block;
+.logo {
+  width: 250px; /* Prilagodite veličinu prema potrebi */
+  height: auto;
+  margin-bottom: 20px; /* Prilagodite razmak između slike i teksta */
+  opacity: 0.9; /* Dodajemo prozirnost */
 }
 </style>
