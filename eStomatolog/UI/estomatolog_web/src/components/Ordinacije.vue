@@ -1,102 +1,137 @@
 <template>
-   <div class="ordinacije" :style="{ top: topOffset }">
-      <div class="ordinacija-card" v-for="(ordinacija, index) in ordinacije" :key="index">
-        <div :class="'ordinacija-slika' + index"></div>
-
-        <div class="ordinacija-info">
-          <h3>{{ ordinacija.naziv }}</h3>
-          <p>{{ ordinacija.adresa }}</p>
-          <p>{{ ordinacija.telefon }}</p>
+    <div class="ordinacije" :style="{ top: topOffset }">
+      <div class="ordinacije-info">
+        <h2>Pogledajte detalje o našim ordinacijama</h2> <!-- Dodajte ovo -->
+      </div>
+      <div class="ordinacije-cards">
+        <div class="ordinacija-card" v-for="(ordinacija, index) in ordinacije" :key="index">
+          <div :class="'ordinacija-slika' + index"></div>
+          <div class="ordinacija-info">
+            <h3>{{ ordinacija.naziv }}</h3>
+            <p>{{ ordinacija.adresa }}</p>
+            <p>{{ ordinacija.telefon }}</p>
+          </div>
         </div>
       </div>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    name: 'OrdinacijeBar',
-    data() {
-      return {
-        ordinacije: [],
-        topOffset: '60px' 
-      };
-    },
-    mounted() {
-      this.dohvatiOrdinacije();
-      window.addEventListener('scroll', this.handleScroll); 
-    },
-    beforeUnmount() {
-    window.removeEventListener('scroll', this.handleScroll); 
-  },
-    methods: {
-      async dohvatiOrdinacije() {
-        try {
-          const response = await fetch('http://localhost:7265/Ordinacija');
-          const data = await response.json();
-          this.ordinacije = data;
-        } catch (error) {
-          console.error('Greška pri dohvatu ordinacija:', error);
-        }
-      },
-      handleScroll() {
-      // Metoda za rukovanje skrolom
-      this.topOffset = window.pageYOffset > 60 ? '0' : '60px'; 
-    }
-    }
-  };
-  </script>
-  
-  <style scoped>
-  .ordinacije {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    background-color: white;
-    position: relative; 
-    width: 100%;
-    top: 100%; 
-    left: 0;
-    z-index: 1;
-    transition: top 0.3s ease;
-  }
-  .ordinacija-slika0 {
-  height: 250px;
-  background-image: url('../../public/klinika1.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-.ordinacija-slika1 {
-  height: 250px;
-  background-image: url('../../public/klinika2.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-.ordinacija-slika2 {
-  height: 250px;
-  background-image: url('../../public/klinika3.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-  
-  .ordinacija-card {
-    width: calc(20% - 20px); /* Širina trećine ekrana s razmakom od 20 piksela */
-    margin: 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px; /* Povećavamo radijus zaobljenja na karticama */
-    overflow: hidden;
-  }
-  
-
-  
-  .ordinacija-info {
-    padding: 15px; /* Povećavamo razmak između rubova kartice i sadržaja */
-  }
-  
-  .ordinacija-info h3 {
-    margin-top: 0;
-  }
-  </style>
+ </template>
+ 
+ <script>
+ export default {
+   name: 'OrdinacijeBar',
+   data() {
+     return {
+       ordinacije: [],
+       topOffset: '60px' 
+     };
+   },
+   mounted() {
+     this.dohvatiOrdinacije();
+     window.addEventListener('scroll', this.handleScroll); 
+   },
+   beforeUnmount() {
+     window.removeEventListener('scroll', this.handleScroll); 
+   },
+   methods: {
+     async dohvatiOrdinacije() {
+       try {
+         const response = await fetch('http://localhost:7265/Ordinacija');
+         const data = await response.json();
+         this.ordinacije = data;
+       } catch (error) {
+         console.error('Greška pri dohvatu ordinacija:', error);
+       }
+     },
+     handleScroll() {
+      
+       this.topOffset = window.pageYOffset > 60 ? '0' : '60px'; 
+     }
+   }
+ };
+ </script>
+ 
+ <style scoped>
+ @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+ 
+ * {
+   font-family: 'Montserrat', sans-serif;
+   box-sizing: border-box;
+ }
+ 
+ .ordinacije {
+   display: flex;
+   flex-direction: column; 
+   align-items: center; 
+   position: relative; 
+   width: 100%;
+   top: 100%; 
+   left: 0;
+   z-index: 1;
+   transition: top 0.3s ease;
+   margin-bottom: 50px; 
+ }
+ 
+ .ordinacije-info {
+   text-align: center; 
+   margin-bottom: 20px; 
+ }
+ 
+ h2 {
+   font-size: 4rem;
+   font-weight: bold;
+   color: white;
+   text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
+   margin-bottom: 10px;
+   margin-top: 20px; 
+ }
+ 
+ .ordinacije-cards {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-around;
+   width: 100%; 
+   margin-top: 100px;
+ }
+ 
+ .ordinacija-slika0 {
+   height: 250px;
+   background-image: url('../../public/klinika1.jpg');
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+ }
+ 
+ .ordinacija-slika1 {
+   height: 250px;
+   background-image: url('../../public/klinika2.jpg');
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+ }
+ 
+ .ordinacija-slika2 {
+   height: 250px;
+   background-image: url('../../public/klinika3.jpg');
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+ }
+ 
+ .ordinacija-card {
+   width: calc(20% - 20px); 
+   margin: 10px;
+   border: 1px solid #ccc;
+   border-radius: 10px;
+   overflow: hidden;
+ }
+ 
+ .ordinacija-info {
+   padding: 25px; 
+   margin-top: 20px; 
+   margin-bottom: 20px; 
+ }
+ 
+ .ordinacija-info h3 {
+   margin-top: 0;
+ }
+ </style>

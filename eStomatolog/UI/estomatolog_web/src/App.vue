@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <Bodysection />
-    <div id="ordinacije-bar-container">
-  <OrdinacijeBar />
-</div>
+    <div id="ordinacije-bar-container" class="full-width">
+      <OrdinacijeBar />
+    </div>
   </div>
 </template>
 
@@ -44,5 +44,8 @@ export default {
   background-repeat: no-repeat;
   filter: blur(4px); 
   z-index: -1; 
+}
+.full-width {
+  width: 100%; 
 }
 </style>
