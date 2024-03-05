@@ -27,6 +27,7 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
 #app {
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -47,10 +48,11 @@ export default {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: blur(4px); 
-  z-index: -1; 
+  filter: blur(4px);
+  z-index: -1;
 }
+
 .full-width {
-  width: 100%; 
+  width: 100%;
 }
 </style>

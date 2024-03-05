@@ -36,9 +36,9 @@ export default {
 .welcome-section {
   text-align: center;
   margin-top: 100px;
-  position: relative; 
-  z-index: 2; 
-  margin-bottom: 400px; 
+  position: relative;
+  z-index: 2;
+  margin-bottom: 400px;
 }
 
 
@@ -54,9 +54,10 @@ export default {
   font-size: 1.8rem;
   font-weight: bold;
   color: white;
-  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8); 
+  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
   margin-bottom: 30px;
 }
+
 .buttons {
   display: flex;
   justify-content: center;
@@ -64,7 +65,7 @@ export default {
 
 .button {
   padding: 15px 30px;
-  font-size: 1.2rem; 
+  font-size: 1.2rem;
   font-weight: bold;
   background-color: #007bff;
   color: white;
@@ -80,9 +81,9 @@ export default {
 }
 
 .logo {
-  width: 250px; 
+  width: 250px;
   height: auto;
-  margin-bottom: 20px; 
-  opacity: 0.9; 
+  margin-bottom: 20px;
+  opacity: 0.9;
 }
 </style>
