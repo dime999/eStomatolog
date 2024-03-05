@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-    <PopUp v-if="isPopupOpen" :ordinacija="selectedOrdinacija" :slike="ordinacijeSlikeIds" @close="closePopup" />
+    <PopUp v-if="isPopupOpen" :ordinacija="selectedOrdinacija" :slike="ordinacijeSlikeIds" :isOrdinacija="true" @close="closePopup" />
   </div>
 </template>
 

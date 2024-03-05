@@ -1,7 +1,7 @@
 <template>
     <div class="popup-overlay" @click="closePopup"></div>
     <div class="popup-large">
-      <div class="detail" style="margin-top: 100px;">
+      <div v-show="isOrdinacija" class="detail" style="margin-top: 100px;">
         <span>Naziv:</span>&nbsp;&nbsp; <h5 class="popup-heading">{{ ordinacija.naziv }}</h5>
       </div>
       <div class="detail">
@@ -13,6 +13,11 @@
       <div class="detail">
         <p class="popup-text"><strong>Radno vrijeme: 8:00 - 16:00</strong></p>
       </div>
+
+      <div v-show="isDoktor" class="detail" style="margin-top: 100px;">
+        <span>Ime:</span>&nbsp;&nbsp; <h5 class="popup-heading">{{ doktor.ime }}</h5>
+      </div>
+      
   
       <div class="image-container">
       <div class="content">
@@ -43,7 +48,10 @@
     name: 'PopUp',
     props: {
       ordinacija: Object,
-      slike: Array
+      doktor: Object,
+      slike: Array,
+      isOrdinacija: Boolean,
+      isDoktor: Boolean
     },
     data() {
       return {

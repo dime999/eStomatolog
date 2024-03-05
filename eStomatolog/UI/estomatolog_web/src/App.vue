@@ -4,18 +4,23 @@
     <div id="ordinacije-bar-container" class="full-width">
       <OrdinacijeBar />
     </div>
+    <div id="doktori-bar-container" class="full-width">
+      <DoktoriBar />
+    </div>
   </div>
 </template>
 
 <script>
 import Bodysection from './components/Bodysection.vue'
 import OrdinacijeBar from './components/Ordinacije.vue'
+import DoktoriBar from './components/Doktori.vue'
 
 export default {
   name: 'App',
   components: {
     Bodysection,
-    OrdinacijeBar
+    OrdinacijeBar,
+    DoktoriBar
   }
 }
 </script>

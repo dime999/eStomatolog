@@ -19,7 +19,7 @@ export default {
       document.getElementById('ordinacije-bar-container').scrollIntoView({ behavior: 'smooth' });
     },
     viewDoctors() {
-      // Logika za prikaz doktora
+      document.getElementById('doktori-bar-container').scrollIntoView({ behavior: 'smooth' });
     }
   }
 };
