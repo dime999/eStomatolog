@@ -5,7 +5,7 @@
       </div>
       <div class="doktori-cards">
         <div class="doktori-card" v-for="(doktor, index) in doktori" :key="index" @click="showDetails(doktori)">
-          <div :class="'doktori-slika' + index"></div>
+          <div class="doktori-slika"></div>
           <div class="doktori-info">
             <h3>{{ doktor.ime }}</h3>
             <p>{{ doktor.prezime }}</p>
@@ -167,6 +167,14 @@
    
    .doktori-info h3 {
      margin-top: 0;
+   }
+   .doktori-slika{
+    height: 300px;
+   background-image: url('../../public/lista_doktor.png');
+ 
+   background-size: contain;
+   background-position: center;
+   background-repeat: no-repeat;
    }
    </style>
   
