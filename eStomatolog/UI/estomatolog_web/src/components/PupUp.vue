@@ -17,12 +17,17 @@
       <div class="image-container">
       <div class="content">
         <div class="slider">
-          <img :src="currentImage" alt="Slika">
+          <img :src="currentImage" alt="Slika" class="image-frame">
         </div>
         <div class="controls">
-          <button @click="moveForward" :disabled="currentIndex === slike.length - 1">Naprijed</button>
-          <button @click="moveBackward" :disabled="currentIndex === 0">Nazad</button>
-        </div>
+  <button class="nav-button" @click="moveBackward" :disabled="currentIndex === 0">
+    <i class="fas fa-arrow-left"></i>
+  </button>
+  <button class="nav-button" @click="moveForward" :disabled="currentIndex === slike.length - 1">
+    <i class="fas fa-arrow-right"></i>
+  </button>
+</div>
+
       </div>
     </div>
     
@@ -32,6 +37,8 @@
   </template>
   
   <script>
+  import '@fortawesome/fontawesome-free/css/all.css'
+
   export default {
     name: 'PopUp',
     props: {
@@ -56,16 +63,16 @@
         try {
           const response = await fetch(`http://localhost:7265/SlikaStream?slikaId=${id}`);
           const blob = await response.blob();
-          console.log(1);
           this.currentImage = URL.createObjectURL(blob);
           this.loaded = true;
-          console.log(2);
         } catch (error) {
           console.error('Greška pri dohvatu slike:', error);
         }
       },
       async moveForward() {
-        if (this.currentIndex < this.slike.length - 1) {
+        console.log(this.slike);
+        console.log(this.slike.length);
+        if (this.slike && this.currentIndex < this.slike.slikeIds.length - 1)  {
           this.currentIndex++;
           await this.getSLike(this.slike.slikeIds[this.currentIndex]);
         }
@@ -138,8 +145,14 @@
   top: 40%; 
   transform: translateY(-50%);
   overflow: hidden; 
+  border: 2px solid #4e9af1; 
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
-
+.image-frame {
+  width: 100%;
+  border-radius: 8px;
+}
 .content {
   border: 1px solid #ccc; 
 }
@@ -158,7 +171,7 @@
 }
 
 .controls button {
-  margin: 0 10px;
+  margin: 10px 10px;
 }
 
 .close-button {
@@ -174,6 +187,34 @@
 }
 .close-button:hover {
   background-color: #ff4040; 
+}
+
+.nav-button {
+  background-color: #4e9af1; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-button:hover {
+  background-color: #3681d8; 
+}
+
+.nav-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7; 
+}
+
+
+.fa-arrow-left::before {
+  content: "\f060"; 
+}
+
+.fa-arrow-right::before {
+  content: "\f061"; 
 }
   </style>
   
