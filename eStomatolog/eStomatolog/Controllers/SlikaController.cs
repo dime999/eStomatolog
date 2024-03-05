@@ -26,7 +26,7 @@ namespace eStomatolog.Controllers
             return File(imageBytes, "image/jpeg");
         }
 
-        [Authorize(Roles = "Administrator, Korisnik")]
+        [AllowAnonymous]
         [HttpGet("/OrdinacijaSlikeIds")]
         public async Task<Galerija> GetOrdinacijaSlika([FromQuery] int ordinacijaId)
         {
@@ -43,7 +43,7 @@ namespace eStomatolog.Controllers
             return await service.InsertOrdinacijaSlika(request);
         }
 
-        [Authorize(Roles = "Administrator, Korisnik")]
+        [AllowAnonymous]
         [HttpGet("/DoktorSlikaIds")]
         public async Task<Galerija> GetDoktorSlika([FromQuery] int doktorId)
         {

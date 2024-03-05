@@ -19,7 +19,7 @@ namespace eStomatolog.Controllers
             this.service = service;
         }
 
-        [Authorize(Roles = "Administrator, Korisnik")]
+        [AllowAnonymous]
         [HttpGet("/GetSpecijalizacijeByDoktorId/{id}")]
         public async Task<IEnumerable<DoktoriSpecijalizacije>> GetByDoktorId(int id)
         {
