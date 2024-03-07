@@ -10,17 +10,23 @@
     <div v-show="isOrdinacija" class="detail">
       <span>Telefon:</span>&nbsp;&nbsp; <p class="popup-text">{{ ordinacija.telefon }}</p>
     </div>
-    <div v-show="isOrdinacija" class="detail">
+    <div v-show="isOrdinacija" class="detail" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);">
       <p class="popup-text"><strong>Radno vrijeme: 8:00 - 16:00</strong></p>
     </div>
+   
 
-    <div v-show="isDoktor" class="detail" style="margin-top: 100px;">
+    <div v-show="isDoktor" class="detail" style="margin-bottom: 50px; margin-left: 30%;">
       <span>Detaljne informacije doktora</span>
     </div>
     <div v-show="isDoktor" class="detail">
       <span>Ime i prezime:</span>&nbsp;&nbsp; <p class="popup-text">{{ doktor.ime }} {{ doktor.prezime }}</p>
     </div>
 
+    <div v-show="isDoktor" class="image-container">
+      <div class="content">
+        <div class="doktori-slika"></div>
+      </div>
+    </div>
 
     <div v-show="isOrdinacija" class="image-container">
       <div class="content">
@@ -40,7 +46,9 @@
     </div>
 
 
-    <button class="close-button" @click="closePopup">Zatvori</button>
+    <button class="close-button" @click="closePopup">
+      <i class="fas fa-times"></i> 
+    </button>
   </div>
 </template>
 
@@ -62,17 +70,28 @@ export default {
     },
     slike: {
       type: Array,
-      required: true,
+      required: false,
       default: () => []
     },
     isOrdinacija: Boolean,
-    isDoktor: Boolean
+    isDoktor: Boolean,
+    doktorSpecijalizacije: {
+      type: Array,
+      required: false,
+      default: () => []
+    },
   },
   data() {
     return {
       currentIndex: 0,
       currentImage: '',
-      loaded: false
+      loaded: false,
+      specijalizacije:[
+  { "specijalizacijaId": 1, "naziv": "Hirurgija" },
+  { "specijalizacijaId": 2, "naziv": "Endodoncija" },
+  { "specijalizacijaId": 3, "naziv": "Ortodoncija" }
+]
+
     };
   },
   async mounted() {
@@ -122,7 +141,14 @@ export default {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999;
 }
+.doktori-slika {
+    height: 300px;
+    background-image: url('../../public/lista_doktor.png');
 
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 .popup-large {
   position: fixed;
   top: 50%;
@@ -174,6 +200,7 @@ export default {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+
 .image-frame {
   width: 100%;
   border-radius: 8px;
@@ -200,16 +227,19 @@ export default {
   margin: 10px 10px;
 }
 
+
 .close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   background-color: #ff5959;
   color: white;
   border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
+  border-radius: 50%; 
+  padding: 10px;
   cursor: pointer;
-  width: 20%;
-  margin-top: 140px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1001; 
 }
 
 .close-button:hover {
@@ -243,4 +273,5 @@ export default {
 .fa-arrow-right::before {
   content: "\f061";
 }
+
 </style>

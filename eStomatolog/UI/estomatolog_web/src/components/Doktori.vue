@@ -12,7 +12,7 @@
                 </div>
             </div>
         </div>
-        <PopUp v-if="isPopupOpen" :ordinacija="selectedDoktor" :isDoktor="true" :doktor="selectedDoktor"
+        <PopUp v-if="isPopupOpen" :ordinacija="selectedDoktor" :isDoktor="true" :doktor="selectedDoktor" :doktorSpecijalizacije="specijalizacije"
             @close="closePopup" />
     </div>
 </template>
@@ -31,7 +31,8 @@ export default {
             topOffset: '60px',
             isPopupOpen: false,
             selectedDoktor: null,
-            bodyOverflow: false
+            bodyOverflow: false,
+            specijalizacije:[]
         };
     },
     mounted() {
@@ -57,6 +58,13 @@ export default {
         async showDetails(doktor) {
 
             this.selectedDoktor = doktor;
+            try {
+                const response = await fetch(`http://localhost:7265/GetSpecijalizacijeByDoktorId/${doktor.id}`);
+                const data = await response.json();
+                this.specijalizacije = data;
+            } catch (error) {
+                console.error('Greška pri dohvatu ordinacija:', error);
+            }
             this.isPopupOpen = true;
             this.bodyOverflow = true;
             const ordinacijaElements = document.getElementsByClassName('ordinacije');
