@@ -1,5 +1,5 @@
 <template>
-  <div class="ordinacije" :style="{ top: topOffset }">
+  <div class="ordinacije" :style="{ top: topOffset }" :class="{ 'no-scroll': bodyOverflow }">
     <div class="ordinacije-info">
       <h2>Pogledajte detalje o našim ordinacijama</h2>
     </div>
@@ -33,7 +33,8 @@ export default {
       topOffset: '60px',
       isPopupOpen: false,
       selectedOrdinacija: null,
-      ordinacijeSlikeIds: []
+      ordinacijeSlikeIds: [],
+      bodyOverflow: false
     };
   },
   mounted() {
@@ -67,9 +68,11 @@ export default {
         console.error('Greška pri dohvatu ordinacija:', error);
       }
       this.isPopupOpen = true;
+      this.bodyOverflow = true;
     },
     closePopup() {
       this.isPopupOpen = false;
+      this.bodyOverflow = false;
     }
   }
 };
@@ -82,6 +85,12 @@ export default {
   font-family: 'Montserrat', sans-serif;
   box-sizing: border-box;
 }
+
+.no-scroll {
+  overflow: hidden !important;
+    height: 100vh; 
+}
+
 
 .popup-overlay {
   position: fixed;

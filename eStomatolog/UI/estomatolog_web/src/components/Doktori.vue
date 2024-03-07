@@ -1,5 +1,5 @@
 <template>
-    <div class="doktori" :style="{ top: topOffset }">
+    <div class="doktori" :style="{ top: topOffset }" :class="{ 'no-scroll': bodyOverflow }">
         <div class="doktori-info">
             <h2>Pogledajte detalje o našim doktorima</h2>
         </div>
@@ -31,6 +31,7 @@ export default {
             topOffset: '60px',
             isPopupOpen: false,
             selectedDoktor: null,
+            bodyOverflow: false
         };
     },
     mounted() {
@@ -57,9 +58,39 @@ export default {
 
             this.selectedDoktor = doktor;
             this.isPopupOpen = true;
+            this.bodyOverflow = true;
+            const ordinacijaElements = document.getElementsByClassName('ordinacije');
+            const welcomeSectionElements = document.getElementsByClassName('welcome-section');
+
+            if (ordinacijaElements.length > 0) {
+                for (const elem of ordinacijaElements) {
+                    elem.style.zIndex = '-1';
+                }
+            }
+
+            if (welcomeSectionElements.length > 0) {
+                for (const elem of welcomeSectionElements) {
+                    elem.style.zIndex = '-1';
+                }
+            }
         },
         closePopup() {
             this.isPopupOpen = false;
+            this.bodyOverflow = false;
+            const ordinacijaElements = document.getElementsByClassName('ordinacije');
+            const welcomeSectionElements = document.getElementsByClassName('welcome-section');
+
+            if (ordinacijaElements.length > 0) {
+                for (const elem of ordinacijaElements) {
+                    elem.style.zIndex = '1';
+                }
+            }
+
+            if (welcomeSectionElements.length > 0) {
+                for (const elem of welcomeSectionElements) {
+                    elem.style.zIndex = '1';
+                }
+            }
         }
     }
 };
@@ -71,6 +102,11 @@ export default {
 * {
     font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
+}
+
+.no-scroll {
+    overflow: hidden !important;
+    height: 100vh;
 }
 
 .popup-overlay {
@@ -103,7 +139,7 @@ export default {
     width: 100%;
     top: 100%;
     left: 0;
-    z-index: 1;
+    z-index: 0;
     transition: top 0.3s ease;
     margin-bottom: 50px;
     padding-top: 50px;
@@ -164,6 +200,7 @@ p {
     padding: 25px;
     margin-top: 20px;
     margin-bottom: 20px;
+    z-index: -1;
 }
 
 .doktori-info h3 {

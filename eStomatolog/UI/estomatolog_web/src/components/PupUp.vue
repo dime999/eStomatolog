@@ -15,7 +15,10 @@
     </div>
 
     <div v-show="isDoktor" class="detail" style="margin-top: 100px;">
-      <span>Ime:</span>&nbsp;&nbsp; <h5 class="popup-heading">{{ doktor.ime }}</h5>
+      <span>Detaljne informacije doktora</span>
+    </div>
+    <div v-show="isDoktor" class="detail">
+      <span>Ime i prezime:</span>&nbsp;&nbsp; <p class="popup-text">{{ doktor.ime }} {{ doktor.prezime }}</p>
     </div>
 
 
@@ -117,7 +120,7 @@ export default {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+  z-index: 9999;
 }
 
 .popup-large {
@@ -129,9 +132,9 @@ export default {
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  z-index: 1000;
+  z-index: 10000;
   width: 50%;
-  height: 50%;
+  height: 60%;
   max-height: 80%;
   overflow-y: auto;
 }
