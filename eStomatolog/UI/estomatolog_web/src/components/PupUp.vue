@@ -21,6 +21,16 @@
     <div v-show="isDoktor" class="detail">
       <span>Ime i prezime:</span>&nbsp;&nbsp; <p class="popup-text">{{ doktor.ime }} {{ doktor.prezime }}</p>
     </div>
+    <div v-show="isDoktor" class="detail" style="margin-top: 30px;">
+  <span style="margin-right: 10px;
+  font-weight: bold;
+  font-size: 25px;">Specijalizacije</span>
+   <div class="specijalizacije-container">
+    <div v-for="(specijalizacija, index) in specijalizacije" :key="index" :class="['specijalizacija', specijalizacija.hasSpecijalizacija ? 'green-bg' : 'red-bg']">
+      <p>{{ specijalizacija.naziv }}</p>
+    </div>
+  </div>
+</div>
 
     <div v-show="isDoktor" class="image-container">
       <div class="content">
@@ -87,9 +97,9 @@ export default {
       currentImage: '',
       loaded: false,
       specijalizacije:[
-  { "specijalizacijaId": 1, "naziv": "Hirurgija" },
-  { "specijalizacijaId": 2, "naziv": "Endodoncija" },
-  { "specijalizacijaId": 3, "naziv": "Ortodoncija" }
+  { "specijalizacijaId": 1, "naziv": "Oralna hirurgija", "hasSpecijalizacija":false },
+  { "specijalizacijaId": 2, "naziv": "Endodoncija","hasSpecijalizacija":false },
+  { "specijalizacijaId": 3, "naziv": "Ortodoncija","hasSpecijalizacija":false }
 ]
 
     };
@@ -98,11 +108,25 @@ export default {
     if (this.isOrdinacija) {
       await this.getSLike(this.slike.slikeIds[this.currentIndex]);
     }
+    else{
+      this.checkSpecijalizacije();
+    }
   },
   methods: {
     closePopup() {
       this.$emit('close');
     },
+    checkSpecijalizacije() {
+    this.doktorSpecijalizacije.forEach(doktorSpec => {
+      this.specijalizacije.forEach(spec => {
+        if (doktorSpec.specijalizacijaNaziv === spec.naziv) {
+          spec.hasSpecijalizacija = true;
+        }
+      });
+    });
+    // Provera da li postoji bilo koja specijalizacija sa hasSpecijalizacija: true
+    this.hasSpecijalizacija = this.specijalizacije.some(spec => spec.hasSpecijalizacija);
+  },
     async getSLike(id) {
       try {
         const response = await fetch(`http://localhost:7265/SlikaStream?slikaId=${id}`);
@@ -132,6 +156,13 @@ export default {
 </script>
 
 <style>
+.specijalizacija.green-bg {
+  background-color: rgba(0, 199, 0, 0.5); 
+}
+
+.specijalizacija.red-bg {
+  background-color: rgba(255, 0, 0, 0.5); 
+}
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -273,5 +304,25 @@ export default {
 .fa-arrow-right::before {
   content: "\f061";
 }
+
+.specijalizacije-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-top: 60px;
+  display: block;
+  transform: translateX(-120%);
+}
+
+.specijalizacija {
+  border: 2px solid #4e9af1;
+  border-radius: 20px;
+  padding: 5px 15px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  background-color: #eaf6ff;
+ 
+}
+
 
 </style>
