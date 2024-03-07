@@ -215,4 +215,38 @@ p {
     background-position: center;
     background-repeat: no-repeat;
 }
+
+@media screen and (max-width: 768px) {
+
+  .doktori-card {
+    width: calc(50% - 20px);
+  }
+
+  h2 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+h3 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+p {
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+}
 </style>

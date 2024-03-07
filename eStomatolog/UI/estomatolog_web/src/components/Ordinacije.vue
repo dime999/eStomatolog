@@ -208,4 +208,43 @@ p {
 .ordinacija-info h3 {
   margin-top: 0;
 }
+
+@media screen and (max-width: 768px) {
+  .ordinacija-slika0,
+  .ordinacija-slika1,
+  .ordinacija-slika2 {
+    height: 150px; 
+  }
+
+  .ordinacija-card {
+    width: calc(50% - 20px);
+  }
+
+  h2 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+h3 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+p {
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+}
 </style>
