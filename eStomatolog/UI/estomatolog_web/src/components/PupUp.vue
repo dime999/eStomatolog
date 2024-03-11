@@ -37,6 +37,14 @@
         <div class="doktori-slika"></div>
       </div>
     </div>
+    <div v-show="isDoktor" class="ocjena-container">
+  <p class="ocjene">Prosječna ocjena doktora</p>
+  <div class="stars">
+    <span v-for="n in Math.round(prosjecnaOcjena)" :key="n" class="star-filled"></span>
+    <span v-for="n in 5 - Math.round(prosjecnaOcjena)" :key="'empty-' + n" class="star-empty"></span>
+  </div>
+</div>
+
 
     <div v-show="isOrdinacija" class="image-container">
       <div class="content">
@@ -90,6 +98,12 @@ export default {
       required: false,
       default: () => []
     },
+    prosjecnaOcjena: {
+      type: Number,
+      required: false,
+      default: () => 0.00
+    },
+
   },
   data() {
     return {
@@ -124,7 +138,6 @@ export default {
         }
       });
     });
-    // Provera da li postoji bilo koja specijalizacija sa hasSpecijalizacija: true
     this.hasSpecijalizacija = this.specijalizacije.some(spec => spec.hasSpecijalizacija);
   },
     async getSLike(id) {
@@ -156,6 +169,30 @@ export default {
 </script>
 
 <style>
+.ocjene{
+  font-size: 26px;
+  margin: 0;
+}
+
+.ocjena-container {
+  margin-top: 10px;
+}
+
+.stars {
+  unicode-bidi: bidi-override;
+  color: #f0c419;
+  font-size: 42px;
+  margin-top: 5px;
+}
+
+.star-filled::before {
+  content: "\2605"; 
+}
+
+.star-empty::before {
+  content: "\2606"; 
+}
+
 .specijalizacija.green-bg {
   background-color: rgba(0, 199, 0, 0.5); 
 }

@@ -12,8 +12,8 @@
                 </div>
             </div>
         </div>
-        <PopUp v-if="isPopupOpen" :ordinacija="selectedDoktor" :isDoktor="true" :doktor="selectedDoktor" :doktorSpecijalizacije="specijalizacije"
-            @close="closePopup" />
+        <PopUp v-if="isPopupOpen" :ordinacija="selectedDoktor" :isDoktor="true" :doktor="selectedDoktor"
+            :doktorSpecijalizacije="specijalizacije" :prosjecnaOcjena="prosjecnaOcjena" @close="closePopup" />
     </div>
 </template>
 
@@ -32,7 +32,9 @@ export default {
             isPopupOpen: false,
             selectedDoktor: null,
             bodyOverflow: false,
-            specijalizacije:[]
+            specijalizacije: [],
+            ocjene: [],
+            prosjecnaOcjena: 0.00
         };
     },
     mounted() {
@@ -58,6 +60,7 @@ export default {
         async showDetails(doktor) {
 
             this.selectedDoktor = doktor;
+            let prosjek = 0;
             try {
                 const response = await fetch(`http://localhost:7265/GetSpecijalizacijeByDoktorId/${doktor.id}`);
                 const data = await response.json();
@@ -65,6 +68,20 @@ export default {
             } catch (error) {
                 console.error('Greška pri dohvatu ordinacija:', error);
             }
+            try {
+                const response = await fetch(`http://localhost:7265/GetOcjeneByDoktorId/${doktor.id}`);
+                const data = await response.json();
+                this.ocjene = data;
+            } catch (error) {
+                console.error('Greška pri dohvatu ordinacija:', error);
+            }
+            for (let index = 0; index < this.ocjene.length; index++) {
+                prosjek += this.ocjene[index].ocjena;
+                console.log(prosjek, this.ocjene[index].ocjena);
+            }
+
+            this.prosjecnaOcjena = prosjek / this.ocjene.length;
+
             this.isPopupOpen = true;
             this.bodyOverflow = true;
             const ordinacijaElements = document.getElementsByClassName('ordinacije');
@@ -226,35 +243,35 @@ p {
 
 @media screen and (max-width: 768px) {
 
-  .doktori-card {
-    width: calc(50% - 20px);
-  }
+    .doktori-card {
+        width: calc(50% - 20px);
+    }
 
-  h2 {
-  font-size: 1rem;
-  font-weight: bold;
-  color: white;
-  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
-  margin-bottom: 10px;
-  margin-top: 20px;
-}
+    h2 {
+        font-size: 1rem;
+        font-weight: bold;
+        color: white;
+        text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+        margin-bottom: 10px;
+        margin-top: 20px;
+    }
 
-h3 {
-  font-size: 1rem;
-  font-weight: bold;
-  color: white;
-  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
-  margin-bottom: 10px;
-  margin-top: 20px;
-}
+    h3 {
+        font-size: 1rem;
+        font-weight: bold;
+        color: white;
+        text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+        margin-bottom: 10px;
+        margin-top: 20px;
+    }
 
-p {
-  font-size: 1rem;
-  font-weight: bold;
-  color: white;
-  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
-  margin-bottom: 10px;
-  margin-top: 20px;
-}
+    p {
+        font-size: 1rem;
+        font-weight: bold;
+        color: white;
+        text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+        margin-bottom: 10px;
+        margin-top: 20px;
+    }
 }
 </style>
