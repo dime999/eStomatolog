@@ -12,11 +12,11 @@ export default {
 
 <style scoped>
 .mobile-app {
-  /* Stilovi za MobileApp komponentu */
   position: relative;
-  width: 100%; /* Postavljanje širine na 100% */
-  height: 100%; /* Postavljanje visine na 100% */
-  overflow: hidden; /* Skrivanje sadržaja koji prelazi granice */
+  width: 100%; 
+  height: 100%; 
+  overflow: hidden; 
+  margin-top: 200px;
 }
 
 .mobile-app::before {
@@ -33,9 +33,9 @@ export default {
 }
 
 .footer-image {
-  width: 90%; /* Smanjujemo širinu slike */
-  padding: 20px; /* Dodajemo malo paddinga oko slike */
-  margin: auto; /* Centriramo sliku */
-  box-shadow: 0 100px 200px rgba(0, 0, 0, 0.1); /* Dodajemo sjenu */
+  width: 90%; 
+  padding: 20px; 
+  margin: auto; 
+  box-shadow: 0 100px 200px rgba(0, 0, 0, 0.1); 
 }
 </style>

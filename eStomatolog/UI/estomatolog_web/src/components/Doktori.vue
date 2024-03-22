@@ -166,7 +166,7 @@ export default {
     left: 0;
     z-index: 0;
     transition: top 0.3s ease;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
     padding-top: 50px;
     margin-top: 260px;
 }

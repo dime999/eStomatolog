@@ -54,7 +54,7 @@ export default {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: blur(2px);
+  filter: blur(3px);
   z-index: -1;
 }
 

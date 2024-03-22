@@ -119,6 +119,7 @@ export default {
     };
   },
   async mounted() {
+    this.disableBodyScroll();
     if (this.isOrdinacija) {
       await this.getSLike(this.slike.slikeIds[this.currentIndex]);
     }
@@ -129,6 +130,14 @@ export default {
   methods: {
     closePopup() {
       this.$emit('close');
+      this.enableBodyScroll();
+    },
+    disableBodyScroll() {
+      document.body.style.overflow = 'hidden';
+    },
+    // Metoda za ponovno omogućavanje skrolanja tijela stranice
+    enableBodyScroll() {
+      document.body.style.overflow = 'auto';
     },
     checkSpecijalizacije() {
     this.doktorSpecijalizacije.forEach(doktorSpec => {
