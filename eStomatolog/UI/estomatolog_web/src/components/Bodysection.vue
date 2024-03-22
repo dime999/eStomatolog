@@ -49,7 +49,7 @@ export default {
 .title {
   font-size: 4rem;
   font-weight: bold;
-  color: white;
+  color: rgb(69, 106, 251);
   text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
   margin-bottom: 10px;
 }
@@ -57,8 +57,8 @@ export default {
 .description {
   font-size: 1.8rem;
   font-weight: bold;
-  color: white;
-  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
+  color: rgb(69, 106, 251);
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
   margin-bottom: 30px;
 }
 

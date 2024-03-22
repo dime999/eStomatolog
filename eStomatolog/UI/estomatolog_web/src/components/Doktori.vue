@@ -149,7 +149,7 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
+    background-color: rgb(76, 109, 255);
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -179,8 +179,8 @@ export default {
 h2 {
     font-size: 4rem;
     font-weight: bold;
-    color: white;
-    text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
+    color: rgb(69, 106, 251);
+  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
     margin-bottom: 10px;
     margin-top: 20px;
 }
@@ -188,8 +188,8 @@ h2 {
 h3 {
     font-size: 3rem;
     font-weight: bold;
-    color: white;
-    text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
+    color: rgb(69, 106, 251);
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
     margin-bottom: 10px;
     margin-top: 20px;
 }
@@ -197,8 +197,8 @@ h3 {
 p {
     font-size: 2rem;
     font-weight: bold;
-    color: white;
-    text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
+    color: rgb(69, 106, 251);
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
     margin-bottom: 10px;
     margin-top: 20px;
 }

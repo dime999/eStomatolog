@@ -133,30 +133,30 @@ export default {
 }
 
 h2 {
-  font-size: 4rem;
-  font-weight: bold;
-  color: white;
+    font-size: 4rem;
+    font-weight: bold;
+    color: rgb(69, 106, 251);
   text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
-  margin-bottom: 10px;
-  margin-top: 20px;
+    margin-bottom: 10px;
+    margin-top: 20px;
 }
 
 h3 {
-  font-size: 3rem;
-  font-weight: bold;
-  color: white;
-  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
-  margin-bottom: 10px;
-  margin-top: 20px;
+    font-size: 3rem;
+    font-weight: bold;
+    color: rgb(69, 106, 251);
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
+    margin-bottom: 10px;
+    margin-top: 20px;
 }
 
 p {
-  font-size: 2rem;
-  font-weight: bold;
-  color: white;
-  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
-  margin-bottom: 10px;
-  margin-top: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: rgb(69, 106, 251);
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
+    margin-bottom: 10px;
+    margin-top: 20px;
 }
 
 .ordinacije-cards {

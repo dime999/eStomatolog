@@ -50,11 +50,11 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../public/background.jpg');
+  background-image: url('../public/background2.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: blur(4px);
+  filter: blur(2px);
   z-index: -1;
 }
 
