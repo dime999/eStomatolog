@@ -6,7 +6,7 @@
     <div class="buttons">
       <button class="button" @click="viewOffices">Pogledaj ordinacije</button>
       <button class="button" @click="viewDoctors">Pogledaj doktore</button>
-      <button class="button" @click="viewDoctors">Mobilna aplikacija</button>
+      <button class="button" @click="viewMobile">Mobilna aplikacija</button>
     </div>
   </div>
 </template>
@@ -20,7 +20,11 @@ export default {
     },
     viewDoctors() {
       document.getElementById('doktori-bar-container').scrollIntoView({ behavior: 'smooth' });
+    },
+    viewMobile() {
+      document.getElementById('mobile-bar-container').scrollIntoView({ behavior: 'smooth' });
     }
+
   }
 };
 </script>
