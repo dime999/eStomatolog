@@ -75,98 +75,105 @@ class _KarticeScreenState extends State<KarticeScreen> {
         Provider.of<KorisnikKarticaProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Moje kreditne kartice kartice'),
+        title: const Text(
+          'Moje kreditne kartice',
+          style: TextStyle(fontSize: 15),
+        ),
+        centerTitle: true,
       ),
-      body: ValueListenableBuilder<String>(
-        valueListenable: searchQueryNotifier,
-        builder: (context, searchQuery, child) {
-          return CustomListPregledKarticaScreen<KorisnikKartica>(
-            fetchData: (context) => fetchKartice(context, searchQuery),
-            getTitle: (kartica) => kartica.vrstaKartica,
-            getSubtitle: (kartica) => kartica.brojKartice,
-            getImagePath: (kartica) => _getImagePath(kartica),
-            onCardSelected: (kartica) => {},
-            onAddPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => CreditCard(
-                    korinik: korisnik,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ValueListenableBuilder<String>(
+          valueListenable: searchQueryNotifier,
+          builder: (context, searchQuery, child) {
+            return CustomListPregledKarticaScreen<KorisnikKartica>(
+              fetchData: (context) => fetchKartice(context, searchQuery),
+              getTitle: (kartica) => kartica.vrstaKartica,
+              getSubtitle: (kartica) => kartica.brojKartice,
+              getImagePath: (kartica) => _getImagePath(kartica),
+              onCardSelected: (kartica) => {},
+              onAddPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => CreditCard(
+                      korinik: korisnik,
+                    ),
                   ),
-                ),
-              ).then((value) {
-                setState(() {
-                  fetchKartice(context, "");
+                ).then((value) {
+                  setState(() {
+                    fetchKartice(context, "");
+                  });
                 });
-              });
-              ;
-            },
-            onDeletePressed: (kartica) {
-              try {
-                _korisnikKarticaProvider.delete(kartica.id);
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Row(
-                        children: [
-                          Icon(
-                            Icons.check_circle,
-                            color: Colors.green,
-                          ),
-                          SizedBox(width: 10),
-                          Text('Potvrda brisanja'),
-                        ],
-                      ),
-                      content: Text('Kartica je uspješno izbrisana!'),
-                      actions: [
-                        TextButton(
-                          onPressed: () async {
-                            var updatedKartice = await fetchKartice(
-                                context, searchQueryNotifier.value);
-                            setState(() {
-                              kartice = updatedKartice;
-                            });
-                            Navigator.of(context).pop();
-                          },
-                          child: Text('OK'),
+                ;
+              },
+              onDeletePressed: (kartica) {
+                try {
+                  _korisnikKarticaProvider.delete(kartica.id);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Row(
+                          children: [
+                            Icon(
+                              Icons.check_circle,
+                              color: Colors.green,
+                            ),
+                            SizedBox(width: 10),
+                            Text('Potvrda brisanja'),
+                          ],
                         ),
-                      ],
-                    );
-                  },
-                );
-              } catch (e) {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Row(
-                        children: [
-                          Icon(
-                            Icons.error,
-                            color: Colors.red,
+                        content: const Text('Kartica je uspješno izbrisana!'),
+                        actions: [
+                          TextButton(
+                            onPressed: () async {
+                              var updatedKartice = await fetchKartice(
+                                  context, searchQueryNotifier.value);
+                              setState(() {
+                                kartice = updatedKartice;
+                              });
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('OK'),
                           ),
-                          SizedBox(width: 10),
-                          Text('Potvrda brisanja'),
                         ],
-                      ),
-                      content: Text(e.toString()),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text('OK'),
+                      );
+                    },
+                  );
+                } catch (e) {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Row(
+                          children: [
+                            Icon(
+                              Icons.error,
+                              color: Colors.red,
+                            ),
+                            SizedBox(width: 10),
+                            Text('Potvrda brisanja'),
+                          ],
                         ),
-                      ],
-                    );
-                  },
-                );
-              }
-            },
-            searchController: searchController,
-          );
-        },
+                        content: Text(e.toString()),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
+              },
+              searchController: searchController,
+            );
+          },
+        ),
       ),
     );
   }

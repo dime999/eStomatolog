@@ -80,7 +80,10 @@ class _KarticePlacanjeScreenState extends State<KarticePlacanjeScreen> {
         Provider.of<KorisnikKarticaProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Moje kreditne kartice kartice'),
+        title: const Text(
+          'Moje kreditne kartice',
+          style: TextStyle(fontSize: 0),
+        ),
       ),
       body: ValueListenableBuilder<String>(
         valueListenable: searchQueryNotifier,
@@ -123,7 +126,7 @@ class _KarticePlacanjeScreenState extends State<KarticePlacanjeScreen> {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Row(
+                      title: const Row(
                         children: [
                           Icon(
                             Icons.check_circle,
@@ -133,7 +136,7 @@ class _KarticePlacanjeScreenState extends State<KarticePlacanjeScreen> {
                           Text('Potvrda brisanja'),
                         ],
                       ),
-                      content: Text('Kartica je uspješno izbrisana!'),
+                      content: const Text('Kartica je uspješno izbrisana!'),
                       actions: [
                         TextButton(
                           onPressed: () async {
@@ -144,7 +147,7 @@ class _KarticePlacanjeScreenState extends State<KarticePlacanjeScreen> {
                             });
                             Navigator.of(context).pop();
                           },
-                          child: Text('OK'),
+                          child: const Text('OK'),
                         ),
                       ],
                     );
@@ -155,7 +158,7 @@ class _KarticePlacanjeScreenState extends State<KarticePlacanjeScreen> {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Row(
+                      title: const Row(
                         children: [
                           Icon(
                             Icons.error,
@@ -171,7 +174,7 @@ class _KarticePlacanjeScreenState extends State<KarticePlacanjeScreen> {
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: Text('OK'),
+                          child: const Text('OK'),
                         ),
                       ],
                     );

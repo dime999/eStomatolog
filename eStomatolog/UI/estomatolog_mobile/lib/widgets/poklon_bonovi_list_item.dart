@@ -65,7 +65,7 @@ class PoklonBonoviListItem extends StatelessWidget {
                       Text(
                         naziv,
                         style: Theme.of(context).textTheme.headline6!.copyWith(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontWeight: FontWeight.bold,
                             ),
                       ),
@@ -74,7 +74,7 @@ class PoklonBonoviListItem extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .bodySmall!
-                            .copyWith(color: Colors.white),
+                            .copyWith(color: Colors.black),
                       ),
                     ],
                   ),

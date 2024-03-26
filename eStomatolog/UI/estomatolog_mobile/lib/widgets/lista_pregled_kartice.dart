@@ -61,7 +61,7 @@ class CustomListPregledKarticaScreen<T> extends StatelessWidget {
                           onTap: () => onCardSelected(item),
                           child: Container(
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
+                              border: Border.all(color: Colors.black),
                             ),
                             child: ListTile(
                               leading: Image.asset(getImagePath(item)),
@@ -80,8 +80,8 @@ class CustomListPregledKarticaScreen<T> extends StatelessWidget {
                           ));
                     } else {
                       return ListTile(
-                        title: Text('Dodajte novu karticu'),
-                        leading: Icon(Icons.add_circle_outline),
+                        title: const Text('Dodajte novu karticu'),
+                        leading: const Icon(Icons.add_circle_outline),
                         onTap: canAddCard ? onAddPressed : null,
                       );
                     }

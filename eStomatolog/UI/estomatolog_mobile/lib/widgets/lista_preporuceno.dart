@@ -89,7 +89,7 @@ class GenericListPregledRecomenndedScreen<T> extends StatelessWidget {
 
                     return Column(children: [
                       ListTile(
-                        leading: Image(
+                        leading: const Image(
                           image: AssetImage('assets/images/doctor_avatar.jpg'),
                           width: 50,
                           height: 50,

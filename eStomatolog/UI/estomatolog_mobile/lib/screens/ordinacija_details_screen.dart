@@ -7,6 +7,8 @@ import 'package:estomatolog_mobile/screens/poklon_bon.dart';
 import 'package:estomatolog_mobile/screens/rezervacija_screen.dart';
 import 'package:estomatolog_mobile/utils/util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class OrdinacijaDetailScreen extends StatefulWidget {
@@ -43,21 +45,352 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.red,
-        body: Stack(
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Stack(
           children: [
-            SizedBox(
-              height: 400,
-              width: double.infinity,
-              child: Image.asset(
-                'assets/images/klinika2.jpg',
-                fit: BoxFit.cover,
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  Stack(
+                    children: [
+                      SizedBox(
+                        width: width,
+                        height: height * 0.5,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: Image.asset(
+                            "assets/images/klinika1.jpg",
+                            fit: BoxFit.fitHeight,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 40,
+                        left: 20,
+                        right: 20,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.white, width: 1),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: const Icon(
+                                  Icons.arrow_back,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 20,
+                        left: 20,
+                        right: 20,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 18,
+                              height: 18,
+                              margin: const EdgeInsets.only(left: 10),
+                              decoration: BoxDecoration(
+                                color: Colors.black,
+                                border: Border.all(
+                                  color: Colors.grey[300]!,
+                                ),
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            Container(
+                              width: 10,
+                              height: 10,
+                              margin: const EdgeInsets.only(left: 10),
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[300],
+                                  shape: BoxShape.circle),
+                            ),
+                            Container(
+                              width: 10,
+                              height: 10,
+                              margin: const EdgeInsets.only(left: 10),
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[300],
+                                  shape: BoxShape.circle),
+                            ),
+                            Container(
+                              width: 10,
+                              height: 10,
+                              margin: const EdgeInsets.only(left: 10),
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[300],
+                                  shape: BoxShape.circle),
+                            ),
+                            Container(
+                              width: 10,
+                              height: 10,
+                              margin: const EdgeInsets.only(left: 10),
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[300],
+                                  shape: BoxShape.circle),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  ordinacija!.naziv,
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 22,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 60,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: 10.0, bottom: 4.0),
+                                      child: Text(
+                                        'Pogledaj sve',
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            color: Colors.grey[500]),
+                                      ),
+                                    ),
+                                    RatingBar.builder(
+                                      initialRating: 4.5,
+                                      minRating: 1,
+                                      direction: Axis.horizontal,
+                                      allowHalfRating: true,
+                                      itemCount: 5,
+                                      itemSize: 18,
+                                      itemPadding: const EdgeInsets.symmetric(
+                                          horizontal: 5.0),
+                                      itemBuilder: (context, _) => const Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                      ),
+                                      onRatingUpdate: (rating) {
+                                        print(rating);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Icon(
+                                  FontAwesomeIcons.locationDot,
+                                  color: Colors.blue,
+                                  size: 15,
+                                ),
+                                const SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  ordinacija!.adresa,
+                                  style: const TextStyle(
+                                      color: Colors.black38, fontSize: 13),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Icon(
+                                  FontAwesomeIcons.mobileScreenButton,
+                                  color: Colors.blue,
+                                  size: 18,
+                                ),
+                                const SizedBox(
+                                  width: 2,
+                                ),
+                                Text(
+                                  ordinacija!.telefon,
+                                  style: const TextStyle(
+                                      color: Colors.black38, fontSize: 13),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Divider(),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                    width: width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Opis",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          ordinacija != null
+                              ? 'Naša ordinacija se zove ${ordinacija!.naziv} i nalazimo se na adresi ${ordinacija!.adresa}. Naše ljubazno osoblje će vas primiti i riješiti bilo koji problem koji imate sa oralnim zdravljem. '
+                              : 'Podaci o ordinaciji nisu dostupni',
+                          style: const TextStyle(fontSize: 13),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(
+                      bottom: height * 0.12,
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                    width: width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Lista doktora",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        _doctorList(),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
-            buttonArrow(context),
-            scroll(isSelected),
+            Positioned(
+              bottom: 0,
+              left: 15,
+              right: 15,
+              child: Container(
+                width: width,
+                height: height * 0.12,
+                decoration: BoxDecoration(
+                  color: Colors.white.withAlpha(200),
+                ),
+                child: Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PoklonBonScreen(
+                              ordinacijaId: widget.ordinacijaId,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: height * 0.068,
+                        padding: const EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                          color: Colors.blue[600],
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: const Icon(
+                          FontAwesomeIcons.gift,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => RezervacijaScreen(
+                                korisnikId: Authorization.korisnikId,
+                                ordinacijaId: widget.ordinacijaId,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: height * 0.068,
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 5,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              "Rezervisi termin",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -98,176 +431,55 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
     );
   }
 
-  Widget scroll(bool isSelected) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 170),
+  Widget _doctorList() {
+    return InkWell(
+      onTap: () {},
       child: Container(
-        height: 600,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+        width: 200,
+        height: 80,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.black,
           ),
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.blue[300],
         ),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 10, bottom: 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 5,
-                      width: 35,
-                      color: Colors.blue,
-                    ),
-                  ],
+              Container(
+                height: 50,
+                width: 50,
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black, width: 1),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              ),
-              RichText(
-                text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'Naziv: ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue,
-                        fontSize: 18.0,
-                      ),
-                    ),
-                    TextSpan(
-                      text: ordinacija?.naziv ?? '',
-                      style: TextStyle(fontSize: 18.0, color: Colors.black),
-                    ),
-                  ],
+                child: const CircleAvatar(
+                  radius: 10,
+                  backgroundImage: AssetImage('assets/images/avatar.png'),
                 ),
               ),
               const SizedBox(
-                height: 5,
-              ),
-              RichText(
-                text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'Adresa: ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue,
-                        fontSize: 16.0,
-                      ),
-                    ),
-                    TextSpan(
-                      text: ordinacija?.adresa ?? '',
-                      style: TextStyle(fontSize: 16.0, color: Colors.black),
-                    ),
-                  ],
-                ),
-                textScaleFactor: 1.0,
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              RichText(
-                text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'Broj: ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue,
-                        fontSize: 16.0,
-                      ),
-                    ),
-                    TextSpan(
-                      text: ordinacija?.telefon ?? '',
-                      style: TextStyle(fontSize: 16.0, color: Colors.black),
-                    ),
-                  ],
-                ),
-                textScaleFactor: 1.0,
-              ),
-              const SizedBox(
-                height: 10,
+                width: 5,
               ),
               const Padding(
-                padding: EdgeInsets.symmetric(vertical: 15),
-                child: Divider(
-                  height: 4,
+                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 3.0),
+                child: Column(
+                  children: [
+                    Text(
+                      'IME I PREZIME DOKTORA',
+                      style:
+                          TextStyle(fontSize: 10, fontWeight: FontWeight.w700),
+                    ),
+                    Text(
+                      'SPECIJALIZACIJA',
+                      style:
+                          TextStyle(fontSize: 10, fontWeight: FontWeight.w700),
+                    ),
+                  ],
                 ),
-              ),
-              const Text(
-                "Opis",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                ordinacija != null
-                    ? 'Naša ordinacija se zove ${ordinacija!.naziv} i nalazimo se na adresi ${ordinacija!.adresa}. Naše ljubazno osoblje će vas primiti i riješiti bilo koji problem koji imate sa oralnim zdravljem. '
-                    : 'Podaci o ordinaciji nisu dostupni',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText2!
-                    .copyWith(color: Colors.black),
-              ),
-              GridView.count(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                crossAxisCount: 2,
-                crossAxisSpacing: 8,
-                mainAxisSpacing: 0,
-                children: [
-                  _buildItem('Rezervacija', 'assets/images/reservation.png',
-                      () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => RezervacijaScreen(
-                          korisnikId: Authorization.korisnikId,
-                          ordinacijaId: widget.ordinacijaId,
-                        ),
-                      ),
-                    );
-                  }),
-                  _buildItem('Galerija', 'assets/images/galerija.png', () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => GalerijaScreen(
-                          ordinacijaId: widget.ordinacijaId,
-                        ),
-                      ),
-                    );
-                  }),
-                  _buildItem('Lista doktora', 'assets/images/lista_doktor.png',
-                      () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DoctorsOrdinacijaScreen(
-                          ordinacijaId: widget.ordinacijaId,
-                        ),
-                      ),
-                    );
-                  }),
-                  _buildItem('Poklon bonovi', 'assets/images/poklon.png', () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PoklonBonScreen(
-                                ordinacijaId: widget.ordinacijaId,
-                              )),
-                    );
-                  }),
-                ],
               )
             ],
           ),
@@ -298,7 +510,8 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
               ),
               Text(
                 label,
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
             ],
           ),

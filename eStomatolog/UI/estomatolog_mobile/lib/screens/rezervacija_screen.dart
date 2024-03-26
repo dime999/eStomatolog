@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:estomatolog_mobile/models/Doktor/doktor_ordinacija.dart';
 import 'package:estomatolog_mobile/models/Pacijent/pacijent.dart';
 import 'package:estomatolog_mobile/models/Rezervacija/rezervacija_insert.dart';
@@ -7,6 +8,7 @@ import 'package:estomatolog_mobile/providers/doktor_ordinacija_provider.dart';
 import 'package:estomatolog_mobile/providers/pacijent_provider.dart';
 import 'package:estomatolog_mobile/providers/rezervacija_provider.dart';
 import 'package:estomatolog_mobile/providers/termin_provider.dart';
+import 'package:estomatolog_mobile/screens/success_reservation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +29,7 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
   List<TerminZauzeti> _zauzetiTermini = [];
   List<DoktorOrdinacija> doktori = [];
   late Pacijent pacijent;
+  late bool _isVisible = true;
 
   @override
   void initState() {
@@ -107,6 +110,7 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
       var zauzeti_termini = await fetchZauzetiTermini(context, _selectedDate!);
       setState(() {
         _zauzetiTermini = zauzeti_termini;
+        _isVisible = true;
       });
     }
   }
@@ -130,18 +134,22 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: const Text("Rezervacija pregleda"),
+        title: const Text(
+          "Rezervacija pregleda",
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+        ),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Izaberite datum na koji želite rezervisati pregled:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
@@ -151,15 +159,18 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
                 ),
                 onPressed: () => _selectDate(context),
                 child: Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Text(_selectedDate != null
-                      ? 'Datum: ${_selectedDate!.day}.${_selectedDate!.month}.${_selectedDate!.year}'
-                      : 'Izaberi Datum'),
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
+                    _selectedDate != null
+                        ? 'Datum: ${_selectedDate!.day}.${_selectedDate!.month}.${_selectedDate!.year}'
+                        : 'Izaberi Datum',
+                    style: const TextStyle(color: Colors.white),
+                  ),
                 )),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Expanded(
               child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 3,
                 ),
@@ -184,27 +195,29 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
                               builder:
                                   (BuildContext context, StateSetter setState) {
                                 return Padding(
-                                  padding: const EdgeInsets.all(16.0),
+                                  padding: const EdgeInsets.all(18.0),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
+                                      const Text(
                                         'Unesite email za potvrdu rezervacije:',
                                         style: TextStyle(
-                                          fontSize: 18,
+                                          fontSize: 13,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      SizedBox(height: 16),
+                                      const SizedBox(height: 10),
                                       Container(
                                         width: 300,
                                         child: TextField(
                                             decoration: InputDecoration(
                                               labelText:
                                                   'Email za potvrdu rezervacije',
-                                              prefixIcon: Icon(Icons.email),
-                                              border: OutlineInputBorder(),
+                                              prefixIcon:
+                                                  const Icon(Icons.email),
+                                              border:
+                                                  const OutlineInputBorder(),
                                               errorText: _isEmailValid
                                                   ? null
                                                   : 'Unesite ispravnu e-mail adresu',
@@ -219,15 +232,15 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
                                               });
                                             }),
                                       ),
-                                      SizedBox(height: 16),
-                                      Text(
+                                      const SizedBox(height: 16),
+                                      const Text(
                                         'Izaberite doktora:',
                                         style: TextStyle(
-                                          fontSize: 18,
+                                          fontSize: 13,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      SizedBox(height: 16),
+                                      const SizedBox(height: 16),
                                       Container(
                                         width: 300,
                                         child: DropdownButtonFormField<String>(
@@ -239,7 +252,7 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
                                                   selectedDoctorId);
                                             });
                                           },
-                                          decoration: InputDecoration(
+                                          decoration: const InputDecoration(
                                             labelText: 'Izaberite doktora',
                                             prefixIcon: Icon(Icons.person),
                                             border: OutlineInputBorder(),
@@ -257,71 +270,87 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
                                           ).toList(),
                                         ),
                                       ),
-                                      SizedBox(height: 16),
+                                      const SizedBox(height: 16),
                                       Text(
                                         'Vaša rezervacija će biti spremljena za datum ${DateFormat('dd.MM.yyyy').format(_selectedDate!)} u terminu ${DateFormat('HH:mm').format(_termini[index].vrijeme)}, ukoliko rezervacija bude uspješna bit ćete obaviješteni emailom.',
-                                        style: TextStyle(
-                                          fontSize: 14,
+                                        style: const TextStyle(
+                                          fontSize: 12,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      SizedBox(height: 8),
+                                      const SizedBox(height: 4),
                                       Align(
-                                        alignment: Alignment.bottomRight,
+                                        alignment: Alignment.bottomCenter,
                                         child: Padding(
                                           padding: const EdgeInsets.all(16.0),
-                                          child: ElevatedButton(
-                                            onPressed: () async {
-                                              _rezervacijaProvider = Provider
-                                                  .of<RezervacijaProvider>(
-                                                      context,
-                                                      listen: false);
-                                              RezervacijaInsert
-                                                  rezervacijaInsert =
-                                                  RezervacijaInsert(
-                                                      _selectedDate!,
-                                                      _emailContorller.text,
-                                                      pacijent.id,
-                                                      widget.ordinacijaId,
-                                                      odabraniDoktor!,
-                                                      _termini[index].terminId);
-                                              print(rezervacijaInsert);
+                                          child: Container(
+                                            width: double.infinity,
+                                            child: ElevatedButton(
+                                              style: const ButtonStyle(),
+                                              onPressed: () async {
+                                                _rezervacijaProvider = Provider
+                                                    .of<RezervacijaProvider>(
+                                                        context,
+                                                        listen: false);
+                                                RezervacijaInsert
+                                                    rezervacijaInsert =
+                                                    RezervacijaInsert(
+                                                        _selectedDate!,
+                                                        _emailContorller.text,
+                                                        pacijent.id,
+                                                        widget.ordinacijaId,
+                                                        odabraniDoktor!,
+                                                        _termini[index]
+                                                            .terminId);
+                                                print(rezervacijaInsert);
 
-                                              try {
-                                                await _rezervacijaProvider
-                                                    .insert(rezervacijaInsert);
-                                                Navigator.of(context).pop();
-                                                // ignore: use_build_context_synchronously
-                                                showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return AlertDialog(
-                                                      title: Text(
-                                                          'Potvrda rezervacije'),
-                                                      content: Text(
-                                                          'Rezervacija je uspešno potvrđena!'),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () {
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop();
-                                                            _refreshData();
-                                                          },
-                                                          child: Text('OK'),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                );
-                                              } catch (e) {
-                                                print(
-                                                    "Greška prilikom dodavanja: $e");
-                                                Navigator.of(context).pop();
-                                              }
-                                            },
-                                            child: Text('Potvrdi rezervaciju'),
+                                                try {
+                                                  await _rezervacijaProvider
+                                                      .insert(
+                                                          rezervacijaInsert);
+                                                  // ignore: use_build_context_synchronously
+                                                  Navigator.of(context).pop();
+                                                  // ignore: use_build_context_synchronously
+                                                  showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return AlertDialog(
+                                                        title: const Text(
+                                                            'Potvrda rezervacije'),
+                                                        content: const Text(
+                                                            'Rezervacija je uspešno potvrđena!'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () {
+                                                              Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                  builder: (_) =>
+                                                                      SuccessReservatioScreen(
+                                                                    korisnikId:
+                                                                        widget
+                                                                            .korisnikId,
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                            child: const Text(
+                                                                'OK'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+                                                } catch (e) {
+                                                  print(
+                                                      "Greška prilikom dodavanja: $e");
+                                                  Navigator.of(context).pop();
+                                                }
+                                              },
+                                              child: const Text(
+                                                  'Potvrdi rezervaciju'),
+                                            ),
                                           ),
                                         ),
                                       )
@@ -334,32 +363,41 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
                         );
                       }
                     },
-                    child: Container(
-                      margin: EdgeInsets.all(8),
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: isTerminZauzet ? Colors.red : Colors.green,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                        color: isTerminZauzet
-                            ? Colors.red.withOpacity(0.1)
-                            : Colors.green.withOpacity(0.1),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          isTerminZauzet
-                              ? Icon(Icons.event_busy,
-                                  color: Colors.red, size: 24)
-                              : Icon(Icons.event_available,
-                                  color: Colors.green, size: 24),
-                          SizedBox(width: 8),
-                          Text(
-                            DateFormat.Hm().format(_termini[index].vrijeme),
-                            style: TextStyle(fontSize: 16),
+                    child: FadeInDown(
+                      child: AnimatedOpacity(
+                        opacity: _isVisible
+                            ? 1.0
+                            : 0.0, // Postavite opacity na 1.0 ako je element vidljiv, inače na 0.0
+                        duration: const Duration(
+                            milliseconds: 500), // Trajanje animacije
+                        child: Container(
+                          margin: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: isTerminZauzet ? Colors.red : Colors.green,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                            color: isTerminZauzet
+                                ? Colors.red.withOpacity(0.1)
+                                : Colors.green.withOpacity(0.1),
                           ),
-                        ],
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              isTerminZauzet
+                                  ? const Icon(Icons.event_busy,
+                                      color: Colors.red, size: 24)
+                                  : const Icon(Icons.event_available,
+                                      color: Colors.green, size: 24),
+                              const SizedBox(width: 8),
+                              Text(
+                                DateFormat.Hm().format(_termini[index].vrijeme),
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   );

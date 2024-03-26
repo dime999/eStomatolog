@@ -64,13 +64,18 @@ class GenericListNalazScreen<T> extends StatelessWidget {
                     var date = getFormattedDate(item);
 
                     return Container(
-                      padding: EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black, width: 2.0),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      padding: const EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           ListTile(
-                            contentPadding: EdgeInsets.all(0),
-                            leading: Image(
+                            contentPadding:
+                                const EdgeInsets.symmetric(vertical: 10.0),
+                            leading: const Image(
                               image: AssetImage('assets/images/nalaz.jpg'),
                               width: 50,
                               height: 50,
@@ -79,7 +84,7 @@ class GenericListNalazScreen<T> extends StatelessWidget {
                               text: TextSpan(
                                 style: DefaultTextStyle.of(context).style,
                                 children: <TextSpan>[
-                                  TextSpan(
+                                  const TextSpan(
                                     text: 'Datum: ',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -88,8 +93,8 @@ class GenericListNalazScreen<T> extends StatelessWidget {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: '$date',
-                                    style: TextStyle(
+                                    text: date,
+                                    style: const TextStyle(
                                       fontSize: 16.0,
                                     ),
                                   ),
@@ -100,7 +105,7 @@ class GenericListNalazScreen<T> extends StatelessWidget {
                               text: TextSpan(
                                 style: DefaultTextStyle.of(context).style,
                                 children: <TextSpan>[
-                                  TextSpan(
+                                  const TextSpan(
                                     text: 'Doktor: ',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -109,8 +114,8 @@ class GenericListNalazScreen<T> extends StatelessWidget {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: '${getDoctorName(item)}',
-                                    style: TextStyle(
+                                    text: getDoctorName(item),
+                                    style: const TextStyle(
                                       fontSize: 16.0,
                                     ),
                                   ),
@@ -118,12 +123,12 @@ class GenericListNalazScreen<T> extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(height: 8.0),
+                          const SizedBox(height: 8.0),
                           RichText(
                             text: TextSpan(
                               style: DefaultTextStyle.of(context).style,
                               children: <TextSpan>[
-                                TextSpan(
+                                const TextSpan(
                                   text: 'Nalaz:  ',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -133,16 +138,12 @@ class GenericListNalazScreen<T> extends StatelessWidget {
                                 ),
                                 TextSpan(
                                   text: getOpis(item),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 16.0,
                                   ),
                                 ),
                               ],
                             ),
-                          ),
-                          Divider(
-                            color: Colors.grey,
-                            thickness: 1.0,
                           ),
                         ],
                       ),

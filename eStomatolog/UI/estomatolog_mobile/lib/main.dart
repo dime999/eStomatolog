@@ -15,7 +15,7 @@ import 'package:estomatolog_mobile/providers/rezervacija_provider.dart';
 import 'package:estomatolog_mobile/providers/slika_provider.dart';
 import 'package:estomatolog_mobile/providers/specijalizacija_provider.dart';
 import 'package:estomatolog_mobile/providers/termin_provider.dart';
-import 'package:estomatolog_mobile/screens/login_screen.dart';
+import 'package:estomatolog_mobile/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:io';
@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Stomatolog',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: LoginPage(),
+      home: const SplashScreen(),
     );
   }
 }

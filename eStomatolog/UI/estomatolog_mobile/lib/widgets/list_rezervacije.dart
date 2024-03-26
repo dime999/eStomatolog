@@ -65,75 +65,82 @@ class GenericListRezervacijeScreen<T> extends StatelessWidget {
                     var item = filteredList[index];
                     var date = getFormattedDate(item);
                     var pastReservation = isPastReservation(item);
-                    return Container(
-                      child: ListTile(
-                        leading: Image(
-                          image: AssetImage('assets/images/reservation.png'),
-                          width: 40,
-                          height: 40,
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black, width: 2.0),
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
-                        subtitle: RichText(
-                          text: TextSpan(
-                            style: DefaultTextStyle.of(context).style,
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: 'Datum: ',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue,
-                                  fontSize: 16.0,
-                                ),
-                              ),
-                              TextSpan(
-                                text: '$date',
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                ),
-                              ),
-                            ],
+                        child: ListTile(
+                          leading: const Image(
+                            image: AssetImage('assets/images/reservation.png'),
+                            width: 40,
+                            height: 40,
                           ),
-                        ),
-                        title: RichText(
-                          text: TextSpan(
-                            style: DefaultTextStyle.of(context).style,
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: 'Doktor: ',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue,
-                                  fontSize: 16.0,
+                          subtitle: RichText(
+                            text: TextSpan(
+                              style: DefaultTextStyle.of(context).style,
+                              children: <TextSpan>[
+                                const TextSpan(
+                                  text: 'Datum: ',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue,
+                                    fontSize: 16.0,
+                                  ),
                                 ),
-                              ),
-                              TextSpan(
-                                text: '${getDoctorName(item)}',
-                                style: TextStyle(
-                                  fontSize: 16.0,
+                                TextSpan(
+                                  text: date,
+                                  style: const TextStyle(
+                                    fontSize: 16.0,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            if (pastReservation)
-                              Text(
-                                "NEAKTIVNO",
-                                style:
-                                    TextStyle(color: Colors.red, fontSize: 14),
-                              ),
-                            if (!pastReservation)
-                              Text(
-                                "AKTIVNO",
-                                style: TextStyle(
-                                    color: Colors.green, fontSize: 14),
-                              ),
-                            IconButton(
-                              icon: const Icon(Icons.delete),
-                              onPressed: () => onDeletePressed(item),
+                              ],
                             ),
-                          ],
+                          ),
+                          title: RichText(
+                            text: TextSpan(
+                              style: DefaultTextStyle.of(context).style,
+                              children: <TextSpan>[
+                                const TextSpan(
+                                  text: 'Doktor: ',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue,
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: getDoctorName(item),
+                                  style: const TextStyle(
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (pastReservation)
+                                const Text(
+                                  "NEAKTIVNO",
+                                  style: TextStyle(
+                                      color: Colors.red, fontSize: 14),
+                                ),
+                              if (!pastReservation)
+                                const Text(
+                                  "AKTIVNO",
+                                  style: TextStyle(
+                                      color: Colors.green, fontSize: 14),
+                                ),
+                              IconButton(
+                                icon: const Icon(Icons.delete),
+                                onPressed: () => onDeletePressed(item),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:estomatolog_mobile/models/Ordinacija/ordinacija_pacijent.dart';
 import 'package:estomatolog_mobile/models/Pacijent/pacijent.dart';
 import 'package:estomatolog_mobile/providers/pacijent_ordinacija_provider.dart';
@@ -59,111 +61,174 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
-        backgroundColor: Colors.grey[300],
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 50),
-            child: Column(
-              children: [
-                Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
+      backgroundColor: Colors.grey[200],
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              margin: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: height * 0.065,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                        child: CircleAvatar(
-                          radius: 45.0,
-                          backgroundColor: Colors.white,
-                          child: CircleAvatar(
-                            radius: 38.0,
+                      // Container(
+                      //   padding: const EdgeInsets.all(8),
+                      //   decoration: BoxDecoration(
+                      //     border: Border.all(color: Colors.black12, width: 1),
+                      //     borderRadius: BorderRadius.circular(10),
+                      //   ),
+                      //   child: const Icon(
+                      //     Icons.menu,
+                      //   ),
+                      // ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Dobrodošli nazad",
+                            style: TextStyle(
+                              fontFamily: 'SF Pro',
+                              fontSize: 14,
+                              color: Colors.black38,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.person,
+                                color: Colors.blue[700],
+                                size: 16,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                '${Authorization.korisnickoIme}',
+                                style: const TextStyle(
+                                  fontFamily: 'SF Pro',
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 18.0,
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const ProfileScreen(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 60,
+                          width: 60,
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black12, width: 1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const CircleAvatar(
+                            radius: 10,
                             backgroundImage:
                                 AssetImage('assets/images/avatar.png'),
                           ),
                         ),
                       ),
-                      Center(
-                        child: Container(
-                          padding: EdgeInsets.only(top: 16.0),
-                          child: Text(
-                            'Pozdrav ${Authorization.korisnickoIme}',
-                            style: TextStyle(
-                              fontFamily: 'SF Pro',
-                              fontWeight: FontWeight.w700,
-                              fontSize: 24.0,
+                    ],
+                  ),
+                  SizedBox(
+                    height: height * 0.04,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.search,
+                          color: Colors.blue[200],
+                          size: 28,
+                        ),
+                        SizedBox(
+                          width: width * 0.02,
+                        ),
+                        Expanded(
+                          child: TextFormField(
+                            decoration: const InputDecoration.collapsed(
+                              hintText: "Pretraži ordinaciju",
+                              hintStyle: TextStyle(color: Colors.black26),
                             ),
                           ),
                         ),
-                      ),
-                      Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(24.0),
-                          child: TextButton(
-                            onPressed: () {
+                      ],
+                    ),
+                  ),
+                  const Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Divider(),
+                  ),
+                  ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: ordinacije.length,
+                    itemBuilder: (context, index) {
+                      var ordinacija = ordinacije[index];
+
+                      return Column(
+                        children: [
+                          InkWell(
+                            onTap: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => ProfileScreen(),
+                                  builder: (_) => OrdinacijaDetailScreen(
+                                    ordinacijaId: ordinacija.ordinacijaId,
+                                  ),
                                 ),
                               );
                             },
-                            child: Container(
-                              padding:
-                                  EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
-                              decoration: BoxDecoration(
-                                color: Color(0xFFEF476F),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20.0)),
-                              ),
-                              child: Text(
-                                'Vaš profil',
-                                style: TextStyle(
-                                  fontFamily: 'SF Pro',
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16.0,
-                                ),
-                              ),
+                            child: ClinicListItem(
+                              title: ordinacija.ordinacijaNaziv,
+                              address: ordinacija.ordinacijaAdresa,
+                              image: 'assets/images/klinika${index + 1}.jpg',
                             ),
                           ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  margin: EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                ),
-                ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: ordinacije.length,
-                  itemBuilder: (context, index) {
-                    var ordinacija = ordinacije[index];
-
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => OrdinacijaDetailScreen(
-                              ordinacijaId: ordinacija.ordinacijaId,
-                            ),
+                          const SizedBox(
+                            height: 10,
                           ),
-                        );
-                      },
-                      child: ClinicListItem(
-                        title: ordinacija.ordinacijaNaziv,
-                        address: ordinacija.ordinacijaAdresa,
-                        image: 'assets/images/klinika${index + 1}.jpg',
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
-          ),
-        ));
+                        ],
+                      );
+                    },
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

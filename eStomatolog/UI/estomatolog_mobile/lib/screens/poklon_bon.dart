@@ -15,61 +15,66 @@ class _PoklonBonScreenState extends State<PoklonBonScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey[300],
-        appBar: AppBar(
-          title: const Text("Poklon bonovi"),
-          centerTitle: true,
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: const Text(
+          "Poklon bonovi",
+          style: TextStyle(color: Colors.black, fontSize: 16),
         ),
-        body: SingleChildScrollView(
-            child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 50),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: Center(
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Text(
                   "Odaberite poklon bon za voljenu osobu,\nklikom na odabrani bon dobit ćete uvid u sve dodatne informacije.",
-                  textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: Colors.black45),
                 ),
               ),
-            ),
-            SizedBox(height: 8),
-            Icon(Icons.arrow_drop_down, size: 32, color: Colors.black),
-            SizedBox(height: 16),
-            Column(
-              children: [
-                ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: bonovi.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => PoklonBonInfoScreen(
-                              index: index,
-                              ordinacijaId: widget.ordinacijaId,
+              const SizedBox(height: 8),
+              const Icon(Icons.arrow_drop_down, size: 32, color: Colors.black),
+              const SizedBox(height: 16),
+              Column(
+                children: [
+                  ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: bonovi.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => PoklonBonInfoScreen(
+                                index: index,
+                                ordinacijaId: widget.ordinacijaId,
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                      child: PoklonBonoviListItem(
-                          naziv: bonovi[index].naziv,
-                          cijena: bonovi[index].cijena.toString() + " KM",
-                          imageUrl: bonovi[index].imageUrl),
-                    );
-                  },
-                ),
-              ],
-            ),
-          ]),
-        )));
+                          );
+                        },
+                        child: PoklonBonoviListItem(
+                            naziv: bonovi[index].naziv,
+                            cijena: bonovi[index].cijena.toString() + " KM",
+                            imageUrl: bonovi[index].imageUrl),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -10,6 +10,7 @@ import 'package:estomatolog_mobile/screens/nalazi_lista.dart';
 import 'package:estomatolog_mobile/screens/preporuceni_doktori_screen.dart';
 import 'package:estomatolog_mobile/utils/util.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -44,174 +45,198 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey[200],
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          foregroundColor: Colors.black,
-          title: const Text("PROFIL"),
-          centerTitle: true,
-        ),
-        body: ListView(
-          padding: const EdgeInsets.all(10),
-          children: [
-            Column(
-              children: [
-                FutureBuilder<Pacijent>(
-                  future: fetchPacijent(context),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
-                    } else if (snapshot.hasError) {
-                      return const Text('Greška prilikom dohvata pacijenta.');
-                    } else if (!snapshot.hasData) {
-                      return const Text('Nema dostupnih informacija.');
-                    } else {
-                      Pacijent pacijent = snapshot.data!;
-                      return Column(
-                        children: [
-                          const CircleAvatar(
-                            radius: 50,
-                            backgroundImage:
-                                AssetImage('assets/images/avatar.png'),
+      backgroundColor: Colors.white,
+      body: ListView(
+        padding: const EdgeInsets.all(10),
+        children: [
+          Column(
+            children: [
+              FutureBuilder<Pacijent>(
+                future: fetchPacijent(context),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return const Text('Greška prilikom dohvata pacijenta.');
+                  } else if (!snapshot.hasData) {
+                    return const Text('Nema dostupnih informacija.');
+                  } else {
+                    Pacijent pacijent = snapshot.data!;
+                    return Column(
+                      children: [
+                        const CircleAvatar(
+                          radius: 50,
+                          backgroundImage:
+                              AssetImage('assets/images/avatar.png'),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "${pacijent.ime}" + " " + "${pacijent.prezime}",
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                           ),
-                          const SizedBox(
-                            height: 10,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Korisničko ime: ${Authorization.korisnickoIme}",
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
                           ),
-                          Text(
-                            "${pacijent.ime}" + " " + "${pacijent.prezime}",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                        ),
+                        const Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Divider(),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        customListTile(
+                            "Kartice", false, FontAwesomeIcons.creditCard,
+                            onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => KarticeScreen(),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            "Korisničko ime: ${Authorization.korisnickoIme}",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          ...List.generate(
-                            customListTiles.length,
-                            ((index) {
-                              final tile = customListTiles[index];
-                              return Padding(
-                                  padding: const EdgeInsets.only(bottom: 5),
-                                  child: Card(
-                                    elevation: 4,
-                                    shadowColor: Colors.black12,
-                                    child: ListTile(
-                                      leading: Container(
-                                        child: Image.asset(
-                                          tile.imagePath,
-                                          width: 36,
-                                          height: 36,
-                                        ),
-                                        height: 45,
-                                        width: 45,
-                                      ),
-                                      title: Text(
-                                        tile.title,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      trailing: const Icon(Icons.chevron_right),
-                                      onTap: () {
-                                        switch (index) {
-                                          case 3:
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (_) => KarticeScreen(),
-                                              ),
-                                            );
-                                            break;
-                                          case 0:
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (_) => EditUserScreen(
-                                                  korisnikId:
-                                                      Authorization.korisnikId,
-                                                ),
-                                              ),
-                                            ).then((value) {
-                                              setState(() {
-                                                fetchPacijent(context);
-                                              });
-                                            });
-                                          case 1:
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (_) =>
-                                                    RezervacijeHistorijaScreen(
-                                                  pacijentId: pacijent.id,
-                                                ),
-                                              ),
-                                            );
-                                          case 2:
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (_) => NalaziScreen(
-                                                  pacijentId: pacijent.id,
-                                                ),
-                                              ),
-                                            );
-                                          case 4:
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (_) =>
-                                                    KorinsikPoklonBon(
-                                                  pacijentId: pacijent.id,
-                                                ),
-                                              ),
-                                            );
-                                          case 5:
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (_) =>
-                                                    PreporuceniDoktoriScreen(
-                                                  pacijentId: pacijent.id,
-                                                ),
-                                              ),
-                                            );
-                                          case 6:
-                                            Navigator.pushAndRemoveUntil(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (_) => LoginPage(),
-                                              ),
-                                              (route) => false,
-                                            );
-                                            break;
+                          );
+                        }),
+                        customListTile(
+                          "Edit profila",
+                          false,
+                          FontAwesomeIcons.pen,
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => EditUserScreen(
+                                  korisnikId: Authorization.korisnikId,
+                                ),
+                              ),
+                            ).then((value) {
+                              setState(() {
+                                fetchPacijent(context);
+                              });
+                            });
+                          },
+                        ),
+                        customListTile(
+                          "Historija rezervacija",
+                          false,
+                          FontAwesomeIcons.clockRotateLeft,
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => RezervacijeHistorijaScreen(
+                                  pacijentId: pacijent.id,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                        customListTile(
+                          "Nalazi",
+                          false,
+                          FontAwesomeIcons.bookMedical,
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => NalaziScreen(
+                                  pacijentId: pacijent.id,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                        customListTile(
+                          "Poklon bon",
+                          false,
+                          FontAwesomeIcons.gift,
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => KorinsikPoklonBon(
+                                  pacijentId: pacijent.id,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                        customListTile(
+                          "Preporuceni doktori",
+                          false,
+                          FontAwesomeIcons.userDoctor,
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => PreporuceniDoktoriScreen(
+                                  pacijentId: pacijent.id,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                        customListTile(
+                          "Odjavi se",
+                          true,
+                          FontAwesomeIcons.locationDot,
+                          onTap: () {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => LoginPage(),
+                              ),
+                              (route) => false,
+                            );
+                          },
+                        ),
+                      ],
+                    );
+                  }
+                },
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
 
-                                          default:
-                                        }
-                                      },
-                                    ),
-                                  ));
-                            }),
-                          ),
-                        ],
-                      );
-                    }
-                  },
-                ),
-              ],
-            )
-          ],
-        ));
+  Widget customListTile(String title, bool isLogOut, IconData leadingIcon,
+      {VoidCallback? onTap}) {
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: ListTile(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0), // zaobljeni rubovi
+          side: BorderSide(
+            color: isLogOut == true
+                ? Colors.red
+                : Colors.black, // crna boja granice
+            width: 0.3, // širina granice
+          ),
+        ),
+        leading: Icon(
+          leadingIcon, // ikona ispred teksta
+          color: isLogOut == false ? Colors.black : Colors.red, // boja ikone
+        ),
+        title: Text(
+          title,
+          style: const TextStyle(fontSize: 15),
+        ),
+        trailing:
+            const Icon(Icons.arrow_forward), // ikonica na kraju sa strelicom
+        onTap: onTap,
+      ),
+    );
   }
 }

@@ -46,28 +46,28 @@ class _NalaziScreenState extends State<NalaziScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Moji nalazi'),
+        title: const Text(
+          'Moji nalazi',
+          style: TextStyle(fontSize: 16),
+        ),
         centerTitle: true,
       ),
-      body: ValueListenableBuilder<String>(
-        valueListenable: searchQueryNotifier,
-        builder: (context, searchQuery, child) {
-          return GenericListNalazScreen<Nalaz>(
-            fetchData: (context) => fetchNalazi(context, searchQuery),
-            getFormattedDate: (nalaz) =>
-                nalaz.datum!.day.toString() +
-                "." +
-                nalaz.datum!.month.toString() +
-                "." +
-                nalaz.datum!.year.toString(),
-            getDoctorName: (nalaz) =>
-                nalaz.doktorIme.toString() +
-                " " +
-                nalaz.doktorPrezime.toString(),
-            getOpis: (nalaz) => nalaz.opis,
-            searchController: searchController,
-          );
-        },
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ValueListenableBuilder<String>(
+          valueListenable: searchQueryNotifier,
+          builder: (context, searchQuery, child) {
+            return GenericListNalazScreen<Nalaz>(
+              fetchData: (context) => fetchNalazi(context, searchQuery),
+              getFormattedDate: (nalaz) =>
+                  "${nalaz.datum!.day}.${nalaz.datum!.month}.${nalaz.datum!.year}",
+              getDoctorName: (nalaz) =>
+                  "${nalaz.doktorIme} ${nalaz.doktorPrezime}",
+              getOpis: (nalaz) => nalaz.opis,
+              searchController: searchController,
+            );
+          },
+        ),
       ),
     );
   }

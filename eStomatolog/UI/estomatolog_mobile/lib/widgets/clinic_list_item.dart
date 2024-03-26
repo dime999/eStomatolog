@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class ClinicListItem extends StatelessWidget {
@@ -15,65 +17,94 @@ class ClinicListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: 130,
-        margin: const EdgeInsets.only(bottom: 10),
-        child: AspectRatio(
-          aspectRatio: MediaQuery.of(context).size.width / 300,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(5),
-            child: Stack(
-              children: [
-                Image.asset(
-                  image,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    return Container(
+      width: width,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: Colors.blue,
+          width: 1.0,
+        ),
+      ),
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              SizedBox(
+                height: 170,
+                width: width,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                  child: Image.asset(
+                    image,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                Positioned.fill(
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.transparent,
-                          Colors.black.withOpacity(0.7)
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        stops: const [0.6, 0.95],
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
                       ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Icon(
+                          Icons.location_on_outlined,
+                          color: Colors.blue,
+                          size: 18,
+                        ),
+                        Text(
+                          address,
+                          style: const TextStyle(
+                              color: Colors.black38, fontSize: 12),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue, width: 1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Transform.rotate(
+                    angle: pi / -4,
+                    child: const Icon(
+                      Icons.arrow_downward,
                     ),
                   ),
                 ),
-                Positioned(
-                  left: 20,
-                  bottom: 20,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 22),
-                      ),
-                      Text(
-                        address,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(color: Colors.white, fontSize: 18),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ),
+        ],
       ),
     );
   }

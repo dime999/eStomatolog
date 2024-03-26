@@ -30,10 +30,12 @@ class CreditCardView extends State<CreditCard> {
 
   @override
   void initState() {
-    cardHolderName = widget.korinik.ime + " " + widget.korinik.prezime;
-    border = const OutlineInputBorder(
-      borderSide: BorderSide(
+    cardHolderName = "${widget.korinik.ime} ${widget.korinik.prezime}";
+    border = OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10.0),
+      borderSide: const BorderSide(
         color: Colors.black,
+        width: 1.0,
       ),
     );
     super.initState();
@@ -47,14 +49,18 @@ class CreditCardView extends State<CreditCard> {
         Provider.of<KorisnikKarticaProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dodaj novu kreditnu karticu'),
+        title: const Text(
+          'Kreditna kartica',
+          style: TextStyle(color: Colors.black, fontSize: 15),
+        ),
+        centerTitle: true,
       ),
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Column(
           children: <Widget>[
             const SizedBox(
-              height: 30,
+              height: 5,
             ),
             CreditCardWidget(
               cardNumber: cardNumber,
@@ -98,17 +104,18 @@ class CreditCardView extends State<CreditCard> {
                       themeColor: Colors.blue,
                       textColor: Colors.black,
                       cardNumberDecoration: InputDecoration(
-                          labelText: 'Broj kartice',
-                          hintText: 'XXXX XXXX XXXX XXXX',
-                          hintStyle: const TextStyle(color: Colors.black),
-                          labelStyle: const TextStyle(color: Colors.black),
-                          focusedBorder: border,
-                          enabledBorder: border,
-                          errorBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.red,
-                            ),
-                          )),
+                        labelText: 'Broj kartice',
+                        hintText: 'XXXX XXXX XXXX XXXX',
+                        hintStyle: const TextStyle(color: Colors.black),
+                        labelStyle: const TextStyle(color: Colors.black),
+                        focusedBorder: border,
+                        enabledBorder: border,
+                        errorBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
                       expiryDateDecoration: InputDecoration(
                         hintStyle: const TextStyle(color: Colors.black),
                         labelStyle: const TextStyle(color: Colors.black),
@@ -147,96 +154,102 @@ class CreditCardView extends State<CreditCard> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      width: 362,
-                      child: DropdownButton<String>(
-                        value: odabranaVrstaKartice,
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            odabranaVrstaKartice = newValue;
-                          });
-                        },
-                        items: <String>['Visa', 'Mastercard']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        hint: Text('Odaberite vrstu kartice'),
-                        isExpanded: true,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        if (formKey.currentState!.validate()) {
-                          try {
-                            KorisnikKarticaInsert kartica =
-                                KorisnikKarticaInsert(
-                                    Authorization.korisnikId,
-                                    cardNumber,
-                                    odabranaVrstaKartice,
-                                    expiryDate,
-                                    cvvCode);
-                            _korisnikKarticaProvider.novaKartica(kartica);
-                            _showValidDialog(context);
-                          } catch (e) {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.error,
-                                        color: Colors.red,
-                                      ),
-                                      SizedBox(width: 10),
-                                      Text('Dodavanje kartice'),
-                                    ],
-                                  ),
-                                  content:
-                                      Text('Dodavanje karticec nije uspjelo!'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Text('OK'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                            Navigator.of(context).pop();
-                          }
-
-                          print('valid!');
-                        } else {
-                          print('invalid!');
-                        }
-                      },
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
                       child: Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 8),
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
                         decoration: BoxDecoration(
-                          color: Colors.black87,
+                          border: Border.all(color: Colors.black),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        width: double.infinity,
-                        alignment: Alignment.center,
-                        child: const Text(
-                          'Dodaj karticu',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            package: 'flutter_credit_card',
+                        width: 362,
+                        child: DropdownButton<String>(
+                          value: odabranaVrstaKartice,
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              odabranaVrstaKartice = newValue;
+                            });
+                          },
+                          items: <String>['Visa', 'Mastercard']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          hint: const Text('Odaberite vrstu kartice'),
+                          isExpanded: true,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 50.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          if (formKey.currentState!.validate()) {
+                            try {
+                              KorisnikKarticaInsert kartica =
+                                  KorisnikKarticaInsert(
+                                      Authorization.korisnikId,
+                                      cardNumber,
+                                      odabranaVrstaKartice,
+                                      expiryDate,
+                                      cvvCode);
+                              _korisnikKarticaProvider.novaKartica(kartica);
+                              _showValidDialog(context);
+                            } catch (e) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Row(
+                                      children: [
+                                        Icon(
+                                          Icons.error,
+                                          color: Colors.red,
+                                        ),
+                                        SizedBox(width: 10),
+                                        Text('Dodavanje kartice'),
+                                      ],
+                                    ),
+                                    content: const Text(
+                                        'Dodavanje karticec nije uspjelo!'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                              Navigator.of(context).pop();
+                            }
+
+                            print('valid!');
+                          } else {
+                            print('invalid!');
+                          }
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          width: double.infinity,
+                          alignment: Alignment.center,
+                          child: const Text(
+                            'Dodaj karticu',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              package: 'flutter_credit_card',
+                            ),
                           ),
                         ),
                       ),
