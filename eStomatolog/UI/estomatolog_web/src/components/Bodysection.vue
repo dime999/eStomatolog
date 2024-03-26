@@ -6,7 +6,7 @@
     <div class="buttons">
       <button class="button" @click="viewOffices">Pogledaj ordinacije</button>
       <button class="button" @click="viewDoctors">Pogledaj doktore</button>
-      <button class="button" @click="viewDoctors">Mobilna aplikacija</button>
+      <button class="button" @click="viewMobile">Mobilna aplikacija</button>
     </div>
   </div>
 </template>
@@ -20,7 +20,11 @@ export default {
     },
     viewDoctors() {
       document.getElementById('doktori-bar-container').scrollIntoView({ behavior: 'smooth' });
+    },
+    viewMobile() {
+      document.getElementById('mobile-bar-container').scrollIntoView({ behavior: 'smooth' });
     }
+
   }
 };
 </script>
@@ -45,7 +49,7 @@ export default {
 .title {
   font-size: 4rem;
   font-weight: bold;
-  color: white;
+  color: rgb(69, 106, 251);
   text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
   margin-bottom: 10px;
 }
@@ -53,8 +57,8 @@ export default {
 .description {
   font-size: 1.8rem;
   font-weight: bold;
-  color: white;
-  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
+  color: rgb(69, 106, 251);
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
   margin-bottom: 30px;
 }
 

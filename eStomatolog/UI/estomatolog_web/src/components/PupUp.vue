@@ -10,13 +10,40 @@
     <div v-show="isOrdinacija" class="detail">
       <span>Telefon:</span>&nbsp;&nbsp; <p class="popup-text">{{ ordinacija.telefon }}</p>
     </div>
-    <div v-show="isOrdinacija" class="detail">
+    <div v-show="isOrdinacija" class="detail" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);">
       <p class="popup-text"><strong>Radno vrijeme: 8:00 - 16:00</strong></p>
     </div>
+   
 
-    <div v-show="isDoktor" class="detail" style="margin-top: 100px;">
-      <span>Ime:</span>&nbsp;&nbsp; <h5 class="popup-heading">{{ doktor.ime }}</h5>
+    <div v-show="isDoktor" class="detail" style="margin-bottom: 50px; margin-left: 30%;">
+      <span>Detaljne informacije doktora</span>
     </div>
+    <div v-show="isDoktor" class="detail">
+      <span>Ime i prezime:</span>&nbsp;&nbsp; <p class="popup-text">{{ doktor.ime }} {{ doktor.prezime }}</p>
+    </div>
+    <div v-show="isDoktor" class="detail" style="margin-top: 30px;">
+  <span style="margin-right: 10px;
+  font-weight: bold;
+  font-size: 25px;">Specijalizacije</span>
+   <div class="specijalizacije-container">
+    <div v-for="(specijalizacija, index) in specijalizacije" :key="index" :class="['specijalizacija', specijalizacija.hasSpecijalizacija ? 'green-bg' : 'red-bg']">
+      <p>{{ specijalizacija.naziv }}</p>
+    </div>
+  </div>
+</div>
+
+    <div v-show="isDoktor" class="image-container">
+      <div class="content">
+        <div class="doktori-slika"></div>
+      </div>
+    </div>
+    <div v-show="isDoktor" class="ocjena-container">
+  <p class="ocjene">Prosječna ocjena doktora</p>
+  <div class="stars">
+    <span v-for="n in Math.round(prosjecnaOcjena)" :key="n" class="star-filled"></span>
+    <span v-for="n in 5 - Math.round(prosjecnaOcjena)" :key="'empty-' + n" class="star-empty"></span>
+  </div>
+</div>
 
 
     <div v-show="isOrdinacija" class="image-container">
@@ -37,7 +64,9 @@
     </div>
 
 
-    <button class="close-button" @click="closePopup">Zatvori</button>
+    <button class="close-button" @click="closePopup">
+      <i class="fas fa-times"></i> 
+    </button>
   </div>
 </template>
 
@@ -59,28 +88,67 @@ export default {
     },
     slike: {
       type: Array,
-      required: true,
+      required: false,
       default: () => []
     },
     isOrdinacija: Boolean,
-    isDoktor: Boolean
+    isDoktor: Boolean,
+    doktorSpecijalizacije: {
+      type: Array,
+      required: false,
+      default: () => []
+    },
+    prosjecnaOcjena: {
+      type: Number,
+      required: false,
+      default: () => 0.00
+    },
+
   },
   data() {
     return {
       currentIndex: 0,
       currentImage: '',
-      loaded: false
+      loaded: false,
+      specijalizacije:[
+  { "specijalizacijaId": 1, "naziv": "Oralna hirurgija", "hasSpecijalizacija":false },
+  { "specijalizacijaId": 2, "naziv": "Endodoncija","hasSpecijalizacija":false },
+  { "specijalizacijaId": 3, "naziv": "Ortodoncija","hasSpecijalizacija":false }
+]
+
     };
   },
   async mounted() {
+    this.disableBodyScroll();
     if (this.isOrdinacija) {
       await this.getSLike(this.slike.slikeIds[this.currentIndex]);
+    }
+    else{
+      this.checkSpecijalizacije();
     }
   },
   methods: {
     closePopup() {
       this.$emit('close');
+      this.enableBodyScroll();
     },
+    disableBodyScroll() {
+      document.body.style.overflow = 'hidden';
+    },
+    // Metoda za ponovno omogućavanje skrolanja tijela stranice
+    enableBodyScroll() {
+      document.body.style.overflow = 'auto';
+    },
+    checkSpecijalizacije() {
+    this.doktorSpecijalizacije.forEach(doktorSpec => {
+      this.specijalizacije.forEach(spec => {
+        if (doktorSpec.specijalizacijaNaziv === spec.naziv) {
+          spec.hasSpecijalizacija = true;
+        }
+      });
+    });
+    this.hasSpecijalizacija = this.specijalizacije.some(spec => spec.hasSpecijalizacija);
+  },
     async getSLike(id) {
       try {
         const response = await fetch(`http://localhost:7265/SlikaStream?slikaId=${id}`);
@@ -110,6 +178,37 @@ export default {
 </script>
 
 <style>
+.ocjene{
+  font-size: 26px;
+  margin: 0;
+}
+
+.ocjena-container {
+  margin-top: 10px;
+}
+
+.stars {
+  unicode-bidi: bidi-override;
+  color: #f0c419;
+  font-size: 42px;
+  margin-top: 5px;
+}
+
+.star-filled::before {
+  content: "\2605"; 
+}
+
+.star-empty::before {
+  content: "\2606"; 
+}
+
+.specijalizacija.green-bg {
+  background-color: rgba(0, 199, 0, 0.5); 
+}
+
+.specijalizacija.red-bg {
+  background-color: rgba(255, 0, 0, 0.5); 
+}
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -117,9 +216,16 @@ export default {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+  z-index: 9999;
 }
+.doktori-slika {
+    height: 300px;
+    background-image: url('../../public/lista_doktor.png');
 
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 .popup-large {
   position: fixed;
   top: 50%;
@@ -129,9 +235,9 @@ export default {
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  z-index: 1000;
+  z-index: 10000;
   width: 50%;
-  height: 50%;
+  height: 60%;
   max-height: 80%;
   overflow-y: auto;
 }
@@ -171,6 +277,7 @@ export default {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+
 .image-frame {
   width: 100%;
   border-radius: 8px;
@@ -197,16 +304,19 @@ export default {
   margin: 10px 10px;
 }
 
+
 .close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   background-color: #ff5959;
   color: white;
   border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
+  border-radius: 50%; 
+  padding: 10px;
   cursor: pointer;
-  width: 20%;
-  margin-top: 140px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1001; 
 }
 
 .close-button:hover {
@@ -240,4 +350,25 @@ export default {
 .fa-arrow-right::before {
   content: "\f061";
 }
+
+.specijalizacije-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-top: 60px;
+  display: block;
+  transform: translateX(-120%);
+}
+
+.specijalizacija {
+  border: 2px solid #4e9af1;
+  border-radius: 20px;
+  padding: 5px 15px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  background-color: #eaf6ff;
+ 
+}
+
+
 </style>

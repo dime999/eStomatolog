@@ -1,5 +1,5 @@
 <template>
-  <div class="ordinacije" :style="{ top: topOffset }">
+  <div class="ordinacije" :style="{ top: topOffset }" :class="{ 'no-scroll': bodyOverflow }">
     <div class="ordinacije-info">
       <h2>Pogledajte detalje o našim ordinacijama</h2>
     </div>
@@ -33,7 +33,8 @@ export default {
       topOffset: '60px',
       isPopupOpen: false,
       selectedOrdinacija: null,
-      ordinacijeSlikeIds: []
+      ordinacijeSlikeIds: [],
+      bodyOverflow: false
     };
   },
   mounted() {
@@ -67,9 +68,11 @@ export default {
         console.error('Greška pri dohvatu ordinacija:', error);
       }
       this.isPopupOpen = true;
+      this.bodyOverflow = true;
     },
     closePopup() {
       this.isPopupOpen = false;
+      this.bodyOverflow = false;
     }
   }
 };
@@ -82,6 +85,12 @@ export default {
   font-family: 'Montserrat', sans-serif;
   box-sizing: border-box;
 }
+
+.no-scroll {
+  overflow: hidden !important;
+    height: 100vh; 
+}
+
 
 .popup-overlay {
   position: fixed;
@@ -124,30 +133,30 @@ export default {
 }
 
 h2 {
-  font-size: 4rem;
-  font-weight: bold;
-  color: white;
+    font-size: 4rem;
+    font-weight: bold;
+    color: rgb(69, 106, 251);
   text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
-  margin-bottom: 10px;
-  margin-top: 20px;
+    margin-bottom: 10px;
+    margin-top: 20px;
 }
 
 h3 {
-  font-size: 3rem;
-  font-weight: bold;
-  color: white;
-  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
-  margin-bottom: 10px;
-  margin-top: 20px;
+    font-size: 3rem;
+    font-weight: bold;
+    color: rgb(69, 106, 251);
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
+    margin-bottom: 10px;
+    margin-top: 20px;
 }
 
 p {
-  font-size: 2rem;
-  font-weight: bold;
-  color: white;
-  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
-  margin-bottom: 10px;
-  margin-top: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: rgb(69, 106, 251);
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
+    margin-bottom: 10px;
+    margin-top: 20px;
 }
 
 .ordinacije-cards {
@@ -198,5 +207,44 @@ p {
 
 .ordinacija-info h3 {
   margin-top: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .ordinacija-slika0,
+  .ordinacija-slika1,
+  .ordinacija-slika2 {
+    height: 150px; 
+  }
+
+  .ordinacija-card {
+    width: calc(50% - 20px);
+  }
+
+  h2 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+h3 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+p {
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
 }
 </style>

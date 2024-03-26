@@ -7,6 +7,10 @@
     <div id="doktori-bar-container" class="full-width">
       <DoktoriBar />
     </div>
+    <div id="mobile-bar-container" class="full-width">
+      <MobileApp />
+    </div>
+    
   </div>
 </template>
 
@@ -14,13 +18,15 @@
 import Bodysection from './components/Bodysection.vue'
 import OrdinacijeBar from './components/Ordinacije.vue'
 import DoktoriBar from './components/Doktori.vue'
+import MobileApp from './components/MobileApp.vue'
 
 export default {
   name: 'App',
   components: {
     Bodysection,
     OrdinacijeBar,
-    DoktoriBar
+    DoktoriBar,
+    MobileApp
   }
 }
 </script>
@@ -44,15 +50,17 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../public/background.jpg');
+  background-image: url('../public/background2.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: blur(4px);
+  filter: blur(3px);
   z-index: -1;
 }
 
 .full-width {
   width: 100%;
 }
+
+
 </style>
