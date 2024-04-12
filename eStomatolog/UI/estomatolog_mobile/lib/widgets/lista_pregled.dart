@@ -20,7 +20,7 @@ class GenericListPregledScreen<T> extends StatelessWidget {
   Widget getRatingBar(double rating) {
     return Row(
       children: [
-        Text('Ocjena: '),
+        const Text('Ocjena: '),
         RatingBar.builder(
           initialRating: rating,
           minRating: 1,
@@ -28,8 +28,8 @@ class GenericListPregledScreen<T> extends StatelessWidget {
           allowHalfRating: true,
           itemCount: 5,
           itemSize: 25.0,
-          itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
-          itemBuilder: (context, _) => Icon(
+          itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
+          itemBuilder: (context, _) => const Icon(
             Icons.star,
             color: Colors.amber,
           ),
@@ -85,7 +85,7 @@ class GenericListPregledScreen<T> extends StatelessWidget {
 
                     return Column(children: [
                       ListTile(
-                        leading: Image(
+                        leading: const Image(
                           image: AssetImage('assets/images/doctor_avatar.jpg'),
                           width: 50,
                           height: 50,
@@ -94,7 +94,7 @@ class GenericListPregledScreen<T> extends StatelessWidget {
                           text: TextSpan(
                             style: DefaultTextStyle.of(context).style,
                             children: <TextSpan>[
-                              TextSpan(
+                              const TextSpan(
                                 text: 'Doktor:  ',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -104,7 +104,7 @@ class GenericListPregledScreen<T> extends StatelessWidget {
                               ),
                               TextSpan(
                                 text: doctorName,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 16.0,
                                 ),
                               ),
@@ -122,7 +122,7 @@ class GenericListPregledScreen<T> extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Divider(
+                      const Divider(
                         color: Colors.grey,
                         thickness: 1.0,
                       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class GenericListRezervacijeScreen<T> extends StatelessWidget {
   final Future<List<T>> Function(BuildContext) fetchData;
@@ -41,11 +42,10 @@ class GenericListRezervacijeScreen<T> extends StatelessWidget {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
-                print(snapshot.error);
                 return const Center(
                   child: Text('Greška pri dohvatanju podataka'),
                 );
-              } else if (snapshot.data?.length == 0) {
+              } else if (snapshot.data!.isEmpty) {
                 return const Center(
                   child: Text('Nemate historije rezervacija'),
                 );
@@ -65,78 +65,68 @@ class GenericListRezervacijeScreen<T> extends StatelessWidget {
                     var item = filteredList[index];
                     var date = getFormattedDate(item);
                     var pastReservation = isPastReservation(item);
+                    Color bojaKontejnera = pastReservation
+                        ? Colors.red.shade400
+                        : Colors.green.shade400;
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black, width: 2.0),
+                          color: bojaKontejnera,
+                          border: Border.all(color: Colors.black, width: 0.5),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: ListTile(
-                          leading: const Image(
-                            image: AssetImage('assets/images/reservation.png'),
-                            width: 40,
-                            height: 40,
+                          leading: const Icon(
+                            FontAwesomeIcons.calendar,
+                            color: Colors.black,
                           ),
-                          subtitle: RichText(
-                            text: TextSpan(
-                              style: DefaultTextStyle.of(context).style,
-                              children: <TextSpan>[
-                                const TextSpan(
-                                  text: 'Datum: ',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.blue,
-                                    fontSize: 16.0,
-                                  ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Datum rezervacije:',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.white,
                                 ),
-                                TextSpan(
-                                  text: date,
-                                  style: const TextStyle(
-                                    fontSize: 16.0,
-                                  ),
+                              ),
+                              Text(
+                                date,
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.black,
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                          title: RichText(
-                            text: TextSpan(
-                              style: DefaultTextStyle.of(context).style,
-                              children: <TextSpan>[
-                                const TextSpan(
-                                  text: 'Doktor: ',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.blue,
-                                    fontSize: 16.0,
-                                  ),
+                          title: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Doktor:',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.white,
                                 ),
-                                TextSpan(
-                                  text: getDoctorName(item),
-                                  style: const TextStyle(
-                                    fontSize: 16.0,
-                                  ),
+                              ),
+                              Text(
+                                getDoctorName(item),
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.black,
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              if (pastReservation)
-                                const Text(
-                                  "NEAKTIVNO",
-                                  style: TextStyle(
-                                      color: Colors.red, fontSize: 14),
-                                ),
-                              if (!pastReservation)
-                                const Text(
-                                  "AKTIVNO",
-                                  style: TextStyle(
-                                      color: Colors.green, fontSize: 14),
-                                ),
                               IconButton(
-                                icon: const Icon(Icons.delete),
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.black,
+                                ),
                                 onPressed: () => onDeletePressed(item),
                               ),
                             ],

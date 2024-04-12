@@ -20,6 +20,7 @@ class RezervacijaScreen extends StatefulWidget {
       {super.key, required this.korisnikId, required this.ordinacijaId});
 
   @override
+  // ignore: library_private_types_in_public_api
   _RezervacijaScreenState createState() => _RezervacijaScreenState();
 }
 
@@ -283,7 +284,7 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
                                         alignment: Alignment.bottomCenter,
                                         child: Padding(
                                           padding: const EdgeInsets.all(16.0),
-                                          child: Container(
+                                          child: SizedBox(
                                             width: double.infinity,
                                             child: ElevatedButton(
                                               style: const ButtonStyle(),
@@ -302,7 +303,6 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
                                                         odabraniDoktor!,
                                                         _termini[index]
                                                             .terminId);
-                                                print(rezervacijaInsert);
 
                                                 try {
                                                   await _rezervacijaProvider
@@ -343,8 +343,6 @@ class _RezervacijaScreenState extends State<RezervacijaScreen> {
                                                     },
                                                   );
                                                 } catch (e) {
-                                                  print(
-                                                      "Greška prilikom dodavanja: $e");
                                                   Navigator.of(context).pop();
                                                 }
                                               },

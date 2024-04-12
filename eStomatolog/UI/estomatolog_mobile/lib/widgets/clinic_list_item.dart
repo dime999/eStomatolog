@@ -28,6 +28,14 @@ class ClinicListItem extends StatelessWidget {
           color: Colors.blue,
           width: 1.0,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 3),
+          ),
+        ],
       ),
       child: Column(
         children: [

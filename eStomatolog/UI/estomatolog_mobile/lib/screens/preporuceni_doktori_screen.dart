@@ -49,12 +49,15 @@ class _PreporuceniDoktoriScreenState extends State<PreporuceniDoktoriScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Preporučeni doktori'),
+          title: const Text(
+            'Preporučeni doktori',
+            style: TextStyle(fontSize: 16),
+          ),
           centerTitle: true,
         ),
         body: GenericListPregledRecomenndedScreen<DoktorRecommended>(
           fetchData: (context) => fetchDoctors(context),
-          getDoctorName: (doktor) => doktor.ime! + " " + doktor.prezime!,
+          getDoctorName: (doktor) => "${doktor.ime!} ${doktor.prezime!}",
           getRating: (doktor) =>
               izracunajProsjecnuOcjenu(doktor.doktorOrdinacije),
           onView: (doktor) {

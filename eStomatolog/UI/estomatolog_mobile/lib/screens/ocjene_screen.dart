@@ -10,7 +10,7 @@ import 'package:estomatolog_mobile/models/Doktor/doktor.dart';
 class OcjeneScreen extends StatelessWidget {
   final int doktorId;
 
-  OcjeneScreen({Key? key, required this.doktorId}) : super(key: key);
+  const OcjeneScreen({Key? key, required this.doktorId}) : super(key: key);
 
   Future<Doktor> fetchDoktor(BuildContext context, int id) async {
     var doktorProvider = Provider.of<DoktorProvider>(context, listen: false);
@@ -39,7 +39,10 @@ class OcjeneScreen extends StatelessWidget {
             } else if (!snapshot.hasData) {
               return const Text('Nema dostupnih podataka o doktoru.');
             } else {
-              return Text('Sve ocjene');
+              return const Text(
+                'Sve ocjene',
+                style: TextStyle(fontSize: 16),
+              );
             }
           },
         ),
@@ -70,7 +73,7 @@ class OcjeneScreen extends StatelessWidget {
                       ),
                       title: Row(
                         children: [
-                          Text(
+                          const Text(
                             'Ocjena: ',
                             style: TextStyle(
                               color: Colors.blue,
@@ -79,7 +82,7 @@ class OcjeneScreen extends StatelessWidget {
                           ),
                           Text(
                             ocjena.ocjena.toString(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 14,
                             ),
@@ -106,15 +109,15 @@ class OcjeneScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
                           'Komentar: ${ocjena.opis}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 14,
                           ),
                         ),
                       ),
                       trailing: Text(
-                        '${DateFormat('dd.MM.yyyy').format(ocjena.datum)}',
-                        style: TextStyle(
+                        DateFormat('dd.MM.yyyy').format(ocjena.datum),
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 14,
                         ),

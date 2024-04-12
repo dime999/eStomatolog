@@ -45,7 +45,6 @@ class CustomListPregledKarticaScreen<T> extends StatelessWidget {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
-                print(snapshot.error);
                 return const Center(
                     child: Text('Greška pri dohvatanju podataka'));
               } else {

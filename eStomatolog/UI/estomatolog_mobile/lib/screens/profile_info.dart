@@ -73,7 +73,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 10,
                         ),
                         Text(
-                          "${pacijent.ime}" + " " + "${pacijent.prezime}",
+                          "${pacijent.ime} ${pacijent.prezime}",
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,

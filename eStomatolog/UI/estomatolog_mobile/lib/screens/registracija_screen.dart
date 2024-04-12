@@ -126,7 +126,7 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8.0),
                 child: Text(
                   'Popunite sljedeca polja za uspješnu registraciju!',
                   style: TextStyle(
@@ -588,7 +588,6 @@ class _RegistracijatScreenState extends State<RegistracijaScreen> {
                                 // ignore: use_build_context_synchronously
                                 Navigator.of(context).pop();
                               } catch (e) {
-                                print("Greška prilikom dodavanja: $e");
                                 // ignore: use_build_context_synchronously
                                 Navigator.of(context).pop();
                               }

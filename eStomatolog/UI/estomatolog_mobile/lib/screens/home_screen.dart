@@ -146,6 +146,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.black12, width: 1),
                             borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color:
+                                    Colors.black.withOpacity(0.3), // Boja sjene
+                                spreadRadius: 2, // Proširenje sjene
+                                blurRadius: 5, // Zamućenje sjene
+                                offset: Offset(0, 3), // Pomak sjene
+                              ),
+                            ],
                           ),
                           child: const CircleAvatar(
                             radius: 10,
@@ -156,36 +166,34 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: height * 0.04,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.search,
-                          color: Colors.blue[200],
-                          size: 28,
-                        ),
-                        SizedBox(
-                          width: width * 0.02,
-                        ),
-                        Expanded(
-                          child: TextFormField(
-                            decoration: const InputDecoration.collapsed(
-                              hintText: "Pretraži ordinaciju",
-                              hintStyle: TextStyle(color: Colors.black26),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+
+                  // Container(
+                  //   padding: const EdgeInsets.all(10),
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.white,
+                  //     borderRadius: BorderRadius.circular(10),
+                  //   ),
+                  //   child: Row(
+                  //     children: [
+                  //       Icon(
+                  //         Icons.search,
+                  //         color: Colors.blue[200],
+                  //         size: 28,
+                  //       ),
+                  //       SizedBox(
+                  //         width: width * 0.02,
+                  //       ),
+                  //       Expanded(
+                  //         child: TextFormField(
+                  //           decoration: const InputDecoration.collapsed(
+                  //             hintText: "Pretraži ordinaciju",
+                  //             hintStyle: TextStyle(color: Colors.black26),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                   const Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Divider(),
