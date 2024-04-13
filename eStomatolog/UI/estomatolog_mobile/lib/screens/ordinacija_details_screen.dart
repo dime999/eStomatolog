@@ -4,6 +4,7 @@ import 'package:estomatolog_mobile/models/Ordinacija/ordinacija.dart';
 import 'package:estomatolog_mobile/providers/doktor_ordinacija_provider.dart';
 import 'package:estomatolog_mobile/providers/ocjene_provider.dart';
 import 'package:estomatolog_mobile/providers/ordinacija_provider.dart';
+import 'package:estomatolog_mobile/providers/slika_provider.dart';
 import 'package:estomatolog_mobile/screens/doktor_info_rate.dart';
 import 'package:estomatolog_mobile/screens/doktori_lista_screen.dart';
 import 'package:estomatolog_mobile/screens/galerija_screen.dart';
@@ -58,6 +59,14 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
     return filteredDoktori;
   }
 
+  Future<List<int>> fetchOrdinacijaSlike(BuildContext context) async {
+    var ordinacijaSlikeProvider =
+        Provider.of<SlikaProvider>(context, listen: false);
+    var fetchedOrdinacije =
+        await ordinacijaSlikeProvider.getSlikeIds(widget.ordinacijaId);
+    return fetchedOrdinacije;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -94,16 +103,34 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
                         children: [
                           Stack(
                             children: [
-                              SizedBox(
-                                width: width,
-                                height: height * 0.5,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(30),
-                                  child: Image.asset(
-                                    "assets/images/klinika1.jpg",
-                                    fit: BoxFit.fitHeight,
-                                  ),
-                                ),
+                              FutureBuilder<List<int>>(
+                                future: fetchOrdinacijaSlike(context),
+                                builder: (context, snapshot) {
+                                  List<int> slikeIds = snapshot.data ?? [];
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+                                  } else if (snapshot.hasError) {
+                                    return Center(
+                                        child:
+                                            Text('Error: ${snapshot.error}'));
+                                  } else {
+                                    return SizedBox(
+                                      width: width,
+                                      height: height * 0.5,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(30),
+                                        child: Image.network(
+                                          "http://10.0.2.2:7265/SlikaStream?slikaId=${slikeIds[0]}",
+                                          width: 100,
+                                          height: 200,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
                               ),
                               Positioned(
                                 top: 40,
@@ -130,60 +157,6 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
                                           color: Colors.white,
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Positioned(
-                                bottom: 20,
-                                left: 20,
-                                right: 20,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      width: 18,
-                                      height: 18,
-                                      margin: const EdgeInsets.only(left: 10),
-                                      decoration: BoxDecoration(
-                                        color: Colors.black,
-                                        border: Border.all(
-                                          color: Colors.grey[300]!,
-                                        ),
-                                        shape: BoxShape.circle,
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 10,
-                                      height: 10,
-                                      margin: const EdgeInsets.only(left: 10),
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey[300],
-                                          shape: BoxShape.circle),
-                                    ),
-                                    Container(
-                                      width: 10,
-                                      height: 10,
-                                      margin: const EdgeInsets.only(left: 10),
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey[300],
-                                          shape: BoxShape.circle),
-                                    ),
-                                    Container(
-                                      width: 10,
-                                      height: 10,
-                                      margin: const EdgeInsets.only(left: 10),
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey[300],
-                                          shape: BoxShape.circle),
-                                    ),
-                                    Container(
-                                      width: 10,
-                                      height: 10,
-                                      margin: const EdgeInsets.only(left: 10),
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey[300],
-                                          shape: BoxShape.circle),
                                     ),
                                   ],
                                 ),
@@ -220,16 +193,6 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.end,
                                           children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 10.0, bottom: 4.0),
-                                              child: Text(
-                                                'Pogledaj sve',
-                                                style: TextStyle(
-                                                    fontSize: 10,
-                                                    color: Colors.grey[500]),
-                                              ),
-                                            ),
                                             RatingBar.builder(
                                               initialRating: 4.5,
                                               minRating: 1,
@@ -337,9 +300,6 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
                             height: 5,
                           ),
                           Container(
-                            margin: EdgeInsets.only(
-                              bottom: height * 0.12,
-                            ),
                             padding:
                                 EdgeInsets.symmetric(horizontal: width * 0.05),
                             width: width,
@@ -384,6 +344,78 @@ class _OrdinacijaDetailScreenState extends State<OrdinacijaDetailScreen> {
                                                   const EdgeInsets.symmetric(
                                                       horizontal: 8.0),
                                               child: _doctorListItem(doktor),
+                                            );
+                                          },
+                                        );
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(
+                              bottom: height * 0.12,
+                            ),
+                            padding:
+                                EdgeInsets.symmetric(horizontal: width * 0.05),
+                            width: width,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Galerija",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  height: 200,
+                                  child: FutureBuilder<List<int>>(
+                                    future: fetchOrdinacijaSlike(context),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return const Center(
+                                            child: CircularProgressIndicator());
+                                      } else if (snapshot.hasError) {
+                                        return Center(
+                                            child: Text(
+                                                'Error: ${snapshot.error}'));
+                                      } else {
+                                        return ListView.builder(
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: snapshot.data!.length,
+                                          itemBuilder: (context, index) {
+                                            List<int> slikeIds = snapshot.data!;
+                                            return Card(
+                                              color: Colors.transparent,
+                                              elevation: 0,
+                                              child: Container(
+                                                width: 200,
+                                                height: 200,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(25),
+                                                ),
+                                                child: Image.network(
+                                                  "http://10.0.2.2:7265/SlikaStream?slikaId=${slikeIds[index]}",
+                                                  width: 100,
+                                                  height: 200,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
                                             );
                                           },
                                         );
